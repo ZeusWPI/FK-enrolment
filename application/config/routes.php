@@ -43,6 +43,9 @@
 $route['default_controller'] = "welcome";
 $route['scaffolding_trigger'] = "";
 
+// Allow format-type to be specified in action
+$route['(:any)/(:any)\.(:any)'] = "$1/$2/format/$3";
+
 
 /* End of file routes.php */
 /* Location: ./system/application/config/routes.php */
