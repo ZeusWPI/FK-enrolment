@@ -9,8 +9,6 @@ class Welcome extends Controller {
 	
 	function index()
 	{
-		$this->load->helper('url');
-		$this->load->view('welcome_message');
 	}
 }
 

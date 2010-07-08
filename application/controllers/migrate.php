@@ -5,7 +5,7 @@
  * An open source utility for Code Igniter inspired by Ruby on Rails
  *
  * @package		Migrations
- * @author		Matías Montes
+ * @author		MatÃ­as Montes
  */
 
 // ------------------------------------------------------------------------
@@ -16,7 +16,7 @@
  * Utility main controller.
  *
  * @package		Migrations
- * @author		Matías Montes
+ * @author		MatÃ­as Montes
  */
 class Migrate extends Controller {
 
