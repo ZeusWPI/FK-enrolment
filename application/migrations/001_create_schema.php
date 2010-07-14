@@ -15,8 +15,8 @@ class Create_schema {
 				'cellphone' => array(STRING, LIMIT, 20),
 				'address_home' => array(STRING, LIMIT, 255),
 				'address_kot' => array(STRING, LIMIT, 255),
-				'date_registered' => array(DATE, NOT_NULL),
-				'date_modified' => array(DATE, NOT_NULL),
+				'date_registered' => array(DATETIME, NOT_NULL),
+				'date_modified' => array(DATETIME, NOT_NULL),
 				'disabled' => array(BOOLEAN, NOT_NULL, DEFAULT_VALUE, false),
 			), 'id'
 		);
@@ -26,8 +26,8 @@ class Create_schema {
 				'member_id' => array(INTEGER, NOT_NULL),
 				'method' => array(STRING, LIMIT, 255),
 				'action' => array(STRING, LIMIT, 255),
-				'date' => array(DATE, NOT_NULL),
-				'ip' => array(INTEGER, NOT_NULL),
+				'date' => array(DATETIME, NOT_NULL),
+				'ip' => array(STRING, LIMIT, 15, NOT_NULL),
 			), 'id'
 		);
 
