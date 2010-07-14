@@ -21,6 +21,7 @@ This product contains components from
 
 * CodeIgniter (http://codeigniter.com)
 * CodeIgniter RestServer (http://github.com/philsturgeon/codeigniter-restserver)
+* CodeIgniter RestClient (http://github.com/philsturgeon/codeigniter-restserver)
 * CodeIgniter Migrations (http://codeigniter.com/wiki/Migrations/)
 * DataMapper (http://stensi.com/datamapper/)
 
