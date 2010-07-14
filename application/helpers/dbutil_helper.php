@@ -382,10 +382,21 @@ function remove_column($table_name, $column_name) {
 
 // ------------------------------------------------------------------------
 
-function add_index($table_name, $column_name, $index_type) {
+function add_index($table_name, $column_names, $index_name, $index_type = 'INDEX') {
 
 	// TO DO
+	
+	$CI = _get_instance_w_dbutil();
 
+	switch ( $CI->db->platform() ) {
+		case 'mysql':
+		default:
+			$sql = "ALTER TABLE `{$table_name}` ADD {$index_type} `{$index_name}` (`{$column_names}`)";
+			break;
+
+	}
+
+	return $CI->db->query($sql);
 }
 
 // ------------------------------------------------------------------------

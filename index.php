@@ -1,4 +1,7 @@
 <?php
+
+define('DEBUG', true);
+
 /*
 |---------------------------------------------------------------
 | PHP ERROR REPORTING LEVEL
@@ -9,8 +12,11 @@
 | For more info visit:  http://www.php.net/error_reporting
 |
 */
+if(DEBUG) {
 	error_reporting(E_ALL | E_STRICT);
-
+} else {
+	error_reporting(0);
+}
 /*
 |---------------------------------------------------------------
 | SYSTEM FOLDER NAME
