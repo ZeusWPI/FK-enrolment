@@ -7,6 +7,19 @@ class Member extends DataMapper {
 	public $created_field = 'date_registered';
 	public $updated_field = 'date_modified';
 
+	public $validation = array(
+		array('field' => 'kring_id', 'label' => 'Kring', 
+			'rules' => array('required', 'is_natural', 'exists' => 'kringen')),
+		array('field' => 'first_name', 'label' => 'First name',
+			'rules' => array('required')),
+		array('field' => 'last_name', 'label' => 'Last name',
+			'rules' => array('required')),
+		array('field' => 'email', 'label' => 'E-mail address',
+			'rules' => array('valid_email')),
+		array('field' => 'ugent_nr', 'label' => 'UGent nr.',
+			'rules' => array('is_natural_no_zero'))
+	);
+
 	public function __construct() {
 		parent::DataMapper();
 	}
@@ -19,5 +32,14 @@ class Member extends DataMapper {
 			'date' => date('Y-m-d H:i:s'),
 			'ip' => $_SERVER['REMOTE_ADDR']
 		));
+	}
+
+	public function _require_one_of_two($field, $param= '') {
+		return !empty($this->email) || !empty($this->ugent_nr);
+	}
+
+	public function _exists($field, $table = '') {
+		$record = $this->db->from($table)->where('id', $this->{$field});
+		return $record->count_all_results() == 1;
 	}
 }

@@ -2,11 +2,26 @@
 
 require(APPPATH.'/libraries/REST_Controller.php');
 
-class Example_api extends REST_Controller
+class Api extends REST_Controller
 {
+	function index_get() {
+		// @TODO: provide some info
+	}
+
 	function user_get()
     {
-        if(!$this->get('id'))
+		$this->load->model('Member');
+
+		$member = new Member();
+		$member->kring_id = 554;
+		$member->first_name = 'Pieter';
+		$member->last_name = 'De Baets';
+		$member->email = 'pieter.debaets@ugent.be';
+		$member->ugent_nr = '00801234';
+		$member->validate();
+		var_dump($member->error);
+
+        /*if(!$this->get('id'))
         {
         	$this->response(NULL, 400);
         }
@@ -28,7 +43,7 @@ class Example_api extends REST_Controller
         else
         {
             $this->response(array('error' => 'User could not be found'), 404);
-        }
+        }*/
     }
     
     function user_post()
