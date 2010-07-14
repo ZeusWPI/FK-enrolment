@@ -8,13 +8,13 @@ class Member extends DataMapper {
 	public $updated_field = 'date_modified';
 
 	public $validation = array(
-		array('field' => 'kring_id', 'label' => 'Kring', 
+		array('field' => 'kring_id', 'label' => 'kring',
 			'rules' => array('required', 'is_natural', 'exists' => 'kringen')),
-		array('field' => 'first_name', 'label' => 'First name',
+		array('field' => 'first_name', 'label' => 'first name',
 			'rules' => array('required')),
-		array('field' => 'last_name', 'label' => 'Last name',
+		array('field' => 'last_name', 'label' => 'last name',
 			'rules' => array('required')),
-		array('field' => 'email', 'label' => 'E-mail address',
+		array('field' => 'email', 'label' => 'e-mail address',
 			'rules' => array('valid_email')),
 		array('field' => 'ugent_nr', 'label' => 'UGent nr.',
 			'rules' => array('is_natural_no_zero'))

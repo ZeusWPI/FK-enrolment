@@ -5,87 +5,37 @@ require(APPPATH.'/libraries/REST_Controller.php');
 class Api extends REST_Controller
 {
     function index_get() {
-        // @TODO: provide some info
+        // @TODO: provide some info about the api
     }
 
-    function user_get()
+    function add_member_post()
     {
-        $this->load->model('Member');
+        // @TODO add validation of api key
 
         $member = new Member();
+        $member->kring_id = $this->post('kring_id'); // determine with api key?
+        $member->first_name = $this->post('first_name');
+        $member->last_name = $this->post('last_name');
+        $member->email = $this->post('email');
+        $member->ugent_nr = $this->post('ugent_nr');
+        $member->ugent_login = $this->post('ugent_login');
+        $member->cellphone = $this->post('cellphone');
+        $member->address_home = $this->post('address_home');
+        $member->address_kot = $this->post('address_kot');
 
-        /*$member->kring_id = 28;
-        $member->first_name = 'Pieter';
-        $member->last_name = 'De Baets';
-        $member->email = 'pieter.debaets@ugent.be';
-        $member->ugent_nr = '00801234';
-        $member->validate();
-        $member->save();
-        var_dump($member->error);*/
-
-        var_dump($member->get_by_id(1)->kring);
-
-        /*if(!$this->get('id'))
-        {
-            $this->response(NULL, 400);
+        if($member->validate()->valid) {
+            $member->save();
+            $member->log($member->id, 'api', 'created member');
+        } else {
+            $member->log(-1, 'api', 'creating member failed');
         }
 
-        // $user = $this->some_model->getSomething( $this->get('id') );
-        $users = array(
-            1 => array('id' => 1, 'name' => 'Some Guy', 'email' => 'example1@example.com', 'fact' => 'Loves swimming'),
-            2 => array('id' => 2, 'name' => 'Person Face', 'email' => 'example2@example.com', 'fact' => 'Has a huge face'),
-            3 => array('id' => 3, 'name' => 'Scotty', 'email' => 'example3@example.com', 'fact' => 'Is a Scott!'),
+        $result = array(
+            'status' => $member->valid ? 'OK' : 'ERROR',
+            'errors' => array_map('strip_tags', $member->error->all),
+            'return' => $member->valid ? array('member_id' => $member->id) : array()
         );
 
-        $user = @$users[$this->get('id')];
-
-        if($user)
-        {
-            $this->response($user, 200); // 200 being the HTTP response code
-        }
-
-        else
-        {
-            $this->response(array('error' => 'User could not be found'), 404);
-        }*/
+        $this->response($result, 200); // 200 being the HTTP response code
     }
-
-    function user_post()
-    {
-        //$this->some_model->updateUser( $this->get('id') );
-        $message = array('id' => $this->get('id'), 'name' => $this->post('name'), 'email' => $this->post('email'), 'message' => 'ADDED!');
-
-        $this->response($message, 200); // 200 being the HTTP response code
-    }
-
-    function user_delete()
-    {
-        //$this->some_model->deletesomething( $this->get('id') );
-        $message = array('id' => $this->get('id'), 'message' => 'DELETED!');
-
-        $this->response($message, 200); // 200 being the HTTP response code
-    }
-
-    function users_get()
-    {
-        //$users = $this->some_model->getSomething( $this->get('limit') );
-        $users = array(
-            array('id' => 1, 'name' => 'Some Guy', 'email' => 'example1@example.com'),
-            array('id' => 2, 'name' => 'Person Face', 'email' => 'example2@example.com'),
-            array('id' => 3, 'name' => 'Scotty', 'email' => 'example3@example.com'),
-        );
-
-        if($users)
-        {
-            $this->response($users, 200); // 200 being the HTTP response code
-        }
-
-        else
-        {
-            $this->response(array('error' => 'Couldn\'t find any users!'), 404);
-        }
-    }
-
 }
-
-?>

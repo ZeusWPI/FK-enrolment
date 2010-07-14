@@ -1,3 +1,3 @@
 <?php
 
-$lang['exists'] = 'The referenced field %s must exist.';
+$lang['exists'] = 'The %s field must contain a valid reference.';
