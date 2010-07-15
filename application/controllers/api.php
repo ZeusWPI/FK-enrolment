@@ -43,7 +43,7 @@ class Api extends REST_Controller
         if($this->_format != 'png') {
             $this->response(array(
                 'status' => 'ERROR',
-                'errors' => array('Only the jpg-format is valid for this method.'),
+                'errors' => array('Only the png-format is valid for this method.'),
                 'return' => null
             ), 415); // Unsupported Media Type
             return;
