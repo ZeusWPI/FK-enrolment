@@ -44,7 +44,14 @@ $route['default_controller'] = "welcome";
 $route['scaffolding_trigger'] = "";
 
 // Allow format-type to be specified in action
-$route['(:any)/(:any)\.(:any)'] = "$1/$2/format/$3";
+$route['api/([a-zA-Z_-]+)\.(:any)'] = "api/$1/format/$2";
+$route['api/([a-zA-Z_-]+)/(:any)\.(:any)'] = "api/$1/format/$2/$3";
+
+// prefix all calls with a version number so we can offer compatibility
+$route['api/v(:num)/([a-zA-Z_\-]+)'] = "api/$2/version/$1";
+$route['api/v(:num)/([a-zA-Z_\-]+)/(:any)'] = "api/$2/version/$1/$3";
+$route['api/v(:num)/([a-zA-Z_\-]+)\.(:any)'] = "api/$2/version/$1/format/$3";
+$route['api/v(:num)/([a-zA-Z_\-]+)/(:any)\.(:any)'] = "api/$2/version/$1/format/$3/$4";
 
 
 /* End of file routes.php */

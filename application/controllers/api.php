@@ -5,7 +5,7 @@ require(APPPATH.'/libraries/REST_Controller.php');
 class Api extends REST_Controller
 {
     function index_get() {
-        // @TODO: provide some info about the api
+        $this->load->view('api');
     }
 
     function add_member_post()

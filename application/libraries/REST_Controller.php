@@ -143,6 +143,20 @@ class REST_Controller extends Controller
 
 			return $matches[1];
         }
+
+        $last_key = end(array_keys($this->_get_args));
+        if(preg_match($pattern, $last_key, $matches))
+        {
+            // Remove the extension from arguments too
+            unset($this->_get_args[$last_key]);
+            unset($this->_args[$last_key]);
+
+            $new_key = preg_replace($pattern, '', $last_key);
+            $this->_get_args[$new_key] = false;
+            $this->_args[$new_key] = false;
+
+            return $matches[1];
+        }
 		
     	// A format has been passed as an argument in the URL and it is supported
     	if(isset($this->_args['format']) && isset($this->_supported_formats))
