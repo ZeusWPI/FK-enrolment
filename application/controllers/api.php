@@ -38,4 +38,20 @@ class Api extends REST_Controller
 
         $this->response($result, 200); // 200 being the HTTP response code
     }
+
+    function barcode_get() {
+        if($this->_format != 'png') {
+            $this->response(array(
+                'status' => 'ERROR',
+                'errors' => array('Only the jpg-format is valid for this method.'),
+                'return' => null
+            ), 415); // Unsupported Media Type
+            return;
+        }
+
+        $member_id = str_pad(abs($this->get('member_id')), 13, '0', STR_PAD_LEFT);
+
+        require_once('Image/Barcode.php');
+        Image_Barcode::draw($member_id, 'ean13', 'png');
+    }
 }
