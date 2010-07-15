@@ -47,7 +47,7 @@ $config['rest_valid_logins'] = array('admin' => '1234');
 |	FALSE
 |
 */
-$config['rest_ignore_http_accept'] = FALSE;
+$config['rest_ignore_http_accept'] = TRUE;
 
 /* End of file config.php */
 /* Location: ./system/application/config/rest.php */

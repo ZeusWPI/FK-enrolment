@@ -30,13 +30,11 @@ class Api extends REST_Controller
             $member->log(-1, 'api', 'creating member failed');
         }
 
-        $result = array(
+        $this->response(array(
             'status' => $member->valid ? 'OK' : 'ERROR',
             'errors' => array_map('strip_tags', $member->error->all),
             'return' => $member->valid ? array('member_id' => $member->id) : array()
-        );
-
-        $this->response($result, 200); // 200 being the HTTP response code
+        ), 200); // 200 being the HTTP response code
     }
 
     function barcode_get() {

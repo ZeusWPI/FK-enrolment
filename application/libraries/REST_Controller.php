@@ -83,10 +83,14 @@ class REST_Controller extends Controller
         {
             $this->$controller_method();
         }
-
         else
         {
-            show_404();
+            $this->response(array(
+                'status' => 'ERROR',
+                'errors' => array(),
+                'return' => null
+            ), 404);
+            return;
         }
     }
 
