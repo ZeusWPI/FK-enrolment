@@ -2,8 +2,8 @@
 
 require(APPPATH.'/libraries/REST_Controller.php');
 
-class Api extends REST_Controller
-{
+class Api extends REST_Controller {
+    
     public function index_get() {
         $this->load->view('api');
     }
@@ -49,6 +49,11 @@ class Api extends REST_Controller
     }
 
     public function barcode_get() {
+        $kring_id = apikey_verify($this->get('key'));
+        if($kring_id == -1) {
+            return $this->error('Please provide a valid API-key', 403);
+        }
+        
         if($this->_format != 'png') {
             return $this->error('Only the png-format is valid for this method.', 415); // Unsupported Media Type
         }
