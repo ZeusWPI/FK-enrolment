@@ -15,9 +15,9 @@ class Member extends DataMapper {
 		array('field' => 'last_name', 'label' => 'last name',
 			'rules' => array('required')),
 		array('field' => 'email', 'label' => 'e-mail address',
-			'rules' => array('valid_email')),
+			'rules' => array('not_required_if' => 'ugent_nr', 'valid_email')),
 		array('field' => 'ugent_nr', 'label' => 'UGent nr.',
-			'rules' => array('is_natural_no_zero'))
+			'rules' => array('not_required_if' => 'email', 'is_natural_no_zero'))
 	);
 
 	public function __construct() {
@@ -34,8 +34,8 @@ class Member extends DataMapper {
 		));
 	}
 
-	public function _require_one_of_two($field, $param= '') {
-		return !empty($this->email) || !empty($this->ugent_nr);
+	public function _not_required_if($field, $param= '') {
+		return !empty($this->{$field}) || !empty($this->{$param});
 	}
 
 	public function _exists($field, $table = '') {

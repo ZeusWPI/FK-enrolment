@@ -10,7 +10,7 @@ class Create_schema {
 				'first_name' => array(STRING, LIMIT, 255, NOT_NULL),
 				'last_name' => array(STRING, LIMIT, 255, NOT_NULL),
 				'email' => array(STRING, LIMIT, 255),
-				'ugent_nr' => INTEGER,
+				'ugent_nr' => array(STRING, LIMIT, 10),
 				'ugent_login' => array(STRING, LIMIT, 20),
 				'cellphone' => array(STRING, LIMIT, 20),
 				'address_home' => array(STRING, LIMIT, 255),

@@ -25,7 +25,7 @@ class Api_Test extends Controller {
         // nothing filled in
         $scenarios[1] = array();
         
-        $result = $this->rest->post('add_member.json?key=b93206de99b5b9a', $scenarios[$scenario]);
+        $result = $this->rest->post('add_member.json?key=6AyupMFt2i-8RJg,', $scenarios[$scenario]);
         var_dump($result);
     }
 }

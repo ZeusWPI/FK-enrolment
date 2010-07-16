@@ -18,12 +18,13 @@ class Api extends REST_Controller
 
     public function add_member_post()
     {
-        if(!verify_key($this->get('key'), $this->post('kring_id'))) {
+        $kring_id = apikey_verify($this->get('key'));
+        if($kring_id == -1) {
             return $this->error('Please provide a valid API-key', 403);
         }
 
         $member = new Member();
-        $member->kring_id = $this->post('kring_id');
+        $member->kring_id = $kring_id;
         $member->first_name = $this->post('first_name');
         $member->last_name = $this->post('last_name');
         $member->email = $this->post('email');
