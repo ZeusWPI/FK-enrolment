@@ -4,16 +4,26 @@ require(APPPATH.'/libraries/REST_Controller.php');
 
 class Api extends REST_Controller
 {
-    function index_get() {
+    public function index_get() {
         $this->load->view('api');
     }
 
-    function add_member_post()
+    private function error($messages, $status_code = 404) {
+        return $this->response(array(
+            'status' => 'ERROR',
+            'errors' => is_array($messages) ? $messages : array($messages),
+            'return' => null
+        ), $status_code);
+    }
+
+    public function add_member_post()
     {
-        // @TODO add validation of api key
+        if(!verify_key($this->get('key'), $this->post('kring_id'))) {
+            return $this->error('Please provide a valid API-key', 403);
+        }
 
         $member = new Member();
-        $member->kring_id = $this->post('kring_id'); // determine with api key?
+        $member->kring_id = $this->post('kring_id');
         $member->first_name = $this->post('first_name');
         $member->last_name = $this->post('last_name');
         $member->email = $this->post('email');
@@ -37,14 +47,9 @@ class Api extends REST_Controller
         ), 200); // 200 being the HTTP response code
     }
 
-    function barcode_get() {
+    public function barcode_get() {
         if($this->_format != 'png') {
-            $this->response(array(
-                'status' => 'ERROR',
-                'errors' => array('Only the png-format is valid for this method.'),
-                'return' => null
-            ), 415); // Unsupported Media Type
-            return;
+            return $this->error('Only the png-format is valid for this method.', 415); // Unsupported Media Type
         }
 
         $member_id = str_pad(abs($this->get('member_id')), 13, '0', STR_PAD_LEFT);

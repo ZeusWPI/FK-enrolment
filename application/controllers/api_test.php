@@ -15,7 +15,7 @@ class Api_Test extends Controller {
 
          // everything filled in
         $scenarios[0] = array(
-            'kring_id' => 12, 'first_name' => 'Pieter', 'last_name' => 'De Baets',
+            'kring_id' => 28, 'first_name' => 'Pieter', 'last_name' => 'De Baets',
             'email' => 'pieter.debaets@ugent.be', 'ugent_nr' => '0081234',
             'ugent_login' => 'pdbaets', 'cellphone' => '0473888888',
             'address_home' => "Thuisstraat 10\n9000 Gent",
@@ -25,7 +25,7 @@ class Api_Test extends Controller {
         // nothing filled in
         $scenarios[1] = array();
         
-        $result = $this->rest->post('add_member.json', $scenarios[$scenario]);
+        $result = $this->rest->post('add_member.json?key=b93206de99b5b9a', $scenarios[$scenario]);
         var_dump($result);
     }
 }
