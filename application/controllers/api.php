@@ -18,7 +18,7 @@ class Api extends REST_Controller
 
     public function add_member_post()
     {
-        $kring_id = apikey_verify($this->get('key'));
+        $kring_id = api_key_verify($this->get('key'));
         if($kring_id == -1) {
             return $this->error('Please provide a valid API-key', 403);
         }

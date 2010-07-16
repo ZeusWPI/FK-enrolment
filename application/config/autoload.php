@@ -51,7 +51,7 @@ $autoload['libraries'] = array('database', 'datamapper');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'apikey');
+$autoload['helper'] = array('url', 'api_key');
 
 
 /*
