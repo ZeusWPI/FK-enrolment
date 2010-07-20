@@ -54,6 +54,12 @@ class Create_schema {
 			), 'id'
 		);
 		add_index('kringen', 'FKlogin', 'FKlogin', 'UNIQUE');
+
+        if(file_exists(__DIR__ . '/001_kringen.sql')) {
+            $import = file_get_contents(__DIR__ . '/001_kringen.sql');
+            $CI =& get_instance();
+            $CI->db->query($import);
+        }
 	}
 
 	function down() {

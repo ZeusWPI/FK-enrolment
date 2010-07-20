@@ -2,7 +2,7 @@
 
 class Member extends DataMapper {
 
-	public $has_one = array('kring');
+	public $has_one = array('kring', 'associatedcard');
 
 	public $created_field = 'date_registered';
 	public $updated_field = 'date_modified';
@@ -36,8 +36,11 @@ class Member extends DataMapper {
 
 	public function _not_required_if($field, $param= '') {
 		return !empty($this->{$field}) || !empty($this->{$param});
-	}
+    }
 
+    /**
+     * Validator function to check if a reffered id exists
+     */
 	public function _exists($field, $table = '') {
 		$record = $this->db->from($table)->where('id', $this->{$field});
 		return $record->count_all_results() == 1;

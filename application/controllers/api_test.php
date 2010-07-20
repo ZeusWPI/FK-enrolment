@@ -1,4 +1,5 @@
 <?php
+if(!DEBUG) exit('No access allowed');
 
 class Api_Test extends Controller {
 
@@ -42,6 +43,25 @@ class Api_Test extends Controller {
 
         $key = api_key_encrypt(28);
         $result = $this->rest->post('add_member.json?key='.$key, $scenarios[$scenario]);
+        var_dump($result);
+    }
+
+    function associate_card($scenario = 0) {
+        $scenarios = array(); $keys = array();
+
+        // everything filled in => should succeed
+        $scenarios[0] = array(
+            'member_id' => 1,
+            'card_id' => '12356'
+        );
+        $keys[0] = api_key_encrypt(28);
+
+        // everything filled in, but wrong kring => should fail
+        $scenarios[1] = $scenarios[0];
+        $keys[1] = api_key_encrypt(26);
+
+        $result = $this->rest->post('associate_card.json?key='.$keys[$scenario],
+                $scenarios[$scenario]);
         var_dump($result);
     }
 }

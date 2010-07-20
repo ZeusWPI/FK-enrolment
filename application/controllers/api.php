@@ -48,6 +48,32 @@ class Api extends REST_Controller {
         ), 200); // 200 being the HTTP response code
     }
 
+    public function associate_card_post() {
+        $kring_id = api_key_verify($this->get('key'));
+        if($kring_id == -1) {
+            return $this->error('Please provide a valid API-key', 403);
+        }
+
+        $card = new AssociatedCard();
+        $card->member_id = $this->post('member_id');
+        $card->card_id = $this->post('card_id');
+        $card->academic_year = $this->config->item('academic_year');
+
+        if($card->validate($kring_id)->valid) {
+            $card->save();
+
+            // Very ugly but DataMapper + CI suck like a balinese hooker at peak hour
+            $member = new Member();
+            $member->log($card->member_id, 'api', 'associated card #'.$card->card_id);
+        }
+
+        $this->response(array(
+            'status' => $card->valid ? 'OK' : 'ERROR',
+            'errors' => array_map('strip_tags', $card->error->all),
+            'return' => array()
+        ), 200);
+    }
+
     public function generate_key_get() {
         if(!DEBUG) {
             return $this->error('Generating keys is not available right now.', 403);
