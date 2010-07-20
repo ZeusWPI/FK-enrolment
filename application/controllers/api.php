@@ -48,16 +48,16 @@ class Api extends REST_Controller {
         ), 200); // 200 being the HTTP response code
     }
 
-    public function barcode_get() {
-        $kring_id = apikey_verify($this->get('key'));
-        if($kring_id == -1) {
-            return $this->error('Please provide a valid API-key', 403);
+    public function generate_key_get() {
+        if(!DEBUG) {
+            return $this->error('Generating keys is not available right now.', 403);
         }
         
-        if($this->_format != 'png') {
-            return $this->error('Only the png-format is valid for this method.', 415); // Unsupported Media Type
-        }
+        $kring_id = $this->get('kring_id');
+        echo api_key_encrypt($kring_id);
+    }
 
+    public function barcode_get() {
         $member_id = str_pad(abs($this->get('member_id')), 13, '0', STR_PAD_LEFT);
 
         require_once('Image/Barcode.php');

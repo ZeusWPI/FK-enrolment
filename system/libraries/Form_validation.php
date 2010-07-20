@@ -989,6 +989,7 @@ class CI_Form_validation {
 	 */	
 	function valid_email($str)
 	{
+        if(empty($str)) return TRUE;
 		return ( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $str)) ? FALSE : TRUE;
 	}
 
@@ -1129,7 +1130,7 @@ class CI_Form_validation {
      */
     function is_natural($str)
     {   
-   		return (bool)preg_match( '/^[0-9]+$/', $str);
+   		return (bool)preg_match( '/^[0-9]*$/', $str);
     }
 
 	// --------------------------------------------------------------------

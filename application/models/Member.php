@@ -17,7 +17,7 @@ class Member extends DataMapper {
 		array('field' => 'email', 'label' => 'e-mail address',
 			'rules' => array('not_required_if' => 'ugent_nr', 'valid_email')),
 		array('field' => 'ugent_nr', 'label' => 'UGent nr.',
-			'rules' => array('not_required_if' => 'email', 'is_natural_no_zero'))
+			'rules' => array('not_required_if' => 'email', 'is_natural'))
 	);
 
 	public function __construct() {

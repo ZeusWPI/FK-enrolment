@@ -974,6 +974,9 @@ class DataMapper {
 
 						// Add error message
 						$this->error_message($field, sprintf($line, $label, $param));
+
+						// If the first validation in a chain breaks, quit
+						break;
 					}
 				}
 			}
