@@ -60,7 +60,7 @@ table {
  * Site-specific styles
  */
 body {
-    font: 12px "trebuchet ms", helvetica, sans-serif;
+    font: 13px "trebuchet ms", helvetica, sans-serif;
     background-color: #fff;
     color: #585858;
 }
@@ -138,7 +138,7 @@ h3 {
     border-bottom: dotted 1px #E1E1E1;
     font-size: 15px;
     padding-bottom: 2px;
-    margin: 12px 0 20px;
+    margin: 13px 0 20px;
 }
 
 a {
@@ -151,6 +151,11 @@ a {
 p {
     line-height: 16px;
     margin: 4px 0 10px;
+}
+
+em {
+    font-weight: bold;
+    font-style: normal;
 }
 
 code {
@@ -173,6 +178,21 @@ dd {
         padding-left: 0;
         margin: 0;
     }
+
+.image-left {
+    float: left;
+    padding: 0 15px 5px 0;
+}
+
+.image-right{
+    float: right;
+    padding: 0 0 5px 15px;
+}
+
+.image-center {
+    display: block;
+    margin: 0 auto;
+}
 
 /**
  * Grid system

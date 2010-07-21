@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="language" content="nl">
     <meta name="author" content="FK Gent" />
-    <title><?php echo $pageTitle; ?></title>
+    <title><?php echo $pageTitle; ?> &ndash; FaculteitenKonvent Gent</title>
     <link rel="stylesheet" type="text/css" href="<?php echo site_url('assets/style.css'); ?>">
 </head>
 <body>
@@ -13,7 +13,7 @@
     </div></div>
 
     <div id="main-wrapper"><div id="main" class="cols">
-        <div class="col col-8"><?php echo $contents; ?></div>
+        <div class="col col-6"><?php echo $contents; ?></div>
         <div class="col col-2 col-last">
             <h3>FK Sponsors</h3>
             <h3>FK Kringen</h3>
