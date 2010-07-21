@@ -40,7 +40,7 @@
 |
 */
 
-$route['default_controller'] = "gui";
+$route['default_controller'] = "home";
 $route['scaffolding_trigger'] = "";
 
 // Allow format-type to be specified in action
