@@ -5,7 +5,8 @@ require(APPPATH.'/libraries/REST_Controller.php');
 class Api extends REST_Controller {
     
     public function index_get() {
-        $this->load->view('api');
+        $this->template->set('pageTitle', 'FK-enrolment API documentation');
+        $this->template->load('layout', 'api');
     }
 
     private function error($messages, $status_code = 404) {

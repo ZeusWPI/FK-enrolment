@@ -1,55 +1,4 @@
-<html>
-<head>
-<title>Welcome to FK-enrolment Server</title>
-
-<style type="text/css">
-
-body {
- background-color: #fff;
- margin: 40px;
- font-family: Lucida Grande, Verdana, Sans-serif;
- font-size: 14px;
- color: #4F5155;
-}
-
-a {
- color: #003399;
- background-color: transparent;
- font-weight: normal;
-}
-
-h1 {
- color: #444;
- background-color: transparent;
- border-bottom: 1px solid #D0D0D0;
- font-size: 16px;
- font-weight: bold;
- margin: 24px 0 2px 0;
- padding: 5px 0 6px 0;
-}
-
-code {
- font-family: Monaco, Verdana, Sans-serif;
- font-size: 12px;
- background-color: #f9f9f9;
- color: #002166;
-}
-
-dd {
-    margin: 1em 40px;
-}
-
-dd ul {
-    list-style: inside;
-    padding-left: 0;
-    margin: 0;
-}
-
-</style>
-</head>
-<body>
-
-<h1>Welcome to the FK-enrolment Server!</h1>
+<h2>Welcome to the FK-enrolment Server!</h2>
 
 <p>Below is the documentation for the API. Each method requires the use of your API key which can be found on the FK intranet.</p>
 
@@ -66,7 +15,7 @@ provided as a URL parameter, whatever the request type may be. An example URL is
 
 <p>All requests
 
-<h2>add_member</h2>
+<h3>add_member</h3>
 
 <p>Register a new member and him to the FK database. The return value <code>member_id</code> should
 be stored by the receiver and used later in the card association.</p>
@@ -92,7 +41,7 @@ be stored by the receiver and used later in the card association.</p>
      </ul></dd>
 </dl>
 
-<h2>associate_card</h2>
+<h3>associate_card</h3>
 
 <p>Associate a member with a card number. This is the second step after registration
     and completes the process. This call should probably occur simultaneously with
@@ -111,7 +60,7 @@ be stored by the receiver and used later in the card association.</p>
      </ul></dd>
 </dl>
 
-<h2>barcode</h2>
+<h3>barcode</h3>
 
 <p>Generates an <a href="http://en.wikipedia.org/wiki/EAN13">EAN13</a> barcode.
     This method <b>does not</b> require an API key so it's safe to use in your
@@ -126,7 +75,3 @@ be stored by the receiver and used later in the card association.</p>
         <li>member_id <i>(integer, required)</i></li>
      </ul></dd>
 </dl>
-
-
-</body>
-</html>
