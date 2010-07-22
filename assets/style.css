@@ -195,6 +195,65 @@ dd {
 }
 
 /**
+ * Forms
+ */
+
+textarea {
+    font-size: 12px; line-height: 1.4;
+    padding: 1px;
+    max-width: 100%;
+}
+
+select, option {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+}
+
+dl.form {
+    padding: 12px 0 0;
+    display: inline-block;
+}
+
+.dl.form:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.dl.form {
+    display: block;
+}
+
+.form dt {
+    float: left;
+    clear: left;
+    width: 120px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.form dd {
+    float: left;
+    margin: 0;
+}
+
+.error {
+    color: #E2001A;
+    padding: 0 0 2px 0;
+}
+
+.form-success {
+    color: #008A0D;
+    background: #CFC;
+    padding: 12px;
+    border: 1px solid #008A0D;
+    margin: 0 0 12px;
+}
+
+/**
  * Grid system
  */
 

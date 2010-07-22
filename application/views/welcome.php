@@ -15,7 +15,7 @@
 
 <style type="text/css">
 .kring {
-    width: 112px; height: 122px;
+    width: 112px; height: 125px;
     margin: 16px 24px 0 0;
     float: left;
     position: relative;

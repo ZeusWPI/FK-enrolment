@@ -18,10 +18,10 @@ class Registratie extends Controller {
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
 
-        $this->form_validation->set_rules('stamnummer','Stamnummer','required');
-        $this->form_validation->set_rules('voornaam', 'Voornaam', 'required');
-        $this->form_validation->set_rules('familienaam', 'Familienaam', 'required');
-        $this->form_validation->set_rules('emailadres', 'Emailadres', 'valid_email');
+        $this->form_validation->set_rules('ugent_nr','Stamnummer','required');
+        $this->form_validation->set_rules('first_name', 'Voornaam', 'required');
+        $this->form_validation->set_rules('last_name', 'Familienaam', 'required');
+        $this->form_validation->set_rules('email', 'Emailadres', 'valid_email');
 
         if($this->form_validation->run() == false){
             
