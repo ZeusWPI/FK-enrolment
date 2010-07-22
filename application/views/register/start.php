@@ -8,7 +8,7 @@
     <div class="col col-4 col-last">
 
 <p>Via deze website kan je je registreren als lid van de <em><?php echo $kring->lang; ?></em>, de
-<?php echo lcfirst($kring->descr); ?>.</p>
+<?php echo strtolower(substr($kring->descr, 0, 1)) . substr($kring->descr, 1); ?>.</p>
 
 <p>Is dit niet de juiste kring? Ga dan terug naar de <?php echo anchor('', 'startpagina'); ?>.</p>
 
