@@ -13,7 +13,7 @@ class Registratie extends Controller {
     }
 
     public function via_ugentnr() {
-	$this->determine_kring();
+        $this->determine_kring();
 
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
@@ -37,8 +37,6 @@ class Registratie extends Controller {
             ));
 
         }
-            
-        
     }
 
     private function determine_kring() {
@@ -51,7 +49,8 @@ class Registratie extends Controller {
         if(!empty($kring_name)) {
             $this->kring->get_where(array(
                 'kringname' => $kring_name,
-                'actief' => 1
+                'actief' => 1,
+                'showonsite' => 1
             ));
             $this->session->set_userdata('kring_id', $this->kring->id);
         } else {
