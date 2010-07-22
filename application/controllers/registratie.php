@@ -14,20 +14,31 @@ class Registratie extends Controller {
 
     public function via_ugentnr() {
 	$this->determine_kring();
-	if($this->input->post('submit') ){
-		$this->template->set('pageTitle',$this->input->post('stamnummer'));
-		$this->template->load('layout', 'register/via-ugentnr', array(
-		  	'kring' => $this->kring
-		));	
-	} else {	
 
-		$this->load->helper('form');
+        $this->load->helper(array('form', 'url'));
+        $this->load->library('form_validation');
 
-		$this->template->set('pageTitle', 'Inschrijven met ugent nr');
-		$this->template->load('layout', 'register/via-ugentnr', array(
-		    'kring' => $this->kring
-		));
-	}
+        $this->form_validation->set_rules('stamnummer','Stamnummer','required');
+        $this->form_validation->set_rules('voornaam', 'Voornaam', 'required');
+        $this->form_validation->set_rules('familienaam', 'Familienaam', 'required');
+        $this->form_validation->set_rules('emailadres', 'Emailadres', 'valid_email');
+
+        if($this->form_validation->run() == false){
+            
+            $this->template->set('pageTitle', 'Inschrijven met ugent nr');
+            $this->template->load('layout', 'register/via-ugentnr', array(
+                'kring' => $this->kring
+            ));
+
+        } else {
+            $this->template->set('pageTitle', 'SUCCES BITCHES');
+            $this->template->load('layout', 'register/via-ugentnr', array(
+                'kring' => $this->kring
+            ));
+
+        }
+            
+        
     }
 
     private function determine_kring() {

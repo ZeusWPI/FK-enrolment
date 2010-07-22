@@ -6,10 +6,24 @@
     </p>
     <div class="col col-4 col-last">
 
-    <p>Vul onderstaand formulier in om je te registreren</p>
+    <p>Vul onderstaand formulier in om je te registreren. Velden met een * zijn verplicht </p>
+<?php echo validation_errors() ?>
 <?php echo form_open('/registratie/via_ugentnr'); ?>
-    <?php echo form_label('Geef uw stamnummer in','stamnummer'); ?>
+    <?php echo form_label('* Geef uw stamnummer in:','stamnummer'); ?>
     <?php echo form_input('stamnummer'); ?>
+    <?php echo form_label('* Geef uw voornaam in:','voornaam'); ?>
+    <?php echo form_input('voornaam'); ?>
+    <?php echo form_label('* Geef uw familienaam in:','familienaam'); ?>
+    <?php echo form_input('familienaam'); ?>
+    <?php echo form_label('Geef uw emailadres in:','emailadres'); ?>
+    <?php echo form_input('emailadres'); ?>
+    <?php echo form_label('Geef uw telefoonnummer in:','telefoonnummer'); ?>
+    <?php echo form_input('telefoonnummer'); ?>
+    <?php echo form_label('Geef uw kotadres in:','kotadres'); ?>
+    <?php echo form_input('kotadres'); ?>
+    <?php echo form_label('Geef uw thuisadres in:','thuisadres'); ?>
+    <?php echo form_input('thuisadres'); ?>
+
     <?php echo form_submit('submit','Registreer'); ?>
 <?php echo form_close(); ?>
     </div>
