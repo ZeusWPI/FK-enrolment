@@ -31,6 +31,10 @@ ofwel geef je zelf het stamnummer in dat je op studentenkaart vindt.</p>
 </div>
 
 <style type="text/css">
+#registration-selector {
+    margin-top: 20px;
+}
+
 #registration-selector li {
     margin: 15px 0;
     border: 1px solid #AAA;
@@ -40,10 +44,7 @@ ofwel geef je zelf het stamnummer in dat je op studentenkaart vindt.</p>
     display: block;
     color: #000;
     padding: 15px 20px 15px 42px;
-    background-image: url('assets/selector-arrow.png');
-    background-repeat: no-repeat;
-    background-position: 14px center;
-    background-color: #EEE;
+    background: url('assets/selector-arrow.png') no-repeat 14px center #EEE;
 }
 
 #registration-selector li a:hover {

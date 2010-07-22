@@ -71,7 +71,7 @@ body {
 
 #header {
     margin: 0 auto;
-    width: 960px; height: 110px;
+    width: 960px; height: 75px;
     position: relative;
 }
 
@@ -131,14 +131,14 @@ h2 {
     border-bottom: dotted 1px #E1E1E1;
     font-size: 24px;
     padding-bottom: 4px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 h3 {
     border-bottom: dotted 1px #E1E1E1;
     font-size: 15px;
     padding-bottom: 2px;
-    margin: 13px 0 20px;
+    margin: 13px 0 15px;
 }
 
 a {
