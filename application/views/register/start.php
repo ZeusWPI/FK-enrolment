@@ -22,7 +22,7 @@ ofwel geef je zelf het stamnummer in dat je op studentenkaart vindt.</p>
         Ik ken mijn <em>UGentNet gebruikersnaam</em> en <em>wachtwoord</em> en wil
         daarmee registreren.
     </a></li>
-    <li><a href="<?php echo site_url('registratie/via-ugentnr'); ?>">
+    <li><a href="<?php echo site_url('registratie/via_ugentnr'); ?>">
         Ik gebruik het <em>stamnummer op mijn studentenkaart.</em>
     </a></li>
 </ul>
