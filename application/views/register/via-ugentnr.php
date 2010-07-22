@@ -7,7 +7,7 @@
     <div class="col col-4 col-last">
 
     <p>Vul onderstaand formulier in om je te registreren</p>
-<?php echo form_open('/register/via-ugentnr'); ?>
+<?php echo form_open('/registratie/via_ugentnr'); ?>
     <?php echo form_label('Geef uw stamnummer in','stamnummer'); ?>
     <?php echo form_input('stamnummer'); ?>
     <?php echo form_submit('submit','Registreer'); ?>

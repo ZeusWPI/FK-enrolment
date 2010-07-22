@@ -6,22 +6,28 @@ class Registratie extends Controller {
     public function index() {
         $this->determine_kring();
 
-        $this->template->set('pageTitle', 'Inschrijven');
+        $this->template->set('pageTitle', 'Registeren');
         $this->template->load('layout', 'register/start', array(
             'kring' => $this->kring
         ));
     }
 
-    public function via-ugentnr() {
-        $this->determine_kring();
+    public function via_ugentnr() {
+	$this->determine_kring();
+	if($this->input->post('submit') ){
+		$this->template->set('pageTitle',$this->input->post('stamnummer'));
+		$this->template->load('layout', 'register/via-ugentnr', array(
+		  	'kring' => $this->kring
+		));	
+	} else {	
 
-        $this->load->helper('form');
+		$this->load->helper('form');
 
-        $this->template->set('pageTitle', 'Inschrijven met ugent nr');
-        $this->template->load('layout', 'register/via-ugentnr', array(
-            'kring' => $this->kring;
-        ));
-
+		$this->template->set('pageTitle', 'Inschrijven met ugent nr');
+		$this->template->load('layout', 'register/via-ugentnr', array(
+		    'kring' => $this->kring
+		));
+	}
     }
 
     private function determine_kring() {
