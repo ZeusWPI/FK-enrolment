@@ -5,7 +5,7 @@
              alt="<?php echo $kring->kort; ?>" class="image-center" />
     </p>
     <div class="col col-4 col-last">
-    <p><?php echo $member; ?></p>
+    <img src="<?php echo site_url("/api/v1/barcode?member_id=".$member_id); ?>" />
     </div>
 </div>
 

@@ -64,7 +64,7 @@ class Registratie extends MY_Controller {
         $this->template->set('pageTitle', 'Inschrijving succesvol');
         $this->template->load('layout', 'register/succes', array(
             'kring' => $this->kring,
-            'member' => $this->session->userdata('member_id')
+            'member_id' => $this->session->userdata('member_id')
         ));
     } 
         
