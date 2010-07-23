@@ -5,7 +5,7 @@
              alt="<?php echo $kring->kort; ?>" class="image-center" />
     </p>
     <div class="col col-4 col-last">
-    <p><? php echo $member->first_name; ?></p>
+    <p><?php echo $member->first_name; ?></p>
     </div>
 </div>
 
