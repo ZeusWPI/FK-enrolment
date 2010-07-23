@@ -54,11 +54,6 @@ class Registratie extends MY_Controller {
             
             }
  
-            $this->template->set('pageTitle', 'SUCCES BITCHES');
-            $this->template->load('layout', 'register/via-ugentnr', array(
-                'kring' => $this->kring
-            ));
-
         }
     }
 
