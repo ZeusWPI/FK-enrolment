@@ -56,7 +56,7 @@ class Registratie extends MY_Controller {
 
     public function succes() {
         $this->load->library('session');
-        $this->detemine_kring();
+        $this->determine_kring();
 
         $this->template->set('pageTitle', 'Inschrijving succesvol');
         $this->template->load('layout', 'register/succes', array(
