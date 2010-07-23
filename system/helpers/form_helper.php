@@ -154,6 +154,7 @@ if ( ! function_exists('form_input'))
 	function form_input($data = '', $value = '', $extra = '')
 	{
 		$defaults = array('type' => 'text', 'name' => (( ! is_array($data)) ? $data : ''), 'value' => $value);
+        $defaults['id'] = $defaults['name'];
 
 		return "<input "._parse_form_attributes($data, $defaults).$extra." />";
 	}
@@ -241,6 +242,7 @@ if ( ! function_exists('form_textarea'))
 		}
 		
 		$name = (is_array($data)) ? $data['name'] : $data;
+        if(!isset($data['id'])) $data['id'] = $data['name'];
 		return "<textarea "._parse_form_attributes($data, $defaults).$extra.">".form_prep($val, $name)."</textarea>";
 	}
 }

@@ -14,9 +14,6 @@
 
     <div id="main-wrapper"><div id="main" class="cols">
         <div class="col col-6"><?php echo $contents; ?></div>
-        <div class="col col-3 col-last">
-            <h3>FK Sponsors</h3>
-        </div>
     </div></div>
 
     <div id="footer">

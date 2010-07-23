@@ -1,6 +1,6 @@
 <?php
 
-class Registratie extends Controller {
+class Registratie extends MY_Controller {
     private $kring;
 
     public function index() {
@@ -13,15 +13,15 @@ class Registratie extends Controller {
     }
 
     public function via_ugentnr() {
-	$this->determine_kring();
+        $this->determine_kring();
 
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
 
-        $this->form_validation->set_rules('stamnummer','Stamnummer','required');
-        $this->form_validation->set_rules('voornaam', 'Voornaam', 'required');
-        $this->form_validation->set_rules('familienaam', 'Familienaam', 'required');
-        $this->form_validation->set_rules('emailadres', 'Emailadres', 'valid_email');
+        $this->form_validation->set_rules('ugent_nr','Stamnummer','required');
+        $this->form_validation->set_rules('first_name', 'Voornaam', 'required');
+        $this->form_validation->set_rules('last_name', 'Familienaam', 'required');
+        $this->form_validation->set_rules('email', 'Emailadres', 'valid_email');
 
         if($this->form_validation->run() == false){
             
@@ -71,7 +71,8 @@ class Registratie extends Controller {
         if(!empty($kring_name)) {
             $this->kring->get_where(array(
                 'kringname' => $kring_name,
-                'actief' => 1
+                'actief' => 1,
+                'showonsite' => 1
             ));
             $this->session->set_userdata('kring_id', $this->kring->id);
         } else {
