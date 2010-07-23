@@ -18,7 +18,7 @@ class Registratie extends MY_Controller {
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
 
-        $this->form_validation->set_rules('ugent_nr','Stamnummer','required');
+        $this->form_validation->set_rules('ugent_nr','Stamnummer', 'required|is_natural');
         $this->form_validation->set_rules('first_name', 'Voornaam', 'required');
         $this->form_validation->set_rules('last_name', 'Familienaam', 'required');
         $this->form_validation->set_rules('email', 'Emailadres', 'valid_email');

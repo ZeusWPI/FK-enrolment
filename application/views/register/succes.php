@@ -1,4 +1,4 @@
-<h2>Registreren succesvol</h2>
+<h2>Registratie succesvol</h2>
 <div class="cols">
     <p class="col col-2">
     <img src="http://www.fkgent.be/intranet/schild/k.<?php echo $kring->kringname; ?>/h.180/w.110"
