@@ -44,6 +44,7 @@ class Registratie extends MY_Controller {
 
             if($member->validate()->valid) {
                 $member->save();
+                $this->load->library('session');
                 $this->session->set_userdata('member_id', $member->id);
                 redirect('/registratie/succes','redirect');
             } else {
