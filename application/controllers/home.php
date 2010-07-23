@@ -1,9 +1,9 @@
 <?php
 
-class Home extends Controller {
+class Home extends MY_Controller {
 	function index() {
         $kringen = new Kring();
-        $kringen->order_by('kort')->get_where(array('actief' => 1, 'showonsite' => 1));
+        $kringen->order_by('lang')->get_where(array('actief' => 1, 'showonsite' => 1));
 
         $this->template->set('pageTitle', 'Home');
         $this->template->load('layout', 'welcome', array('kringen' => $kringen->all));

@@ -1,6 +1,6 @@
 <?php
 
-class Registratie extends Controller {
+class Registratie extends MY_Controller {
     private $kring;
 
     public function index() {

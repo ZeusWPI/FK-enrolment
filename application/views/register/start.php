@@ -33,6 +33,8 @@ ofwel geef je zelf het stamnummer in dat je op studentenkaart vindt.</p>
 <style type="text/css">
 #registration-selector {
     margin-top: 20px;
+    list-style-type: none;
+    padding: 0;
 }
 
 #registration-selector li {

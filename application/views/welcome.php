@@ -16,6 +16,7 @@
     <?php if($i % 4 == 3) echo '</div>' ?>
     <?php $i++; ?>
 <?php endforeach; ?>
+<?php if($i % 4 != 0) echo '</div>' ?>
 
 <style type="text/css">
 .kring {

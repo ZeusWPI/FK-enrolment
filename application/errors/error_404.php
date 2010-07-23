@@ -9,7 +9,7 @@ ob_start();
 $contents = ob_get_clean();
 
 $ci = get_instance();
-$ci->load->view('layout', array(
+$ci->load->view('layout_error', array(
     'pageTitle' => $heading,
     'contents' => $contents
 ));
