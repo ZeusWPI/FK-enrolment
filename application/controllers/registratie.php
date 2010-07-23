@@ -44,17 +44,21 @@ class Registratie extends MY_Controller {
 
             if($member->validate()->valid) {
                 $member->save();
-                $this->template->set('pageTitle', 'Inschrijving succesvol');
-                $this->template->load('layout', 'register/succes', array(
-                    'kring' => $this->kring,
-                    'member' => $this->member
-                ));
+                $this->session->set_userdata('member_id', $member->id);
+                redirect('/registratie/succes','redirect');
             } else {
             
             }
- 
         }
     }
+
+    public function succes() {
+        $this->template->set('pageTitle', 'Inschrijving succesvol');
+        $this->template->load('layout', 'register/succes', array(
+            'kring' => $this->kring,
+            'member' => $this->session->userdata('member_id')
+        ));
+    } 
 
     private function determine_kring() {
         $this->kring = new Kring();
