@@ -1,4 +1,4 @@
-<h2>Registreren via ugent-nr</h2>
+<h2>Registreren via stamnummer</h2>
 <div class="cols">
     <p class="col col-2">
     <img src="http://www.fkgent.be/intranet/schild/k.<?php echo $kring->kringname; ?>/h.180/w.110"
@@ -8,7 +8,7 @@
 
     <p>Vul onderstaand formulier in om je te registreren. Velden met een <em>*</em> zijn verplicht.</p>
 
-<?php echo validation_errors('<div class="error">', '</div>'); ?>
+    <?php echo validation_errors('<div class="error">', '</div>'); ?>
 
     <?php echo form_open('/registratie/via_ugentnr'); ?>
 

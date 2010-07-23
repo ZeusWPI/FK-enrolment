@@ -3,6 +3,13 @@
 require(APPPATH.'/libraries/REST_Controller.php');
 
 class Api extends REST_Controller {
+
+    public function __construct() {
+        parent::__construct();
+
+        $this->config->set_item('language', 'english');
+        $this->load->language('custom');
+    }
     
     public function index_get() {
         $this->template->set('pageTitle', 'FK-enrolment API documentation');
