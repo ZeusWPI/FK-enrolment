@@ -31,6 +31,29 @@ class Registratie extends Controller {
             ));
 
         } else {
+
+            $member = new Member();
+            $member->kring_id = $kring_id;
+            $member->first_name = $this->post('first_name');
+            $member->last_name = $this->post('last_name');
+            $member->email = $this->post('email');
+            $member->ugent_nr = $this->post('ugent_nr');
+            $member->ugent_login = $this->post('ugent_login');
+            $member->cellphone = $this->post('cellphone');
+            $member->address_home = $this->post('address_home');
+            $member->address_kot = $this->post('address_kot');
+
+            if($member->validate()->valid) {
+                $member->save();
+                $this->template->set('pageTitle', 'Inschrijving succesvol');
+                $this->template->load('layout', 'register/succes', array(
+                    'kring' => $this->kring,
+                    'member' => $this->member
+                ));
+            } else {
+            
+            }
+ 
             $this->template->set('pageTitle', 'SUCCES BITCHES');
             $this->template->load('layout', 'register/via-ugentnr', array(
                 'kring' => $this->kring
