@@ -22,6 +22,9 @@ class Registratie extends MY_Controller {
         $this->form_validation->set_rules('first_name', 'Voornaam', 'required');
         $this->form_validation->set_rules('last_name', 'Familienaam', 'required');
         $this->form_validation->set_rules('email', 'Emailadres', 'valid_email');
+        $this->form_validation->set_rules('cellphone', 'Telefoonnummer', 'callback_true');
+        $this->form_validation->set_rules('address_home', 'Thuisadres', 'callback_true');
+        $this->form_validation->set_rules('address_kot', 'kotadres', 'callback_true');
 
         if($this->form_validation->run() == false){
             
@@ -64,6 +67,10 @@ class Registratie extends MY_Controller {
             'member' => $this->session->userdata('member_id')
         ));
     } 
+        
+    public function callback_true() {
+        return true;
+    }
 
     private function determine_kring() {
         $this->kring = new Kring();
