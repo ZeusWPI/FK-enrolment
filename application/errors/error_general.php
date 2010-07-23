@@ -7,11 +7,11 @@
     <meta name="language" content="nl">
     <meta name="author" content="FK Gent" />
     <title><?php echo $heading; ?> &ndash; FaculteitenKonvent Gent</title>
-    <link rel="stylesheet" type="text/css" href="<?php echo $CFG->item('site_url'); ?>assets/style.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $CFG->item('base_url'); ?>assets/style.css">
 </head>
 <body>
     <div id="header-wrapper"><div id="header">
-        <h1><a href="<?php echo $CFG->item('site_url'); ?>">FaculteitenKonvent Gent</a></h1>
+        <h1><a href="<?php echo $CFG->item('base_url'); ?>">FaculteitenKonvent Gent</a></h1>
     </div></div>
 
     <div id="main-wrapper"><div id="main" class="cols">

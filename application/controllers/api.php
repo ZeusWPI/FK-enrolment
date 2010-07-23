@@ -1,6 +1,6 @@
 <?php
 
-require(APPPATH.'/libraries/REST_Controller.php');
+require(APPPATH.'/libraries/rest_controller.php');
 
 class Api extends REST_Controller {
 
