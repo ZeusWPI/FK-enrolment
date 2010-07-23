@@ -2,34 +2,33 @@
 
 <p>Kies de kring waarbij je je wil registreren.</p>
 
+<?php $i = 0; ?>
 <?php foreach($kringen as $kring) : ?>
-<div class="kring">
-    <?php $kring_url = site_url('registratie?kring='.$kring->kringname); ?>
-    <a href="<?php echo $kring_url; ?>">
-        <img src="http://www.fkgent.be/intranet/schild/k.<?php echo $kring->kringname; ?>/h.100/w.100"
-        alt="<?php echo $kring->kort; ?>" class="image-center" />
-    <p><?php echo $kring->kort; ?></p>
-    </a>
-</div>
+    <?php if($i % 4 == 0) echo '<div class="cols">'; ?>
+    <div class="kring <?php if($i % 4 == 3) echo 'col-last' ?>">
+        <?php $kring_url = site_url('registratie?kring='.$kring->kringname); ?>
+        <a href="<?php echo $kring_url; ?>">
+            <img src="http://www.fkgent.be/intranet/schild/k.<?php echo $kring->kringname; ?>/h.100/w.100"
+            alt="Logo <?php echo $kring->kort; ?>" class="image-center" />
+        <p><?php echo $kring->lang; ?></p>
+        </a>
+    </div>
+    <?php if($i % 4 == 3) echo '</div>' ?>
+    <?php $i++; ?>
 <?php endforeach; ?>
 
 <style type="text/css">
 .kring {
-    width: 112px; height: 125px;
-    margin: 16px 24px 0 0;
+    width: 122px;
+    margin: 16px 20px 0 0;
     float: left;
-    position: relative;
 }
 
 .kring p {
     text-align: center;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    margin: 0;
-}
-
-.kring a {
+    margin: 6px 0 0 0;
     color: #000;
 }
+
+.kring a:hover p { text-decoration: underline; }
 </style>
