@@ -31,7 +31,6 @@ class Registratie extends MY_Controller {
             ));
 
         } else {
-
             $member = new Member();
             $member->kring_id = $this->kring->id;
             $member->first_name = $this->input->post('first_name');
