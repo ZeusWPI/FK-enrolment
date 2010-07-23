@@ -74,7 +74,7 @@ $config['url_suffix'] = "";
 | than english.
 |
 */
-$config['language']	= "english"; // TODO: change to dutch
+$config['language']	= "dutch";
 
 /*
 |--------------------------------------------------------------------------

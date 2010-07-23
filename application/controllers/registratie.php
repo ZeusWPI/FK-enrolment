@@ -54,7 +54,7 @@ class Registratie extends MY_Controller {
             } else {
             
             }
-        }
+       }
     }
 
     public function succes() {
