@@ -24,8 +24,8 @@ class Migrate extends Controller {
 	var $migrations_path = ".";
 
 	function Migrate() {
-
 		parent::Controller();
+		$this->config->set_item('language', 'english');
 		$this->lang->load("migrations");
 		if(is_file(APPPATH."config/migrations.php")) include APPPATH."config/migrations.php";
 
