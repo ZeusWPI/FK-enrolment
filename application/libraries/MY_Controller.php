@@ -8,6 +8,6 @@ class MY_Controller extends Controller {
     }
 
     private function loadSidebar() {
-        // @todo: sponsors
+        // @TODO: sponsors
     }
 }

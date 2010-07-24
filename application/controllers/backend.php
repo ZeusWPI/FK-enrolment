@@ -11,6 +11,15 @@ class Backend extends MY_Controller {
             'kring' => $this->kring
         ));
     }
+
+    public function instellingen() {
+        $this->determine_kring();
+
+        $this->template->set('pageTitle', 'Backend');
+        $this->template->load('layout', 'backend/index', array(
+            'kring' => $this->kring
+        ));
+    }
     
     public function aanmelden() {
         // @TODO perform real authentication

@@ -8,7 +8,8 @@ class Api extends REST_Controller {
         parent::__construct();
 
         $this->config->set_item('language', 'english');
-        $this->load->language('custom');
+        $this->lang->is_loaded = array();
+        $this->load->language(array('datamapper', 'form_validation', 'custom'));
     }
     
     public function index_get() {

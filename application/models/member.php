@@ -1,7 +1,6 @@
 <?php
 
 class Member extends DataMapper {
-
 	public $has_one = array('kring', 'associatedcard');
 
 	public $created_field = 'date_registered';
@@ -19,10 +18,6 @@ class Member extends DataMapper {
 		array('field' => 'ugent_nr', 'label' => 'UGent nr.',
 			'rules' => array('not_required_if' => 'email', 'is_natural'))
 	);
-
-	public function __construct() {
-		parent::DataMapper();
-	}
 
 	public function log($member, $method, $action) {
 		$this->db->insert('members_log', array(

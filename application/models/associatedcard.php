@@ -12,10 +12,6 @@ class AssociatedCard extends DataMapper {
 			'rules' => array('required', 'is_natural'))
 	);
 
-	public function __construct() {
-		parent::DataMapper();
-	}
-
     public function validate($kring_id) {
         if($this->validated) {
             return $this;
@@ -28,6 +24,9 @@ class AssociatedCard extends DataMapper {
         // perform additional validation
         $member = new Member();
         $member->get_by_id($this->member_id);
+
+        log_message('error', $kring_id);
+        log_message('error', $member->kring_id);
 
         if($member->count() != 1 || $member->kring_id != $kring_id) {
             $error = $this->lang->line('invalid_access_for_kring');

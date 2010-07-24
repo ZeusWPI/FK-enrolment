@@ -49,7 +49,5 @@ $config['rest_valid_logins'] = array('admin' => '1234');
 */
 $config['rest_ignore_http_accept'] = TRUE;
 
-$config['rest_api_key_secret'] = sha1('zeus-wpi-ftw');
-
 /* End of file config.php */
 /* Location: ./system/application/config/rest.php */

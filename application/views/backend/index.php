@@ -9,8 +9,8 @@
         <p>Welkom op de FK-enrolment backend voor <?php echo $kring->lang; ?>. U heeft nu toegang tot:</p>
 
         <ul>
-            <li><?php echo anchor('/backend/settings', 'Kringinstellingen'); ?></li>
-            <li><?php echo anchor('/backend/members', 'Ledenbheer'); ?>: import, export, &hellip;</li>
+            <li><?php echo anchor('/backend/instellingen', 'Kringinstellingen'); ?></li>
+            <li><?php echo anchor('/backend/leden', 'Ledenbeheer'); ?>: import, export, &hellip;</li>
         </ul>
     </div>
 </div>

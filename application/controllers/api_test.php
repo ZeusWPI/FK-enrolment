@@ -11,7 +11,7 @@ class Api_Test extends Controller {
         ));
     }
 
-    function add_user($scenario = 0) {
+    function add_member($scenario = 0) {
         $scenarios = array();
 
          // everything filled in => should succeed
@@ -41,7 +41,7 @@ class Api_Test extends Controller {
             'first_name' => 'Pieter', 'last_name' => 'De Baets', 'email' => 'pieter.debaets@ugent.be',
         );
 
-        $key = api_key_encrypt(28);
+        $key = get_api_key(28);
         $result = $this->rest->post('add_member.json?key='.$key, $scenarios[$scenario]);
         var_dump($result);
     }
@@ -54,11 +54,11 @@ class Api_Test extends Controller {
             'member_id' => 1,
             'card_id' => '12356'
         );
-        $keys[0] = api_key_encrypt(28);
+        $keys[0] = get_api_key(28);
 
         // everything filled in, but wrong kring => should fail
         $scenarios[1] = $scenarios[0];
-        $keys[1] = api_key_encrypt(26);
+        $keys[1] = get_api_key(26);
 
         $result = $this->rest->post('associate_card.json?key='.$keys[$scenario],
                 $scenarios[$scenario]);

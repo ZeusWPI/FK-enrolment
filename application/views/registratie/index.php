@@ -46,7 +46,8 @@ ofwel geef je zelf het stamnummer in dat je op studentenkaart vindt.</p>
     display: block;
     color: #000;
     padding: 15px 20px 15px 42px;
-    background: url('assets/selector-arrow.png') no-repeat 14px center #EEE;
+    background: url('assets/selector-arrow.png') no-repeat #EEE;
+    background-position: 14px center;
 }
 
 #registration-selector li a:hover {
