@@ -7,7 +7,7 @@ class Registratie extends MY_Controller {
         $this->determine_kring();
 
         $this->template->set('pageTitle', 'Registeren');
-        $this->template->load('layout', 'register/start', array(
+        $this->template->load('layout', 'registratie/index', array(
             'kring' => $this->kring
         ));
     }
@@ -29,7 +29,7 @@ class Registratie extends MY_Controller {
         if($this->form_validation->run() == false){
             
             $this->template->set('pageTitle', 'Inschrijven met ugent nr');
-            $this->template->load('layout', 'register/via-ugentnr', array(
+            $this->template->load('layout', 'registratie/via-ugentnr', array(
                 'kring' => $this->kring
             ));
 
@@ -61,7 +61,7 @@ class Registratie extends MY_Controller {
         $this->determine_kring();
 
         $this->template->set('pageTitle', 'Inschrijving succesvol');
-        $this->template->load('layout', 'register/succes', array(
+        $this->template->load('layout', 'registratie/succes', array(
             'kring' => $this->kring,
             'member_id' => $this->session->userdata('member_id')
         ));
