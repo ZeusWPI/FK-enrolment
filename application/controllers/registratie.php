@@ -16,7 +16,7 @@ class Registratie extends MY_Controller {
         $this->determine_kring();
 
         $this->load->helper(array('form', 'url'));
-        $this->load->library('form_validation');
+        $this->load->library(array('form_validation', 'session'));
 
         $this->form_validation->set_rules('ugent_nr','Stamnummer', 'required|is_natural');
         $this->form_validation->set_rules('first_name', 'Voornaam', 'required');
@@ -45,14 +45,9 @@ class Registratie extends MY_Controller {
             $member->address_home = $this->input->post('address_home');
             $member->address_kot = $this->input->post('address_kot');
 
-            if($member->validate()->valid) {
-                $member->save();
-                $this->load->library('session');
-                $this->session->set_userdata('member_id', $member->id);
-                redirect('/registratie/succes','redirect');
-            } else {
-            
-            }
+            $member->save();
+            $this->session->set_userdata('member_id', $member->id);
+            redirect('/registratie/succes');
         }
     }
 
