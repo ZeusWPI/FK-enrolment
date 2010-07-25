@@ -12,6 +12,18 @@ class Backend extends MY_Controller {
         ));
     }
 
+    public function aanmelden() {
+        // @TODO perform real authentication
+        if($this->input->post('submit')) {
+            $this->load->library('session');
+            $this->session->set_userdata('backend_kring_id', 28);
+            redirect('/backend');
+        }
+
+        $this->template->set('pageTitle', 'Aanmelden &ndash; Backend');
+        $this->template->load('layout', 'backend/aanmelden');
+    }
+
     public function instellingen() {
         $this->determine_kring();
 
@@ -31,7 +43,7 @@ class Backend extends MY_Controller {
         $this->form_validation->set_rules('api_key', 'API-sleutel', 'required|exact_length[12]');
 
         if($this->form_validation->run() == false) {
-            $this->template->set('pageTitle', 'Backend');
+            $this->template->set('pageTitle', 'Instellingen &ndash; Backend');
             $this->template->load('layout', 'backend/instellingen', array(
                 'kring' => $this->kring,
                 'settings' => $settings
@@ -45,17 +57,38 @@ class Backend extends MY_Controller {
             // @TODO display succes message
         }
     }
-    
-    public function aanmelden() {
-        // @TODO perform real authentication
-        if($this->input->post('submit')) {
-            $this->load->library('session');
-            $this->session->set_userdata('backend_kring_id', 28);
-            redirect('/backend');
+
+    public function leden() {
+        $this->determine_kring();
+        $this->template->set('pageTitle', 'Leden &ndash; Backend');
+        
+        $action = $this->input->get('action');
+        if(!$action || !in_array($action, array('browse', 'import', 'export'))) {
+            $action = 'browse';
         }
 
-        $this->template->set('pageTitle', 'Aanmelden &ndash; Backend');
-        $this->template->load('layout', 'backend/aanmelden');
+        $members = new Member();
+        $members->order_by('last_name ASC, first_name ASC')->get_by_kring_id($this->kring->id);
+
+        $this->load->library('table');
+        $this->table->set_heading(array('Naam', 'Voornaam', 'UGent nr.', 'FK nr.', 'Geregistreerd op'));
+        $tmpl = array ( 'table_open'  => '<table border="1" cellpadding="2" cellspacing="1" class="mytable">' );
+
+        $this->table->set_template(array(
+            'table_open' => '<table cellspacing="0" class="datagrid">',
+            'row_start' => '<tr class="rowOdd">',
+            'row_alt_start' => '<tr class="rowEven">'
+        ));
+
+        foreach($members->all as $member) {
+            $this->table->add_row(array($member->last_name, $member->first_name,
+                    $member->ugent_nr, '&#8709;', $member->date_registered));
+        }
+
+        $this->template->load('layout', 'backend/leden', array(
+            'kring' => $this->kring,
+            'table' => $this->table
+        ));
     }
 
     private function determine_kring() {

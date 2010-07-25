@@ -27,11 +27,11 @@ function api_key_verify($key) {
     $CI =& get_instance();
 	if(empty($CI->db)) $CI->load->database();
 
-    $kring = new KringSetting();
-    $kring->get_where(array(
+    $settings = new KringSetting();
+    $settings->get_where(array(
         'enable_api' => 1,
         'api_key' => $key
     ));
 
-    return count($kring->all) == 1 ? $kring->id : -1;
+    return count($settings->all) == 1 ? $settings->kring_id : -1;
 }

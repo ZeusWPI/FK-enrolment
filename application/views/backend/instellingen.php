@@ -1,4 +1,4 @@
-<h2>Backend: instellingen</h2>
+<h2>Backend &raquo; instellingen</h2>
 
 <div class="cols">
     <p class="col col-2">

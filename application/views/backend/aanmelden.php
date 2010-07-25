@@ -1,4 +1,4 @@
-<h2>Backend: aanmelden</h2>
+<h2>Backend &gt; aanmelden</h2>
 
 <?php echo form_open('/backend/aanmelden'); ?>
 
