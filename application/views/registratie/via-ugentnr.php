@@ -34,6 +34,28 @@
             <?php echo form_input('email', set_value('email')); ?>
             <?php echo form_error('email', '<div class="error">', '</div>'); ?>
         </dd>
+        <dt><?php echo form_label('Geslacht','sex'); ?></dt>
+        <dd>
+            <?php echo form_input('sex', set_value('sex')); ?>
+            <?php echo form_error('sex', '<div class="error">', '</div>'); ?>
+        </dd>
+        <dt><?php echo form_label('Geboortejaar','year_of_birth'); ?></dt>
+        <dd>
+            <?php echo form_dropdown('year_of_birth', range(1900,2010), set_value('year_of_birth')); ?>
+            <?php echo form_error('year_of_birth', '<div class="error">', '</div>'); ?>
+        </dd>
+ 
+        <dt><?php echo form_label('Geboortemaand','month_of_birth'); ?></dt>
+        <dd>
+            <?php echo form_dropdown('month_of_birth', range(01,12), set_value('year_of_birth')); ?>
+            <?php echo form_error('month_of_birth', '<div class="error">', '</div>'); ?>
+        </dd>
+
+        <dt><?php echo form_label('Geboortedag','day_of_birth'); ?></dt>
+        <dd>
+            <?php echo form_dropdown('day_of_birth', range(01,31), set_value('day_of_birth')); ?>
+            <?php echo form_error('day_of_birth', '<div class="error">', '</div>'); ?>
+        </dd>
         <dt><?php echo form_label('GSM-nummer:', 'cellphone'); ?></dt>
         <dd>
             <?php echo form_input('cellphone', set_value('cellphone')); ?>

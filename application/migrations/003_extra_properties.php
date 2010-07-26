@@ -13,7 +13,7 @@ class Extra_properties {
 
         echo "Adding column 'date_of_birth'", "<br />";
         $CI->db->query("ALTER TABLE `members` ADD `date_of_birth` ".
-                "DATETIME NULL DEFAULT NULL AFTER `sex`");
+                "DATE NULL DEFAULT NULL AFTER `sex`");
     }
 
     function down() {

@@ -15,7 +15,7 @@ class Registratie extends MY_Controller {
     public function via_ugentnr() {
         $this->determine_kring();
 
-        $this->load->helper(array('form', 'url'));
+        $this->load->helper(array('form', 'url', 'date'));
         $this->load->library(array('form_validation', 'session'));
 
         $this->form_validation->set_rules('ugent_nr','Stamnummer', 'required|is_natural');
@@ -25,6 +25,11 @@ class Registratie extends MY_Controller {
         $this->form_validation->set_rules('cellphone', 'Telefoonnummer', 'callback_true');
         $this->form_validation->set_rules('address_home', 'Thuisadres', 'callback_true');
         $this->form_validation->set_rules('address_kot', 'kotadres', 'callback_true');
+        $this->form_validation->set_rules('sex', 'Geslacht', 'callback_true');
+
+        $this->form_validation->set_rules('year_of_birth', 'Geboortejaar', 'is_natural');
+        $this->form_validation->set_rules('month_of_birth', 'Geboortemaand', 'is_natural');
+        $this->form_validation->set_rules('day_of_birth', 'Geboortedag', 'is_natural');
 
         if($this->form_validation->run() == false){
             
@@ -44,6 +49,12 @@ class Registratie extends MY_Controller {
             $member->cellphone = $this->input->post('cellphone');
             $member->address_home = $this->input->post('address_home');
             $member->address_kot = $this->input->post('address_kot');
+            $member->sex = $this->input->post('sex');
+            $timestamp = mktime(0, 0, 0, $this->input->post('day_of_birth'),
+                                         $this->input->post('month_of_birth'),
+                                         $this->input->post('year_of_birth'))
+            $member->date_of_birth = strftime('%Y', $timestamp);
+
 
             $member->save();
             $this->session->set_userdata('member_id', $member->id);
