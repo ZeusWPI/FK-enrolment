@@ -5,7 +5,8 @@
     <meta name="language" content="nl">
     <meta name="author" content="FK Gent" />
     <title><?php echo $pageTitle; ?> &ndash; FaculteitenKonvent Gent</title>
-    <link rel="stylesheet" type="text/css" href="<?php echo site_url('assets/style.css'); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo site_url('assets/style.css'); ?>" media="screen,print">
+    <link rel="stylesheet" type="text/css" href="<?php echo site_url('assets/print.css'); ?>" media="print">
 </head>
 <body>
     <div id="header-wrapper"><div id="header">
@@ -13,7 +14,7 @@
     </div></div>
 
     <div id="main-wrapper"><div id="main" class="cols">
-        <div class="col col-6"><?php echo $contents; ?></div>
+        <div class="col col-7 col-main"><?php echo $contents; ?></div>
         <div class="col col-3 col-last">
             <h3>FK Sponsors</h3>
         </div>

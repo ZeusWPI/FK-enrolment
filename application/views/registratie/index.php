@@ -1,20 +1,18 @@
-<h2>Registreren</h2>
-
 <div class="cols">
     <p class="col col-2">
-        <img src="http://www.fkgent.be/intranet/schild/k.<?php echo $kring->kringname; ?>/h.180/w.110"
-             alt="<?php echo $kring->kort; ?>" class="image-center" />
+        <img src="http://www.fkgent.be/intranet/schild/k.<?php echo $kring->kringname; ?>/h.180/w.120"
+             alt="<?php echo $kring->kort; ?>" class="image-center image-header-offset" />
     </p>
-    <div class="col col-4 col-last">
+    <div class="col col-5 col-last">
+
+<h2>Inschrijven</h2>
 
 <p>Via deze website kan je je registreren als lid van de <em><?php echo $kring->lang; ?></em>, de
 <?php echo strtolower(substr($kring->descr, 0, 1)) . substr($kring->descr, 1); ?>.</p>
 
 <p>Is dit niet de juiste kring? Ga dan terug naar de <?php echo anchor('', 'startpagina'); ?>.</p>
 
-<h3>Registreren</h3>
-
-<p>Om te registreren heb je 2 keuzes: ofwel doe je dit met je UGentNet gebruikersnaam en wachtwoord,
+<p>Om te in te schrijven heb je 2 keuzes: ofwel doe je dit met je UGentNet gebruikersnaam en wachtwoord,
 ofwel geef je zelf het stamnummer in dat je op studentenkaart vindt.</p>
 
 <ul id="registration-selector">

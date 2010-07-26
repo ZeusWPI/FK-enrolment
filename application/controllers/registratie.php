@@ -55,10 +55,11 @@ class Registratie extends MY_Controller {
         $this->load->library('session');
         $this->determine_kring();
 
+        $member_id = $this->session->userdata('member_id');
         $this->template->set('pageTitle', 'Inschrijving succesvol');
         $this->template->load('layout', 'registratie/succes', array(
             'kring' => $this->kring,
-            'member_id' => $this->session->userdata('member_id')
+            'member_id' => Member::generate_barcode_nr($member_id)
         ));
     } 
         
@@ -83,8 +84,8 @@ class Registratie extends MY_Controller {
         } else {
             $this->kring->get_by_id($kring_id);
         }
-
-        if(count($this->kring->all) != 1) {
+        
+        if(count($this->kring->all) != 1 || !$this->kring->is_gui_enabled()) {
             show_404();
         }
     }

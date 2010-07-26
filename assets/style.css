@@ -62,7 +62,7 @@ table {
 body {
     font: 13px "trebuchet ms", helvetica, sans-serif;
     background-color: #fff;
-    color: #585858;
+    color: #383838;
 }
 
 #header-wrapper {
@@ -207,6 +207,10 @@ dd {
     margin: 0 auto;
 }
 
+.image-header-offset {
+    margin-top: 50px;
+}
+
 /**
  * Forms
  */
@@ -251,14 +255,13 @@ dl.form {
 .form dd {
     float: left;
     margin: 0;
-    max-width: 230px;
+    max-width: 335px;
 }
 
 .error {
     color: #E2001A;
     padding: 5px 0 10px 0;
     position: relative;
-    width: 250px;
 }
 
 .form-success {

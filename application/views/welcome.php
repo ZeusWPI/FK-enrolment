@@ -1,6 +1,6 @@
 <h2>Welkom</h2>
 
-<p>Kies de kring waarbij je je wil registreren.</p>
+<p>Kies de kring waarbij je je wil inschrijven.</p>
 
 <?php $i = 0; ?>
 <?php foreach($kringen as $kring) : ?>

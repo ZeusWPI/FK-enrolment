@@ -1,10 +1,10 @@
-<h2>Registreren via stamnummer</h2>
 <div class="cols">
     <p class="col col-2">
-    <img src="http://www.fkgent.be/intranet/schild/k.<?php echo $kring->kringname; ?>/h.180/w.110"
-             alt="<?php echo $kring->kort; ?>" class="image-center" />
+    <img src="http://www.fkgent.be/intranet/schild/k.<?php echo $kring->kringname; ?>/h.180/w.120"
+             alt="<?php echo $kring->kort; ?>" class="image-center image-header-offset" />
     </p>
-    <div class="col col-4 col-last">
+    <div class="col col-5 col-last">
+    <h2>Inschrijven met stamnummer</h2>
 
     <p>Vul onderstaand formulier in om je te registreren. Velden met een <em>*</em> zijn verplicht.</p>
 

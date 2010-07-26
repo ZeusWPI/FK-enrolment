@@ -1,0 +1,38 @@
+#header-wrapper, #main-wrapper {
+    background: #FFF;
+}
+
+#header, #main, #footer {
+    padding-bottom: 0;
+    margin: 0;
+}
+
+#header h1 {
+    margin-left: 42px;
+}
+
+#header h1 a {
+    color: #383838;
+    padding-left: 149px;
+}
+
+#main > .col {
+    visibility: hidden;
+}
+
+#main > .col.col-main {
+    visibility: visible;
+}
+
+#footer {
+    border: none;
+    padding: 5px 20px;
+}
+
+#footer p {
+    text-align: left;
+}
+
+.no-print {
+    display: none;
+}
