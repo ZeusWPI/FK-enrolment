@@ -1,3 +1,13 @@
+<?php
+function my_range($low, $high, $step = 1) {
+    $range = range($low, $high, $step);
+    return array_combine($range, $range);
+}
+function month_to_human($i) {
+    setlocale(LC_ALL, 'nl_NL.UTF-8');
+    return strftime("%b", mktime(0, 0, 0, $i, 1, 2000));
+}
+?>
 <div class="cols">
     <p class="col col-2">
     <img src="http://www.fkgent.be/intranet/schild/k.<?php echo $kring->kringname; ?>/h.180/w.120"
@@ -26,35 +36,27 @@
             <?php echo form_input('last_name', set_value('last_name')); ?>
             <?php echo form_error('last_name', '<div class="error">', '</div>'); ?>
         </dd>
-    </dl>
-    
-    <dl class="form">
-        <dt><?php echo form_label('E-mailadres:','email'); ?></dt>
+        <dt><?php echo form_label('E-mailadres:', 'email'); ?></dt>
         <dd>
             <?php echo form_input('email', set_value('email')); ?>
             <?php echo form_error('email', '<div class="error">', '</div>'); ?>
         </dd>
-        <dt><?php echo form_label('Geslacht','sex'); ?></dt>
+    </dl>
+
+    <dl class="form">
+        <dt><label>Geslacht: </label></dt>
         <dd>
-            <?php echo form_input('sex', set_value('sex')); ?>
+            <?php echo form_radio(array('name' => 'sex', 'id' => 'sex_m'),
+                    'm', set_value('sex') == 'm'), ' ', form_label('Man', 'sex_m'); ?>
+            <?php echo form_radio(array('name' => 'sex', 'id' => 'sex_f'),
+                    'f', set_value('sex') == 'f'), ' ', form_label('Vrouw', 'sex_f'); ?>
             <?php echo form_error('sex', '<div class="error">', '</div>'); ?>
         </dd>
-        <dt><?php echo form_label('Geboortejaar','year_of_birth'); ?></dt>
+        <dt><label>Geboortedatum: </label></dt>
         <dd>
-            <?php echo form_dropdown('year_of_birth', range(1900,2010), set_value('year_of_birth')); ?>
-            <?php echo form_error('year_of_birth', '<div class="error">', '</div>'); ?>
-        </dd>
- 
-        <dt><?php echo form_label('Geboortemaand','month_of_birth'); ?></dt>
-        <dd>
-            <?php echo form_dropdown('month_of_birth', range(01,12), set_value('year_of_birth')); ?>
-            <?php echo form_error('month_of_birth', '<div class="error">', '</div>'); ?>
-        </dd>
-
-        <dt><?php echo form_label('Geboortedag','day_of_birth'); ?></dt>
-        <dd>
-            <?php echo form_dropdown('day_of_birth', range(01,31), set_value('day_of_birth')); ?>
-            <?php echo form_error('day_of_birth', '<div class="error">', '</div>'); ?>
+            <?php echo form_dropdown('day_of_birth', my_range(01, 31), set_value('day_of_birth')); ?>
+            <?php echo form_dropdown('month_of_birth', array_map('month_to_human', my_range(01, 12)), set_value('month_of_birth')); ?>
+            <?php echo form_dropdown('year_of_birth', my_range(1900, 2010), set_value('year_of_birth', date('Y') - 18)); ?>
         </dd>
         <dt><?php echo form_label('GSM-nummer:', 'cellphone'); ?></dt>
         <dd>

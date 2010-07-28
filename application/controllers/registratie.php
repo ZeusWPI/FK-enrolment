@@ -22,39 +22,36 @@ class Registratie extends MY_Controller {
         $this->form_validation->set_rules('first_name', 'Voornaam', 'required');
         $this->form_validation->set_rules('last_name', 'Familienaam', 'required');
         $this->form_validation->set_rules('email', 'Emailadres', 'valid_email');
-        $this->form_validation->set_rules('cellphone', 'Telefoonnummer', 'callback_true');
-        $this->form_validation->set_rules('address_home', 'Thuisadres', 'callback_true');
-        $this->form_validation->set_rules('address_kot', 'kotadres', 'callback_true');
-        $this->form_validation->set_rules('sex', 'Geslacht', 'callback_true');
-
+        $this->form_validation->set_rules('cellphone', 'Telefoonnummer', '');
+        $this->form_validation->set_rules('address_home', 'Thuisadres', '');
+        $this->form_validation->set_rules('address_kot', 'kotadres', '');
+        $this->form_validation->set_rules('sex', 'Geslacht', 'callback_in_array[m,f]');
         $this->form_validation->set_rules('year_of_birth', 'Geboortejaar', 'is_natural');
         $this->form_validation->set_rules('month_of_birth', 'Geboortemaand', 'is_natural');
         $this->form_validation->set_rules('day_of_birth', 'Geboortedag', 'is_natural');
 
         if($this->form_validation->run() == false){
-            
-            $this->template->set('pageTitle', 'Inschrijven met ugent nr');
+            $this->template->set('pageTitle', 'Inschrijven met stamnummer');
             $this->template->load('layout', 'registratie/via-ugentnr', array(
                 'kring' => $this->kring
             ));
-
         } else {
             $member = new Member();
             $member->kring_id = $this->kring->id;
+            $member->ugent_nr = $this->input->post('ugent_nr');
             $member->first_name = $this->input->post('first_name');
             $member->last_name = $this->input->post('last_name');
             $member->email = $this->input->post('email');
-            $member->ugent_nr = $this->input->post('ugent_nr');
-            $member->ugent_login = $this->input->post('ugent_login');
+            
             $member->cellphone = $this->input->post('cellphone');
             $member->address_home = $this->input->post('address_home');
             $member->address_kot = $this->input->post('address_kot');
             $member->sex = $this->input->post('sex');
+
             $timestamp = mktime(0, 0, 0, $this->input->post('day_of_birth'),
                                          $this->input->post('month_of_birth'),
                                          $this->input->post('year_of_birth'));
             $member->date_of_birth = strftime('%Y', $timestamp);
-
 
             $member->save();
             $this->session->set_userdata('member_id', $member->id);
@@ -72,10 +69,11 @@ class Registratie extends MY_Controller {
             'kring' => $this->kring,
             'member_id' => Member::generate_barcode_nr($member_id)
         ));
-    } 
-        
-    public function callback_true() {
-        return true;
+    }
+
+    public function in_array($value, $range) {
+        $range = explode(',', $range);
+        return in_array($value, $range);
     }
 
     private function determine_kring() {
