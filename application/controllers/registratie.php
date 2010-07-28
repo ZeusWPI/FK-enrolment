@@ -12,6 +12,16 @@ class Registratie extends MY_Controller {
         ));
     }
 
+    public function via_cas() {
+        $this->load->library('phpCAS');
+        if(!phpCAS::isAuthenticated()) {
+            redirect('/home/login');
+        }
+        else {
+            echo "succes!";
+        }
+    }
+
     public function via_ugentnr() {
         $this->determine_kring();
 

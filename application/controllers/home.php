@@ -1,7 +1,7 @@
 <?php
 
 class Home extends MY_Controller {
-	function index() {
+	public function index() {
         $kringen = new Kring();
         $kringen->order_by('lang')->get_by_gui_enabled();
 
@@ -9,15 +9,19 @@ class Home extends MY_Controller {
         $this->template->load('layout', 'welcome', array('kringen' => $kringen->all));
 	}
 
-    function login() {
-        $this->load->library('phpCAS');
+    public function login() {
+        $this->load->library(array('phpCAS', 'session'));
 
-        phpCAS::client(CAS_VERSION_3_0,'login.ugent.be', 443, '', true, 'saml');
-        phpCAS::handleLogoutRequests(true, array('cas1.ugent.be','cas2.ugent.be','cas3.ugent.be','cas4.ugent.be'));
-        phpCAS::setExtraCurlOption(CURLOPT_SSLVERSION, 3);
-        phpCAS::setCasServerCACert('/etc/ssl/certs/ca-certificates.crt');
-        phpCAS::forceAuthentication();
-        
-        var_export(phpCAS::getAttributes());
+        if(!phpCAS::isAuthenticated()) {
+            $this->session->set_userdata('redirect_uri', $_SERVER['HTTP_REFERER']);
+            phpCAS::forceAuthentication();
+        } else {
+            redirect($this->session->userdata('redirect_uri'));
+        }
+    }
+
+    public function logout() {
+        $this->load->library('phpCAS');
+        phpCAS::logout();
     }
 }
