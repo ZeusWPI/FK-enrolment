@@ -52,7 +52,7 @@ class Registratie extends MY_Controller {
             $member->sex = $this->input->post('sex');
             $timestamp = mktime(0, 0, 0, $this->input->post('day_of_birth'),
                                          $this->input->post('month_of_birth'),
-                                         $this->input->post('year_of_birth'))
+                                         $this->input->post('year_of_birth'));
             $member->date_of_birth = strftime('%Y', $timestamp);
 
 
