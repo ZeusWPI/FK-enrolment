@@ -16,7 +16,7 @@
 ofwel geef je zelf het stamnummer in dat je op studentenkaart vindt.</p>
 
 <ul id="registration-selector">
-    <li><a href="<?php echo site_url('registratie/via-cas'); ?>">
+    <li><a href="<?php echo site_url('registratie/via_cas'); ?>">
         Ik ken mijn <em>UGentNet gebruikersnaam</em> en <em>wachtwoord</em> en wil
         daarmee registreren.
     </a></li>

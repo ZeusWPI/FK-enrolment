@@ -13,21 +13,50 @@ class Registratie extends MY_Controller {
     }
 
     public function via_cas() {
+        $this->determine_kring();
+        
         $this->load->library('phpCAS');
         if(!phpCAS::isAuthenticated()) {
             redirect('home/login?return=registratie/via_cas');
         }
-        else {
-            echo "succes!";
+
+        $attributes = phpCAS::getAttributes();
+        $_POST['ugent_nr'] = $attributes['ugentStudentID'];
+        $_POST['first_name'] = $attributes['givenname'];
+        $_POST['last_name'] = $attributes['surname'];
+        $_POST['email'] = $attributes['mail'];
+
+        if(!$this->validate_form()) {
+            $this->template->set('pageTitle', 'Inschrijven via CAS');
+            $this->template->load('layout', 'registratie/form', array(
+                'method' => 'CAS',
+                'kring' => $this->kring,
+                'cas' => $attributes
+            ));
+        } else {
+            redirect('/registratie/succes');
         }
     }
 
     public function via_ugentnr() {
         $this->determine_kring();
 
+        if(!$this->validate_form()) {
+            $this->template->set('pageTitle', 'Inschrijven via stamnummer');
+            $this->template->load('layout', 'registratie/form', array(
+                'method' => 'stamnummer',
+                'kring' => $this->kring
+            ));
+        } else {
+            redirect('/registratie/succes');
+        }
+    }
+
+    private function validate_form() {
         $this->load->helper(array('form', 'url', 'date'));
         $this->load->library(array('form_validation', 'session'));
 
+        $this->form_validation->set_rules('submit', '', 'required');
         $this->form_validation->set_rules('ugent_nr','Stamnummer', 'required|is_natural');
         $this->form_validation->set_rules('first_name', 'Voornaam', 'required');
         $this->form_validation->set_rules('last_name', 'Familienaam', 'required');
@@ -40,19 +69,14 @@ class Registratie extends MY_Controller {
         $this->form_validation->set_rules('month_of_birth', 'Geboortemaand', 'is_natural');
         $this->form_validation->set_rules('day_of_birth', 'Geboortedag', 'is_natural');
 
-        if($this->form_validation->run() == false){
-            $this->template->set('pageTitle', 'Inschrijven met stamnummer');
-            $this->template->load('layout', 'registratie/via-ugentnr', array(
-                'kring' => $this->kring
-            ));
-        } else {
+        if($this->form_validation->run() == true) {
             $member = new Member();
             $member->kring_id = $this->kring->id;
             $member->ugent_nr = $this->input->post('ugent_nr');
             $member->first_name = $this->input->post('first_name');
             $member->last_name = $this->input->post('last_name');
             $member->email = $this->input->post('email');
-            
+
             $member->cellphone = $this->input->post('cellphone');
             $member->address_home = $this->input->post('address_home');
             $member->address_kot = $this->input->post('address_kot');
@@ -65,7 +89,10 @@ class Registratie extends MY_Controller {
 
             $member->save();
             $this->session->set_userdata('member_id', $member->id);
-            redirect('/registratie/succes');
+            return true;
+        } else {
+            $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+            return false;
         }
     }
 
