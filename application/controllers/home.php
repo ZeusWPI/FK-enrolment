@@ -15,7 +15,9 @@ class Home extends MY_Controller {
         phpCAS::client(CAS_VERSION_3_0,'login.ugent.be', 443, '', true, 'saml');
         phpCAS::handleLogoutRequests(true, array('cas1.ugent.be','cas2.ugent.be','cas3.ugent.be','cas4.ugent.be'));
         phpCAS::setExtraCurlOption(CURLOPT_SSLVERSION, 3);
-        //phpCAS::setNoCasServerValidation();
+        phpCAS::setCasServerCACert('/etc/ssl/certs/ca-certificates.crt');
         phpCAS::forceAuthentication();
+        
+        var_export(phpCAS::getAttributes());
     }
 }
