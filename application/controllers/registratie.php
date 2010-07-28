@@ -15,7 +15,7 @@ class Registratie extends MY_Controller {
     public function via_cas() {
         $this->load->library('phpCAS');
         if(!phpCAS::isAuthenticated()) {
-            redirect('/home/login');
+            redirect('home/login?return=registratie/via_cas');
         }
         else {
             echo "succes!";

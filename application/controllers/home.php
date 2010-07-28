@@ -10,13 +10,12 @@ class Home extends MY_Controller {
 	}
 
     public function login() {
-        $this->load->library(array('phpCAS', 'session'));
+        $this->load->library('phpCAS');
 
         if(!phpCAS::isAuthenticated()) {
-            $this->session->set_userdata('redirect_uri', $_SERVER['HTTP_REFERER']);
             phpCAS::forceAuthentication();
         } else {
-            redirect($this->session->userdata('redirect_uri'));
+            redirect($this->input->get('return'));
         }
     }
 
