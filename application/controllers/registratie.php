@@ -30,8 +30,7 @@ class Registratie extends MY_Controller {
             $this->template->set('pageTitle', 'Inschrijven via CAS');
             $this->template->load('layout', 'registratie/form', array(
                 'method' => 'CAS',
-                'kring' => $this->kring,
-                'cas' => $attributes
+                'kring' => $this->kring
             ));
         } else {
             redirect('/registratie/succes');

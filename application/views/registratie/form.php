@@ -10,10 +10,6 @@ function month_to_human($i) {
 
 $is_cas = ($method == 'CAS');
 $disabled = $is_cas ? ' disabled="disabled"' : '';
-
-if(!$is_cas) {
-    $cas = array('ugentStudentID' => '', 'givenname' => '', 'surname' => '', 'mail' => '');
-}
 ?>
 <div class="cols">
     <p class="col col-2">
@@ -40,12 +36,12 @@ if(!$is_cas) {
         </dd>
         <dt><?php echo form_label('Familienaam<em>*</em>:', 'last_name'); ?></dt>
         <dd>
-            <?php echo form_input('last_name', set_value('first_name'), $disabled); ?>
+            <?php echo form_input('last_name', set_value('last_name'), $disabled); ?>
             <?php echo form_error('last_name'); ?>
         </dd>
         <dt><?php echo form_label('E-mailadres:', 'email'); ?></dt>
         <dd>
-            <?php echo form_input('email', set_value('first_name'), $disabled); ?>
+            <?php echo form_input('email', set_value('email'), $disabled); ?>
             <?php echo form_error('email'); ?>
         </dd>
     </dl>
@@ -73,13 +69,13 @@ if(!$is_cas) {
         <dt><?php echo form_label('Kotadres:','address_kot'); ?></dt>
         <dd>
             <?php echo form_textarea(array('name' => 'address_kot',
-                'rows' => 2, 'cols' => 20), set_value('address_kot')); ?>
+                'rows' => 2, 'cols' => 25), set_value('address_kot')); ?>
             <?php echo form_error('address_kot'); ?>
         </dd>
         <dt><?php echo form_label('Thuisadres:','address_home'); ?></dt>
         <dd>
             <?php echo form_textarea(array('name' => 'address_home',
-            'rows' => 2, 'cols' => 20), set_value('address_home')); ?>
+            'rows' => 2, 'cols' => 25), set_value('address_home')); ?>
             <?php echo form_error('address_home'); ?>
         </dd>
     </dl>
