@@ -39,8 +39,7 @@
         <p>Optioneel kan je ook ISIC Plus kaarten verkopen. Deze worden op naam gedrukt
             en kunnen dus niet onmiddelijk meegegeven worden (geef dus wel een FK-kaart mee!).</p>
 
-        <p>De ISIC Plus geeft talrijke kaarten aan studenten in binnen- en buitenland.
-            De kostprijs is EUR 3 en dient direct geïnd te worden (dit kan anders geregeld
+        <p>Deze kaart kost 3 euro en dient direct betaald te worden (dit kan anders geregeld
             zijn binnen je kring).</p>
 
         <dl class="form">

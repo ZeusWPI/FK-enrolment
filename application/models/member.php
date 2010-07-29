@@ -37,12 +37,14 @@ class Member extends DataMapper {
     }
 
     public function get_by_barcode_nr($barcode_nr) {
+        $barcode_nr = substr($barcode_nr, -12);
+
         // verify the code
-        $base = substr((int)$barcode_nr, 0, 6);
-        $delta = $base + substr((int)$barcode_nr, 6, 6);
+        $base = substr($barcode_nr, 6, 6);
+        $delta = $base + substr($barcode_nr, 0, 6);
 
         if($delta == Member::BARCODE_BASE) {
-            return $this->get_by_id($base);
+            return $this->get_by_id((int)$base);
         } else {
             return $this;
         }

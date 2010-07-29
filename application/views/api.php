@@ -37,7 +37,7 @@ be stored by the receiver and used later in the card association.</p>
      </ul></dd>
      <dt>Returns</dt>
      <dd><ul>
-        <li>member_id <i>(integer)</i></li>
+        <li>barcode <i>(string)</i></li>
      </ul></dd>
 </dl>
 

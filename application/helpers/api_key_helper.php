@@ -7,8 +7,6 @@ function generate_api_key($kring_id) {
     return substr(sha1('zeus-wpi' . $kring_id . rand()), 0, 12);
 }
 
-log_message('error', generate_api_key(2));
-
 function get_api_key($kring_id) {
     $CI =& get_instance();
 	if(empty($CI->db)) $CI->load->database();

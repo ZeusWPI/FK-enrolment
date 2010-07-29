@@ -25,10 +25,7 @@ class AssociatedCard extends DataMapper {
         $member = new Member();
         $member->get_by_id($this->member_id);
 
-        log_message('error', $kring_id);
-        log_message('error', $member->kring_id);
-
-        if($member->count() != 1 || $member->kring_id != $kring_id) {
+        if($member->count() == 0 || $member->kring_id != $kring_id) {
             $error = $this->lang->line('invalid_access_for_kring');
             $this->error_message('member_id', sprintf($error, 'member id'));
             $this->valid = false;

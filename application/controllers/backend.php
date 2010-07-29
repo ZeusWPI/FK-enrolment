@@ -95,9 +95,55 @@ class Backend extends MY_Controller {
         $this->determine_kring();
         $this->template->set('pageTitle', 'Leden &ndash; Kaarten toewijzen');
 
+        $this->form_validation->set_rules('ugent_nr', 'Stamnummer', 'is_natural');
+        $this->form_validation->set_rules('barcode', 'Barcode',
+                'is_natural|trim|exact_length[13]|callback_barcode_or_ugent_nr');
+        $this->form_validation->set_rules('card_id', 'Kaartnummer', 'required|is_natural');
+        $this->form_validation->set_rules('isic', 'ISIC-kaart', '');
+
+
+        $valid = $this->form_validation->run();
+        if($valid) {
+            // validate member
+            $member = new Member();
+            $member->where('kring_id', $this->kring->id);
+            if(!empty($_POST['ugent_nr'])) {
+                $member->get_by_ugent_nr($_POST['ugent_nr']);
+            } else {
+                $member->get_by_barcode_nr($_POST['barcode']);
+            }
+
+            if(count($member->all) == 0) {
+                $this->form_validation->_field_data['barcode']['error'] = 'De ingegeven code is niet geldig.';
+                $valid = false;
+            }
+        }
+
+        if($valid) {
+            // @TODO: check if a card was already associated
+
+            $member->log($member->id, 'web', 'associated card #' . $_POST['card_id']);
+            $card = new AssociatedCard();
+            $card->member_id = $member->id;
+            $card->card_id = $_POST['card_id'];
+            $card->academic_year = $this->config->item('academic_year');
+            $card->status = $_POST['isic'] != 1 ? 'payed' : 'payed+isic';
+            $card->validate($this->kring->id);
+            $card->save();
+
+            // @TODO: show notice
+        }
+
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
         $this->template->load('layout', 'backend/kaarten', array(
             'kring' => $this->kring
         ));
+    }
+
+    public function barcode_or_ugent_nr($field, $param) {
+        $field = $this->form_validation->set_value('barcode');
+        $param = $this->form_validation->set_value('ugent_nr');
+        return !empty($field) || !empty($param);
     }
 
     private function determine_kring() {
