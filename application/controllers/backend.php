@@ -91,6 +91,15 @@ class Backend extends MY_Controller {
         ));
     }
 
+    public function kaarten() {
+        $this->determine_kring();
+        $this->template->set('pageTitle', 'Leden &ndash; Kaarten toewijzen');
+
+        $this->template->load('layout', 'backend/kaarten', array(
+            'kring' => $this->kring
+        ));
+    }
+
     private function determine_kring() {
         // @TODO perform authentication here
         $this->kring = new Kring();

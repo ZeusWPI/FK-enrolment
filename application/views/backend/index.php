@@ -11,6 +11,7 @@
         <ul>
             <li><?php echo anchor('/backend/instellingen', 'Kringinstellingen'); ?></li>
             <li><?php echo anchor('/backend/leden', 'Ledenbeheer'); ?>: import, export, &hellip;</li>
+            <li><?php echo anchor('/backend/kaarten', 'Kaarten toewijzen'); ?></li>
         </ul>
     </div>
 </div>
