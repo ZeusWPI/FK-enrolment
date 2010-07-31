@@ -16,9 +16,7 @@ class Registratie extends MY_Controller {
         $this->determine_kring();
         
         $this->load->library('phpCAS');
-        if(!phpCAS::isAuthenticated()) {
-            redirect('home/login?return=registratie/via_cas');
-        }
+        phpCAS::forceAuthentication();
 
         $attributes = phpCAS::getAttributes();
         $_POST['ugent_nr'] = $attributes['ugentStudentID'];

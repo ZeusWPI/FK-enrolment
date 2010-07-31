@@ -17,6 +17,9 @@
     </div>
 </div>
 
+<!-- Sneaky way to perform CAS logout when finished -->
+<iframe src="<?php echo site_url('/home/logout'); ?>" style="display: none;"></iframe>
+
 <style type="text/css">
 #barcode {
     padding: 20px;
