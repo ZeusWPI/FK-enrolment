@@ -1,8 +1,20 @@
 TODO-items:
 
 - Extra logging toevoegen
-- TODO's afwerken bij koppelen kaarten
-- Export/import in backend
-- Extra properties/Velden verplicht maken per kring
-- ISIC heeft extra gegevens nodig?
-- success message moet per kring => configureerbaar
+- E-mailadres verplicht maken on-site (niet via API)
+- Koppelen kaarten
+    o Interactiever maken: 1ste scherm opzoeken > 2de scherm kaart toevoegen > ...
+    o Opzoeken op naam
+    o TODO's afwerken (zie code)
+- Ledenbeheer
+    o Export/import van gegevens
+    o Extra velden/velden verplicht maken
+- Kringinstellingen
+    o Tekst ISIC
+    o Succes message
+- ISIC
+    o 2de pagina na registratie met keuze voor ISIC
+      = knoppen "Ja, ik wil een ISIC-kaart", "Nee, ik wil geen kaart"
+    o Integratie met registratiesysteem ISIC
+      = na koppelen kaart, redirect naar ISIC-site met extra gegevens
+        in URL, daar wordt via eID de overige gegevens uitgelezen.
