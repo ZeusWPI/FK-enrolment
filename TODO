@@ -19,3 +19,4 @@ TODO-items:
     o Integratie met registratiesysteem ISIC
       = na koppelen kaart, redirect naar ISIC-site met extra gegevens
         in URL, daar wordt via eID de overige gegevens uitgelezen.
+- Backend: integratie met FK-backend
