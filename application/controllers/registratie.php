@@ -31,7 +31,7 @@ class Registratie extends MY_Controller {
                 'kring' => $this->kring
             ));
         } else {
-            redirect('/registratie/succes');
+            redirect('/registratie/isic');
         }
     }
 
@@ -45,7 +45,7 @@ class Registratie extends MY_Controller {
                 'kring' => $this->kring
             ));
         } else {
-            redirect('/registratie/succes');
+            redirect('/registratie/isic');
         }
     }
 
@@ -91,6 +91,41 @@ class Registratie extends MY_Controller {
             $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
             return false;
         }
+    }
+
+    public function isic() {
+        $this->determine_kring();
+
+        if(!$this->validate_isic()) {
+            $this->template->set('pageTitle', 'Registratie ISIC kaart');
+            $this->template->load('layout', 'registratie/isic', array(
+                'kring' => $this->kring
+            ));
+        } else {
+            redirect('registratie/succes');
+        }
+    }
+
+    private function validate_isic() {
+        /* Get member by id */
+        $member_id = $this->session->userdata('member_id');
+        $member = new Member();
+        $member->get_by_id($member_id);
+
+        /* Store isic data */
+        if(count($member->all) > 0) {
+            if(isset($_POST['isic_true'])) {
+                $member->isic = 'true';
+                $member->save();
+                return true;
+            } elseif(isset($_POST['isic_false'])) {
+                $member->isic = 'false';
+                $member->save();
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function succes() {

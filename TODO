@@ -14,6 +14,8 @@ TODO-items:
 - ISIC
     o 2de pagina na registratie met keuze voor ISIC
       = knoppen "Ja, ik wil een ISIC-kaart", "Nee, ik wil geen kaart"
+      -> Enkel nog uitbreiden van deze form met deftige uitleg en kijken of
+         de isic kaarten aan de kring gekoppeld zijn?
     o Integratie met registratiesysteem ISIC
       = na koppelen kaart, redirect naar ISIC-site met extra gegevens
         in URL, daar wordt via eID de overige gegevens uitgelezen.
