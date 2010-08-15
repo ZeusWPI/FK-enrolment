@@ -1,7 +1,6 @@
 TODO-items:
 
 - Extra logging toevoegen
-- E-mailadres verplicht maken on-site (niet via API)
 - Koppelen kaarten
     o Interactiever maken: 1ste scherm opzoeken > 2de scherm kaart toevoegen > ...
     o Opzoeken op naam

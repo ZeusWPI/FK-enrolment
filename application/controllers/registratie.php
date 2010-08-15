@@ -57,7 +57,7 @@ class Registratie extends MY_Controller {
         $this->form_validation->set_rules('ugent_nr','Stamnummer', 'required|is_natural');
         $this->form_validation->set_rules('first_name', 'Voornaam', 'required');
         $this->form_validation->set_rules('last_name', 'Familienaam', 'required');
-        $this->form_validation->set_rules('email', 'Emailadres', 'valid_email');
+        $this->form_validation->set_rules('email', 'Emailadres', 'required|valid_email');
         $this->form_validation->set_rules('cellphone', 'Telefoonnummer', '');
         $this->form_validation->set_rules('address_home', 'Thuisadres', '');
         $this->form_validation->set_rules('address_kot', 'kotadres', '');

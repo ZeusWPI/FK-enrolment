@@ -39,7 +39,7 @@ $disabled = $is_cas ? ' disabled="disabled"' : '';
             <?php echo form_input('last_name', set_value('last_name'), $disabled); ?>
             <?php echo form_error('last_name'); ?>
         </dd>
-        <dt><?php echo form_label('E-mailadres:', 'email'); ?></dt>
+        <dt><?php echo form_label('E-mailadres<em>*</em>:', 'email'); ?></dt>
         <dd>
             <?php echo form_input('email', set_value('email'), $disabled); ?>
             <?php echo form_error('email'); ?>
