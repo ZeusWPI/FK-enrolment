@@ -25,7 +25,6 @@ be stored by the receiver and used later in the card association.</p>
     <dd>POST</dd>
     <dt>Parameters</dt>
     <dd><ul>
-        <li>kring_id <i>(integer, required)</i></li>
         <li>first_name <i>(string, required)</i></li>
         <li>last_name <i>(string, required)</i></li>
         <li>email <i>(string, optional if ugent_nr is provided)</i></li>
