@@ -17,6 +17,12 @@
         <div class="col col-7 col-main"><?php echo $contents; ?></div>
         <div class="col col-3 col-last">
             <h3>FK Sponsors</h3>
+            <p><a href="http://www.kbc.be/jongeren/">
+                <img src="<?php echo site_url('assets/kbc.jpg'); ?>" />
+            </a></p>
+            <p><a href="http://www.story.be/">
+                <img src="<?php echo site_url('assets/story.jpg'); ?>" />
+            </a></p>
         </div>
     </div></div>
 
