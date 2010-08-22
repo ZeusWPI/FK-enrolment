@@ -2,9 +2,9 @@ TODO-items:
 
 - Extra logging toevoegen
 - Koppelen kaarten
-    o Interactiever maken: 1ste scherm opzoeken > 2de scherm kaart toevoegen > ...
     o Opzoeken op naam
     o TODO's afwerken (zie code)
+    o Opvangen dubbele records: what if meer dan 1 persoon met een bep. ugentnr
 - Ledenbeheer
     o Export/import van gegevens
     o Extra velden/velden verplicht maken

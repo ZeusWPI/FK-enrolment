@@ -16,15 +16,14 @@
                 <?php echo form_checkbox('enable_gui', 1, set_value('enable_gui', $settings->enable_gui) == 1); ?>
                 <?php echo form_error('enable_gui', '<div class="error">', '</div>'); ?>
             </dd>
-            <dt><?php echo form_label('APi actief?:', 'enable_gui'); ?></dt>
+            <dt><?php echo form_label('API actief?:', 'enable_gui'); ?></dt>
             <dd>
                 <?php echo form_checkbox('enable_api', 1, set_value('enable_api', $settings->enable_api) == 1); ?>
                 <?php echo form_error('enable_api', '<div class="error">', '</div>'); ?>
             </dd>
             <dt><?php echo form_label('API-sleutel:', 'api_key'); ?></dt>
             <dd>
-                <?php echo form_input('api_key', set_value('api_key', $settings->api_key)); ?>
-                <?php echo form_error('api_key', '<div class="error">', '</div>'); ?>
+                <?php echo $settings->api_key; ?>
             </dd>
         </dl>
 
