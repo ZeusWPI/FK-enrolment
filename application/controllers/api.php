@@ -54,6 +54,7 @@ class Api extends REST_Controller {
             'status' => $member->valid ? 'OK' : 'ERROR',
             'errors' => array_map('strip_tags', $member->error->all),
             'return' => $member->valid ? array(
+                'member_id' => $member->id,
                 'barcode' => Member::generate_barcode_nr($member->id)
             ) : array()
         ), 200); // 200 being the HTTP response code
