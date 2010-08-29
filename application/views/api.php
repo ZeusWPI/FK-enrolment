@@ -30,6 +30,8 @@ be stored by the receiver and used later in the card association.</p>
         <li>email <i>(string, optional if ugent_nr is provided)</i></li>
         <li>ugent_nr <i>(string, optional if email is provided)</i></li>
         <li>ugent_login <i>(string, optional)</i></li>
+        <li>sex <i>(string 'm' or 'v', optional)</i></li>
+        <li>date_of_birth <i>(string, format: 'yyyy-mm-dd', optional)</i></li>
         <li>cellphone <i>(string, optional)</i></li>
         <li>address_home <i>(string, optional)</i></li>
         <li>address_kot <i>(string, optional)</i></li>

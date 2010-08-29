@@ -11,7 +11,7 @@ class Api extends REST_Controller {
         $this->lang->is_loaded = array();
         $this->load->language(array('datamapper', 'form_validation', 'custom'));
     }
-    
+
     public function index_get() {
         $this->template->set('pageTitle', 'FK-enrolment API documentation');
         $this->template->load('layout', 'api');
@@ -42,6 +42,8 @@ class Api extends REST_Controller {
         $member->cellphone = $this->post('cellphone');
         $member->address_home = $this->post('address_home');
         $member->address_kot = $this->post('address_kot');
+        $member->sex = $this->post('sex');
+        $member->date_of_birth = $this->post('date_of_birth');
 
         if($member->validate()->valid) {
             $member->save();
