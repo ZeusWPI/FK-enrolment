@@ -1526,9 +1526,10 @@ class CASClient
 		}
 		if ( sizeof($arr = $tree_response->get_elements_by_tagname("Conditions")) != 0)
 		{
-			$not_before = date_parse($arr[0]->get_attribute('NotBefore'));
-			$not_after = date_parse($arr[0]->get_attribute('NotOnOrAfter'));
-			if(time() < mktime(($not_before['hour'] + (date('O') / 100)) /* add the correct timezone offset */, $not_before['minute'], $not_before['second'], $not_before['month'], $not_before['day'], $not_before['year']))
+			$not_before = strtotime($arr[0]->get_attribute('NotBefore'));
+			$not_after = strtotime($arr[0]->get_attribute('NotOnOrAfter'));
+			
+			if(time() < $not_before)
 			{
 				$this->authError('XML validated but timeframe incorrect (ticket not valid yet)',
 					$validate_url,
@@ -1536,7 +1537,7 @@ class CASClient
 					TRUE/*$bad_response*/,
 					$xml_response);		
 			}
-			if(time() >= mktime(($not_after['hour'] + (date('O') / 100)) , $not_after['minute'], $not_after['second'], $not_after['month'], $not_after['day'], $not_after['year']))
+			if(time() >= $not_after)
 			{
 				$this->authError('XML validated but timeframe incorrect (ticket no longer valid)',
 					$validate_url,

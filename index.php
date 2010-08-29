@@ -1,6 +1,6 @@
 <?php
 
-define('DEBUG', true);
+define('DEBUG', false);
 
 /*
 |---------------------------------------------------------------
@@ -109,6 +109,18 @@ else
 
 	define('APPPATH', BASEPATH.$application_folder.'/');
 }
+
+/*
+PHP 5.1.2 compat
+*/
+
+if(!function_exists('date_parse')) {
+	function date_parse($input) { 
+		$output = getdate(strtotime($input));
+		return array('year' => $output['year'], 'month' => $output['mon'], 'day' =>  $output['mday'], 'hour' => $output['hours'], 'minute' => $output['minutes'], 'second' => $output['seconds']);
+	}
+}
+
 
 /*
 |---------------------------------------------------------------

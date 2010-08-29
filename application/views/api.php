@@ -18,7 +18,8 @@ provided as a URL parameter, whatever the request type may be. An example URL is
 <h3>add_member</h3>
 
 <p>Register a new member and him to the FK database. The return value <code>member_id</code> should
-be stored by the receiver and used later in the card association.</p>
+be stored by the receiver and used later in the card association. The <code>barcode</code>
+can be used to generate barcodes which can be scanned and used in the application backend.</p>
 
 <dl>
     <dt>Type</dt>
@@ -38,6 +39,7 @@ be stored by the receiver and used later in the card association.</p>
      </ul></dd>
      <dt>Returns</dt>
      <dd><ul>
+        <li>member_id <i>(string)</i></li>
         <li>barcode <i>(string)</i></li>
      </ul></dd>
 </dl>

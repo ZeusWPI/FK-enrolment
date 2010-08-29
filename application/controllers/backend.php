@@ -40,7 +40,6 @@ class Backend extends MY_Controller {
 
         $this->form_validation->set_rules('enable_gui', 'Website actief?', 'is_natural');
         $this->form_validation->set_rules('enable_api', 'API actief?', 'is_natural');
-        $this->form_validation->set_rules('api_key', 'API-sleutel', 'required|exact_length[12]');
 
         if($this->form_validation->run() == false) {
             $this->template->set('pageTitle', 'Instellingen &ndash; Backend');
@@ -51,9 +50,9 @@ class Backend extends MY_Controller {
         } else {
             $settings->enable_gui = (int)$this->input->post('enable_gui');
             $settings->enable_api = (int)$this->input->post('enable_api');
-            $settings->api_key = $this->input->post('api_key');
             $settings->save();
             redirect('/backend');
+            
             // @TODO display succes message
         }
     }

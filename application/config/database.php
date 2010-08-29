@@ -43,12 +43,25 @@ $db['default']['password'] = "root";
 $db['default']['database'] = "fk-enrolment";
 $db['default']['dbdriver'] = "mysql";
 $db['default']['dbprefix'] = "";
-$db['default']['pconnect'] = TRUE;
-$db['default']['db_debug'] = TRUE;
-$db['default']['cache_on'] = FALSE;
+$db['default']['pconnect'] = FALSE;
+$db['default']['db_debug'] = DEBUG;
+$db['default']['cache_on'] = TRUE;
 $db['default']['cachedir'] = "";
 $db['default']['char_set'] = "utf8";
 $db['default']['dbcollat'] = "utf8_general_ci";
+
+$db['fk_intranet']['hostname'] = "localhost";
+$db['fk_intranet']['username'] = "root";
+$db['fk_intranet']['password'] = "root";
+$db['fk_intranet']['database'] = "fkweb";
+$db['fk_intranet']['dbdriver'] = "mysql";
+$db['fk_intranet']['dbprefix'] = "";
+$db['fk_intranet']['pconnect'] = FALSE;
+$db['fk_intranet']['db_debug'] = DEBUG;
+$db['fk_intranet']['cache_on'] = TRUE;
+$db['fk_intranet']['cachedir'] = "";
+$db['fk_intranet']['char_set'] = "utf8";
+$db['fk_intranet']['dbcollat'] = "utf8_general_ci";
 
 
 /* End of file database.php */
