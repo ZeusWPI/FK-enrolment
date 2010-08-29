@@ -28,7 +28,7 @@ function api_key_verify($key) {
     $settings = new KringSetting();
     $settings->get_where(array(
         'enable_api' => 1,
-        'api_key' => $key
+        'api_key' => (string) $key
     ));
 
     return count($settings->all) == 1 ? $settings->kring_id : -1;
