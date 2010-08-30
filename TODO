@@ -9,15 +9,17 @@ TODO-items:
     o Export/import van gegevens
     o Extra velden/velden verplicht maken
 - Kringinstellingen
-    o Tekst ISIC
-    o Succes message
+    o Tekst ISIC/Voorkeur ISIC
+    o Succes message (barcode hier ook in opnemen)
+    o Extra velden per kring (niet prioritair)
 - ISIC
     o 2de pagina na registratie met keuze voor ISIC
       = knoppen "Ja, ik wil een ISIC-kaart", "Nee, ik wil geen kaart"
       -> Enkel nog uitbreiden van deze form met deftige uitleg en kijken of
          de isic kaarten aan de kring gekoppeld zijn?
+      -> Voorkeur voor ISIC-nieuwsbrief
     o Integratie met registratiesysteem ISIC
-      = na koppelen kaart, redirect naar ISIC-site met extra gegevens
-        in URL, daar wordt via eID de overige gegevens uitgelezen.
+      = [copy] voorzien van e-mail + nieuwsbriefvookeur kaartnr|0|mail@host.be
 - Backend: integratie met FK-backend
 - Beveiliging: OAuth implementeren
+- Registratie via e-mailadres
