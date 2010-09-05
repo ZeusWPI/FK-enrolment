@@ -13,15 +13,16 @@ class Backend extends MY_Controller {
     }
 
     public function aanmelden() {
-        // @TODO perform real authentication
-        if($this->input->post('submit')) {
+        $this->load->helper('auth_helper');
+        $kringId = auth_user($this->input->get('sessionId'));
+
+        if($kringId == -1) {
+            show_error('Access disallowed', 403);
+        } else {
             $this->load->library('session');
-            $this->session->set_userdata('backend_kring_id', 28);
+            $this->session->set_userdata('backend_kring_id', $kringId);
             redirect('/backend');
         }
-
-        $this->template->set('pageTitle', 'Aanmelden &ndash; Backend');
-        $this->template->load('layout', 'backend/aanmelden');
     }
 
     public function instellingen() {
