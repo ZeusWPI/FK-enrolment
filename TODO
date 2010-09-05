@@ -1,25 +1,25 @@
-TODO-items:
-
-- Extra logging toevoegen
+High priority:
+- Backend: integratie met FK-backend
 - Koppelen kaarten
     o Opzoeken op naam
     o TODO's afwerken (zie code)
     o Opvangen dubbele records: what if meer dan 1 persoon met een bep. ugentnr
 - Ledenbeheer
     o Export/import van gegevens
-    o Extra velden/velden verplicht maken
 - Kringinstellingen
     o Tekst ISIC/Voorkeur ISIC
     o Succes message (barcode hier ook in opnemen)
-    o Extra velden per kring (niet prioritair)
 - ISIC
     o 2de pagina na registratie met keuze voor ISIC
       = knoppen "Ja, ik wil een ISIC-kaart", "Nee, ik wil geen kaart"
-      -> Enkel nog uitbreiden van deze form met deftige uitleg en kijken of
-         de isic kaarten aan de kring gekoppeld zijn?
+      -> Uitleg ISIC integreren
+      -> Koppelen aan kringinstellingen voor ISIC
       -> Voorkeur voor ISIC-nieuwsbrief
     o Integratie met registratiesysteem ISIC
       = [copy] voorzien van e-mail + nieuwsbriefvookeur kaartnr|0|mail@host.be
-- Backend: integratie met FK-backend
-- Beveiliging: OAuth implementeren
 - Registratie via e-mailadres
+
+Nice to have:
+- Beveiliging: OAuth implementeren
+- Extra logging toevoegen
+- Extra velden/velden verplicht maken
