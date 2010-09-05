@@ -455,7 +455,7 @@ class REST_Controller extends Controller
             // if there is another array found recrusively call this function
             if (is_array($value) || is_object($value))
             {
-                $node = $structure->addChild($key);
+                $node = simplexml_addChild($structure, $key);
                 // recrusive call.
                 $this-> _format_xml($value, $node, $basenode);
             }
@@ -467,7 +467,7 @@ class REST_Controller extends Controller
 
                 $UsedKeys[] = $key;
 
-                $structure->addChild($key, $value);
+                simplexml_addChild($structure, $key, $value);
             }
 
         }
