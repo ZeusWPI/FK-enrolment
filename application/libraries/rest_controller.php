@@ -424,7 +424,7 @@ class REST_Controller extends Controller
     // FORMATING FUNCTIONS ---------------------------------------------------------
 
     // Format XML for output
-    private function _format_xml($data = array(), $structure = NULL, $basenode = 'xml')
+    private function _format_xml($data = array(), $doc = NULL, $node = NULL, $basenode = 'xml')
     {
         // turn off compatibility mode as simple xml throws a wobbly if you don't.
         if (ini_get('zend.ze1_compatibility_mode') == 1)
@@ -432,9 +432,11 @@ class REST_Controller extends Controller
             ini_set ('zend.ze1_compatibility_mode', 0);
         }
 
-        if ($structure == NULL)
+        if ($doc == NULL)
         {
-            $structure = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><$basenode />");
+            $doc = new DOMDocument('1.0', 'utf-8');
+            $node = $doc->createElement($basenode);
+            $doc->appendChild($node);
         }
 
         // loop through the data passed in.
@@ -455,30 +457,29 @@ class REST_Controller extends Controller
             // if there is another array found recrusively call this function
             if (is_array($value) || is_object($value))
             {
-                $node = simplexml_addChild($structure, $key);
+                $child = $doc->createElement($key);
+                $node->appendChild($child);
                 // recrusive call.
-                $this-> _format_xml($value, $node, $basenode);
+                $this->_format_xml($value, $doc, $child, $basenode);
             }
             else
             {
                 // add single node.
-
                 $value = htmlentities($value, ENT_NOQUOTES, "UTF-8");
 
-                $UsedKeys[] = $key;
-
-                simplexml_addChild($structure, $key, $value);
+                $child = $doc->createElement($key, $value);
+                $node->appendChild($child);
             }
 
         }
 
         // pass back as string. or simple xml object if you want!
-        return $structure->asXML();
+        return $doc->saveXML();
     }
 
 
     // Format Raw XML for output
-    private function _format_rawxml($data = array(), $structure = NULL, $basenode = 'xml')
+    private function _format_rawxml($data = array(), $doc = NULL, $node = NULL, $basenode = 'xml')
     {
         // turn off compatibility mode as simple xml throws a wobbly if you don't.
         if (ini_get('zend.ze1_compatibility_mode') == 1)
@@ -486,9 +487,11 @@ class REST_Controller extends Controller
             ini_set ('zend.ze1_compatibility_mode', 0);
         }
 
-        if ($structure == NULL)
+        if ($doc == NULL)
         {
-            $structure = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><$basenode />");
+            $doc = new DOMDocument('1.0', 'utf-8');
+            $node = $doc->createElement($basenode);
+            $doc->appendChild($node);
         }
 
         // loop through the data passed in.
@@ -509,25 +512,24 @@ class REST_Controller extends Controller
             // if there is another array found recrusively call this function
             if (is_array($value) || is_object($value))
             {
-                $node = $structure->addChild($key);
+                $child = $doc->createElement($key);
+                $node->appendChild($child);
                 // recrusive call.
-                $this->_format_rawxml($value, $node, $basenode);
+                $this->_format_rawxml($value, $doc, $child, $basenode);
             }
             else
             {
                 // add single node.
-
                 $value = htmlentities($value, ENT_NOQUOTES, "UTF-8");
 
-                $UsedKeys[] = $key;
-
-                $structure->addChild($key, $value);
+                $child = $doc->createElement($key, $value);
+                $node->appendChild($child);
             }
 
         }
 
         // pass back as string. or simple xml object if you want!
-        return $structure->asXML();
+        return $doc->saveXML();
     }
 
     // Format HTML for output
