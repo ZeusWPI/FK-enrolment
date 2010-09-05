@@ -23,6 +23,9 @@
             <p><a href="http://www.story.be/">
                 <img src="<?php echo site_url('assets/story.jpg'); ?>" />
             </a></p>
+            <p><a href="http://www.aao-optiek.be/">
+                <img src="<?php echo site_url('assets/aao.jpg'); ?>" />
+            </a></p>
         </div>
     </div></div>
 
