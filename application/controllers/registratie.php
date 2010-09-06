@@ -2,6 +2,7 @@
 
 class Registratie extends MY_Controller {
     private $kring;
+    private $settings;
 
     public function index() {
         $this->determine_kring();
@@ -96,10 +97,17 @@ class Registratie extends MY_Controller {
     public function isic() {
         $this->determine_kring();
 
+        $this->settings = new KringSetting();
+        $this->settings->get_by_kring_id($this->kring->id);
+        if($this->settings->isic == 'no') {
+            return redirect('registratie/succes');
+        }
+        
         if(!$this->validate_isic()) {
             $this->template->set('pageTitle', 'Registratie ISIC kaart');
             $this->template->load('layout', 'registratie/isic', array(
-                'kring' => $this->kring
+                'kring' => $this->kring,
+                'allow_choice' => ($this->settings->isic == 'maybe'),
             ));
         } else {
             redirect('registratie/succes');
@@ -114,7 +122,7 @@ class Registratie extends MY_Controller {
 
         /* Store isic data */
         if(count($member->all) > 0) {
-            if(isset($_POST['isic_true'])) {
+            if(isset($_POST['isic_true']) || $this->settings->isic == 'yes') {
                 $member->isic = 'true';
                 $member->save();
                 return true;

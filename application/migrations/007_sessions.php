@@ -7,7 +7,7 @@ class Sessions {
         $CI =& get_instance();
         $CI->load->database();
 
-        echo "Creatintg table 'sessions'", "<br />";
+        echo "Creating table 'sessions'", "<br />";
         $CI->db->query("CREATE TABLE IF NOT EXISTS  `sessions` (
 session_id varchar(40) DEFAULT '0' NOT NULL,
 ip_address varchar(16) DEFAULT '0' NOT NULL,
