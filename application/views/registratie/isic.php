@@ -13,6 +13,12 @@
     <?php echo form_open(uri_string()); ?>
 
     <p>
+        <?php echo form_checkbox(array('name' => 'isic_newsletter', 'id' => 'newsletter'),
+            'yes', set_value('isic_newsletter', 'yes') == 'yes'); ?>
+        <?php echo form_label('Ja, ik wil de ISIC nieuwsbrief ontvangen.', 'newsletter'); ?>
+    </p>
+
+    <p>
     <?php if($allow_choice) : ?>
         <?php echo form_submit('isic_true', 'Ja, ik wens een ISIC kaart'); ?>
         <?php echo form_submit('isic_false', 'Nee, ik wens geen ISIC kaart'); ?>

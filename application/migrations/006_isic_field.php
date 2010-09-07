@@ -9,7 +9,7 @@ class Isic_field {
 
         echo "Adding column 'isic'", "<br />";
         $CI->db->query("ALTER TABLE `members` ADD `isic` ENUM('true', 'false') ".
-                "NULL DEFAULT NULL");
+                "NOT NULL DEFAULT 'false'");
     }
 
     function down() {

@@ -5,17 +5,9 @@ High priority:
     o Opvangen dubbele records: what if meer dan 1 persoon met een bep. ugentnr
 - Ledenbeheer
     o Export/import van gegevens
-- Kringinstellingen
-    o Tekst ISIC/Voorkeur ISIC
-    o Succes message (barcode hier ook in opnemen)
 - ISIC
-    o 2de pagina na registratie met keuze voor ISIC
-      = knoppen "Ja, ik wil een ISIC-kaart", "Nee, ik wil geen kaart"
-      -> Uitleg ISIC integreren
-      -> Koppelen aan kringinstellingen voor ISIC
-      -> Voorkeur voor ISIC-nieuwsbrief
     o Integratie met registratiesysteem ISIC
-      = [copy] voorzien van e-mail + nieuwsbriefvookeur kaartnr|0|mail@host.be
+      - [copy] voorzien van e-mail + nieuwsbriefvookeur kaartnr|0|mail@host.be
 - Registratie via e-mailadres
 
 Nice to have:

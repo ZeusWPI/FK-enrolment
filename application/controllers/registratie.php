@@ -121,16 +121,18 @@ class Registratie extends MY_Controller {
 
         /* Store isic data */
         if(count($member->all) > 0) {
+            if(count($_POST) == 0) return false;
+
             $alwaysTrue = ($this->settings->isic == 'yes');
-            if(isset($_POST['isic_true'])) {
+            if(isset($_POST['isic_true']) || $alwaysTrue) {
                 $member->isic = 'true';
-                $member->save();
-                return true;
-            } elseif(isset($_POST['isic_false'])) {
-                $member->isic = $alwaysTrue ? 'true' : 'false';
-                $member->save();
-                return true;
+            } else {
+                $member->isic = 'false';
             }
+
+            $member->isic_newsletter = isset($_POST['isic_newsletter']) ? 'true' : 'false';
+            $member->save();
+            return true;
         }
 
         return false;

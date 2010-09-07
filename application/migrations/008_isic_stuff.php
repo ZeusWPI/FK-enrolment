@@ -21,7 +21,7 @@ class Isic_stuff {
 
         echo "Adding column 'isic_newsletter'", "<br />";
         $CI->db->query("ALTER TABLE `members` ADD `isic_newsletter` ENUM('true', 'false') ".
-                "NULL DEFAULT 'false'");
+                "NOT NULL DEFAULT 'false'");
     }
 
     function down() {
