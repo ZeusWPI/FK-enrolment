@@ -5,14 +5,13 @@
     </p>
     <div class="col col-5 col-last">
         <h2>Inschrijving succesvol</h2>
-        <p>Begeleidende tekst, onder meer volgende puntjes</p>
-        <ul>
-            <li>Mee te brengen naar curusverkoop/introdag</li>
-            <li>Vergeet je UGent kaart niet!</li>
-            <li>Heb je deze nog niet, print deze code af</li>
-        </ul>
-        <p><img src="<?php echo site_url("/api/v1/barcode?member_id=".$member_id); ?>" 
-                alt="Barcode" id="barcode" /></p>
+
+        <?php
+        $barcode = '<p><img src=' .  site_url("/api/v1/barcode?member_id=".$member_id) . '
+                alt="Barcode" id="barcode" /></p>';
+        echo str_replace('[barcode]', $barcode, nl2br($settings->confirmation_text));
+        ?>
+
         <p><button onClick="window.print()" class="no-print">Print deze pagina</button></p>
     </div>
 </div>

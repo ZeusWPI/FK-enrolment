@@ -8,11 +8,17 @@
 
     <p>Uitleg over ISIC kaart hier</p>
 
+    <p><?php echo $settings->isic_text; ?></p>
+
     <?php echo form_open(uri_string()); ?>
 
     <p>
+    <?php if($allow_choice) : ?>
         <?php echo form_submit('isic_true', 'Ja, ik wens een ISIC kaart'); ?>
         <?php echo form_submit('isic_false', 'Nee, ik wens geen ISIC kaart'); ?>
+    <?php else : ?>
+        <?php echo form_submit('isic_true', 'Verdergaan met registratie'); ?>
+    <?php endif; ?>
     </p>
 
     <?php echo form_close(); ?>

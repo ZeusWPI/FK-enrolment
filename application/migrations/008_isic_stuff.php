@@ -11,9 +11,13 @@ class Isic_stuff {
         $CI->db->query("ALTER TABLE `kringen_settings` ADD `isic` ENUM('yes','optional','no')" .
                 "NOT NULL DEFAULT  'no' AFTER `api_key`");
 
+        echo "Adding column 'isic_text'", "<br />";
+        $CI->db->query("ALTER TABLE `kringen_settings` ADD `isic_text` ".
+                "TEXT NOT NULL AFTER `isic`");
+
         echo "Adding column 'confirmation_text'", "<br />";
         $CI->db->query("ALTER TABLE `kringen_settings` ADD `confirmation_text` ".
-                "TEXT NOT NULL AFTER `isic`");
+                "TEXT NOT NULL AFTER `isic_text`");
 
         echo "Adding column 'isic_newsletter'", "<br />";
         $CI->db->query("ALTER TABLE `members` ADD `isic_newsletter` ENUM('true', 'false') ".
@@ -23,6 +27,9 @@ class Isic_stuff {
     function down() {
         echo "Dropping column 'isic'", "<br />";
         remove_column('kringen_settings', 'isic');
+
+        echo "Dropping column 'isic_text'", "<br />";
+        remove_column('kringen_settings', 'isic_text');
 
         echo "Dropping column 'confirmation_text'", "<br />";
         remove_column('kringen_settings', 'confirmation_text');

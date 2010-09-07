@@ -97,8 +97,6 @@ class Registratie extends MY_Controller {
     public function isic() {
         $this->determine_kring();
 
-        $this->settings = new KringSetting();
-        $this->settings->get_by_kring_id($this->kring->id);
         if($this->settings->isic == 'no') {
             return redirect('registratie/succes');
         }
@@ -107,6 +105,7 @@ class Registratie extends MY_Controller {
             $this->template->set('pageTitle', 'Registratie ISIC kaart');
             $this->template->load('layout', 'registratie/isic', array(
                 'kring' => $this->kring,
+                'settings' => $this->settings,
                 'allow_choice' => ($this->settings->isic == 'maybe'),
             ));
         } else {
@@ -122,12 +121,13 @@ class Registratie extends MY_Controller {
 
         /* Store isic data */
         if(count($member->all) > 0) {
-            if(isset($_POST['isic_true']) || $this->settings->isic == 'yes') {
+            $alwaysTrue = ($this->settings->isic == 'yes');
+            if(isset($_POST['isic_true'])) {
                 $member->isic = 'true';
                 $member->save();
                 return true;
             } elseif(isset($_POST['isic_false'])) {
-                $member->isic = 'false';
+                $member->isic = $alwaysTrue ? 'true' : 'false';
                 $member->save();
                 return true;
             }
@@ -144,6 +144,7 @@ class Registratie extends MY_Controller {
         $this->template->set('pageTitle', 'Inschrijving succesvol');
         $this->template->load('layout', 'registratie/succes', array(
             'kring' => $this->kring,
+            'settings' => $this->settings,
             'member_id' => Member::generate_barcode_nr($member_id)
         ));
     }
@@ -173,6 +174,9 @@ class Registratie extends MY_Controller {
         
         if(count($this->kring->all) != 1 || !$this->kring->is_gui_enabled()) {
             show_404();
+        } else {
+            $this->settings = new KringSetting();
+            $this->settings->get_by_kring_id($this->kring->id);
         }
     }
 }

@@ -83,7 +83,7 @@ $disabled = $is_cas ? ' disabled="disabled"' : '';
     <!-- @TODO: link naar privacy policy -->
     <p>Wat gebeurt er met mijn gegevens?</p>
 
-    <p><?php echo form_submit('submit', 'Registreren!'); ?></p>
+    <p><?php echo form_submit('submit', 'Registreren'); ?></p>
 
     <?php echo form_close(); ?>
 
