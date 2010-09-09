@@ -11,7 +11,14 @@ function month_to_human($i) {
 $is_cas = ($method == 'CAS');
 $is_mail = ($method == 'mail');
 $disabled = $is_cas ? ' disabled="disabled"' : '';
-
+$title = "Inschrijven ";
+if($is_cas) {
+    $title .= "via CAS"; 
+} else if($is_mail) {
+    $title .= "zonder UGent gegevens";    
+} else {
+    $title .= "met stamnummer";
+}
 ?>
 <div class="cols">
     <p class="col col-2">
@@ -19,7 +26,7 @@ $disabled = $is_cas ? ' disabled="disabled"' : '';
              alt="<?php echo $kring->kort; ?>" class="image-center image-header-offset" />
     </p>
     <div class="col col-5 col-last">
-    <h2>Inschrijven <?php echo $is_cas ? "via CAS" : "met stamnummer"; ?></h2>
+    <h2><?php echo $title ?></h2>
 
     <p>Vul onderstaand formulier in om je te registreren. Velden met een <em>*</em> zijn verplicht.</p>
 
