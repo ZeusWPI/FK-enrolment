@@ -7,7 +7,7 @@ class AssociatedCard extends DataMapper {
 
 	public $validation = array(
 		array('field' => 'member_id', 'label' => 'member id',
-			'rules' => array('required', 'is_natural', 'exists' => 'kringen')),
+			'rules' => array('required', 'is_natural', 'exists' => 'members')),
 		array('field' => 'card_id', 'label' => 'card id',
 			'rules' => array('required', 'is_natural'))
 	);
