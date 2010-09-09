@@ -54,7 +54,7 @@ class Registratie extends MY_Controller {
         $this->determine_kring();
 
         if(!$this->validate_mail()) {
-            $this->template->set('pageTitle', 'Inschrijven zonder gegevens');
+            $this->template->set('pageTitle', 'Inschrijven zonder UGent gegevens');
             $this->template->load('layout', 'registratie/form', array(
                 'method' => 'mail',
                 'kring' => $this->kring

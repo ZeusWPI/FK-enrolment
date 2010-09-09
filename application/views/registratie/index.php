@@ -13,7 +13,9 @@
 <p>Is dit niet de juiste kring? Ga dan terug naar de <?php echo anchor('', 'startpagina'); ?>.</p>
 
 <p>Om te in te schrijven heb je 2 keuzes: ofwel doe je dit met je UGentNet gebruikersnaam en wachtwoord,
-ofwel geef je zelf het stamnummer in dat je op studentenkaart vindt.</p>
+ofwel geef je zelf het stamnummer in dat je op studentenkaart vindt. Moest je nog niet inschreven zijn of geen UGent gegevens hebben,
+dan kan je ook inschrijven maar zal je je stamnummer later nog moeten invullen.</p>
+
 
 <ul id="registration-selector">
     <li><a href="<?php echo site_url('registratie/via_cas'); ?>">
@@ -22,6 +24,9 @@ ofwel geef je zelf het stamnummer in dat je op studentenkaart vindt.</p>
     </a></li>
     <li><a href="<?php echo site_url('registratie/via_ugentnr'); ?>">
         Ik gebruik het <em>stamnummer op mijn studentenkaart.</em>
+    </a></li>
+    <li><a href="<?php echo site_url('registratie/via_mail'); ?>">
+        Ik heb nog geen UGent gegevens.
     </a></li>
 </ul>
 
