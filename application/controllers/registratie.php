@@ -50,6 +50,62 @@ class Registratie extends MY_Controller {
         }
     }
 
+    public function via_mail() {
+        $this->determine_kring();
+
+        if(!$this->validate_mail()) {
+            $this->template->set('pageTitle', 'Inschrijven zonder gegevens');
+            $this->template->load('layout', 'registratie/form', array(
+                'method' => 'mail',
+                'kring' => $this->kring
+            ));
+        } else {
+            redirect('/registratie/isic');
+        }
+    }
+
+    private function validate_mail() {
+        $this->load->helper(array('form', 'url', 'date'));
+        $this->load->library(array('form_validation', 'session'));
+
+        $this->form_validation->set_rules('submit', '', 'required');
+        $this->form_validation->set_rules('first_name', 'Voornaam', 'required');
+        $this->form_validation->set_rules('last_name', 'Familienaam', 'required');
+        $this->form_validation->set_rules('email', 'Emailadres', 'required|valid_email');
+        $this->form_validation->set_rules('cellphone', 'Telefoonnummer', '');
+        $this->form_validation->set_rules('address_home', 'Thuisadres', '');
+        $this->form_validation->set_rules('address_kot', 'kotadres', '');
+        $this->form_validation->set_rules('sex', 'Geslacht', 'callback_in_array[m,f]');
+        $this->form_validation->set_rules('year_of_birth', 'Geboortejaar', 'is_natural');
+        $this->form_validation->set_rules('month_of_birth', 'Geboortemaand', 'is_natural');
+        $this->form_validation->set_rules('day_of_birth', 'Geboortedag', 'is_natural');
+
+        if($this->form_validation->run() == true) {
+            $member = new Member();
+            $member->kring_id = $this->kring->id;
+            $member->first_name = $this->input->post('first_name');
+            $member->last_name = $this->input->post('last_name');
+            $member->email = $this->input->post('email');
+
+            $member->cellphone = $this->input->post('cellphone');
+            $member->address_home = $this->input->post('address_home');
+            $member->address_kot = $this->input->post('address_kot');
+            $member->sex = $this->input->post('sex');
+
+            $timestamp = mktime(0, 0, 0, $this->input->post('day_of_birth'),
+                                         $this->input->post('month_of_birth'),
+                                         $this->input->post('year_of_birth'));
+            $member->date_of_birth = strftime('%Y', $timestamp);
+
+            $member->save();
+            $this->session->set_userdata('member_id', $member->id);
+            return true;
+        } else {
+            $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+            return false;
+        }
+    }
+
     private function validate_form() {
         $this->load->helper(array('form', 'url', 'date'));
         $this->load->library(array('form_validation', 'session'));

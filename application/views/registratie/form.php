@@ -9,7 +9,9 @@ function month_to_human($i) {
 }
 
 $is_cas = ($method == 'CAS');
+$is_mail = ($method == 'mail');
 $disabled = $is_cas ? ' disabled="disabled"' : '';
+
 ?>
 <div class="cols">
     <p class="col col-2">
@@ -24,11 +26,13 @@ $disabled = $is_cas ? ' disabled="disabled"' : '';
     <?php echo form_open(uri_string()); ?>
 
     <dl class="form">
-        <dt><?php echo form_label('Stamnummer<em>*</em>:', 'ugent_nr'); ?></dt>
-        <dd>
-            <?php echo form_input('ugent_nr', set_value('ugent_nr'), $disabled); ?>
-            <?php echo form_error('ugent_nr'); ?>
-        </dd>
+        <?php if(! $is_mail) { ?>
+            <dt><?php echo form_label('Stamnummer<em>*</em>:', 'ugent_nr'); ?></dt>
+            <dd>
+                <?php echo form_input('ugent_nr', set_value('ugent_nr'), $disabled); ?>
+                <?php echo form_error('ugent_nr'); ?>
+            </dd>
+        <?php } ?>
         <dt><?php echo form_label('Voornaam<em>*</em>:', 'first_name'); ?></dt>
         <dd>
             <?php echo form_input('first_name', set_value('first_name'), $disabled); ?>
