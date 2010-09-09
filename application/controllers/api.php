@@ -72,6 +72,7 @@ class Api extends REST_Controller {
         $card->member_id = $this->post('member_id');
         $card->card_id = $this->post('card_id');
         $card->academic_year = $this->config->item('academic_year');
+        $card->status = 'payed';
 
         if($card->validate($kring_id)->valid) {
             $card->save();

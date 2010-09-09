@@ -3,12 +3,11 @@ High priority:
     o Opzoeken op naam
     o TODO's afwerken (zie code)
     o Opvangen dubbele records: what if meer dan 1 persoon met een bep. ugentnr
-- Ledenbeheer
-    o Export/import van gegevens
-- ISIC
     o Integratie met registratiesysteem ISIC
       - [copy] voorzien van e-mail + nieuwsbriefvookeur kaartnr|0|mail@host.be
-- Registratie via e-mailadres
+- Ledenbeheer
+    o Gekoppelde kaarten tonen
+    o Export/import van gegevens
 
 Nice to have:
 - Beveiliging: OAuth implementeren
