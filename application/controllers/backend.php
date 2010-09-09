@@ -80,8 +80,12 @@ class Backend extends MY_Controller {
         ));
 
         foreach($members->all as $member) {
-            $this->table->add_row(array($member->last_name, $member->first_name,
-                    $member->ugent_nr, '&#8709;', $member->date_registered));
+            $this->table->add_row(array(
+                $this->input->xss_clean($member->last_name),
+                $this->input->xss_clean($member->first_name),
+                $this->input->xss_clean($member->ugent_nr),
+                '&#8709;', $member->date_registered)
+            );
         }
 
         $this->template->load('layout', 'backend/leden', array(
