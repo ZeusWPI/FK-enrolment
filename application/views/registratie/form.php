@@ -91,8 +91,12 @@ if($is_cas) {
         </dd>
     </dl>
 
-    <!-- @TODO: link naar privacy policy -->
-    <p>Wat gebeurt er met mijn gegevens?</p>
+    <p style="color: #333; font-size: 11px;">
+        Uw gegevens worden in ons bestand (FK Gent, Hoveniersberg 24 - 9000 Gent)
+        opgenomen om u op de hoogte te houden van onze activiteiten. U kan uw gegevens
+        steeds raadplegen, verbeteren of laten schrappen. Het FK verzekert dat uw
+        gegevens niet zullen misbruikt worden en dat er strikte privacy maartregelen worden genomen.
+    </p>
 
     <p><?php echo form_submit('submit', 'Registreren'); ?></p>
 
