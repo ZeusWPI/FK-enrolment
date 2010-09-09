@@ -19,13 +19,6 @@
                 <?php echo form_input('card_id', set_value('card_id')); ?>
             </dd>
         </dl>
-
-        <p>Optioneel kan je ook ISIC Plus kaarten verkopen. Deze worden op naam gedrukt
-            en kunnen dus niet onmiddelijk meegegeven worden (geef dus wel een FK-kaart mee!).</p>
-
-        <p>Deze kaart kost 3 euro en dient direct betaald te worden (dit kan anders geregeld
-            zijn binnen je kring).</p>
-
         <dl class="form">
             <dt><?php echo form_label('ISIC-kaart?', 'isic'); ?></dt>
             <dd>

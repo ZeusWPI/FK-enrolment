@@ -10,6 +10,9 @@
 
         <?php echo form_open('/backend/instellingen'); ?>
 
+        <p>Kies hier welke instellingen van toepassing zijn voor uw kring. Indien u
+            wenst kan u de teksten in het registratieproces aanpassen voor uw kring.</p>
+
         <dl class="form">
             <dt><?php echo form_label('Website actief?:', 'enable_gui'); ?></dt>
             <dd>
@@ -23,7 +26,23 @@
             </dd>
             <dt><?php echo form_label('API-sleutel:', 'api_key'); ?></dt>
             <dd>
-                <?php echo $settings->api_key; ?>
+                <code><?php echo $settings->api_key; ?></code>
+            </dd>
+            <dt><?php echo form_label('ISIC voorkeur:', 'isic'); ?></dt>
+            <dd>
+                <?php echo form_dropdown('isic', array('yes' => 'ISIC-kaart voor elk lid',
+                    'optional' => 'Elk lid kiest zelf', 'no' => 'ISIC wordt niet aangeboden')); ?>
+            </dd>
+        </dl>
+
+        <dl>
+            <dt><?php echo form_label('ISIC tekst', 'isic_text'); ?></dt>
+            <dd>
+                <?php echo form_textarea(array('name' => 'isic_text', 'rows' => 3), $settings->isic_text); ?>
+            </dd>
+            <dt><?php echo form_label('Bevestingstekst', 'confirmation_text'); ?></dt>
+            <dd>
+                <?php echo form_textarea(array('name' => 'confirmation_text', 'rows' => 5), $settings->confirmation_text); ?>
             </dd>
         </dl>
 

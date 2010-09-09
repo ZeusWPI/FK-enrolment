@@ -19,6 +19,17 @@ class Isic_stuff {
         $CI->db->query("ALTER TABLE `kringen_settings` ADD `confirmation_text` ".
                 "TEXT NOT NULL AFTER `isic_text`");
 
+        $CI->db->query("UPDATE kringen_settings SET confirmation_text = '". <<<EOT
+<p>Je inschrijving is goed ontvangen. De volgende stap is je te begeven naar de boekenverkoop/permanentie van je kring en je lidgeld te betalen. Wanneer dit gebeurd is zal de inschrijving voltooid zijn.</p>
+
+<p>Voor meer informatie over de datum van boekenverkopen/permanenties en de prijzen van het lidgeld verwijzen we graag naar de website van je kring.</p>
+
+<p>Wanneer je je naar de boekenverkoop begeeft vergeet dan zeker niet je <strong>UGent- studentenkaart</strong>. Heb je deze nog niet, gebruik dan onderstaande <strong>barcode</strong>.</p>
+
+[barcode]
+EOT
+                ."'");
+
         echo "Adding column 'isic_newsletter'", "<br />";
         $CI->db->query("ALTER TABLE `members` ADD `isic_newsletter` ENUM('true', 'false') ".
                 "NOT NULL DEFAULT 'false'");

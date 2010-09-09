@@ -18,7 +18,8 @@ class Backend extends MY_Controller {
 
         if($kringId == -1) {
             show_error('Access disallowed', 403);
-        } else {
+        }
+        else {
             $this->load->library('session');
             $this->session->set_userdata('backend_kring_id', $kringId);
             redirect('/backend');
@@ -51,10 +52,11 @@ class Backend extends MY_Controller {
         } else {
             $settings->enable_gui = (int)$this->input->post('enable_gui');
             $settings->enable_api = (int)$this->input->post('enable_api');
+            $settings->isic = $this->input->post('isic');
+            $settings->isic_text = $this->input->post('isic_text');
+            $settings->confirmation_text = $this->input->post('confirmation_text');
             $settings->save();
             redirect('/backend');
-            
-            // @TODO display succes message
         }
     }
 
@@ -116,14 +118,24 @@ class Backend extends MY_Controller {
                     $member->get_by_barcode_nr($_POST['barcode']);
                 }
 
-                // TODO: check if a card was already assigned
-
                 if(count($member->all) == 0) {
                     $this->form_validation->_field_data['barcode']['error'] = 'De ingegeven code is niet geldig.';
                 } else {
-                    $_POST['member_id'] = $member->id;
-                    $_POST['isic'] = $member->isic == 'true';
-                    $step = 2;
+                    // Check if card was already assigned
+                    $card = new AssociatedCard();
+                    $card->get_where(array(
+                        'member_id' => $member->id,
+                        'academic_year' => $this->config->item('academic_year')
+                    ));
+
+                    if(count($card->all) != 0) {
+                        $this->form_validation->_field_data['barcode']['error'] =
+                                'De ingegeven gebruiker is reeds gekoppeld aan een FK-kaart.';
+                    } else {
+                        $_POST['member_id'] = $member->id;
+                        $_POST['isic'] = $member->isic == 'true';
+                        $step = 2;
+                    }
                 }
             }
         }
@@ -137,7 +149,16 @@ class Backend extends MY_Controller {
 
             $valid = isset($_POST['submit_2']) && $this->form_validation->run();
 
-            // TODO: check if card nr was already assigned
+            if(isset($_POST['card_id'])) {
+                $card = new AssociatedCard();
+                $card->get_by_id($_POST['card_id']);
+            }
+
+            if(isset($card) && count($card->all) != 0) {
+                $this->form_validation->_field_data['card_id']['error'] =
+                    'Het ingegeven kaartnummer is reeds gekoppeld.';
+                $valid = false;
+            }
 
             // second page submitted
             if($valid) {

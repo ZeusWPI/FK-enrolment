@@ -7,8 +7,8 @@
         <h2>Inschrijving succesvol</h2>
 
         <?php
-        $barcode = '<br /><img src=' .  site_url("/api/v1/barcode?member_id=".$member_id) . '
-                alt="Barcode" id="barcode" /><br />';
+        $barcode = '<p><img src=' .  site_url("/api/v1/barcode?member_id=".$member_id) . '
+                alt="Barcode" id="barcode" /></p>';
         if(empty($settings->confirmation_text)) :
         ?>
         <p>
@@ -22,10 +22,10 @@
             Wanneer je je naar de boekenverkoop begeeft vergeet dan zeker niet
             je <strong>UGent- studentenkaart</strong>. Heb je deze nog niet,
             gebruik dan onderstaande <strong>barcode</strong>.
-            <?php echo $barcode; ?>
         </p>
+        <?php echo $barcode; ?>
         <?php else :
-            echo str_replace('[barcode]', $barcode, nl2br($settings->confirmation_text));
+            echo str_replace('[barcode]', $barcode, $settings->confirmation_text);
         endif; ?>
 
         <p><button onClick="window.print()" class="no-print">Print deze pagina</button></p>
