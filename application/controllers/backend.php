@@ -82,10 +82,18 @@ class Backend extends MY_Controller {
         ));
 
         foreach($members->all as $member) {
+            $card = new AssociatedCard();
+            $card->get_where(array(
+                'member_id' => $member->id,
+                'academic_year' => $this->config->item('academic_year')
+            ));
+
             $this->table->add_row($this->input->xss_clean(array(
                 htmlentities($member->last_name),
                 htmlentities($member->first_name),
-                htmlentities($member->ugent_nr), '&#8709;', $member->date_registered)
+                htmlentities($member->ugent_nr), 
+                (count($card->all) == 0) ? '&#8709;' : $card->card_id,
+                $member->date_registered)
             ));
         }
 
@@ -151,7 +159,7 @@ class Backend extends MY_Controller {
 
             if(isset($_POST['card_id'])) {
                 $card = new AssociatedCard();
-                $card->get_by_id($_POST['card_id']);
+                $card->get_by_card_id($_POST['card_id']);
             }
 
             if(isset($card) && count($card->all) != 0) {
@@ -196,7 +204,6 @@ class Backend extends MY_Controller {
     }
 
     private function determine_kring() {
-        // @TODO perform authentication here
         $this->kring = new Kring();
 
         $this->load->library('session');
