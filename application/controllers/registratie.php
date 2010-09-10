@@ -14,10 +14,10 @@ class Registratie extends MY_Controller {
     }
 
     public function via_cas() {
-        $this->determine_kring();
-        
         $this->load->library('phpCAS');
         phpCAS::forceAuthentication();
+
+        $this->determine_kring();
 
         $attributes = phpCAS::getAttributes();
         $_POST['ugent_nr'] = $attributes['ugentStudentID'];

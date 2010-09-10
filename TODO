@@ -1,11 +1,6 @@
 High priority:
 - Koppelen kaarten
     o Opzoeken op naam
-    o TODO's afwerken (zie code)
-    o Opvangen dubbele records: what if meer dan 1 persoon met een bep. ugentnr
-        - Laatst geregistreerde nemen
-    o Integratie met registratiesysteem ISIC
-        - [copy] voorzien van e-mail + nieuwsbriefvookeur kaartnr|0|mail@host.be
 - Ledenbeheer
     o Gekoppelde kaarten tonen
     o Export/import van gegevens

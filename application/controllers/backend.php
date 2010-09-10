@@ -119,6 +119,7 @@ class Backend extends MY_Controller {
             // First page is submitted
             if($valid && isset($_POST['submit_1'])) {
                 $member = new Member();
+                $member->order_by('date_registered', 'DESC');
                 $member->where('kring_id', $this->kring->id);
                 if(!empty($_POST['ugent_nr'])) {
                     $member->get_by_ugent_nr($_POST['ugent_nr']);
@@ -170,20 +171,33 @@ class Backend extends MY_Controller {
 
             // second page submitted
             if($valid) {
+                $isic = (isset($_POST['isic']) && $_POST['isic'] == 1);
+
                 $member->log($member->id, 'web', 'associated card #' . $_POST['card_id']);
                 $card = new AssociatedCard();
                 $card->member_id = $member->id;
                 $card->card_id = $_POST['card_id'];
                 $card->academic_year = $this->config->item('academic_year');
-                $card->status = (!isset($_POST['isic']) || $_POST['isic'] != 1) ? 'payed' : 'payed+isic';
+                $card->status =  !$isic ? 'payed' : 'payed+isic';
                 $card->validate($this->kring->id);
                 $card->save();
 
-                // @TODO: show notice or redirect to ISIC
+                if(!$isic) {
+                    redirect('/backend/kaarten?message=' .
+                        urlencode('Kaart ' . $card->card_id . ' werd gekoppeld.')
+                    );
+                } else {
+                    redirect('/backend/isic?id=' . $member->id . '&'. 'message=' .
+                        urlencode('Kaart ' . $card->card_id . ' werd gekoppeld.')
+                    );
+                }
             }
         }
 
-        $data = array('kring' => $this->kring);
+        $data = array(
+            'kring' => $this->kring,
+            'message' => $this->input->get('message')
+        );
         
         if($step == 2) {
             $data['memberId'] = $member->id;
@@ -201,6 +215,33 @@ class Backend extends MY_Controller {
         $field = $this->form_validation->set_value('barcode');
         $param = $this->form_validation->set_value('ugent_nr');
         return !empty($field) || !empty($param);
+    }
+
+    public function isic() {
+        $this->determine_kring();
+
+        $member = new Member();
+        $member->where('kring_id', $this->kring->id);
+        $member->get_by_id($this->input->get('id'));
+
+        $card = new AssociatedCard();
+        $card->get_where(array(
+            'member_id' => $member->id,
+            'academic_year' => $this->config->item('academic_year')
+        ));
+
+
+        //kaartnr|0|mail@host.be
+        $data = array(
+            'kring' => $this->kring,
+            'message' => $this->input->get('message'),
+            'isic' => sprintf('%s|%d|%s', 
+                    $card->card_id, $member->isic_newsletter, $member->email)
+        );
+
+        $this->template->set('pageTitle', 'Leden &ndash; Kaarten toewijzen');
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+        $this->template->load('layout', 'backend/isic', $data);
     }
 
     private function determine_kring() {

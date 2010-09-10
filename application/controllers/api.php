@@ -103,5 +103,6 @@ class Api extends REST_Controller {
 
         require_once('Image/Barcode.php');
         Image_Barcode::draw($member_id, 'ean13', 'png');
+        exit();
     }
 }

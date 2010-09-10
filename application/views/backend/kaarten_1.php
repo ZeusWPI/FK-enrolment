@@ -8,6 +8,10 @@
 
         <p><?php echo anchor('backend', '&laquo; Terug naar het overzicht'); ?></p>
 
+        <?php if(!empty($message)) : ?>
+            <p class="notice"><?php echo $message; ?></p>
+        <?php endif; ?>
+
         <?php echo form_open('backend/kaarten'); ?>
 
         <dl class="form">
@@ -58,4 +62,12 @@ p input {
 
 .form dd { width: 200px; }
 .form dt, .form input { font-size:200%; width: 200px; }
+
+.notice {
+    font-size: 150%;
+    width: 400px;
+    text-align: center;
+    margin: 20px 0;
+    color: green;
+}
 </style>
