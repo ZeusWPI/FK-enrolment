@@ -26,6 +26,9 @@
             <p><a href="http://www.aao-optiek.be/">
                 <img src="<?php echo site_url('assets/aao.jpg'); ?>" />
             </a></p>
+            <p><a href="http://www.hcw.be/">
+                <img src="<?php echo site_url('assets/hcw.jpg'); ?>" />
+            </a></p>
         </div>
     </div></div>
 
