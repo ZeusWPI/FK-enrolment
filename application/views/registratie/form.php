@@ -22,7 +22,7 @@ if($is_cas) {
 ?>
 <div class="cols">
     <p class="col col-2">
-    <img src="http://www.fkgent.be/intranet/schild/k.<?php echo $kring->kringname; ?>/h.180/w.120"
+    <img src="<?php echo site_url('assets/schilden/'.$kring->kringname.'.jpg'); ?>"
              alt="<?php echo $kring->kort; ?>" class="image-center image-header-offset" />
     </p>
     <div class="col col-5 col-last">

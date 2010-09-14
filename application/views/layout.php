@@ -36,8 +36,7 @@
         <p><a href="http://fkgent.be">FaculteitenKonvent Gent</a> &bull;
             De Therminal, Hoveniersberg 24 - 9000 Gent, Belgium &bull;
             +32.9.264.70.93 &bull; info@fkserv.ugent.be</p>
-        <p><a href="http://github.com/zeuswpi/fk-enrolment">FK-enrolment</a>
-            werd ontwikkeld door <a href="http://zeus.ugent.be">Zeus WPI</a>,
+        <p>FK-enrolment werd ontwikkeld door <a href="http://zeus.ugent.be">Zeus WPI</a>,
             de werkgroep informatica.</p>
     </div>
 </body>

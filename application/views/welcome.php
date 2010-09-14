@@ -8,7 +8,7 @@
     <div class="kring <?php if($i % 4 == 3) echo 'col-last' ?>">
         <?php $kring_url = site_url('registratie?kring='.$kring->kringname); ?>
         <a href="<?php echo $kring_url; ?>">
-            <img src="http://www.fkgent.be/intranet/schild/k.<?php echo $kring->kringname; ?>/h.100/w.100"
+            <img src="<?php echo site_url('assets/schilden/'.$kring->kringname.'.small.jpg'); ?>"
             alt="Logo <?php echo $kring->kort; ?>" class="image-center" />
         <p><?php echo $kring->lang; ?></p>
         </a>
