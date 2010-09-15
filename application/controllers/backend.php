@@ -236,7 +236,7 @@ class Backend extends MY_Controller {
             'kring' => $this->kring,
             'message' => $this->input->get('message'),
             'isic' => sprintf('%s|%d|%s', 
-                    $card->card_id, $member->isic_newsletter, $member->email)
+                    $card->card_id, ($member->isic_newsletter == 'true'), $member->email)
         );
 
         $this->template->set('pageTitle', 'Leden &ndash; Kaarten toewijzen');
