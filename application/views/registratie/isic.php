@@ -4,9 +4,18 @@
              alt="<?php echo $kring->kort; ?>" class="image-center image-header-offset" />
     </p>
     <div class="col col-5 col-last">
-    <h2>ISIC kaart</h2>
+    <p><img src="<?php echo site_url('assets/isic.jpg'); ?>" /></p>
 
-    <p>Uitleg over ISIC kaart hier</p>
+    <p>Jouw ISIC (International Student Identity Card) is de <strong>enige wereldwijd aanvaarde</strong>
+    studenten- en voordelenkaart erkend door UNESCO.</p>
+    <ul>
+        <li>een voordelenkaart die je toegang geeft tot meer dan 25 <strong>permanente</strong> voordelen in Gent,
+            meer dan 125 voordelen in België en 40.000 voordelen wereldwijd</li>
+        <li>een bewijs dat je <strong>student hoger onderwijs</strong> bent</strong>
+    </ul>
+    <p>Jouw ISIC, haal eruit wat erin zit!</p>
+
+    <p>&nbsp;</p>
 
     <p><?php echo $settings->isic_text; ?></p>
 
