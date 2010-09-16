@@ -31,7 +31,8 @@
             <dt><?php echo form_label('ISIC voorkeur:', 'isic'); ?></dt>
             <dd>
                 <?php echo form_dropdown('isic', array('yes' => 'ISIC-kaart voor elk lid',
-                    'optional' => 'Elk lid kiest zelf', 'no' => 'ISIC wordt niet aangeboden')); ?>
+                    'optional' => 'Elk lid kiest zelf', 'no' => 'ISIC wordt niet aangeboden'),
+                        $settings->isic); ?>
             </dd>
         </dl>
 
