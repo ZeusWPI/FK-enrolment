@@ -1,9 +1,10 @@
 <?php
 function my_range($low, $high, $step = 1) {
     $range = range($low, $high, $step);
-    return array_combine($range, $range);
+    return array_merge(array('' => ''), array_combine($range, $range));
 }
 function month_to_human($i) {
+    if($i == '') return '';
     setlocale(LC_ALL, 'nl_NL.UTF-8');
     return strftime("%b", mktime(0, 0, 0, $i, 1, 2000));
 }
