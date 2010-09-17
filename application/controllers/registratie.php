@@ -92,9 +92,9 @@ class Registratie extends MY_Controller {
             $member->address_kot = $this->input->post('address_kot');
             $member->sex = $this->input->post('sex');
 
-            $timestamp = mktime(0, 0, 0, $this->input->post('day_of_birth'),
-                                         $this->input->post('month_of_birth'),
-                                         $this->input->post('year_of_birth'));
+            $timestamp = mktime(0, 0, 0, (int)$this->input->post('day_of_birth'),
+                                         (int)$this->input->post('month_of_birth'),
+                                         (int)$this->input->post('year_of_birth'));
             $member->date_of_birth = strftime('%Y', $timestamp);
 
             $member->save();
@@ -136,9 +136,9 @@ class Registratie extends MY_Controller {
             $member->address_kot = $this->input->post('address_kot');
             $member->sex = $this->input->post('sex');
 
-            $timestamp = mktime(0, 0, 0, $this->input->post('day_of_birth'),
-                                         $this->input->post('month_of_birth'),
-                                         $this->input->post('year_of_birth'));
+            $timestamp = mktime(0, 0, 0, (int)$this->input->post('day_of_birth'),
+                                         (int)$this->input->post('month_of_birth'),
+                                         (int)$this->input->post('year_of_birth'));
             $member->date_of_birth = strftime('%F', $timestamp);
 
             $member->save();
