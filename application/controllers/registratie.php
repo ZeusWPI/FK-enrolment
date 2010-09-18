@@ -213,12 +213,11 @@ class Registratie extends MY_Controller {
     }
 
     private function determine_kring() {
-        $this->kring = new Kring();
-
         $this->load->library('session');
         $kring_id = $this->session->userdata('kring_id');
 
         $kring_name = $this->input->get('kring');
+        $this->kring = new Kring();
         if(!empty($kring_name)) {
             $this->kring->get_where(array(
                 'kringname' => $kring_name,
@@ -230,11 +229,14 @@ class Registratie extends MY_Controller {
             $this->kring->get_by_id($kring_id);
         }
         
-        if(count($this->kring->all) != 1 || !$this->kring->is_gui_enabled()) {
-            show_404();
-        } else {
-            $this->settings = new KringSetting();
-            $this->settings->get_by_kring_id($this->kring->id);
+        if(count($this->kring->all) != 1) {
+            return show_404();
+        }
+
+        $this->settings = new KringSetting();
+        $this->settings->get_by_kring_id($this->kring->id);
+        if($this->settings->enable_gui != 1) {
+            return show_404();
         }
     }
 }
