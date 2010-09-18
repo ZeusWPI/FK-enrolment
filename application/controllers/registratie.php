@@ -219,7 +219,6 @@ class Registratie extends MY_Controller {
         $this->load->library('session');
         $kring_id = $this->session->userdata('kring_id');
 
-        $this->db->start_cache();
         $kring_name = $this->input->get('kring');
         if(!empty($kring_name)) {
             $this->kring->get_where(array(
@@ -238,6 +237,5 @@ class Registratie extends MY_Controller {
             $this->settings = new KringSetting();
             $this->settings->get_by_kring_id($this->kring->id);
         }
-        $this->db->stop_cache();
     }
 }
