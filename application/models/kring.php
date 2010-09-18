@@ -17,7 +17,7 @@ class Kring extends DataMapper {
 
     public function is_gui_enabled() {
         $result = $this->db->query('SELECT enable_gui FROM kringen_settings
-            WHERE kring_id = ? AND enable_gui = 1', array($this->id))->row_array();
-        return !empty($result);
+            WHERE kring_id = ?', array($this->id))->row_array();
+        return !empty($result) && $result['enable_gui'] == 1;
     }
 }

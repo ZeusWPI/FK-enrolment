@@ -2,7 +2,7 @@
 
 class Home extends MY_Controller {
 	public function index() {
-        $this->output->cache(3600);
+        $this->output->cache(60);
         $kringen = new Kring();
         $kringen->order_by('lang')->get_by_gui_enabled();
 

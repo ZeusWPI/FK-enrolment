@@ -5,7 +5,6 @@ class Registratie extends MY_Controller {
     private $settings;
 
     public function index() {
-        $this->output->cache(3600);
         $this->determine_kring();
 
         $this->template->set('pageTitle', 'Registeren');
