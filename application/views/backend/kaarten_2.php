@@ -10,8 +10,8 @@
 
         <?php echo form_open('backend/kaarten'); ?>
         <?php echo form_hidden('member_id', $memberId); ?>
+        <?php echo form_error('card_id'); ?>
         <dl class="form">
-            <dd><?php echo form_error('card_id'); ?></dd>
             <dt>Naam:</dt>
             <dd><span><?php echo $firstName, ' ', $lastName; ?></span></dd>
             <dt><?php echo form_label('Kaartnummer:', 'card_id'); ?></dt>

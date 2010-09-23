@@ -14,9 +14,9 @@
 
         <?php echo form_open('backend/kaarten'); ?>
 
+        <?php echo form_error('barcode'); ?>
+        <?php echo form_error('ugent_nr'); ?>
         <dl class="form">
-            <dd><?php echo form_error('barcode'); ?>
-                <?php echo form_error('ugent_nr'); ?></dd>
             <dt><?php echo form_label('Stamnummer:', 'ugent_nr'); ?></dt>
             <dd>
                 <?php echo form_input('ugent_nr', set_value('ugent_nr')); ?>

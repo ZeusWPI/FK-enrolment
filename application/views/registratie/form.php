@@ -21,6 +21,11 @@ if($is_cas) {
     $title .= "met stamnummer";
 }
 ?>
+
+<!--[if lte IE 7]>
+<style>.form dd { float: none }</style>
+<![endif]-->
+
 <div class="cols">
     <p class="col col-2">
     <img src="<?php echo site_url('assets/schilden/'.$kring->kringname.'.jpg'); ?>"
