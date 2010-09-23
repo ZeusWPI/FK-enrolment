@@ -22,14 +22,14 @@
 </div>
 
 <script type="text/javascript" src="<?php echo site_url('assets/ZeroClipboard.js'); ?>"></script>
-<script type="text/javascript">
-    ZeroClipboard.setMoviePath("<?php echo site_url('assets/ZeroClipboard.swf'); ?>");
-
-    var clip = new ZeroClipboard.Client();
-    clip.setText("<?php echo $isic; ?>");
-    clip.glue( 'd_clip_button', 'd_clip_container' );
+<script type="text/javascript"> 
+    window.onload = function() {
+	    ZeroClipboard.setMoviePath("<?php echo site_url('assets/ZeroClipboard.swf'); ?>");
+    	var clip = new ZeroClipboard.Client();
+    	clip.setText("<?php echo $isic; ?>");
+    	clip.glue("d_clip_button", "d_clip_container");
+   }
 </script>
-
 <style type="text/css">
 .notice {
     font-size: 150%;
