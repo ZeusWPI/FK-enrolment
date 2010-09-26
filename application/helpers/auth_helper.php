@@ -5,7 +5,8 @@
 function auth_user($sessionId) {
     $CI =& get_instance();
     $db = $CI->load->database('fk_intranet', true);
-
+    if(empty($sessionId)) return -1;
+	
     $username = $db->query("SELECT username FROM phpbb3_sessions s
         LEFT JOIN phpbb3_users u ON u.user_id = s.session_user_id
         WHERE s.session_id = ?", array($sessionId))->row_array();
