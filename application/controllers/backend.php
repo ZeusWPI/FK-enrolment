@@ -102,6 +102,16 @@ class Backend extends MY_Controller {
             'table' => $this->table
         ));
     }
+    
+   public function find_missing_isic() {
+	return false;
+        $missing = file(APPPATH . 'missing');
+	foreach($missing as $name) {
+		$name = trim($name, "\n");
+		$result = $this->db->query('SELECT m.first_name, m.last_name, ac.card_id, m.email FROM members m INNER JOIN associated_cards ac ON ac.member_id = m.id WHERE LOWER(CONCAT(first_name, \' \', last_name)) = ?', array(strtolower($name)))->row_array();
+		echo sprintf("%s\t%s\t%s\n", $name, $result['card_id'], $result['email']);
+	}
+    }
 
     public function kaarten() {
         $this->determine_kring();
