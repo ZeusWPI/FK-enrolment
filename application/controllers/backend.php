@@ -113,6 +113,29 @@ class Backend extends MY_Controller {
 	}
     }
 
+    public function export() {
+        $this->determine_kring();
+        
+        header('Content-Type: text/csv');
+        header('Content-Disposition: inline; filename='.$this->kring->kringname.'.csv');
+
+        // Find all members with a card
+        $query = $this->db->query('SELECT m.*, c.* FROM members m
+            INNER JOIN associated_cards c ON c.member_id = m.id
+            WHERE m.kring_id = ? AND m.disabled = 0 AND c.academic_year = ?
+            ORDER BY c.card_id ASC', array($this->kring->id, $this->config->item('academic_year')));
+
+        echo '"FK nummer";"Voornaam";"Familienaam";"E-mail";"UGent nr.";',
+             '"Geslacht";"GSM";"Thuisadres";"Kotadres"', "\n";
+        foreach($query->result_array() as $row) {
+            printf('"%s";"%s";"%s";"%s";"%s";"%s";"%s";"%s";"%s"'."\n",
+                $row['card_id'], $row['first_name'], $row['last_name'],
+                $row['email'], $row['ugent_nr'], $row['sex'],
+                $row['cellphone'], $row['address_home'], $row['address_kot']);
+        }
+
+    }
+
     public function kaarten() {
         $this->determine_kring();
 

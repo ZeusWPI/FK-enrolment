@@ -1,7 +1,7 @@
 <?php
 function my_range($low, $high, $step = 1) {
     $range = range($low, $high, $step);
-    return array_merge(array('' => ''), array_combine($range, $range));
+    return array('' => '') + array_combine($range, $range);
 }
 function month_to_human($i) {
     if($i == '') return '';
@@ -74,7 +74,7 @@ if($is_cas) {
         </dd>
         <dt><label>Geboortedatum: </label></dt>
         <dd>
-            <?php echo form_dropdown('day_of_birth', my_range(01, 31), set_value('day_of_birth')); ?>
+            <?php echo form_dropdown('day_of_birth', my_range(1, 31), set_value('day_of_birth')); ?>
             <?php echo form_dropdown('month_of_birth', array_map('month_to_human', my_range(01, 12)), set_value('month_of_birth')); ?>
             <?php echo form_dropdown('year_of_birth', my_range(1900, 2010), set_value('year_of_birth', date('Y') - 18)); ?>
         </dd>
