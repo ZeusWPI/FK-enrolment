@@ -4,4 +4,6 @@
 
 <p style="float: right;"><?php echo anchor('/backend/export', 'Exporteer gegevens &raquo;'); ?></p>
 
+<h3 style="clear: both;">Laatste 100 geregistreerde leden</h3>
+
 <?php echo $table->generate(); ?>

@@ -70,7 +70,7 @@ class Backend extends MY_Controller {
         }
 
         $members = new Member();
-        $members->order_by('last_name ASC, first_name ASC')->get_by_kring_id($this->kring->id);
+        $members->order_by('date_registered DESC')->limit(100)->get_by_kring_id($this->kring->id);
 
         $this->load->library('table');
         $this->table->set_heading(array('Naam', 'Voornaam', 'UGent nr.', 'FK nr.', 'Geregistreerd op'));
