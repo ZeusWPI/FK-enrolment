@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  uses_isic: false
+  isic_text: MyText
+  api_key: MyString
+
+two:
+  name: MyString
+  uses_isic: false
+  isic_text: MyText
+  api_key: MyString
