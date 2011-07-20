@@ -8,8 +8,8 @@ class CreateClubs < ActiveRecord::Migration
       t.string :url
 
       # settings
-      t.string :registration_method
-      t.boolean :uses_isic
+      t.string :registration_method, :default => "none"
+      t.boolean :uses_isic, :default => false
       t.text :isic_text
       t.text :confirmation_text
       t.string :api_key

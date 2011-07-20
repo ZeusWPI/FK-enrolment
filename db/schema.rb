@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(:version => 20110720122600) do
     t.string   "internal_name"
     t.string   "description"
     t.string   "url"
-    t.string   "registration_method"
-    t.boolean  "uses_isic"
+    t.string   "registration_method", :default => "none"
+    t.boolean  "uses_isic",           :default => false
     t.text     "isic_text"
     t.text     "confirmation_text"
     t.string   "api_key"
