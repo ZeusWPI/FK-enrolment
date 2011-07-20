@@ -1,21 +1,23 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
-one:
-  first_name: MyString
-  last_name: MyString
-  email: MyString
-  ugent_nr: MyString
-  sex: MyString
-  date_of_birth: 2011-07-20
-  home_address: MyString
-  studenthome_address: MyString
+javache:
+  first_name: Pieter
+  last_name: De Baets
+  email: javache@zeus.ugent.be
+  ugent_nr: 00800001
+  phone: "0471010101"
+  sex: m
+  date_of_birth: 1990-01-01
+  home_address: "Dorpsstraat 25\n9000 Gent"
+  studenthome_address: nil
 
-two:
-  first_name: MyString
-  last_name: MyString
-  email: MyString
-  ugent_nr: MyString
-  sex: MyString
-  date_of_birth: 2011-07-20
-  home_address: MyString
-  studenthome_address: MyString
+nudded:
+  first_name: Toon
+  last_name: Willems
+  email: nudded@zeus.ugent.be
+  ugent_nr: 00800002
+  phone: nil
+  sex: m
+  date_of_birth: 1990-01-02
+  home_address: "Dreef 1\n1000 Middle-of-nowhere"
+  studenthome_address: "Kotstraat 1\n9000 Gent"

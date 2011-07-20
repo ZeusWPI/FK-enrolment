@@ -1,13 +1,20 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
-one:
-  name: MyString
+wina:
+  name: WiNA
+  full_name: WiNA
+  internal_name: Wina
+  description: "Faculteitskring van de studenten Wiskunde, Fysica, Sterrenkunde en Informatica"
+  url: http://wina.ugent.be
+  registration_method: api
   uses_isic: false
-  isic_text: MyText
-  api_key: MyString
 
-two:
-  name: MyString
-  uses_isic: false
-  isic_text: MyText
-  api_key: MyString
+vtk:
+  name: VTK
+  full_name: Vlaamse Technische Kring
+  description: "Faculteitskring van de studenten Toegepaste Wetenschappen"
+  url: http://www.vtk.ugent.be
+  registration_method: website
+  uses_isic: true
+  isic_text: "Buy ISIC now!"
+  confirmation_text: "Now pay up."
