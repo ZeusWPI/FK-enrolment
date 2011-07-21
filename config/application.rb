@@ -38,5 +38,9 @@ module FKEnrolment
 
     # Enable the asset pipeline
     config.assets.enabled = true
+
+    # CAS
+    config.rubycas.cas_base_url = "https://login.ugent.be/"
+    config.rubycas.enable_single_sign_out = true
   end
 end

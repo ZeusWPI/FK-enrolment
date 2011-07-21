@@ -1,4 +1,6 @@
 FKEnrolment::Application.routes.draw do
+  get "cas/auth"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

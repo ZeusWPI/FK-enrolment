@@ -9,9 +9,7 @@ gem 'sqlite3'
 
 # Asset template engines
 gem 'sass-rails', "~> 3.1.0.rc"
-gem 'coffee-script'
 gem 'uglifier'
-
 gem 'jquery-rails'
 
 # Use unicorn as the web server
@@ -23,7 +21,13 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
+# CAS support
+gem 'rubycas-client'
+gem 'rubycas-client-rails', :git => "git://github.com/zuk/rubycas-client-rails.git"
+
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
+
+  gem 'autotest-rails'
 end
