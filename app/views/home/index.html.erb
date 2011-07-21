@@ -1,3 +1,13 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
-<p><%= @clubs %></p>
+<h2>Welkom</h2>
+
+<p>Kies de kring waarbij je je wil inschrijven.</p>
+
+<table class="shield-picker"><tr>
+<% @clubs.each_with_index do |club, i| %>
+  <%= raw("</tr><tr>") if i > 0 && i % 4 == 0 %>
+  <td><a href="#">
+    <%= image_tag(club.shield_path(:small)) %>
+    <%= club.full_name %>
+  </a></td>
+<% end %>
+</tr></table>

@@ -12,6 +12,7 @@ wina:
 vtk:
   name: VTK
   full_name: Vlaamse Technische Kring
+  internal_name: VTK
   description: "Faculteitskring van de studenten Toegepaste Wetenschappen"
   url: http://www.vtk.ugent.be
   registration_method: website

@@ -1,0 +1,53 @@
+@import "compass";
+@import "compass/reset";
+@import "compass/layout/grid-background";
+
+$base-font-size: 14px;
+$base-line-height: 21px;
+@include establish-baseline($base-font-size);
+
+body {
+  font-family: "trebuchet ms", helvetica, sans-serif;
+  background-color: #fff;
+  color: #383838;
+}
+
+a {
+  @include hover-link;
+  @include link-colors(#F16C00);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+  letter-spacing: -0.5px;
+  color: #184366;
+}
+
+h2 {
+  @include adjust-font-size-to(24px, 2);
+  border-bottom: 1px dotted #E1E1E1;
+  @include trailer(0.5, 24px);
+}
+
+h3 {
+  @include leader(1, 15px);
+  @include adjust-font-size-to(15px, 1);
+  border-bottom: dotted 1px #E1E1E1;
+  @include trailer(0.5, 15px);
+}
+
+p {
+  @include trailer(0.75);
+}
+
+em {
+  font-weight: bold;
+  font-style: normal;
+}
+
+code {
+  font-family: Monaco, Verdana, Sans-serif;
+  @include adjust-font-size-to(12px, 1);
+  background-color: #f9f9f9;
+  color: #002166;
+}

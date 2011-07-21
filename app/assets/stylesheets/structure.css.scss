@@ -1,0 +1,59 @@
+@import "compass";
+@import "grid";
+
+#wrapper {
+  background: url('main-wrapper.gif') repeat-x top;
+}
+
+#header {
+  @include row;
+  height: 75px;
+  position: relative;
+
+  h1 {
+    font-size: 30px; font-weight: bold;
+    position: absolute;
+    height: 80px; bottom: -20px;
+    background: url('fk-logo.jpg') no-repeat left;
+
+    a {
+      display: block;
+      text-decoration: none;
+      color: #FFF;
+      @include single-text-shadow(#000);
+      padding: 25px 0 30px 95px;
+    }
+  }
+}
+
+#main {
+  @include row;
+  padding: 45px 0 20px 0;
+  @include clearfix;
+
+  .content {
+    @include col(8);
+  }
+
+  .sponsors {
+    @include col(4);
+    @include last;
+  }
+}
+
+@import "compass/layout/sticky-footer";
+@include sticky-footer(81px, "#wrapper", "#wrapper-footer", "#footer");
+
+#footer {
+  @include row;
+  border-top: dotted 1px #E1E1E1;
+  margin: 20px auto 10px auto;
+  padding: 10px 0;
+  height: 30px !important;
+
+  p {
+    text-align: center;
+    font-size: 11px; line-height: 15px;
+    margin: 0;
+  }
+}

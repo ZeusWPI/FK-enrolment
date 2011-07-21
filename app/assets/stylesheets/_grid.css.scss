@@ -1,0 +1,29 @@
+// Source: http://bjorkoy.com/2010/05/css-grids-with-sass/
+
+$width: 960px;
+$columns: 12;
+$col_margin: 24px;
+
+$col_width: ($width - ($col_margin * ($columns - 1))) / $columns;
+$col_total_width: $col_width + $col_margin;
+
+@mixin row {
+  clear: both;
+  width: $width;
+  margin: 0 auto;
+}
+
+@mixin col($n: 1) {
+  @include float-left;
+  @include span($n);
+}
+
+@mixin span($n: 1) {
+  width: ($n * $col_width) + (($n - 1) * $col_margin);
+  @if $n == $columns { margin-right: 0; }
+  @else { margin-right: $col_margin; }
+}
+
+@mixin last() {
+  margin-right: 0;
+}

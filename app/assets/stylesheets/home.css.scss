@@ -2,6 +2,30 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import "compass";
+@import "grid";
+
 body.home {
   // Place scoped styles here
+}
+
+.shield-picker {
+  @include clearfix;
+  margin-top: 20px;
+
+  td {
+    @include col(2); @include last;
+    text-align: center;
+    margin-bottom: 10px;
+
+    a {
+      @include unstyled-link;
+    }
+
+    img {
+      display: block;
+      clear: both;
+      margin: 0 auto 7px;
+    }
+  }
 }
