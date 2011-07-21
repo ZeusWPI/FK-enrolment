@@ -1,10 +1,9 @@
-# encoding: UTF-8
+# encoding: utf-8
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
 # SELECT kort AS name, lang AS full_name, kringname AS internal_name, descr AS description, url AS url
 # FROM kringen WHERE actief =1
-
 clubs = [
   ["VGK", "Vlaamse Geneeskundige Kring", "VGK-fgen", "Faculteitskring voor de studenten Geneeskunde", "http://www.vgk-online.com"],
   ["Chemica", "Chemica", "Chemica", "Faculteitskring van de studenten Chemie, Biotechnologie en Biochemie", "http://fkserv.ugent.be/chemica/"],
@@ -33,5 +32,7 @@ clubs = [
   ["Filologica", "Filologica", "Filologica", "Faculteitskring van de studenten Taal en Letterkunde: Twee Talen (Germaanse, Romaanse en Klassieke Talen)", "http://www.filologica.be"]
 ]
 clubs.each do |c|
-  Club.create(:name => c[0], :full_name => c[1], :internal_name => c[2], :description => c[3], :url => c[4])
+  Club.create!(:name => c[0], :full_name => c[1], :internal_name => c[2], :description => c[3], :url => c[4])
 end
+Club.where(:internal_name => "Hilok").first.update_attributes!(:registration_method => 'website')
+Club.where(:internal_name => "Wina").first.update_attributes!(:registration_method => 'api')
