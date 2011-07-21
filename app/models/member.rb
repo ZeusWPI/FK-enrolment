@@ -4,11 +4,4 @@ class Member < ActiveRecord::Base
 
   # TODO: validations
   validates :sex, :inclusion => {:in => %w(m f)}
-
-  attr_writer :step
-
-  def step
-    @step ||= 0
-  end
-
 end
