@@ -11,17 +11,16 @@ body.home {
 
 .shield-picker {
   @include clearfix;
-  margin-top: 20px;
+  margin-top: 10px;
 
   td {
     @include col(2); @include last;
     text-align: center;
-    margin-bottom: 10px;
+    padding: 10px 0; margin: 0 6px;
+    border: 2px solid #fff;
 
-    a {
-      @include unstyled-link;
-    }
-
+    &:hover { border: 2px solid #B1B1B1; }
+    a { @include unstyled-link; }
     img {
       display: block;
       clear: both;
