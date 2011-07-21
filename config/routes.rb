@@ -1,4 +1,5 @@
 FKEnrolment::Application.routes.draw do
+  root :to => "home#index"
   get "cas/auth"
 
   # The priority is based upon order of creation:

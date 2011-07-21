@@ -13,8 +13,7 @@ FKEnrolment::Application.configure do
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
-
-  # Specify the default JavaScript compressor
+  config.assets.css_compressor = :scss
   config.assets.js_compressor  = :uglifier
 
   # Specifies the header that your server uses for sending files

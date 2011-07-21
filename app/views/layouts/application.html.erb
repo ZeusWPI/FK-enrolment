@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>FKEnrolment</title>
+  <title><%= content_for?(:title) ? yield(:title) : "FaculteitenKonvent Gent" %></title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <meta name="language" content="nl">
+  <meta name="author" content="FaculteitenKonvent Gent" />
 </head>
-<body>
+<body class="<%= generate_body_class %>">
 
 <%= yield %>
 
