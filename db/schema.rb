@@ -10,7 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110720122600) do
+ActiveRecord::Schema.define(:version => 20110721112922) do
+
+  create_table "cards", :force => true do |t|
+    t.integer  "member_id"
+    t.integer  "academic_year"
+    t.integer  "number"
+    t.string   "status",        :default => "unpaid"
+    t.boolean  "valid",         :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "clubs", :force => true do |t|
     t.string   "name"
@@ -28,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20110720122600) do
   end
 
   create_table "members", :force => true do |t|
+    t.integer  "club_id"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
