@@ -3,7 +3,7 @@ class RegistrationController < ApplicationController
   respond_to :html
 
   def load_club
-    @club = Club.find_by_internal_name!(params[:club])
+    @club = Club.using(:website).where('LOWER(internal_name) = ?', params[:club]).first!
   end
 
   def index
