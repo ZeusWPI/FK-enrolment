@@ -1,28 +1,32 @@
 require 'test_helper'
 
 class RegistrationControllerTest < ActionController::TestCase
+  def setup
+    @params = { :club => clubs(:wina).internal_name }
+  end
+
   test "should get index" do
-    get :index
+    get :index, @params
     assert_response :success
   end
 
   test "should get general" do
-    get :general
+    get :general, @params
     assert_response :success
   end
 
   test "should get photo" do
-    get :photo
+    get :photo, @params
     assert_response :success
   end
 
   test "should get isic" do
-    get :isic
+    get :isic, @params
     assert_response :success
   end
 
   test "should get success" do
-    get :success
+    get :success, @params
     assert_response :success
   end
 

@@ -17,6 +17,7 @@ class MembersController < ApiController
   # POST /members.json
   def create
     @member = Member.new(params[:member])
+    @member.club_id = @club.id
     if @member.save
       flash[:notice] = "Successfully created member."
     end

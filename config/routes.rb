@@ -1,17 +1,14 @@
 FKEnrolment::Application.routes.draw do
-  get "registration/index"
-
-  get "registration/general"
-  post "registration/general"
-
-  get "registration/photo"
-
-  get "registration/isic"
-
-  get "registration/success"
-
   root :to => "home#index"
   get "cas/auth"
+
+  scope :path => "registratie/:club", :as => :registration do
+    root :to => "registration#index"
+    match "algemeen" => "registration#general", :as => :general
+    match "foto" => "registration#photo", :as => :photo
+    match "isic" => "registration#isic", :as => :isic
+    get "succes" => "registration#success", :as => :success
+  end
 
   scope "api/v2" do
     get "test" => "api#test"
