@@ -3,7 +3,7 @@ class ApiController < ApplicationController
   respond_to :json
 
   def verify_key
-    @club = Club.where(:api_key => params[:key]).first
+    @club = Club.find_by_api_key(params[:key])
     unless @club && @club.api_key?
       respond_with({:error => "Invalid API-key"}, :status => :forbidden)
     end

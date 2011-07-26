@@ -4,6 +4,10 @@ class Member < ActiveRecord::Base
 
   attr_accessible :first_name, :last_name, :email, :ugent_nr, :sex, :phone,
     :date_of_birth, :home_address, :studenthome_adddress
+
+  validates :club_id, :presence => true
+  validates_associated :club
+
   validates :first_name, :presence => true
   validates :last_name, :presence => true
   # TODO: only required when saving via the webinterface

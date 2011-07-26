@@ -1,11 +1,9 @@
 class RegistrationController < ApplicationController
   before_filter :load_club
+  respond_to :html
 
   def load_club
-    @club = Club.where(:internal_name => params[:club]).first
-    unless @club
-      render :status => :not_found
-    end
+    @club = Club.find_by_internal_name!(params[:club])
   end
 
   def index
