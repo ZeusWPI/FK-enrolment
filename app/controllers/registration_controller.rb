@@ -3,17 +3,18 @@ class RegistrationController < ApplicationController
   end
 
   def general
-    @member = Member.new
-  end
-
-  def general_submit
-    @member = Member.new(params[:member])
-    if @member.save
-      # redirect to next_step based on club preferences
+    if params[:member]
+      @member = Member.new(params[:member])
+      if @member.save
+        # redirect to next_step based on club preferences
+      else
+        
+      end
     else
-      render 'general' 
+      @member = Member.new
     end
   end
+
 
   def photo
   end

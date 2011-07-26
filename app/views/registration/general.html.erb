@@ -1,9 +1,11 @@
 <h2>Registration#general</h2>
-<%= form_for @member, :url => 'general_submit' do |f| %>
+<%= form_for @member, :url => 'general' do |f| %>
 
+  <ul>
   <% @member.errors.full_messages.each do |msg| %>
-    <p><%= msg %></p>
+    <li><%= msg %></li>
   <% end %>
+  </ul>
 
   <%= f.label :first_name, 'Voornaam' %>
   <%= f.text_field :first_name %><br />
@@ -13,6 +15,13 @@
   <%= f.email_field :email %><br /> 
   <%= f.label :ugent_nr, 'UGent-nummer' %>
   <%= f.text_field :ugent_nr %><br /> 
+
+  <%= f.label :sex, 'Geslacht' %>
+
+  <%= f.label :sex_m, 'Man' %>
+  <%= f.radio_button :sex, 'm' ,:checked => true %><br /> 
+  <%= f.label :sex_f, 'Vrouw' %>
+  <%= f.radio_button :sex, 'f' %><br /> 
 
   <%= f.submit %>
 

@@ -2,7 +2,7 @@ FKEnrolment::Application.routes.draw do
   get "registration/index"
 
   get "registration/general"
-  post "registration/general_submit"
+  post "registration/general"
 
   get "registration/photo"
 
