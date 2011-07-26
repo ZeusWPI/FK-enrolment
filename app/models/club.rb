@@ -22,6 +22,6 @@ class Club < ActiveRecord::Base
   end
 
   def to_param
-    internal_name
+    internal_name.downcase
   end
 end

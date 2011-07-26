@@ -2,7 +2,7 @@ require 'test_helper'
 
 class RegistrationControllerTest < ActionController::TestCase
   def setup
-    @params = { :club => clubs(:wina).internal_name }
+    @params = { :club => clubs(:vtk).internal_name.downcase }
   end
 
   test "should get index" do

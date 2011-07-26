@@ -5,7 +5,7 @@ class RegistrationController < ApplicationController
   before_filter :load_member, :only => [:photo, :isic, :success]
 
   def load_club
-    @club = Club.find_by_internal_name!(params[:club])
+    @club = Club.using(:website).where('LOWER(internal_name) = ?', params[:club]).first!
   end
 
   def load_member
