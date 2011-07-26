@@ -20,4 +20,8 @@ class Club < ActiveRecord::Base
       "shields/#{internal_name}.jpg"
     end
   end
+
+  def to_param
+    internal_name
+  end
 end
