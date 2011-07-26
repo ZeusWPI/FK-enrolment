@@ -13,11 +13,11 @@ class RegistrationController < ApplicationController
 
   def general
     @member = Member.new(params[:member])
+    @member.club = @club
     if params[:member] && @member.save
       # redirect to next_step based on club preferences
 
     end
-    @member.club = @club
   end
 
   def photo
