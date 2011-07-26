@@ -1,5 +1,5 @@
 <h2>Registration#general</h2>
-<%= form_for @member, :url => 'general' do |f| %>
+<%= form_for @member, :url => registration_general_path(@club) do |f| %>
 
   <ul>
   <% @member.errors.full_messages.each do |msg| %>
@@ -10,33 +10,33 @@
   <%= f.label :first_name, 'Voornaam' %>
   <%= f.text_field :first_name %><br />
   <%= f.label :last_name, 'Achternaam' %>
-  <%= f.text_field :last_name %><br /> 
+  <%= f.text_field :last_name %><br />
   <%= f.label :email, 'Email' %>
-  <%= f.email_field :email %><br /> 
+  <%= f.email_field :email %><br />
   <%= f.label :ugent_nr, 'UGent-nummer' %>
-  <%= f.text_field :ugent_nr %><br /> 
+  <%= f.text_field :ugent_nr %><br />
 
   <%= f.label :sex, 'Geslacht' %>
 
   <%= f.label :sex_m, 'Man' %>
   <%= f.radio_button :sex, 'm' ,:checked => true %>
   <%= f.label :sex_f, 'Vrouw' %>
-  <%= f.radio_button :sex, 'f' %><br /> 
+  <%= f.radio_button :sex, 'f' %><br />
 
   <%= f.label :phone, 'Telefoon-nummer' %>
-  <%= f.phone_field :phone %><br /> 
+  <%= f.phone_field :phone %><br />
 
   <%= f.label :phone, 'Telefoon-nummer' %>
-  <%= f.phone_field :phone %><br /> 
+  <%= f.phone_field :phone %><br />
 
   <%= f.label :date_of_birth, 'Geboortedatum' %>
-  <%= f.text_field :date_of_birth %><br /> 
+  <%= f.text_field :date_of_birth %><br />
 
   <%= f.label :home_address, 'Thuisadres' %>
-  <%= f.text_field :home_address %><br /> 
+  <%= f.text_field :home_address %><br />
 
   <%= f.label :studenthome_address, 'Kotadres' %>
-  <%= f.text_field :studenthome_address %><br /> 
+  <%= f.text_field :studenthome_address %><br />
 
   <%= f.submit %>
 <% end %>
