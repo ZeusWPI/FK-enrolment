@@ -22,6 +22,7 @@ class RegistrationController < ApplicationController
     else
       @member = Member.new
     end
+    @member.club = @club
   end
 
 
