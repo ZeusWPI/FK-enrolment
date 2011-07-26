@@ -7,6 +7,7 @@ wina:
   description: "Faculteitskring van de studenten Wiskunde, Fysica, Sterrenkunde en Informatica"
   url: http://wina.ugent.be
   registration_method: api
+  api_key: 12345678
   uses_isic: false
 
 vtk:

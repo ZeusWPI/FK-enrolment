@@ -1,6 +1,4 @@
-class MembersController < ApplicationController
-  respond_to :json, :xml
-
+class MembersController < ApiController
   # GET /members
   # GET /members.json
   def index

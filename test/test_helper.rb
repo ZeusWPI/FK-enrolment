@@ -16,4 +16,11 @@ class ActiveSupport::TestCase
       clazz.all.map { |o| assert o.valid?, o.errors.full_messages.join("\n") }
     end
   end
+
+  def params_for_api(params = {}, format = "json", club = nil)
+    club ||= @club
+    params[:format] = format
+    params[:key] = @club.api_key
+    params
+  end
 end
