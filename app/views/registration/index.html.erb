@@ -1,6 +1,29 @@
-<h2>Registration#index</h2>
-<ul>
-  <li><%= link_to 'Via CAS', '/cas/auth' %></li>
-  <li><%= link_to 'Via Mail', registration_general_path(@club) %></li>
-  <li><%= link_to 'Via UGent-nummer', registration_general_path(@club) %></li>
-</ul>
+<div class="club-shield">
+  <%= image_tag(@club.shield_path) %>
+</div>
+
+<div class="content-main">
+  <h2>Inschrijven</h2>
+
+  <p>Via deze website kan je je registreren als lid van de <em><%= @club.name %></em>,
+    de <%= @club.description %>.</p>
+
+  <p>Is dit niet de juiste kring? Ga dan terug naar de
+    <%= link_to 'startpagina', root_path %>.</p>
+
+  <p>Inschrijven kan met je UGentNet gebruikersnaam en wachtwoord, of met het
+    stamnummer dat je op je studentenkaart vindt. Nog geen UGent gegevens?
+    Je kan gerust later je gegevens nog aanvullen.</p>
+
+  <ul class="method-chooser">
+    <li><a href="#cas">
+      Ik ken mijn <em>UGentNet gebruikersnaam</em> en <em>wachtwoord</em>.
+    </a></li>
+    <li><a href="<%= url_for registration_general_path(@club) %>">
+      Ik gebruik het <em>stamnummer op mijn studentenkaart.</em>
+    </a></li>
+    <li><a href="<%= url_for registration_general_path(@club) %>">
+      Ik heb nog geen UGent gegevens.
+    </a></li>
+  </ul>
+</div>

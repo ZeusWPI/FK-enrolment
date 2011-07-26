@@ -1,5 +1,4 @@
-@import "compass";
-@import "grid";
+@import "common";
 
 #wrapper {
   background: url('main-wrapper.gif') repeat-x top;
@@ -38,6 +37,7 @@
   .sponsors {
     @include col(4);
     @include last;
+    height: 500px;
   }
 }
 

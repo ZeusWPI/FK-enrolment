@@ -1,3 +1,33 @@
-// Place all the styles related to the registration controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "common";
+
+body.registration {
+  .club-shield {
+    @include col(2);
+    @include leader(2.5);
+  }
+
+  .content-main {
+    @include col(6); @include last;
+  }
+}
+
+.method-chooser {
+  margin-top: 20px;
+  list-style-type: none;
+  padding: 0;
+
+  li {
+    margin: 15px 0;
+    border: 1px solid #AAA;
+
+    a {
+      display: block;
+      color: #000;
+      padding: 15px 20px 15px 42px;
+      background: url('selector-arrow.png') no-repeat #EEE;
+      background-position: 14px center;
+
+      &:hover {
+        background-color: #F9F9F9;
+        text-decoration: none;
+} } } }

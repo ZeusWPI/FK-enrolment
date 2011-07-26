@@ -1,3 +1,8 @@
+<div class="club-shield">
+  <%= image_tag(@club.shield_path) %>
+</div>
+
+<div class="content-main">
 <h2>Registration#general</h2>
 <%= form_for @member, :url => registration_general_path(@club) do |f| %>
 
@@ -40,3 +45,4 @@
 
   <%= f.submit %>
 <% end %>
+</div>

@@ -1,9 +1,6 @@
-@import "compass";
-@import "compass/reset";
-@import "compass/layout/grid-background";
+@import "common";
 
-$base-font-size: 14px;
-$base-line-height: 21px;
+@import "compass/reset";
 @include establish-baseline($base-font-size);
 
 body {

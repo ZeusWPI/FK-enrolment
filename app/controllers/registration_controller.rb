@@ -9,7 +9,11 @@ class RegistrationController < ApplicationController
   end
 
   def load_member
-    @member = Member.find(session[:member_id])
+    if(session[:member_id])
+      @member = Member.find(session[:member_id])
+    else
+      redirect_to registration_root_path(@club)
+    end
   end
 
   def index
