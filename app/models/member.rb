@@ -3,5 +3,7 @@ class Member < ActiveRecord::Base
   has_many :cards
 
   # TODO: validations
+  validates :first_name, :presence => true
+  validates :last_name, :presence => true
   validates :sex, :inclusion => {:in => %w(m f)}
 end
