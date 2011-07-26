@@ -19,10 +19,24 @@
   <%= f.label :sex, 'Geslacht' %>
 
   <%= f.label :sex_m, 'Man' %>
-  <%= f.radio_button :sex, 'm' ,:checked => true %><br /> 
+  <%= f.radio_button :sex, 'm' ,:checked => true %>
   <%= f.label :sex_f, 'Vrouw' %>
   <%= f.radio_button :sex, 'f' %><br /> 
 
-  <%= f.submit %>
+  <%= f.label :phone, 'Telefoon-nummer' %>
+  <%= f.phone_field :phone %><br /> 
 
+  <%= f.label :phone, 'Telefoon-nummer' %>
+  <%= f.phone_field :phone %><br /> 
+
+  <%= f.label :date_of_birth, 'Geboortedatum' %>
+  <%= f.text_field :date_of_birth %><br /> 
+
+  <%= f.label :home_address, 'Thuisadres' %>
+  <%= f.text_field :home_address %><br /> 
+
+  <%= f.label :studenthome_address, 'Kotadres' %>
+  <%= f.text_field :studenthome_address %><br /> 
+
+  <%= f.submit %>
 <% end %>
