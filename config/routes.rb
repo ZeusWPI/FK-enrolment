@@ -1,4 +1,15 @@
 FKEnrolment::Application.routes.draw do
+  get "registration/index"
+
+  get "registration/general"
+  post "registration/general_submit"
+
+  get "registration/photo"
+
+  get "registration/isic"
+
+  get "registration/success"
+
   root :to => "home#index"
   get "cas/auth"
 

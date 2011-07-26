@@ -1,0 +1,19 @@
+<h2>Registration#general</h2>
+<%= form_for @member, :url => 'general_submit' do |f| %>
+
+  <% @member.errors.full_messages.each do |msg| %>
+    <p><%= msg %></p>
+  <% end %>
+
+  <%= f.label :first_name, 'Voornaam' %>
+  <%= f.text_field :first_name %><br />
+  <%= f.label :last_name, 'Achternaam' %>
+  <%= f.text_field :last_name %><br /> 
+  <%= f.label :email, 'Email' %>
+  <%= f.email_field :email %><br /> 
+  <%= f.label :ugent_nr, 'UGent-nummer' %>
+  <%= f.text_field :ugent_nr %><br /> 
+
+  <%= f.submit %>
+
+<% end %>

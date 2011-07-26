@@ -6,4 +6,5 @@ class Member < ActiveRecord::Base
   validates :first_name, :presence => true
   validates :last_name, :presence => true
   validates :sex, :inclusion => {:in => %w(m f)}
+  validates :email , :presence => true, :email_format => true
 end
