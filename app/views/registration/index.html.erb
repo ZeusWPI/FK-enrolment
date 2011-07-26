@@ -1,6 +1,6 @@
 <h2>Registration#index</h2>
 <ul>
   <li><%= link_to 'Via CAS', '/cas/auth' %></li>
-  <li><%= link_to 'Via Mail', 'general' %></li>
-  <li><%= link_to 'Via UGent-nummer', 'general' %></li>
+  <li><%= link_to 'Via Mail', registration_general_path(@club) %></li>
+  <li><%= link_to 'Via UGent-nummer', registration_general_path(@club) %></li>
 </ul>
