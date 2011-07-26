@@ -3,6 +3,7 @@ require 'test_helper'
 class RegistrationControllerTest < ActionController::TestCase
   def setup
     @params = { :club => clubs(:vtk).internal_name.downcase }
+    @session = { :member_id => Member.first.id }
   end
 
   test "should get index" do
@@ -16,17 +17,17 @@ class RegistrationControllerTest < ActionController::TestCase
   end
 
   test "should get photo" do
-    get :photo, @params
+    get :photo, @params, @session
     assert_response :success
   end
 
   test "should get isic" do
-    get :isic, @params
+    get :isic, @params, @session
     assert_response :success
   end
 
   test "should get success" do
-    get :success, @params
+    get :success, @params, @session
     assert_response :success
   end
 
