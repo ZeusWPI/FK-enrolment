@@ -41,3 +41,4 @@ Club.where(:internal_name => "Wina").first.update_attributes!({
 })
 website_clubs = %w(Chemica Dentalia Filologica GBK GFK Geografica Geologica)
 Club.where(:internal_name => website_clubs).update_all(:registration_method => "website")
+Club.where(:internal_name => 'Chemica').update_all(:uses_isic => true)
