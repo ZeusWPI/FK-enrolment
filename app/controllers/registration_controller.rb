@@ -10,9 +10,11 @@ class RegistrationController < ApplicationController
 
   def load_member
     if(session[:member_id])
-      @member = Member.find(session[:member_id])
-    else
-      redirect_to registration_root_path(@club)
+      begin
+        @member = Member.find(session[:member_id])
+      rescue
+        redirect_to registration_root_path(@club)
+      end
     end
   end
 
@@ -34,6 +36,12 @@ class RegistrationController < ApplicationController
   end
 
   def photo
+    if params[:member]
+      @member.photo = params[:member][:photo]
+      if @member.save 
+        redirect_to registration_isic_path(@club)
+      end
+    end
   end
 
   def isic

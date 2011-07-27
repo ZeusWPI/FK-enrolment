@@ -3,6 +3,11 @@
 </div>
 
 <div class="content-main">
-<h1>Registration#photo</h1>
-<p>Find me in app/views/registration/photo.html.erb</p>
+<h2>Registration#photo</h2>
+
+<%= form_for @member, :url => registration_photo_path(@club), :html => {:multipart => true} do |f| %>
+  <%= f.file_field :photo %></br >
+  <%= f.submit "Volgende stap" %>
+<% end %>
+
 </div>

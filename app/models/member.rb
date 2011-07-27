@@ -5,6 +5,8 @@ class Member < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :email, :ugent_nr, :sex, :phone,
     :date_of_birth, :home_address, :studenthome_adddress
 
+  has_attached_file :photo, :styles => { :medium => "300x300>", :thumb => "100x100>" }
+
   validates :club_id, :presence => true
   validates_associated :club
 
