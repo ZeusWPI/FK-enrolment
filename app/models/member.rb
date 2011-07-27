@@ -6,6 +6,9 @@ class Member < ActiveRecord::Base
     :date_of_birth, :home_address, :studenthome_adddress
 
   has_attached_file :photo, :styles => { :medium => "300x300>", :thumb => "100x100>" }
+  validates_attachment_content_type :photo,
+    :content_type => ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/gif', 'image/png', 'image/x-png'],
+    :message => "Enkel afbeeldingen zijn toegestaan"
 
   validates :club_id, :presence => true
   validates_associated :club
