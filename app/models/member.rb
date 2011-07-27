@@ -3,7 +3,7 @@ class Member < ActiveRecord::Base
   has_many :cards
 
   attr_accessible :first_name, :last_name, :email, :ugent_nr, :sex, :phone,
-    :date_of_birth, :home_address, :studenthome_adddress
+    :date_of_birth, :home_address, :studenthome_address
 
   has_attached_file :photo, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   validates_attachment_content_type :photo,
@@ -22,7 +22,7 @@ class Member < ActiveRecord::Base
   validates :ugent_nr, :presence => true
   validates :sex, :inclusion => { :in => %w(m f) }
   # TODO: only required for ISIC
-  validates :phone, :presence => true
+  validates :home_address, :presence => true
 
   def serializable_hash(options = nil)
     super((options || {}).merge({

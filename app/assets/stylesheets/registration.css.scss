@@ -31,3 +31,12 @@ body.registration {
         background-color: #F9F9F9;
         text-decoration: none;
 } } } }
+
+form.formtastic {
+  #member_sex_input {
+    li {
+      float: left;
+      padding-right: 20px;
+    }
+  }
+}

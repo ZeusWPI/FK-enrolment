@@ -15,24 +15,31 @@ form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
 
 @import "common";
 
-form.formtastic fieldset > ol > li label {
-  font-weight: 900;
-  color: $text_color;
+form.formtastic fieldset > ol > li {
+  @include leader(0.5);
+  @include trailer(0.5);
+  padding: 0;
 
-  abbr {
-    color: #EE2222;
+  p.inline-errors {
+    margin-top: 0;
   }
-}
 
-form.formtastic fieldset > ol > li.radio fieldset ol li label {
-  font-weight: normal;
-}
+  label {
+    font-weight: 900;
+    color: $text-color;
+  }
 
-form.formtastic textarea {
-  padding: 2px;
-}
+  textarea { padding: 2px; }
 
-/* Fixes weird scrolling */
-form.formtastic li.date fieldset {
-  overflow: visible;
+  &.error label { color: $error-color; }
+  &.required label abbr { color: $error-color; }
+
+  &.radio fieldset ol { margin-bottom: 0; }
+  &.radio fieldset ol li label {
+    font-weight: normal;
+    color: $text-color;
+  }
+
+  /* Fix weird scrolling bug */
+  &.date fieldset { overflow: hidden; }
 }
