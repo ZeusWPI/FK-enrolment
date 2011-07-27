@@ -60,6 +60,10 @@ GEM
     erubis (2.7.0)
     execjs (1.2.0)
       multi_json (~> 1.0)
+    formtastic (1.2.3)
+      actionpack (>= 2.3.7)
+      activesupport (>= 2.3.7)
+      i18n (~> 0.4)
     fssm (0.2.7)
     hike (1.2.0)
     i18n (0.6.0)
@@ -95,6 +99,9 @@ GEM
       activesupport (= 3.1.0.rc5)
       bundler (~> 1.0)
       railties (= 3.1.0.rc5)
+    rails-i18n (0.1.3)
+      activesupport (~> 3)
+      i18n (~> 0.6)
     railties (3.1.0.rc5)
       actionpack (= 3.1.0.rc5)
       activesupport (= 3.1.0.rc5)
@@ -135,9 +142,11 @@ DEPENDENCIES
   ZenTest (~> 4.5.0)
   autotest-rails
   compass!
+  formtastic
   jquery-rails
   paperclip (~> 2.3.15)
   rails (~> 3.1.0.rc)
+  rails-i18n
   rubycas-client
   rubycas-client-rails!
   sass-rails (~> 3.1.0.rc)

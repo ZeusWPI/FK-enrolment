@@ -6,7 +6,7 @@
 body {
   font-family: "trebuchet ms", helvetica, sans-serif;
   background-color: #fff;
-  color: #383838;
+  color: $text-color;
 }
 
 a {
@@ -33,7 +33,7 @@ h3 {
   @include trailer(0.5, 15px);
 }
 
-p {
+p, ol, ul, td {
   @include trailer(0.75);
 }
 
@@ -47,4 +47,10 @@ code {
   @include adjust-font-size-to(12px, 1);
   background-color: #f9f9f9;
   color: #002166;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  @include adjust-font-size-to(11px, 1);
 }

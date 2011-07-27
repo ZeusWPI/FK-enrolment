@@ -32,6 +32,12 @@ gem 'rubycas-client-rails', :git => "git://github.com/zuk/rubycas-client-rails.g
 # Photo management
 gem "paperclip", "~> 2.3.15"
 
+# Better forms
+gem 'formtastic'
+
+# Dutch messages
+gem 'rails-i18n'
+
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false

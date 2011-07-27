@@ -1,0 +1,13 @@
+nl:
+  activerecord:
+    attributes:
+      member:
+        first_name: Voornaam
+        last_name: Familienaam
+        email: E-mailadres
+        ugent_nr: UGent-nummer
+        phone: GSM-nummer
+        sex: Geslacht
+        date_of_birth: Geboortedatum
+        home_address: Thuisadres
+        studenthome_address: Kotadres

@@ -38,7 +38,7 @@ class RegistrationController < ApplicationController
   def photo
     if params[:member]
       @member.photo = params[:member][:photo]
-      if @member.save 
+      if @member.save
         redirect_to registration_isic_path(@club)
       end
     end

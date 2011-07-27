@@ -3,43 +3,39 @@
 </div>
 
 <div class="content-main">
-<h2>Registration#general</h2>
-<%= form_for @member, :url => registration_general_path(@club) do |f| %>
+<%= title "Registratie via …" %>
+<%= semantic_form_for @member, :url => registration_general_path(@club) do |f| %>
+  <% if @member.errors.any? %>
+  <div id="error_explanation">
+    <h3><% if @member.errors.count == 1 %>
+      Er ontbreekt nog iets aan je gegevens:
+    <% else %>
+      Er ontbreken nog enkele zaken aan je gegevens:
+    <% end %></h3>
 
-  <ul>
-  <% @member.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
+    <ul><% @member.errors.full_messages.each do |msg| %>
+       <li><%= msg %></li>
+     <% end %></ul>
+  </div>
   <% end %>
-  </ul>
 
-  <%= f.label :first_name, 'Voornaam' %>
-  <%= f.text_field :first_name %><br />
-  <%= f.label :last_name, 'Achternaam' %>
-  <%= f.text_field :last_name %><br />
-  <%= f.label :email, 'Email' %>
-  <%= f.email_field :email %><br />
-  <%= f.label :ugent_nr, 'UGent-nummer' %>
-  <%= f.text_field :ugent_nr %><br />
+  <%= f.inputs do %>
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :ugent_nr %>
+    <%= f.input :email %>
+    <%= f.input :phone, :as => :phone %>
+    <%= f.input :sex, :as => :radio,
+                      :collection => {"Man" => "m", "Vrouw" => "f"}  %>
+    <%= f.input :date_of_birth, :start_year => 1920, :end_year => Time.now.year %>
+    <%= f.input :home_address, :as => :text,
+                               :input_html => { :cols => 30, :rows => 3 } %>
+    <%= f.input :studenthome_address, :as => :text,
+                                      :input_html => { :cols => 30, :rows => 3 } %>
+  <% end %>
 
-  <%= f.label :sex, 'Geslacht' %>
-
-  <%= f.label :sex_m, 'Man' %>
-  <%= f.radio_button :sex, 'm' ,:checked => true %>
-  <%= f.label :sex_f, 'Vrouw' %>
-  <%= f.radio_button :sex, 'f' %><br />
-
-  <%= f.label :phone, 'Telefoon-nummer' %>
-  <%= f.phone_field :phone %><br />
-
-  <%= f.label :date_of_birth, 'Geboortedatum' %>
-  <%= f.text_field :date_of_birth %><br />
-
-  <%= f.label :home_address, 'Thuisadres' %>
-  <%= f.text_field :home_address %><br />
-
-  <%= f.label :studenthome_address, 'Kotadres' %>
-  <%= f.text_field :studenthome_address %><br />
-
-  <%= f.submit "Volgende stap" %>
+  <%= f.buttons do %>
+    <%= f.commit_button "Volgende stap" %>
+  <% end %>
 <% end %>
 </div>

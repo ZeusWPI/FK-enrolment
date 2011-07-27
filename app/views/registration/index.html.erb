@@ -3,7 +3,7 @@
 </div>
 
 <div class="content-main">
-  <h2>Inschrijven</h2>
+  <%= title "Inschrijven via …" %>
 
   <p>Via deze website kan je je registreren als lid van de <em><%= @club.name %></em>,
     de <%= @club.description %>.</p>
@@ -22,8 +22,8 @@
     <li><a href="<%= url_for registration_general_path(@club) %>">
       Ik gebruik het <em>stamnummer op mijn studentenkaart.</em>
     </a></li>
-    <li><a href="<%= url_for registration_general_path(@club) %>">
+    <!-- <li><a href="<%= url_for registration_general_path(@club) %>">
       Ik heb nog geen UGent gegevens.
-    </a></li>
+    </a></li>-->
   </ul>
 </div>

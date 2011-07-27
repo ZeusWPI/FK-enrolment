@@ -16,7 +16,8 @@ class Member < ActiveRecord::Base
   validates :first_name, :presence => true
   validates :last_name, :presence => true
   # TODO: only required when saving via the webinterface
-  validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
+  validates :email, :presence => true,
+                    :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
   # TODO: depend on club-settings?
   validates :ugent_nr, :presence => true
   validates :sex, :inclusion => { :in => %w(m f) }
@@ -27,5 +28,10 @@ class Member < ActiveRecord::Base
     super((options || {}).merge({
       :except => [:club_id]
     }))
+  end
+
+  after_initialize :defaults
+  def defaults
+    self.date_of_birth ||= Time.now.year - 18
   end
 end
