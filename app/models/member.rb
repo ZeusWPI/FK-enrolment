@@ -23,8 +23,8 @@ class Member < ActiveRecord::Base
   # TODO: only required for ISIC
   validates :phone, :presence => true
 
-  def serializable_hash(options = {})
-    super(options.merge({
+  def serializable_hash(options = nil)
+    super((options || {}).merge({
       :except => [:club_id]
     }))
   end
