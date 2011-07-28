@@ -5,7 +5,7 @@ class Member < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :email, :ugent_nr, :sex, :phone,
     :date_of_birth, :home_address, :studenthome_address
 
-  has_attached_file :photo, :styles => { :medium => "300x300>", :thumb => "100x100>" }
+  has_attached_file :photo, :styles => { :standard => ["350x450<", :jpg] }
   validates_attachment_content_type :photo,
     :content_type => ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/gif', 'image/png', 'image/x-png'],
     :message => "Enkel afbeeldingen zijn toegestaan"

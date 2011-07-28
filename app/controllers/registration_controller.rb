@@ -9,6 +9,7 @@ class RegistrationController < ApplicationController
   end
 
   def load_member
+    # TODO: clear the member_id from session after registration
     if(session[:member_id])
       begin
         @member = Member.find(session[:member_id])
@@ -24,10 +25,13 @@ class RegistrationController < ApplicationController
   def general
     @member = Member.new(params[:member])
     @member.club = @club
+
     if params[:member] && @member.save
       session[:member_id] = @member.id
+
       # redirect to next_step based on club preferences
       if @club.uses_isic
+        # TODO: eerst naar isic pagina gaan, foto is daarna logischer
         redirect_to registration_photo_path(@club)
       else
         redirect_to registration_success_path(@club)
@@ -38,13 +42,17 @@ class RegistrationController < ApplicationController
   def photo
     if params[:member]
       @member.photo = params[:member][:photo]
+
       if @member.save
-        redirect_to registration_isic_path(@club)
+        # redirect_to registration_isic_path(@club)
       end
     end
   end
 
   def isic
+    if request.post?
+      redirect_to registration_photo_path(@club)
+    end
   end
 
   def success

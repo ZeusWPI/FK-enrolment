@@ -37,6 +37,11 @@ p, ol, ul, td {
   @include trailer(0.75);
 }
 
+ul {
+  list-style: square;
+  li { margin: 0 0 10px 20px; }
+}
+
 em {
   font-weight: bold;
   font-style: normal;

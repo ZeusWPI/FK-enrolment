@@ -3,4 +3,5 @@ db/*.sqlite3
 log/*.log
 tmp/
 .sass-cache/
-public/system/
+public/data/
+.DS_Store

@@ -13,7 +13,7 @@ body.registration {
 
 .method-chooser {
   margin-top: 20px;
-  list-style-type: none;
+  list-style: none;
   padding: 0;
 
   li {
@@ -31,6 +31,11 @@ body.registration {
         background-color: #F9F9F9;
         text-decoration: none;
 } } } }
+
+.disclaimer {
+  color:#666;
+  font-size: 11px; line-height: 16px;
+}
 
 form.formtastic {
   #member_sex_input {

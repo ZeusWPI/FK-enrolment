@@ -5,9 +5,26 @@
 <div class="content-main">
 <%= title "Foto" %>
 
-<%= form_for @member, :url => registration_photo_path(@club), :html => {:multipart => true} do |f| %>
-  <%= f.file_field :photo %></br >
-  <%= f.submit "Volgende stap" %>
+<%# TODO: uitleg van ISIC + opmerkingen voor geldige pasfoto %>
+
+<%= semantic_form_for @member, :url => registration_photo_path(@club) do |f| %>
+  <% if @member.photo? %>
+    <%= image_tag @member.photo.url(:standard) %>
+  <% end %>
+
+  <%= f.inputs do %>
+    <%= f.input :photo %>
+  <% end %>
+
+  <%#
+  TODO:
+    * Upload via webcam (Seenly Core)
+    * Upload via URL
+  %>
+
+  <%= f.buttons do %>
+    <%= f.commit_button "Volgende stap" %>
+  <% end %>
 <% end %>
 
 </div>
