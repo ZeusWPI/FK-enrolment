@@ -1,8 +1,14 @@
-<div class="club-shield">
-  <%= image_tag(@club.shield_path) %>
-</div>
+<%= render :partial => "club" %>
 
 <div class="content-main">
-<h1>Registration#success</h1>
-<p>Find me in app/views/registration/success.html.erb</p>
+  <%= title "Registratie voltooid" %>
+
+  <%# TODO: tekstje updaten %>
+  <p>Je inschrijving is goed ontvangen. De volgende stap
+    is je te begeven naar de boekenverkoop/permanentie van je kring en
+    je lidgeld te betalen. Wanneer dit gebeurd is zal de inschrijving voltooid zijn.
+  </p><p>
+    Voor meer informatie over de datum van boekenverkopen/permanenties
+    en de prijzen van het lidgeld verwijzen we graag naar de website van je kring.
+  </p>
 </div>

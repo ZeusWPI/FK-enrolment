@@ -1,19 +1,21 @@
-<div class="club-shield">
-  <%= image_tag(@club.shield_path) %>
-</div>
+<%= render :partial => "club" %>
 
 <div class="content-main">
-<%= title "Foto" %>
+<%= title "Pasfoto" %>
 
 <%# TODO: uitleg van ISIC + opmerkingen voor geldige pasfoto %>
 
-<%= semantic_form_for @member, :url => registration_photo_path(@club) do |f| %>
+<% if @member.photo? %>
+<div class="crop-wrapper">
+  <h3>Foto bijsnijden</h3>
 
-  <% if @member.photo? %>
+  <%= semantic_form_for @member, :url => registration_photo_path(@club) do |f| %>
     <%= image_tag @member.photo.url(:large), :id => "crop-image" %>
-    <%= image_tag @member.photo.url(:cropped), :id => "cropped-image" %>
 
-    <%# TODO: show preview %>
+    <span>Voorbeeld:</span>
+    <div id="crop-preview">
+      <%= image_tag @member.photo.url(:large) %>
+    </div>
 
     <%= f.inputs do %>
       <% for crop_attr in [:crop_x, :crop_y, :crop_w, :crop_h] %>
@@ -21,11 +23,16 @@
       <% end %>
     <% end %>
 
-    <%= f.buttons do %>
-      <%= f.commit_button "Crop" %>
+    <%= f.buttons :class => "member no-indent" do %>
+      <%= f.commit_button "Selectie vastleggen" %>
     <% end %>
   <% end %>
+</div>
 
+<h3>Een andere foto kiezen?</h3>
+<% end %>
+
+<%= semantic_form_for @member, :url => registration_photo_path(@club) do |f| %>
   <%= f.inputs do %>
     <%= f.input :photo %>
   <% end %>

@@ -1,6 +1,4 @@
-<div class="club-shield">
-  <%= image_tag(@club.shield_path) %>
-</div>
+<%= render :partial => "club" %>
 
 <div class="content-main">
 <%= title "ISIC-kaart" %>
@@ -22,7 +20,7 @@ studenten- en voordelenkaart erkend door UNESCO.</p>
   TODO: Opties voor ISIC
   %>
 
-  <%= f.buttons do %>
+  <%= f.buttons :class => "buttons no-indent" do %>
     <%= f.commit_button "Volgende stap" %>
   <% end %>
 <% end %>

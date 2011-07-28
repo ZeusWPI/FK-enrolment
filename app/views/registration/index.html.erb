@@ -1,6 +1,4 @@
-<div class="club-shield">
-  <%= image_tag(@club.shield_path) %>
-</div>
+<%= render :partial => "club" %>
 
 <div class="content-main">
   <%= title "Inschrijven via …" %>
@@ -17,10 +15,10 @@
 
   <ul class="method-chooser">
     <li><a href="#cas">
-      Ik ken mijn <em>UGentNet gebruikersnaam</em> en <em>wachtwoord</em>.
+      Ik ken mijn <strong>UGentNet gebruikersnaam</strong> en <strong>wachtwoord</strong>.
     </a></li>
     <li><a href="<%= url_for registration_general_path(@club) %>">
-      Ik gebruik het <em>stamnummer op mijn studentenkaart.</em>
+      Ik gebruik het <strong>stamnummer op mijn studentenkaart.</strong>
     </a></li>
     <!-- <li><a href="<%= url_for registration_general_path(@club) %>">
       Ik heb nog geen UGent gegevens.

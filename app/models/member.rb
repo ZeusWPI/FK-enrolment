@@ -6,8 +6,8 @@ class Member < ActiveRecord::Base
     :date_of_birth, :home_address, :studenthome_address, :photo
 
   has_attached_file :photo, :styles => {
-                              :large => "500x500>",
-                              :cropped => { :geometry => "270x210>", :format => :jpg,
+                              :large => "450x700>",
+                              :cropped => { :geometry => "210x270", :format => :jpg,
                                             :processors => [:Cropper] }
                             }
   validates_attachment_content_type :photo,
@@ -47,13 +47,6 @@ class Member < ActiveRecord::Base
   end
 
   def crop_photo
-    # Scale crop values
-    ratio = Paperclip::Geometry.from_file(photo.path(:original)).width /
-            Paperclip::Geometry.from_file(photo.path(:large)).width
-    for crop_attr in [:crop_x, :crop_y, :crop_w, :crop_h]
-      send("#{crop_attr}=", send("#{crop_attr}").to_i * ratio)
-    end
-
     photo.reprocess!
   end
 end

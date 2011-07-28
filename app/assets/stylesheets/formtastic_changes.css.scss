@@ -27,19 +27,38 @@ form.formtastic fieldset > ol > li {
   label {
     font-weight: 900;
     color: $text-color;
+    width: 30%;
   }
 
-  textarea { padding: 2px; }
+  fieldset ol {
+    width: 69%;
+    padding: 0 0 0 30%;
+  }
+
+  p.inline-errors {
+    margin-left: 30%;
+  }
+
+  input, select { margin: 3px 0;}
+
+  textarea { padding: 3px; }
 
   &.error label { color: $error-color; }
   &.required label abbr { color: $error-color; }
 
-  &.radio fieldset ol { margin-bottom: 0; }
-  &.radio fieldset ol li label {
-    font-weight: normal;
-    color: $text-color;
-  }
+  &.radio fieldset {
+    ol { margin-bottom: 0; }
+    ol li { margin-bottom: 0; }
+    ol li label {
+      font-weight: normal;
+      color: $text-color;
+  } }
 
   /* Fix weird scrolling bug */
   &.date fieldset { overflow: hidden; }
+}
+
+form.formtastic fieldset {
+  &.buttons { padding-left: 30%; }
+  &.no-indent { padding-left: 0; }
 }

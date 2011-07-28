@@ -1,7 +1,7 @@
 @import "common";
 
 #wrapper {
-  background: url('main-wrapper.gif') repeat-x top;
+  background: asset-url("main-wrapper.gif", image) repeat-x top;
 }
 
 #header {
@@ -13,7 +13,7 @@
     font-size: 30px; font-weight: bold;
     position: absolute;
     height: 80px; bottom: -20px;
-    background: url('fk-logo.jpg') no-repeat left;
+    background: asset-url("fk-logo.jpg", image) no-repeat left;
 
     a {
       display: block;
@@ -37,7 +37,7 @@
   .sponsors {
     @include col(4);
     @include last;
-    height: 500px;
+    @include float-right;
   }
 }
 
