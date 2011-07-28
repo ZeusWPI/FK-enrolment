@@ -8,8 +8,22 @@
 <%# TODO: uitleg van ISIC + opmerkingen voor geldige pasfoto %>
 
 <%= semantic_form_for @member, :url => registration_photo_path(@club) do |f| %>
+
   <% if @member.photo? %>
-    <%= image_tag @member.photo.url(:standard) %>
+    <%= image_tag @member.photo.url(:large), :id => "crop-image" %>
+    <%= image_tag @member.photo.url(:cropped), :id => "cropped-image" %>
+
+    <%# TODO: show preview %>
+
+    <%= f.inputs do %>
+      <% for crop_attr in [:crop_x, :crop_y, :crop_w, :crop_h] %>
+        <%= f.input crop_attr, :as => :hidden %>
+      <% end %>
+    <% end %>
+
+    <%= f.buttons do %>
+      <%= f.commit_button "Crop" %>
+    <% end %>
   <% end %>
 
   <%= f.inputs do %>

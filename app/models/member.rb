@@ -3,12 +3,18 @@ class Member < ActiveRecord::Base
   has_many :cards
 
   attr_accessible :first_name, :last_name, :email, :ugent_nr, :sex, :phone,
-    :date_of_birth, :home_address, :studenthome_address
+    :date_of_birth, :home_address, :studenthome_address, :photo
 
-  has_attached_file :photo, :styles => { :standard => ["350x450<", :jpg] }
+  has_attached_file :photo, :styles => {
+                              :large => "500x500>",
+                              :cropped => { :geometry => "270x210>", :format => :jpg,
+                                            :processors => [:Cropper] }
+                            }
   validates_attachment_content_type :photo,
     :content_type => ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/gif', 'image/png', 'image/x-png'],
     :message => "Enkel afbeeldingen zijn toegestaan"
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  attr_accessible :crop_x, :crop_y, :crop_w, :crop_h
 
   validates :club_id, :presence => true
   validates_associated :club
@@ -33,5 +39,21 @@ class Member < ActiveRecord::Base
   after_initialize :defaults
   def defaults
     self.date_of_birth ||= Time.now.year - 18
+  end
+
+  after_update :crop_photo, :if => :cropping?
+  def cropping?
+    !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
+  end
+
+  def crop_photo
+    # Scale crop values
+    ratio = Paperclip::Geometry.from_file(photo.path(:original)).width /
+            Paperclip::Geometry.from_file(photo.path(:large)).width
+    for crop_attr in [:crop_x, :crop_y, :crop_w, :crop_h]
+      send("#{crop_attr}=", send("#{crop_attr}").to_i * ratio)
+    end
+
+    photo.reprocess!
   end
 end
