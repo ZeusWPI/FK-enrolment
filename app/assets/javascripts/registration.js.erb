@@ -4,6 +4,52 @@
 $(function() {
   if (!$('body').hasClass('registration-photo')) return;
 
+  initSeenly();
+  initCropper();
+})
+
+function initSeenly() {
+  var seenly = new Seenly();
+  seenly.swfURL = "<%= asset_path('Seenly.swf') %>";
+  seenly.imageWidth = 350; seenly.imageHeight = 450;
+  seenly.viewfinderWidth = 350; seenly.viewfinderHeight = 450;
+  seenly.embed('seenly-embed');
+
+  var field = $('#member_webcam');
+  var frozen = false;
+  $('#seenly-snap').click(function() {
+    if(!frozen) {
+      seenly.freeze();
+      $('#seenly-submit').attr('disabled', false);
+      $(this).val("Nieuwe foto");
+    }
+    else {
+      seenly.thaw();
+      $('#seenly-submit').attr('disabled', true);
+      $(this).val("Foto nemen");
+    }
+    frozen = !frozen;
+  });
+
+  $('#seenly-submit').click(function() {
+    field.val(seenly.getBase64());
+
+    // dismiss modal window and submit
+    $('#dialog:ui-dialog').dialog('destroy');
+    field.parents('form').submit();
+  });
+
+  field.next('a').click(function() {
+    $('#dialog:ui-dialog').dialog('destroy');
+    $('#seenly-modal').dialog({
+      modal: true, draggable: false, resizable: false,
+      width: 600, height: 600
+    });
+    return false;
+  });
+}
+
+function initCropper() {
   var previewImg = $('#crop-preview img');
   var largeImg = $('#crop-image');
 
@@ -23,7 +69,7 @@ $(function() {
     $('#member_crop_h').val(coords.h);
   }
 
-  var aspectRatio = 350/450;
+  var aspectRatio = 350/450; //210/270
   var initial = {
     x: Number($('#member_crop_x').val()), y: Number($('#member_crop_y').val()),
     w: Number($('#member_crop_w').val()), h: Number($('#member_crop_h').val())
@@ -38,4 +84,4 @@ $(function() {
     onChange: updateCrop,
     onSelect: updateCrop
   });
-})
+}

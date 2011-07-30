@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class RegistrationController < ApplicationController
   respond_to :html
 
@@ -7,22 +9,26 @@ class RegistrationController < ApplicationController
   end
 
   # Load member set in session or create a new one
-  before_filter :load_member
+  before_filter :load_member, :except => [:index]
   def load_member
     if session[:member_id]
       begin
         @member = Member.find(session[:member_id])
-      rescue
-        session[:member_id] = nil
-        redirect_to registration_root_path(@club)
+      rescue ActiveRecord::RecordNotFound
       end
-    else
+    elsif action_name == "general"
       @member = Member.new
     end
 
-    # Always set the member to the club from the current club-param
-    # so the record ends up in the right place, even when the url changes
-    @member.club = @club
+    if !@member
+      # Return to start to create a new member
+      session[:member_id] = nil
+      redirect_to registration_root_path(@club)
+    else
+      # Always set the member to the club from the current club-param
+      # so the record ends up in the right place, even when the url changes
+      @member.club = @club if @member
+    end
   end
 
   def index
@@ -51,8 +57,31 @@ class RegistrationController < ApplicationController
   end
 
   def photo
+    method = :file
+
+    # Check for base64-upload of image (via webcam)
+    if params[:member] && !params[:member][:webcam].blank?
+      sio = StringIO.new(Base64.decode64(params[:member][:webcam]))
+      sio.original_filename = "snapshot.jpg"
+      sio.content_type = "image/jpeg"
+      @member.photo = sio
+
+      method = :webcam
+    end
+
+    # Check for link to external image
+    if params[:member] && !params[:member][:url].blank?
+      # Don't download longer than 10 seconds
+      Timeout::timeout(10) do
+        uri = URI.parse(params[:member][:url])
+        @member.photo = uri.open if uri.respond_to? :open
+      end
+
+      method = :url
+    end
+
     if @member.update_attributes(params[:member])
-      if @member.cropping?
+      if @member.cropping? || method == :webcam
         redirect_to registration_success_path(@club)
       end
     end
@@ -61,5 +90,4 @@ class RegistrationController < ApplicationController
   def success
     session[:member_id] = nil
   end
-
 end

@@ -8,4 +8,7 @@
 //= require jquery_ujs
 //= require jquery.color
 //= require jquery.Jcrop
+//= require jquery-ui.custom.min
+//= require swfobject
+//= require Seenly
 //= require_tree .

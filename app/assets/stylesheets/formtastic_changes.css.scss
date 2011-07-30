@@ -19,6 +19,7 @@ form.formtastic fieldset > ol > li {
   @include leader(0.5);
   @include trailer(0.5);
   padding: 0;
+  overflow: inherit;
 
   p.inline-errors {
     margin-top: 0;

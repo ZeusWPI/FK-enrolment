@@ -34,6 +34,15 @@ body.registration {
         text-decoration: none;
 } } } }
 
+#seenly-modal {
+  display: none;
+
+  #seenly-embed-wrapper, input, p {
+    margin: 0.5em auto;
+    text-align: center;
+  }
+}
+
 form.formtastic {
   .disclaimer {
     color:#666;
@@ -49,15 +58,15 @@ form.formtastic {
 } } }
 
 .crop-wrapper {
-  @include col(9); @include last;
-  padding: 0 10px; margin-bottom: 10px;
+  @include col(19); @include last;
+  padding: 5px 15px; margin-bottom: 15px;
   border: 2px solid #E1E1E1;
   background: #fff;
   @include clearfix;
 
   h3 {
     @include leader(0.5, 15px);
-    @include trailer(0.25, 15px);
+    @include trailer(0.5, 15px);
     border: none;
   }
 
@@ -66,13 +75,12 @@ form.formtastic {
   }
 
   span {
-    float: right; width: 210px;
-    margin: -23px 21px 2px 0;
+    float: right; width: 214px;
+    margin: -23px 0 2px 0;
   }
 
   #crop-preview {
     float: right;
-    margin-right: 19px;
     width: 210px; height: 270px;
     overflow: hidden;
     border: 2px solid #333;

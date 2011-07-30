@@ -6,7 +6,7 @@ class Member < ActiveRecord::Base
     :date_of_birth, :home_address, :studenthome_address, :photo
 
   has_attached_file :photo, :styles => {
-                              :large => "450x700>",
+                              :large => "520x700>",
                               :cropped => { :geometry => "210x270", :format => :jpg,
                                             :processors => [:Cropper] }
                             }
