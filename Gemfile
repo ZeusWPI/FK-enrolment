@@ -14,6 +14,10 @@ group :assets do
   gem 'compass', git: 'git://github.com/chriseppstein/compass.git', branch: 'rails31'
   gem 'uglifier'
   gem 'jquery-rails'
+
+  # Uglifier dependencies
+  gem 'execjs'
+  gem 'therubyracer'
 end
 
 # Use unicorn as the web server
@@ -26,7 +30,7 @@ end
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 # CAS support
-gem 'rubycas-client'
+gem 'rubycas-client', git: 'git://github.com/Javache/rubycas-client.git', branch: 'master'
 gem 'rubycas-client-rails', :git => "git://github.com/zuk/rubycas-client-rails.git"
 
 # Photo management

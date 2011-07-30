@@ -1,6 +1,6 @@
 FKEnrolment::Application.routes.draw do
   root :to => "home#index"
-  get "cas/auth"
+  match "cas/auth"
 
   scope :path => ":club", :as => :registration do
     root :to => "registration#index"

@@ -42,6 +42,8 @@ module FKEnrolment
 
     # CAS
     config.rubycas.cas_base_url = "https://login.ugent.be/"
-    config.rubycas.enable_single_sign_out = true
+    config.rubycas.validate_url = "https://login.ugent.be/samlValidate"
+    config.rubycas.logger = Rails.logger
+    config.enable_single_sign_out = true
   end
 end
