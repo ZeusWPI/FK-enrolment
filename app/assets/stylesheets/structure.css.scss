@@ -31,11 +31,11 @@
   @include clearfix;
 
   .content {
-    @include col(8);
+    @include col(17);
   }
 
   .sponsors {
-    @include col(4);
+    @include col(6);
     @include last;
     @include float-right;
   }

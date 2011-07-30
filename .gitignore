@@ -4,5 +4,4 @@ log/*.log
 tmp/
 .sass-cache/
 public/data/
-public/assets/
 .DS_Store

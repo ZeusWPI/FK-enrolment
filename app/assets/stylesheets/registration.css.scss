@@ -2,14 +2,14 @@
 
 body.registration {
   .club-shield {
-    @include col(2);
+    @include col(4);
     @include leader(2.5);
     font-weight: 900;
     text-align: center;
   }
 
   .content-main {
-    @include col(6); @include last;
+    @include col(13); @include last;
   }
 }
 

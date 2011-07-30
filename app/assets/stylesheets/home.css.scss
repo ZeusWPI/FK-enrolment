@@ -9,7 +9,7 @@ body.home {
   margin-top: 10px;
 
   td {
-    @include col(2); @include last;
+    @include col(4); @include last;
     border: 2px solid #fff;
     margin: 0 6px;
 

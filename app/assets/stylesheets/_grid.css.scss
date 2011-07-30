@@ -1,7 +1,7 @@
 // Source: http://bjorkoy.com/2010/05/css-grids-with-sass/
 
 $width: 960px;
-$columns: 12;
+$columns: 24;
 $col_margin: 24px;
 
 $col_width: ($width - ($col_margin * ($columns - 1))) / $columns;
