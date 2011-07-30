@@ -1,7 +1,7 @@
 <%= render :partial => "club" %>
 
 <div class="content-main">
-<%= title "Registratie via …" %>
+<%= title "Registreren" %>
 <%= semantic_form_for @member, :url => registration_general_path(@club) do |f| %>
   <% if @member.errors.any? %>
   <div id="error_explanation">
@@ -18,9 +18,9 @@
   <% end %>
 
   <%= f.inputs do %>
-    <%= f.input :first_name %>
-    <%= f.input :last_name %>
-    <%= f.input :ugent_nr %>
+    <%= f.input :first_name, :input_html => { :disabled => @cas_authed } %>
+    <%= f.input :last_name, :input_html => { :disabled => @cas_authed } %>
+    <%= f.input :ugent_nr, :input_html => { :disabled => @cas_authed } %>
     <%= f.input :email %>
     <%= f.input :phone, :as => :phone %>
     <%= f.input :sex, :as => :radio,

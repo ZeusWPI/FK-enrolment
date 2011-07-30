@@ -37,6 +37,15 @@ class RegistrationController < ApplicationController
   def general
     @member.attributes = params[:member]
 
+    # Override properties if they're already set through CAS
+    @cas_authed = !session[:cas_user].blank?
+    if @cas_authed
+      attributes = session[:cas_extra_attributes]
+      @member.first_name = attributes["givenname"]
+      @member.last_name = attributes["surname"]
+      @member.ugent_nr = attributes["ugentStudentID"]
+    end
+
     if params[:member] && @member.save
       session[:member_id] = @member.id
 
