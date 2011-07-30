@@ -42,6 +42,9 @@ gem 'formtastic'
 # Dutch messages
 gem 'rails-i18n'
 
+# Send error messages
+gem 'exception_notification', :require => 'exception_notifier'
+
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false

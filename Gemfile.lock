@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/Javache/rubycas-client.git
-  revision: 3ec7343f9125cd23e0326be32393f84cef54b161
+  revision: c0cb725e947d6473abf93e22971ec3925daa9bda
   branch: master
   specs:
     rubycas-client (2.1.0)
@@ -66,6 +66,7 @@ GEM
     chunky_png (1.2.0)
     cocaine (0.1.0)
     erubis (2.7.0)
+    exception_notification (2.4.1)
     execjs (1.2.1)
       multi_json (~> 1.0)
     formtastic (1.2.4)
@@ -129,7 +130,7 @@ GEM
     sprockets (2.0.0.beta.12)
       hike (~> 1.2)
       rack (~> 1.0)
-      tilt (~> 1.1, != 1.3.0)
+      tilt (!= 1.3.0, ~> 1.1)
     sqlite3 (1.3.4)
     therubyracer (0.9.2)
       libv8 (~> 3.3.10)
@@ -152,6 +153,7 @@ DEPENDENCIES
   ZenTest (~> 4.5.0)
   autotest-rails
   compass!
+  exception_notification
   execjs
   formtastic
   jquery-rails

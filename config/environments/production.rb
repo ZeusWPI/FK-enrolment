@@ -50,4 +50,10 @@ FKEnrolment::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+  # Send notifications when exceptions occur
+  config.middleware.use ExceptionNotifier,
+    :email_prefix => "[FK-Enrolment] ",
+    :sender_address => %{"Exception Notifier" <fk-enrolment@zeus.ugent.be>},
+    :exception_recipients => %w{fk-enrolment@zeus.ugent.be}
 end

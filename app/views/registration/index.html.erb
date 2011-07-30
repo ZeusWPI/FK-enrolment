@@ -3,7 +3,7 @@
 <div class="content-main">
   <%= title "Inschrijven via …" %>
 
-  <p>Via deze website kan je je registreren als lid van de <em><%= @club.name %></em>,
+  <p>Via deze website kan je je registreren als lid van de <strong><%= @club.name %></strong>,
     de <%= @club.description %>.</p>
 
   <p>Is dit niet de juiste kring? Ga dan terug naar de
@@ -13,11 +13,12 @@
     stamnummer dat je op je studentenkaart vindt. Nog geen UGent gegevens?
     Je kan gerust later je gegevens nog aanvullen.</p>
 
+  <% registration_path = registration_general_path(@club) %>
   <ul class="method-chooser">
-    <li><a href="#cas">
+    <li><a href="<%= url_for cas_auth_path(:redirect => registration_path) %>">
       Ik ken mijn <strong>UGentNet gebruikersnaam</strong> en <strong>wachtwoord</strong>.
     </a></li>
-    <li><a href="<%= url_for registration_general_path(@club) %>">
+    <li><a href="<%= url_for registration_path %>">
       Ik gebruik het <strong>stamnummer op mijn studentenkaart.</strong>
     </a></li>
     <!-- <li><a href="<%= url_for registration_general_path(@club) %>">
