@@ -13,12 +13,11 @@
     stamnummer dat je op je studentenkaart vindt. Nog geen UGent gegevens?
     Je kan gerust later je gegevens nog aanvullen.</p>
 
-  <% registration_path = registration_general_path(@club) %>
   <ul class="method-chooser">
-    <li><a href="<%= url_for cas_auth_path(:redirect => registration_path) %>">
+    <li><a href="<%= url_for registration_cas_path(@club) %>">
       Ik ken mijn <strong>UGentNet gebruikersnaam</strong> en <strong>wachtwoord</strong>.
     </a></li>
-    <li><a href="<%= url_for registration_path %>">
+    <li><a href="<%= url_for registration_general_path(@club) %>">
       Ik gebruik het <strong>stamnummer op mijn studentenkaart.</strong>
     </a></li>
     <!-- <li><a href="<%= url_for registration_general_path(@club) %>">

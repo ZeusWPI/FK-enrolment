@@ -1,6 +1,7 @@
 require 'open-uri'
 
 class RegistrationController < ApplicationController
+  cattr_accessor :fkbooks_key
   respond_to :html
 
   before_filter :load_club
@@ -102,8 +103,10 @@ class RegistrationController < ApplicationController
 
     # Redirect to FK-books
     if @club.registration_method == "fkbooks"
-      # TODO: redirect to www.fkgent.be/fkbooks/zeus_return_catcher/<member_id>/<type>/<key>
-      with special key
+      key = Rails.application.config.fkbooks_key
+      signature = Digest::SHA1.hexdigest(key + @member.id.to_s)
+
+      redirect_to Rails.application.config.fkbooks % [@member.id, signature]
     end
   end
 end

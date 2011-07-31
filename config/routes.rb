@@ -6,6 +6,7 @@ FKEnrolment::Application.routes.draw do
 
   scope :path => ":club", :as => :registration do
     root :to => "registration#index"
+    get "cas" => "cas#auth"
     match "algemeen" => "registration#general", :as => :general
     match "foto" => "registration#photo", :as => :photo
     match "isic" => "registration#isic", :as => :isic

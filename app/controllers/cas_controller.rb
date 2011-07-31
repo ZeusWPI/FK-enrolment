@@ -3,7 +3,13 @@ class CasController < ApplicationController
   before_filter RubyCAS::Filter, :only => :verify
 
   def auth
-    session[:post_cas_redirect] = params[:redirect]
+    if params[:redirect]
+      session[:post_cas_redirect] = params[:redirect]
+    elsif params[:club]
+      club = Club.where('LOWER(internal_name) = ?', params[:club]).first!
+      session[:post_cas_redirect] = registration_general_path(club)
+    end
+
     redirect_to cas_verify_path
   end
 
