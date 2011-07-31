@@ -27,12 +27,6 @@ class Member < ActiveRecord::Base
     }))
   end
 
-  # Set some practical defaults
-  after_initialize :defaults
-  def defaults
-    self.date_of_birth ||= Time.now.year - 18
-  end
-
   # Profile picture
   has_attached_file :photo, :styles => {
     :large => "520x700>",

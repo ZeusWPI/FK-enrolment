@@ -33,6 +33,9 @@ class RegistrationController < ApplicationController
   end
 
   def index
+    # We were not sent here through fk-books, so there definitely
+    # shouldn't be a redirect afterwards
+    session[:fk_books] = nil
   end
 
   def general
