@@ -10,14 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110731120620) do
+ActiveRecord::Schema.define(:version => 20110731142717) do
 
   create_table "cards", :force => true do |t|
     t.integer  "member_id"
     t.integer  "academic_year"
     t.integer  "number"
     t.string   "status",        :default => "unpaid"
-    t.boolean  "enabled",       :default => false
+    t.boolean  "enabled",       :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "isic_status",   :default => "none"

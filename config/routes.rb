@@ -14,7 +14,9 @@ FKEnrolment::Application.routes.draw do
 
   scope "api/v2" do
     get "test" => "api#test"
-    resources :members, :except => [:new, :edit]
+    resources :members, :except => [:new, :edit] do
+      resource :card, :except => [:new, :edit]
+    end
   end
 
   # The priority is based upon order of creation:

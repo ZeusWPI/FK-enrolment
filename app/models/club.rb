@@ -3,13 +3,11 @@ class Club < ActiveRecord::Base
   has_many :cards, :through => :members
 
   validates_presence_of :name, :full_name, :internal_name, :description, :url
-  validates :registration_method, :inclusion => { :in => %w(none api website) }
+  validates :registration_method, :inclusion => { :in => %w(none api website fkbooks) }
 
-  class << self
-    # Find clubs using a specified registration method
-    def using(method)
-      where(:registration_method => method.to_s)
-    end
+  # Find clubs using a specified registration method
+  def self.using(method)
+    where(:registration_method => [*method].map(&:to_s))
   end
 
   # Get the asset path for the club's shield

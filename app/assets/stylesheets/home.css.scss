@@ -10,6 +10,7 @@ body.home {
 
   td {
     @include col(4); @include last;
+    width: 150px; // Overriding column system, watch out!
     border: 2px solid #fff;
     margin: 0 6px;
 

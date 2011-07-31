@@ -2,8 +2,8 @@ require 'test_helper'
 
 class MembersControllerTest < ActionController::TestCase
   setup do
-    @member = members(:javache)
     @club = clubs(:wina)
+    @member = members(:javache)
   end
 
   test "should get index" do
@@ -29,6 +29,11 @@ class MembersControllerTest < ActionController::TestCase
   test "should show member" do
     get :show, params_for_api({ id: @member.to_param })
     assert_response :success
+  end
+
+  test "should not show member of other club" do
+    get :show, params_for_api({ id: members(:nudded).to_param })
+    assert_response :forbidden
   end
 
   test "should update member" do

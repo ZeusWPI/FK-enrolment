@@ -11,10 +11,20 @@ class Card < ActiveRecord::Base
   validates :status, :inclusion => { :in => %w(unpaid paid) }
   validates :isic_status, :inclusion => { :in => %w(none requested delivered) }
 
+  # By default, always join the member
+  default_scope :include => :member
+
   # Renders the academic year in a more commonly used format
   def full_academic_year
     unless academic_year.blank?
       academic_year.to_s + '-' + (academic_year + 1).to_s
     end
+  end
+
+  # Set some practical defaults
+  after_initialize :defaults
+  def defaults
+    # registrations for the old year end in june
+    self.academic_year ||= Member.current_academic_year
   end
 end

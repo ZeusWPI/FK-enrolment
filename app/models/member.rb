@@ -15,7 +15,7 @@ class Member < ActiveRecord::Base
   validates :last_name, :presence => true
   validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i },
                     :if => lambda { |m| m.club.registration_method == "website" }
-  validates :ugent_nr, :presence => true  # TOOD: required depends on club settings
+  validates :ugent_nr, :presence => true  # TOOD: required if not chosen for email registration
   validates :sex, :inclusion => { :in => %w(m f) }
   validates :home_address, :presence => true, :if => lambda { |m| m.club.uses_isic }
 
@@ -53,4 +53,12 @@ class Member < ActiveRecord::Base
   def crop_photo
     photo.reprocess!
   end
+
+  # Current academic year
+  def self.current_academic_year
+    # registrations end in june
+    (Time.now - 6.months).year
+  end
+  has_one :current_card, :class_name => "Card",
+    :conditions => { :academic_year => current_academic_year }
 end

@@ -35,10 +35,15 @@ clubs.each do |c|
   Club.create!(:name => c[0], :full_name => c[1], :internal_name => c[2], :description => c[3], :url => c[4])
 end
 
-Club.where(:internal_name => "Wina").first.update_attributes!({
-  :registration_method => "api",
-  :api_key => "12345678"
-})
-website_clubs = %w(Chemica Dentalia Filologica GBK GFK Geografica Geologica)
-Club.where(:internal_name => website_clubs).update_all(:registration_method => "website")
-Club.where(:internal_name => 'Chemica').update_all(:uses_isic => true)
+if Rails.env.development?
+  Club.where(:internal_name => "Wina").first.update_attributes!({
+    :registration_method => "api",
+    :api_key => "12345678"
+  })
+  website_clubs = %w(Chemica Dentalia Filologica GBK GFK Geografica Geologica)
+  Club.where(:internal_name => website_clubs).update_all(:registration_method => "website")
+  Club.where(:internal_name => 'Chemica').update_all(:uses_isic => true)
+  Club.where(:internal_name => 'Hilok').update_all(:registration_method => "fkbooks")
+else
+  Club.where(:internal_name => %w(VLK Hilok)).update_all(:registration_method => "website")
+end

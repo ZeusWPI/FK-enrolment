@@ -5,7 +5,8 @@ class RegistrationController < ApplicationController
 
   before_filter :load_club
   def load_club
-    @club = Club.using(:website).where('LOWER(internal_name) = ?', params[:club]).first!
+    @club = Club.using([:website, :fkbooks])
+                .where('LOWER(internal_name) = ?', params[:club]).first!
   end
 
   # Load member set in session or create a new one
@@ -98,5 +99,11 @@ class RegistrationController < ApplicationController
 
   def success
     session[:member_id] = nil
+
+    # Redirect to FK-books
+    if @club.registration_method == "fkbooks"
+      # TODO: redirect to www.fkgent.be/fkbooks/zeus_return_catcher/<member_id>/<type>/<key>
+      with special key
+    end
   end
 end
