@@ -86,6 +86,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.16)
     multi_json (1.0.3)
+    mysql2 (0.3.6)
     paperclip (2.3.16)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
@@ -157,6 +158,7 @@ DEPENDENCIES
   execjs
   formtastic
   jquery-rails
+  mysql2
   paperclip (~> 2.3.15)
   rails (~> 3.1.0.rc)
   rails-i18n
