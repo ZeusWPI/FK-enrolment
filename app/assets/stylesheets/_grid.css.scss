@@ -27,3 +27,13 @@ $col_total_width: $col_width + $col_margin;
 @mixin last() {
   margin-right: 0;
 }
+
+/* prepend n blank columns */
+@mixin prepend($n: 1) {
+  margin-left: $col_total_width * $n
+}
+
+/* append n blank columns */
+@mixin append($n: 1) {
+  margin-right: $col_total_width * $n + $col_margin
+}

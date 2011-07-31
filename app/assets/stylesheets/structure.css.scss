@@ -41,6 +41,19 @@
   }
 }
 
+.flash {
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  border: 1px solid;
+  @include col(17);
+  @include append(6);
+
+  &.warning {
+    color: $error-color;
+    border-color: $error-color;
+  }
+}
+
 @import "compass/layout/sticky-footer";
 @include sticky-footer(81px, "#wrapper", "#wrapper-footer", "#footer");
 

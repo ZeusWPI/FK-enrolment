@@ -15,6 +15,9 @@
     </div>
 
     <div id="main">
+      <% flash.each do |key, msg| %>
+        <p class="flash <%= key %>"><%= msg %></p>
+      <% end %>
       <div class="sponsors">
         <%= render :partial => "layouts/sponsors" %>
       </div>
