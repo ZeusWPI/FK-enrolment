@@ -2,7 +2,7 @@ class Club < ActiveRecord::Base
   has_many :members
   has_many :cards, :through => :members
 
-  # TODO: validations
+  validates_presence_of :name, :full_name, :internal_name, :description, :url
   validates :registration_method, :inclusion => { :in => %w(none api website) }
 
   class << self
@@ -21,6 +21,7 @@ class Club < ActiveRecord::Base
     end
   end
 
+  # Allows url to contain internal_name as a param
   def to_param
     internal_name.downcase
   end

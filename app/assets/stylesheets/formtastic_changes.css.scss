@@ -61,5 +61,13 @@ form.formtastic fieldset > ol > li {
 
 form.formtastic fieldset {
   &.buttons { padding-left: 30%; }
-  &.no-indent { padding-left: 0; }
-}
+  &.no-indent {
+    padding-left: 0;
+
+    .inline-hints {
+      margin-left: 21px;
+    }
+
+    ol > li.boolean > label {
+      padding-left: 0; width: 100%;
+} } }

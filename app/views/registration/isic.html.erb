@@ -14,11 +14,16 @@ studenten- en voordelenkaart erkend door UNESCO.</p>
 </ul>
 <p>Jouw ISIC, haal eruit wat erin zit!</p>
 
-<%= semantic_form_for @member, :url => registration_isic_path(@club) do |f| %>
+<%= simple_format(@club.isic_text) unless @club.isic_text.blank? %>
 
-   <%#
-  TODO: Opties voor ISIC
-  %>
+<%= semantic_form_for @member, :url => registration_isic_path(@club) do |f| %>
+    <%= f.inputs :class => "inputs no-indent" do %>
+    <%= f.input :isic_newsletter,
+      :label => "Ja, ik wil de ISIC nieuwsbrief ontvangen." %>
+    <%= f.input :isic_mail_card, 
+      :label => "Stuur mijn ISIC-kaart met de post op.",
+      :hint => "Voor deze optie zal je €2 extra aangerekend worden aan de kassa." %>
+  <% end %>
 
   <%= f.buttons :class => "buttons no-indent" do %>
     <%= f.commit_button "Volgende stap" %>
