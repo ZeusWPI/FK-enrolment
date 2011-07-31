@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @clubs = Club.using([:website, :fkbooks]).order(:full_name).all
+    @clubs = Club.using(:website).order(:full_name).all
   end
 end

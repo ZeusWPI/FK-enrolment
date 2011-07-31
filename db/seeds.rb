@@ -43,8 +43,6 @@ if Rails.env.development?
   website_clubs = %w(Chemica Dentalia Filologica GBK GFK Geografica Geologica)
   Club.where(:internal_name => website_clubs).update_all(:registration_method => "website")
   Club.where(:internal_name => 'Chemica').update_all(:uses_isic => true)
-  Club.where(:internal_name => 'Hilok').update_all(:registration_method => "fkbooks")
 else
-  Club.where(:internal_name => %w(VLK)).update_all(:registration_method => "website")
-  Club.where(:internal_name => %w(Hilok)).update_all(:registration_method => "fkbooks")
+  Club.where(:internal_name => %w(VLK Hilok)).update_all(:registration_method => "website")
 end

@@ -1,7 +1,5 @@
 FKEnrolment::Application.routes.draw do
   root :to => "home#index"
-
-  get "cas/auth"
   match "cas/verify"
 
   scope :path => ":club", :as => :registration do

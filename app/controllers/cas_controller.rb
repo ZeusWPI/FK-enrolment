@@ -10,6 +10,10 @@ class CasController < ApplicationController
       session[:post_cas_redirect] = registration_general_path(club)
     end
 
+    if request.referer =~ /fkgent.be\/fkbooks/
+      session[:fk_books] = true
+    end
+
     redirect_to cas_verify_path
   end
 

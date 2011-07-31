@@ -3,7 +3,7 @@ class Club < ActiveRecord::Base
   has_many :cards, :through => :members
 
   validates_presence_of :name, :full_name, :internal_name, :description, :url
-  validates :registration_method, :inclusion => { :in => %w(none api website fkbooks) }
+  validates :registration_method, :inclusion => { :in => %w(none api website) }
 
   # Find clubs using a specified registration method
   def self.using(method)

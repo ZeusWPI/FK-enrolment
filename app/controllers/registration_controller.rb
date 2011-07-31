@@ -6,8 +6,7 @@ class RegistrationController < ApplicationController
 
   before_filter :load_club
   def load_club
-    @club = Club.using([:website, :fkbooks])
-                .where('LOWER(internal_name) = ?', params[:club]).first!
+    @club = Club.using(:website).where('LOWER(internal_name) = ?', params[:club]).first!
   end
 
   # Load member set in session or create a new one
@@ -102,11 +101,12 @@ class RegistrationController < ApplicationController
     session[:member_id] = nil
 
     # Redirect to FK-books
-    if @club.registration_method == "fkbooks"
+    if session[:fk_books]
       key = Rails.application.config.fkbooks_key
       signature = Digest::SHA1.hexdigest(key + @member.id.to_s)
 
       redirect_to Rails.application.config.fkbooks % [@member.id, signature]
+      session[:fk_books] = nil
     end
   end
 end
