@@ -14,3 +14,7 @@ nl:
         photo: Foto
         isic_newsletter: ISIC nieuwsbrief
         isic_mail_card: ISIC-kaart opsturen
+
+  errors:
+    messages:
+      taken: "is al in gebruik"

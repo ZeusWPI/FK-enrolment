@@ -2,7 +2,15 @@
 
 javache:
   member: javache
-  academic_year: 2010
+  academic_year: 2011
   number: 1234567
   status: paid
-  valid: true
+  enabled: true
+
+nudded:
+  member: nudded
+  academic_year: 2011
+  number: 1234568
+  status: unpaid
+  isic_status: requested
+  enabled: true

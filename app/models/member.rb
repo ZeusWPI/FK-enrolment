@@ -13,8 +13,7 @@ class Member < ActiveRecord::Base
   # Validation rules
   validates :first_name, :presence => true
   validates :last_name, :presence => true
-  validates :email, :presence => true,
-                    :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i },
+  validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i },
                     :if => lambda { |m| m.club.registration_method == "website" }
   validates :ugent_nr, :presence => true  # TOOD: required depends on club settings
   validates :sex, :inclusion => { :in => %w(m f) }
