@@ -6,6 +6,9 @@ body.registration {
     @include leader(2.5);
     font-weight: 900;
     text-align: center;
+    @include adjust-font-size-to(15px, 0.9);
+
+    img { margin: 0 auto 10px; }
   }
 
   .content-main {

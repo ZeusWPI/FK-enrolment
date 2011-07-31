@@ -19,7 +19,7 @@ body.home {
       padding: 10px 5px;
       font-weight: 900;
       text-align: center;
-      @include adjust-font-size-to(15px, 1);
+      @include adjust-font-size-to(15px, 0.9);
       @include unstyled-link;
     }
 
@@ -28,5 +28,5 @@ body.home {
     img {
       display: block;
       clear: both;
-      margin: 0 auto 7px;
+      margin: 0 auto 10px;
 } } }

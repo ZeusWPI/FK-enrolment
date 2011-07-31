@@ -5,7 +5,11 @@
 <table class="shield-picker"><tr>
 <% @clubs.each_with_index do |club, i| %>
   <%= raw("</tr><tr>") if i > 0 && i % 4 == 0 %>
+  <% if club.registration_method == "website" %>
   <td><a href="<%= url_for registration_root_path(club) %>">
+  <% else %>
+  <td><a href="<%= club.url %>">
+  <% end %>
     <%= image_tag(club.shield_path(:small)) %>
     <%= club.full_name %>
   </a></td>
