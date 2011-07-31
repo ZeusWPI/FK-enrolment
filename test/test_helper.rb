@@ -18,8 +18,8 @@ class ActiveSupport::TestCase
   end
 
   def params_for_api(params = {}, format = "json", club = @club)
-    params[:format] = format unless params[:format]
-    params[:key] = club.api_key unless params[:key]
+    params[:format] ||= format
+    params[:key] ||= club.api_key
     params
   end
 end

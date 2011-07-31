@@ -63,8 +63,7 @@ class RegistrationController < ApplicationController
   end
 
   def isic
-    # TODO: save some stuff
-    if request.put?
+    if params[:member] && @member.update_attributes(params[:member])
       redirect_to registration_photo_path(@club)
     end
   end

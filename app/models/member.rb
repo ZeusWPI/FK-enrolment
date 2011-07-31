@@ -15,16 +15,20 @@ class Member < ActiveRecord::Base
   validates :last_name, :presence => true
   validates :email, :presence => true,
                     :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i },
-                    :if => lambda { |m| m.club.registration_method != "api" }
+                    :if => lambda { |m| m.club.registration_method != "api" if m.club }
   validates :ugent_nr, :presence => true  # TOOD: required if not chosen for email registration
   validates :sex, :inclusion => { :in => %w(m f) }
-  validates :home_address, :presence => true, :if => lambda { |m| m.club.uses_isic }
+  validates :home_address, :presence => true, :if => lambda { |m| m.club.uses_isic if m.club }
 
   # Hash for export (see to_json)
   def serializable_hash(options = nil)
-    super((options || {}).merge({
-      :except => [:club_id]
+    result = super((options || {}).merge({
+      :except => [:club_id, :isic_newsletter, :isic_mail_card,
+                  :photo_content_type, :photo_file_name, :photo_file_size, :photo_updated_at],
+      :include => [:current_card]
     }))
+    result[:card] = result.delete :current_card
+    result
   end
 
   # Profile picture

@@ -1,6 +1,8 @@
 class Card < ActiveRecord::Base
   belongs_to :member
 
+  attr_accessible :number, :status, :isic_status, :enabled
+
   # Associated member
   validates :member_id, :presence => true
   validates_associated :member
@@ -14,6 +16,8 @@ class Card < ActiveRecord::Base
   # By default, always join the member
   default_scope :include => :member
 
+  scope :current, where(:academic_year => Member.current_academic_year)
+
   # Renders the academic year in a more commonly used format
   def full_academic_year
     unless academic_year.blank?
@@ -26,5 +30,14 @@ class Card < ActiveRecord::Base
   def defaults
     # registrations for the old year end in june
     self.academic_year ||= Member.current_academic_year
+  end
+
+  # Hash for export (see to_json)
+  def serializable_hash(options = nil)
+    result = super((options || {}).merge({
+      :except => [:member_id]
+    }))
+    result[:academic_year] = full_academic_year
+    result
   end
 end

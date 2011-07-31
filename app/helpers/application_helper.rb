@@ -6,8 +6,7 @@ module ApplicationHelper
   end
 
   def generate_body_class
-    c = controller.controller_name.parameterize.dasherize
-    a = controller.action_name.parameterize.dasherize
-    "#{c} #{c}-#{a}"
+    controller.controller_name.parameterize.dasherize + ' ' +
+        controller.action_name.parameterize.dasherize
   end
 end
