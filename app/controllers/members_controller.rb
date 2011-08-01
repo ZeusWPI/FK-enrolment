@@ -2,7 +2,7 @@ class MembersController < ApiController
   before_filter :load_member
   def load_member
     if params[:id]
-      @member = Member.find(params[:id])
+      @member = Member.find(params[:id], :include => :current_card)
       if @member.club_id != @club.id
         respond_with({:error => "Invalid member"}, :status => :forbidden)
       end
@@ -12,7 +12,7 @@ class MembersController < ApiController
   # GET /members
   # GET /members.json
   def index
-    @members = Member.where(:club_id => @club).all
+    @members = Member.where(:club_id => @club).includes(:current_card).all
     respond_with(@members)
   end
 
