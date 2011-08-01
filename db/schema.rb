@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110801112730) do
+ActiveRecord::Schema.define(:version => 20110801123737) do
 
   create_table "cards", :force => true do |t|
     t.integer  "member_id"
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(:version => 20110801112730) do
   create_table "extra_attribute_specs", :force => true do |t|
     t.integer  "club_id"
     t.string   "name"
-    t.string   "type"
+    t.string   "field_type"
     t.string   "values"
     t.boolean  "required"
     t.integer  "position"

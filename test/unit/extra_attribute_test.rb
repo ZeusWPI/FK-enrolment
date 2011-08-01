@@ -1,7 +1,5 @@
 require 'test_helper'
 
 class ExtraAttributeTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  verify_fixtures ExtraAttribute
 end
