@@ -41,6 +41,16 @@ class RegistrationController < ApplicationController
   def general
     @member.attributes = params[:member]
 
+    if @member.extra_attributes.empty?
+      @member.extra_attributes = @club.extra_attributes.map do |spec|
+        attr = ExtraAttribute.new
+        attr.member = @member
+        attr.spec = spec
+        attr.save
+        attr 
+      end
+    end
+
     # Override properties if they're already set through CAS
     @cas_authed = !session[:cas_user].blank?
     if @cas_authed

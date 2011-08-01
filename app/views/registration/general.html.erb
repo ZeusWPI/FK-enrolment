@@ -32,6 +32,11 @@
                                       :input_html => { :cols => 30, :rows => 3 } %>
   <% end %>
 
+  <%= f.inputs :for => :extra_attributes do |f| %>
+    <%= render :partial => f.object.spec.field_type, :locals => {:f => f} %>
+    
+  <% end %>
+
   <%= f.buttons do %>
     <%= f.commit_button "Volgende stap" %>
   <% end %>
