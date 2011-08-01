@@ -32,30 +32,33 @@ ActiveRecord::Schema.define(:version => 20110801112730) do
     t.string   "internal_name"
     t.string   "description"
     t.string   "url"
-    t.string   "registration_method",     :default => "none"
-    t.boolean  "uses_isic",               :default => false
+    t.string   "registration_method", :default => "none"
+    t.boolean  "uses_isic",           :default => false
     t.text     "isic_text"
     t.text     "confirmation_text"
     t.string   "api_key"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "extra_attribute_spec_id"
   end
 
   add_index "clubs", ["api_key"], :name => "index_clubs_on_api_key", :unique => true
   add_index "clubs", ["internal_name"], :name => "index_clubs_on_internal_name", :unique => true
 
   create_table "extra_attribute_specs", :force => true do |t|
-    t.integer  "extra_attribute_id"
+    t.integer  "club_id"
     t.string   "name"
     t.string   "type"
+    t.string   "values"
     t.boolean  "required"
+    t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "extra_attributes", :force => true do |t|
+    t.integer  "member_id"
     t.integer  "extra_attribute_spec_id"
+    t.string   "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

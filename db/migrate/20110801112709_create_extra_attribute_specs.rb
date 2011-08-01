@@ -1,16 +1,14 @@
 class CreateExtraAttributeSpecs < ActiveRecord::Migration
   def change
     create_table :extra_attribute_specs do |t|
-      t.references :extra_attribute
+      t.references :club
       t.string :name
       t.string :type
+      t.string :values
       t.boolean :required
+      t.integer :position
 
       t.timestamps
-    end
-
-    change_table :clubs do |t|
-      t.references :extra_attribute_spec
     end
   end
 end

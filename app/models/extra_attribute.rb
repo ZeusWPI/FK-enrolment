@@ -1,6 +1,6 @@
 class ExtraAttribute < ActiveRecord::Base
-  has_one :extra_attribute_spec 
-  has_one :member
+  belongs_to :extra_attribute_spec
+  belongs_to :member
 
-  serialize :values
+  serialize :value
 end
