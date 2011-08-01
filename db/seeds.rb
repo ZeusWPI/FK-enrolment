@@ -53,8 +53,8 @@ else
 end
 
 
-spec = ExtraAttributeSpec.create!(:name => "Test", :type => 'text', :required => false)
+spec = ExtraAttributeSpec.create!(:name => "Test", :field_type => 'text', :required => false)
 c = Club.where(:internal_name => 'Chemica').first
-c.extra_attribute_specs << spec
+c.extra_attributes << spec
 c.save!
 
