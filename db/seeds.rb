@@ -53,8 +53,13 @@ else
 end
 
 
-spec = ExtraAttributeSpec.create!(:name => "Test", :field_type => 'text', :required => true)
+text_spec = ExtraAttributeSpec.create!(:name => "Test", :field_type => 'text', :required => true)
+check_box_spec = ExtraAttributeSpec.create!(:name => "Test 1", :field_type => 'check_boxes', :required => false)
+check_box_spec.values = ['optie 1', 'optie 2', 'optie 3']
+check_box_spec.save!
 c = Club.where(:internal_name => 'Chemica').first
-c.extra_attributes << spec
+c.extra_attributes << text_spec
+c.extra_attributes << check_box_spec
 c.save!
+
 
