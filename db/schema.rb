@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110801123737) do
+ActiveRecord::Schema.define(:version => 20110801125318) do
 
   create_table "cards", :force => true do |t|
     t.integer  "member_id"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(:version => 20110801123737) do
 
   create_table "extra_attributes", :force => true do |t|
     t.integer  "member_id"
-    t.integer  "extra_attribute_spec_id"
+    t.integer  "spec_id"
     t.string   "value"
     t.datetime "created_at"
     t.datetime "updated_at"

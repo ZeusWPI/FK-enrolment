@@ -3,14 +3,14 @@
 newsletter:
     club: wina
     name: "Ja, ik wil de WiNA weekmeel ontvangen."
-    type: checkbox
+    field_type: checkbox
     values: nil
     required: false
 
 sports:
     club: wina
     name: "Kruis de sporten aan de je interesseren."
-    type: checkbox_grid
+    field_type: checkbox_grid
     values:
     - Voetbal
     - Basketbal
@@ -20,6 +20,6 @@ sports:
 message:
     club: wina
     name: "Laat een bericht achter voor de vriendelijke testrobot."
-    type: textfield
+    field_type: textfield
     values: nil
     required: true
