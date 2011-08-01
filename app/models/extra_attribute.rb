@@ -4,7 +4,7 @@ class ExtraAttribute < ActiveRecord::Base
 
   serialize :value
 
-  attr_accessible :value, :spec, :member
+  attr_accessible :value, :spec_id
 
   validate :value, :presence => true, :if => Proc.new { |m| m.spec.required }
 end

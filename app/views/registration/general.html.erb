@@ -33,6 +33,7 @@
   <% end %>
 
   <%= f.inputs :for => :extra_attributes do |f| %>
+    <%= f.input :spec_id, :as => :hidden %>
     <%= render :partial => f.object.spec.field_type, :locals => {:f => f} %>
   <% end %>
 

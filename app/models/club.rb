@@ -24,4 +24,9 @@ class Club < ActiveRecord::Base
   def to_param
     internal_name.downcase
   end
+
+  # Create empty attributes for each extra-value specification
+  def create_extra_attributes
+    extra_attributes.map { |spec| ExtraAttribute.new(:spec_id => spec.id) }
+  end
 end
