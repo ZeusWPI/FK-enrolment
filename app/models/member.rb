@@ -19,7 +19,7 @@ class Member < ActiveRecord::Base
                     :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i },
                     :if => lambda { |m| m.club.registration_method != "api" if m.club }
   validates :ugent_nr, :presence => true  # TOOD: required if not chosen for email registration
-  validates :sex, :inclusion => { :in => %w(m f) }
+  validates :sex, :inclusion => { :in => %w(m f), :allow_nil => true }
   validates :home_address, :presence => true, :if => lambda { |m| m.club.uses_isic if m.club }
 
   # Hash for export (see to_json)
@@ -30,6 +30,7 @@ class Member < ActiveRecord::Base
       :include => [:current_card]
     }))
     result[:card] = result.delete :current_card
+    result[:photo] = photo.url(:cropped) if photo?
     result
   end
 
@@ -64,7 +65,7 @@ class Member < ActiveRecord::Base
     :conditions => { :academic_year => current_academic_year }
 
   def defaults
-     
+
   end
-  
+
 end
