@@ -37,7 +37,7 @@ gem 'rubycas-client-rails', :git => "git://github.com/zuk/rubycas-client-rails.g
 gem 'paperclip', "~> 2.3.15"
 
 # Better forms
-gem 'formtastic'
+gem "formtastic", "~> 2.0.0.rc3"
 
 # Dutch messages
 gem 'rails-i18n'

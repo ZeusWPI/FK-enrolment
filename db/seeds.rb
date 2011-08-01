@@ -53,13 +53,64 @@ else
 end
 
 
-text_spec = ExtraAttributeSpec.create!(:name => "Test", :field_type => 'text', :required => true)
-check_box_spec = ExtraAttributeSpec.create!(:name => "Test 1", :field_type => 'check_boxes', :required => false)
-check_box_spec.values = ['optie 1', 'optie 2', 'optie 3']
-check_box_spec.save!
+def text_spec(name, question = '', required = false)
+  ExtraAttributeSpec.create!(:name => name, :field_type => 'text', :text => question, :required => required,
+                             :values => []
+                            )
+end
+
+def check_box_spec(name, question = '', values = [], required = false) 
+  ExtraAttributeSpec.create!(:name => name, :field_type => 'check_boxes', :required => false, 
+                             :values => values, :text => question
+                            )
+end
+
 c = Club.where(:internal_name => 'Chemica').first
-c.extra_attributes << text_spec
-c.extra_attributes << check_box_spec
+c.extra_attributes << check_box_spec("test", "hallokes, tis een vraagje", ['optie 1', 'optie 2'])
+c.save!
+
+c = Club.where(:internal_name => 'VPPK').first
+c.extra_attributes << check_box_spec('Vink aan', 'Ik wil op de hoogte gehouden worden van:',
+      ['Feest (fuiven, galabal, cocktailavond, …)',
+       'Sport (paintball, interfacultair tornooi, 12-urenloop, …)',
+       'Excursie (citytrip, skireis, surfreis, …)',
+       'Cultuur (filmavond, museumbezoek, …)',
+       'Doop / Ontgroening',
+       'Cantus'
+      ])
+c.extra_attributes << text_spec('', 'Heb je nog suggesties om onze werking beter af te stemmen op jouw wensen (nieuwe activiteiten, leuke sporten, thema’s voor een fuif/clubavond, cultuuruitstapjes, …)?')
+c.save!
+
+
+c = Club.where(:internal_name => 'VLK').first
+c.extra_attributes << check_box_spec('Mail', 'Ik wil graag via mail informatie ontvangen over VLK-activiteiten', ['ja'])
+
+c.extra_attributes << check_box_spec('Mogelijkheden', 'Ja, de VLK mag contact met mij opnemen om te shiften op:', 
+                                     ['Paviljoenfuiven','Vooruitfuiven', 'Het Galabal', 'Cultuuractiviteiten',
+                                      'Eventuele andere VLK-activiteiten'
+                                     ]
+                                    )
+c.extra_attributes << check_box_spec('Tapervaring', 'Ik heb tapervaring?', ['ja'])
+c.extra_attributes << check_box_spec('Mail', 'Ik heb interesse om mee te schrijven aan De Groei, het clubblad van de VLK (Via mail word ik op de hoogte gehouden van de deadlines en desgewenst neem ik deel aan semestriële redactievergaderingen)', ['ja'])
+c.extra_attributes << check_box_spec('Mail', 'De VLK mag mij contacteren voor deelname aan sporttoernooien tegen andere faculteitskringen', ['ja'])
+c.extra_attributes << text_spec('Sporten', 'Indien ja: vul hier de sporten die u beoefent in en specificeer het niveau.')
+c.save!
+
+c = Club.where(:internal_name => 'Hilok').first
+c.extra_attributes << check_box_spec('Sporten', 'Welke sport beoefen je?',
+                                     ['Veldvoetbal',
+                                      'Minivoetbal',
+                                      'Basketbal',
+                                      'Volleybal',
+                                      'Badminton',
+                                      'Zwemmen',
+                                      'Hardlopen',
+                                      'Veldlopen',
+                                      'Rugby',
+                                      'Tafeltennis',
+                                     ]
+                                    )
+c.extra_attributes << check_box_spec('', 'Heb je interesse om mee te doen aan de interfacultaire competities?', ['ja'])
 c.save!
 
 
