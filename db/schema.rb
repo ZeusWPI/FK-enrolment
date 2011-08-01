@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110731142717) do
+ActiveRecord::Schema.define(:version => 20110801112730) do
 
   create_table "cards", :force => true do |t|
     t.integer  "member_id"
@@ -32,17 +32,33 @@ ActiveRecord::Schema.define(:version => 20110731142717) do
     t.string   "internal_name"
     t.string   "description"
     t.string   "url"
-    t.string   "registration_method", :default => "none"
-    t.boolean  "uses_isic",           :default => false
+    t.string   "registration_method",     :default => "none"
+    t.boolean  "uses_isic",               :default => false
     t.text     "isic_text"
     t.text     "confirmation_text"
     t.string   "api_key"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "extra_attribute_spec_id"
   end
 
   add_index "clubs", ["api_key"], :name => "index_clubs_on_api_key", :unique => true
   add_index "clubs", ["internal_name"], :name => "index_clubs_on_internal_name", :unique => true
+
+  create_table "extra_attribute_specs", :force => true do |t|
+    t.integer  "extra_attribute_id"
+    t.string   "name"
+    t.string   "type"
+    t.boolean  "required"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "extra_attributes", :force => true do |t|
+    t.integer  "extra_attribute_spec_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "members", :force => true do |t|
     t.integer  "club_id"

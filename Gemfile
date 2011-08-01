@@ -6,7 +6,6 @@ gem 'rails', '~> 3.1.0.rc'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-gem 'mysql2'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -45,6 +44,10 @@ gem 'rails-i18n'
 
 # Send error messages
 gem 'exception_notification', :require => 'exception_notifier'
+
+group :production do
+  gem 'mysql2'
+end
 
 group :test do
   # Pretty printed test output
