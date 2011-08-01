@@ -47,7 +47,7 @@ form.formtastic fieldset > ol > li {
   &.error label { color: $error-color; }
   &.required label abbr { color: $error-color; }
 
-  &.radio fieldset {
+  &.radio fieldset, &.check_boxes fieldset {
     ol { margin-bottom: 0; }
     ol li { margin-bottom: 0; }
     ol li label {

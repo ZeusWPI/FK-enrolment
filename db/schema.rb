@@ -81,8 +81,8 @@ ActiveRecord::Schema.define(:version => 20110801161253) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-    t.boolean  "isic_newsletter",     :default => false
-    t.boolean  "isic_mail_card",      :default => false
+    t.boolean  "isic_newsletter"
+    t.boolean  "isic_mail_card"
   end
 
   add_index "members", ["ugent_nr"], :name => "index_members_on_ugent_nr"

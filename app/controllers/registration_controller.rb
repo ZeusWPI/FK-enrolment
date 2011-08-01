@@ -21,7 +21,7 @@ class RegistrationController < ApplicationController
       @member = Member.new
     end
 
-    if !@member
+    unless @member
       # Return to start to create a new member
       session[:member_id] = nil
       redirect_to registration_root_path(@club)
