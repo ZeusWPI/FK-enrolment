@@ -35,7 +35,7 @@
 <div id="seenly-modal" title="Foto via webcam">
   <div id="seenly-embed-wrapper"><div id="seenly-embed">
     <p><a href="http://www.adobe.com/go/getflashplayer">
-      <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" 
+      <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif"
            alt="Get Adobe Flash player" />
     </a></p>
   </div></div>
@@ -45,10 +45,16 @@
   </p>
 </div>
 
+<p>Om je ISIC geldig te maken over de gehele wereld hebben we een foto nodig:
+deze zal gedrukt worden op de kaart. Dit dient een duidelijk pasfoto te zijn
+zoals (1). Pasfoto's als (2), (3) of (4) zullen niet worden aanvaard.</p>
+
+<p><%= image_tag "correct-photo.jpg" %></p>
+
 <%= semantic_form_for @member, :url => registration_photo_path(@club) do |f| %>
   <%= f.inputs do %>
     <%= f.input :photo %>
-    
+
     <li class="file optional" id="member_webcam_input">
       <label for="member_webcam">Webcam</label>
       <%= hidden_field(:member, :webcam, :value => '') %>
@@ -58,7 +64,7 @@
     <li class="file optional" id="member_url_input">
       <label for="member_url">URL</label>
       <input id="member_url" maxlength="255" name="member[url]" size="50" type="text" placeholder="http://" />
-    </li> 
+    </li>
   <% end %>
 
   <%= f.buttons do %>
