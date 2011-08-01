@@ -6,5 +6,5 @@ class ExtraAttribute < ActiveRecord::Base
 
   attr_accessible :value, :spec_id
 
-  validate :value, :presence => true, :if => Proc.new { |m| m.spec.required }
+  validates :value, :presence => true, :if => Proc.new { |m| m.spec.required }
 end
