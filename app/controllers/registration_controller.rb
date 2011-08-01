@@ -40,6 +40,8 @@ class RegistrationController < ApplicationController
 
   def general
     @member.attributes = params[:member]
+    
+    puts params[:member]
 
     if @member.extra_attributes.empty?
       @member.extra_attributes = @club.extra_attributes.map { |spec| ExtraAttribute.new(:spec => spec, :member => @member) }

@@ -6,7 +6,7 @@ class Member < ActiveRecord::Base
 
   attr_accessible :first_name, :last_name, :email, :ugent_nr, :sex, :phone,
     :date_of_birth, :home_address, :studenthome_address, :photo,
-    :isic_newsletter, :isic_mail_card
+    :isic_newsletter, :isic_mail_card, :extra_attributes_attributes
 
   # Associated club
   validates :club_id, :presence => true
