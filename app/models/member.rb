@@ -61,4 +61,9 @@ class Member < ActiveRecord::Base
   end
   has_one :current_card, :class_name => "Card",
     :conditions => { :academic_year => current_academic_year }
+
+  def defaults
+     
+  end
+  
 end

@@ -1,7 +1,7 @@
 class Club < ActiveRecord::Base
   has_many :members
   has_many :cards, :through => :members
-  has_many :extra_attributes, :class_name => ExtraAttributeSpec, :order => :position
+  has_many :extra_attributes, :class_name => 'ExtraAttributeSpec', :order => :position
 
   validates_presence_of :name, :full_name, :internal_name, :description, :url
   validates :registration_method, :inclusion => { :in => %w(none api website) }
