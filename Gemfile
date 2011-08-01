@@ -34,7 +34,7 @@ gem 'rubycas-client', git: 'git://github.com/Javache/rubycas-client.git', branch
 gem 'rubycas-client-rails', :git => "git://github.com/zuk/rubycas-client-rails.git"
 
 # Photo management
-gem "paperclip", "~> 2.3.15"
+gem 'paperclip', "~> 2.3.15"
 
 # Better forms
 gem 'formtastic'
@@ -44,6 +44,9 @@ gem 'rails-i18n'
 
 # Send error messages
 gem 'exception_notification', :require => 'exception_notifier'
+
+# ActiveRecord enhancements
+gem 'acts_as_list'
 
 group :production do
   gem 'mysql2'
