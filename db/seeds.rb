@@ -51,3 +51,10 @@ else
   isic_clubs = %w(VDK VLK VEK GFK Dentalia Politeia Hilok)
   Club.where(:internal_name => isic_clubs).update_all(:uses_isic => true)
 end
+
+
+spec = ExtraAttributeSpec.create!(:name => "Test", :type => 'text', :required => false)
+c = Club.where(:internal_name => 'Chemica').first
+c.extra_attribute_specs << spec
+c.save!
+
