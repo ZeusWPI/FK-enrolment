@@ -8,7 +8,7 @@ class Club < ActiveRecord::Base
 
   # Find clubs using a specified registration method
   def self.using(method)
-    where(:registration_method => [*method].map(&:to_s))
+    where(:registration_method => Array.wrap(method).map(&:to_s))
   end
 
   # Get the asset path for the club's shield

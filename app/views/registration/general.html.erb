@@ -11,9 +11,19 @@
       Er ontbreken nog enkele zaken aan je gegevens:
     <% end %></h3>
 
-    <ul><% @member.errors.full_messages.each do |msg| %>
-       <li><%= msg %></li>
-     <% end %></ul>
+    <ul>
+    <% @member.errors.each do |attribute, message| %>
+      <% unless attribute =~ /^extra_attributes\./ %>
+        <li><%= @member.class.human_attribute_name(attribute) %>
+        <%= message %></li>
+      <% end %>
+    <% end %>
+    <% @member.extra_attributes.each do |attribute| %>
+      <% attribute.errors.each do |_, message| %>
+        <li><%= attribute.spec.name %> <%= message %></li>
+      <% end %>
+    <% end %>
+    </ul>
   </div>
   <% end %>
 
