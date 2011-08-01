@@ -78,7 +78,7 @@ function initCropper() {
     initial = { x: 50, y: 10, w: 315, h: 405 };
   }
 
-  $('body.registration-photo #crop-image').Jcrop({
+  $('body.registration.photo #crop-image').Jcrop({
     setSelect: [initial.x, initial.y, initial.x + initial.w, initial.y + initial.h],
     aspectRatio: aspectRatio,
     onChange: updateCrop,
