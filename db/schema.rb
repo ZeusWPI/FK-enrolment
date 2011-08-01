@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110801125318) do
+ActiveRecord::Schema.define(:version => 20110801153255) do
 
   create_table "cards", :force => true do |t|
     t.integer  "member_id"
@@ -80,8 +80,8 @@ ActiveRecord::Schema.define(:version => 20110801125318) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-    t.boolean  "isic_newsletter",     :default => false
-    t.boolean  "isic_mail_card",      :default => false
+    t.boolean  "isic_newsletter"
+    t.boolean  "isic_mail_card"
   end
 
   add_index "members", ["ugent_nr"], :name => "index_members_on_ugent_nr"

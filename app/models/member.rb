@@ -65,8 +65,10 @@ class Member < ActiveRecord::Base
   has_one :current_card, :class_name => "Card",
     :conditions => { :academic_year => current_academic_year }
 
+  # Handy defaults
+  after_initialize :defaults
   def defaults
-
+    # Opt-in by default for ISIC-clubs
+    self.isic_newsletter = true if isic_newsletter.nil? && club && club.uses_isic
   end
-
 end
