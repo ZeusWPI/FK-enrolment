@@ -42,13 +42,7 @@ class RegistrationController < ApplicationController
     @member.attributes = params[:member]
 
     if @member.extra_attributes.empty?
-      @member.extra_attributes = @club.extra_attributes.map do |spec|
-        attr = ExtraAttribute.new
-        attr.member = @member
-        attr.spec = spec
-        attr.save
-        attr 
-      end
+      @member.extra_attributes = @club.extra_attributes.map { |spec| ExtraAttribute.new(:spec => spec, :member => @member) }
     end
 
     # Override properties if they're already set through CAS
