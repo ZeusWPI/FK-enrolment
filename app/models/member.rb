@@ -52,4 +52,12 @@ class Member < ActiveRecord::Base
     # Opt-in by default for ISIC-clubs
     self.isic_newsletter = true if isic_newsletter.nil? && club && club.uses_isic
   end
+
+  # Create empty attributes for each extra-value specification
+  def build_extra_attributes
+    extra_attributes.build [{}] * club.extra_attributes.count
+    extra_attributes.each_with_index do |attribute,i|
+      attribute.spec = club.extra_attributes[i]
+    end
+  end
 end

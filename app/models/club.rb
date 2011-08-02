@@ -24,12 +24,4 @@ class Club < ActiveRecord::Base
   def to_param
     internal_name.downcase
   end
-
-  # Create empty attributes for each extra-value specification
-  def build_extra_attributes(member)
-    member.extra_attributes.build [{}] * extra_attributes.count
-    member.extra_attributes.each_with_index do |attribute,i|
-      attribute.spec = extra_attributes[i]
-    end
-  end
 end

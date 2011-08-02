@@ -24,7 +24,11 @@ module ExtraAttributesHelper
 
   # Renders the extra attributes in the (Formtastic) form
   def render_extra_attributes(f, name = :extra_attributes)
-    f.inputs :for => name do |f|
+    f.inputs do
+      # Reset-field: if a club has no fields, extra attributes should be cleared
+      f.input(name, :as => :hidden, :value => nil)
+    end +
+    f.inputs(:for => name) do |f|
       unless f.object.spec.field_type?
         content_tag :li, f.object.spec.name
       else

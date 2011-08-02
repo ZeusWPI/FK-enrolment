@@ -39,8 +39,10 @@ class RegistrationController < ApplicationController
   def general
     @member.attributes = params[:member]
 
+    # TODO: for existing members, add all new attribute-fields
+    # and delete the removed ones
     if @member.extra_attributes.empty?
-      @club.build_extra_attributes(@member)
+      @member.build_extra_attributes
     end
 
     # Override properties if they're already set through CAS
