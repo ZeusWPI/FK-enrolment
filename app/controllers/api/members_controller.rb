@@ -1,4 +1,4 @@
-class MembersController < ApiController
+class Api::MembersController < Api::ApiController
   before_filter :load_member
   def load_member
     if params[:id]
@@ -13,13 +13,13 @@ class MembersController < ApiController
   # GET /members.json
   def index
     @members = Member.where(:club_id => @club).includes(:current_card).all
-    respond_with(@members)
+    respond_with(:api, @members)
   end
 
   # GET /members/1
   # GET /members/1.json
   def show
-    respond_with(@member)
+    respond_with(:api, @member)
   end
 
   # POST /members
@@ -30,7 +30,7 @@ class MembersController < ApiController
     if @member.save
       flash[:notice] = "Successfully created member."
     end
-    respond_with(@member)
+    respond_with(:api, @member)
   end
 
   # PUT /members/1
@@ -39,7 +39,7 @@ class MembersController < ApiController
     if @member.update_attributes(params[:member])
       flash[:notice] = "Successfully updated member."
     end
-    respond_with(@member)
+    respond_with(:api, @member)
   end
 
   # DELETE /members/1
@@ -47,6 +47,6 @@ class MembersController < ApiController
   def destroy
     @member.destroy
     flash[:notice] = "Successfully destroyed member."
-    respond_with(@member)
+    respond_with(:api, @member)
   end
 end

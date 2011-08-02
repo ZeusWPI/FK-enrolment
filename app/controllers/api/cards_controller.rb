@@ -1,4 +1,4 @@
-class CardsController < ApiController
+class Api::CardsController < Api::ApiController
   before_filter :load_card
   def load_card
     @member = Member.find(params[:member_id])
@@ -17,7 +17,7 @@ class CardsController < ApiController
 
   # GET /members/1/card.json
   def show
-    respond_with(@card.member, @card)
+    respond_with(:api, @card.member, @card)
   end
 
   # PUT /members/1/card.json
@@ -26,6 +26,6 @@ class CardsController < ApiController
     if @card.save
       flash[:notice] = "Successfully updated card."
     end
-    respond_with(@card.member, @card)
+    respond_with(:api, @card.member, @card)
   end
 end

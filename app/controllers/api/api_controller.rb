@@ -1,4 +1,4 @@
-class ApiController < ApplicationController
+class Api::ApiController < ApplicationController
   before_filter :verify_key
   respond_to :json
 
@@ -10,6 +10,6 @@ class ApiController < ApplicationController
   end
 
   def test
-    respond_with(status: "ok")
+    respond_with(status: "ok", club: @club.name)
   end
 end

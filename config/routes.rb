@@ -13,7 +13,7 @@ FKEnrolment::Application.routes.draw do
     get "succes" => "registration#success", :as => :success
   end
 
-  scope "api/v2" do
+  namespace :api, :path => "api/v2" do
     get "test" => "api#test"
     resources :members, :except => [:new, :edit] do
       resource :card, :only => [:show, :update]

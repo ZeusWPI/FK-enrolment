@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ApiControllerTest < ActionController::TestCase
+class Api::ApiControllerTest < ActionController::TestCase
   def setup
     @club = clubs(:wina)
   end

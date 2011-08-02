@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CardsControllerTest < ActionController::TestCase
+class Api::CardsControllerTest < ActionController::TestCase
   setup do
     @club = clubs(:wina)
     @member = members(:javache)
