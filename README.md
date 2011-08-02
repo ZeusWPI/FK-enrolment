@@ -46,13 +46,13 @@ De voornaamste methodes worden hieronder beschreven:
     Volgende velden kunnen doorgegeven worden bij een ISIC-registratie:
     ``isic_newsletter`` (boolean), ``isic_mail_card`` (boolean)
 
-*   *POST /api/v2/member/[id]/card.json?key=x*
+*   *POST /api/v2/members/[id]/card.json?key=x*
 
     Stel de kaartgegevens in van het lid [id]. Parameters zijn
 
     * ``number`` (int): toegekende FK-kaart nummer
     * ``status`` (paid of unpaid): betalingsstatus
-    * ``isic_status`` (none of requested): ISIC-kaart aanvragen of niet?
+    * ``isic_status`` (none/requested/printed/delivered): ISIC-kaart aanvragen of niet?
 
 *   *GET /api/v2/club.json?key=x*
 
