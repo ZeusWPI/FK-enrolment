@@ -1,3 +1,4 @@
 <%= f.input :value , :as => :check_boxes,
     :label => f.object.spec.name, :collection => f.object.spec.values,
-    :wrapper_html => { :class => "no-indent" } %>
+    :wrapper_html => { :class => "no-indent" },
+    :hidden_fields => false %>
