@@ -23,25 +23,25 @@ De voornaamste methodes worden hieronder beschreven:
 
     Voeg een nieuw lid toe. Als antwoord wordt alle opgeslagen informatie over het lid gegeven, waaronder ook het toegekende id. Verplichte parameters (als POST-body):
 
-    * ```first_name``` (string)
-    * ```last_name``` (string)
-    * ```ugent_nr``` (string)
-    * ```email``` (string, enkel verplicht bij ISIC)
-    * ```date_of_birth``` (date, enkel verplicht bij ISIC)
-    * ```photo_url``` (string, enkel verplicht bij ISIC)
-    * ```home_address``` (string, enkel verplicht bij ISIC,
-      formaat: ```[straat] [nummer]\n[postcode] [gemeente]```)
+    * ``first_name`` (string)
+    * ``last_name`` (string)
+    * ``ugent_nr`` (string)
+    * ``email`` (string, enkel verplicht bij ISIC)
+    * ``date_of_birth`` (date, enkel verplicht bij ISIC)
+    * ``photo_url`` (string, enkel verplicht bij ISIC)
+    * ``home_address`` (string, enkel verplicht bij ISIC,
+      formaat: ``[straat] [nummer]\n[postcode] [gemeente]``)
 
     Andere optionele velden zijn:
-    ```email``` (string), ```sex``` (m of f), ```phone``` (string), ```studenthome_address``` (string)
+    ``email`` (string), ``sex`` (m of f), ``phone`` (string), ``studenthome_address`` (string)
 
     Volgende velden kunnen doorgegeven worden bij een ISIC-registratie:
-    ```isic_newsletter``` (boolean), ```isic_mail_card``` (boolean)
+    ``isic_newsletter`` (boolean), ``isic_mail_card`` (boolean)
 
 *   *POST /api/v2/member/[id]/card.json?key=x*
 
     Stel de kaartgegevens in van het lid [id]. Parameters zijn
 
-    * ```number``` (int): toegekende FK-kaart nummer
-    * ```status``` (paid of unpaid): betalingsstatus
-    * ```isic_status`` (none of requested): ISIC-kaart aanvragen of niet?
+    * ``number`` (int): toegekende FK-kaart nummer
+    * ``status`` (paid of unpaid): betalingsstatus
+    * ``isic_status`` (none of requested): ISIC-kaart aanvragen of niet?
