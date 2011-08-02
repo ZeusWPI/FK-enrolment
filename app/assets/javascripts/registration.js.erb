@@ -33,7 +33,7 @@ function initSeenly() {
   seenly.viewfinderWidth = 350; seenly.viewfinderHeight = 450;
   seenly.embed('seenly-embed');
 
-  var field = $('#member_webcam');
+  var field = $('#member_photo_base64_input input');
   var frozen = false;
   $('#seenly-snap').click(function() {
     if(!frozen) {
@@ -57,11 +57,11 @@ function initSeenly() {
     field.parents('form').submit();
   });
 
-  field.next('a').click(function() {
+  $('a.seenly').click(function() {
     $('#dialog:ui-dialog').dialog('destroy');
     $('#seenly-modal').dialog({
       modal: true, draggable: false, resizable: false,
-      width: 600, height: 600
+      width: 600, height: 580
     });
     return false;
   });

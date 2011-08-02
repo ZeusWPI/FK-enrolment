@@ -1,7 +1,7 @@
 <%= render :partial => "club" %>
 
 <div class="content-main">
-<%= title "Pasfoto" %>
+<%= title "ISIC-lidkaart: Pasfoto" %>
 
 <% if @member.photo? %>
 <div class="crop-wrapper">
@@ -53,16 +53,14 @@ zoals (1). Pasfoto's als (2), (3) of (4) zullen niet worden aanvaard.</p>
   <%= f.inputs do %>
     <%= f.input :photo %>
 
-    <li class="file optional" id="member_webcam_input">
-      <label for="member_webcam">Webcam</label>
-      <%= hidden_field(:member, :webcam, :value => '') %>
-      <a href="#webcam">Foto met webcam nemen</a>
+    <%= f.input :photo_base64, :as => :hidden %>
+
+    <li class="file optional">
+      <label>Webcam</label>
+      <a href="#webcam" class="seenly">Foto met webcam nemen</a>
     </li>
 
-    <li class="file optional" id="member_url_input">
-      <label for="member_url">URL</label>
-      <input id="member_url" maxlength="255" name="member[url]" size="50" type="text" placeholder="http://" />
-    </li>
+    <%= f.input :photo_url, :input_html => { :placeholder => "http://" } %>
   <% end %>
 
   <%= f.buttons do %>

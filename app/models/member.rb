@@ -1,12 +1,15 @@
 class Member < ActiveRecord::Base
   belongs_to :club
   has_many :cards
-  has_many :extra_attributes
+  has_many :extra_attributes, :dependent => :destroy
 
   accepts_nested_attributes_for :extra_attributes
   attr_accessible :first_name, :last_name, :email, :ugent_nr, :sex, :phone,
-    :date_of_birth, :home_address, :studenthome_address, :photo,
+    :date_of_birth, :home_address, :studenthome_address,
     :isic_newsletter, :isic_mail_card, :extra_attributes_attributes
+
+  # Profile picture
+  include Member::Photo
 
   # Associated club
   validates :club_id, :presence => true
@@ -33,28 +36,6 @@ class Member < ActiveRecord::Base
     result[:card] = result.delete :current_card
     result[:photo] = photo.url(:cropped) if photo?
     result
-  end
-
-  # Profile picture
-  has_attached_file :photo, :styles => {
-    :large => "520x700>",
-    :cropped => { :geometry => "210x270", :format => :jpg, :processors => [:Cropper] }
-  }
-  validates_attachment_content_type :photo,
-    :content_type => ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/gif', 'image/png', 'image/x-png'],
-    :message => "Enkel afbeeldingen zijn toegestaan"
-
-  # Profile picture cropping
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
-  attr_accessible :crop_x, :crop_y, :crop_w, :crop_h
-
-  after_update :crop_photo, :if => :cropping?
-  def cropping?
-    !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
-  end
-
-  def crop_photo
-    photo.reprocess!
   end
 
   # Current academic year

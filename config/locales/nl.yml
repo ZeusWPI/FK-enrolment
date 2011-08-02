@@ -12,6 +12,7 @@ nl:
         home_address: Thuisadres
         studenthome_address: Kotadres
         photo: Foto
+        photo_url: URL
         isic_newsletter: ISIC nieuwsbrief
         isic_mail_card: ISIC-kaart opsturen
 

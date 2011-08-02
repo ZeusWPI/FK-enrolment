@@ -1,5 +1,3 @@
-require 'open-uri'
-
 class RegistrationController < ApplicationController
   cattr_accessor :fkbooks_key
   respond_to :html
@@ -73,33 +71,9 @@ class RegistrationController < ApplicationController
   end
 
   def photo
-    method = :file
-
-    # Check for base64-upload of image (via webcam)
-    if params[:member] && !params[:member][:webcam].blank?
-      sio = StringIO.new(Base64.decode64(params[:member][:webcam]))
-      sio.original_filename = "snapshot.jpg"
-      sio.content_type = "image/jpeg"
-      @member.photo = sio
-
-      method = :webcam
-    end
-
-    # Check for link to external image
-    if params[:member] && !params[:member][:url].blank?
-      # Don't download longer than 10 seconds
-      Timeout::timeout(10) do
-        uri = URI.parse(params[:member][:url])
-        @member.photo = uri.open if uri.respond_to? :open
-      end
-
-      method = :url
-    end
-
-    if @member.update_attributes(params[:member])
-      if @member.cropping? || method == :webcam
-        redirect_to registration_success_path(@club)
-      end
+    # All image uploading and processing is done by the model
+    if params[:member] && @member.update_attributes(params[:member])
+      redirect_to registration_success_path(@club) if @member.valid_photo?
     end
   end
 
