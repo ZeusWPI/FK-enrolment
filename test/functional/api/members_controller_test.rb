@@ -17,6 +17,9 @@ class Api::MembersControllerTest < ActionController::TestCase
       post :create, params_for_api({ member: @member.attributes })
     end
     assert_response :success
+
+    result = JSON.parse(@response.body)
+    assert Member.exists? result[:id]
   end
 
   test "should not create member" do

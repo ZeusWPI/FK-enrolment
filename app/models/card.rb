@@ -1,7 +1,7 @@
 class Card < ActiveRecord::Base
   belongs_to :member
 
-  attr_accessible :number, :status, :isic_status, :enabled
+  attr_accessible :number, :status, :isic_status
 
   # Associated member
   validates :member_id, :presence => true
@@ -11,7 +11,7 @@ class Card < ActiveRecord::Base
   validates :academic_year, :presence => true, :uniqueness => { :scope => :member_id }
   validates :number, :presence => true, :uniqueness => { :scope => :academic_year }
   validates :status, :inclusion => { :in => %w(unpaid paid) }
-  validates :isic_status, :inclusion => { :in => %w(none requested delivered) }
+  validates :isic_status, :inclusion => { :in => %w(none requested printed delivered) }
 
   # By default, always join the member
   default_scope :include => :member

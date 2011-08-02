@@ -5,7 +5,7 @@ javache:
   first_name: Pieter
   last_name: De Baets
   email: javache@zeus.ugent.be
-  ugent_nr: 00800001
+  ugent_nr: "00800001"
   phone: "0471010101"
   sex: m
   date_of_birth: 1990-01-01
@@ -17,7 +17,7 @@ nudded:
   first_name: Toon
   last_name: Willems
   email: nudded@zeus.ugent.be
-  ugent_nr: 00800002
+  ugent_nr: "00800002"
   phone: nil
   sex: m
   date_of_birth: 1990-01-02
