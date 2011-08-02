@@ -29,7 +29,7 @@ De voornaamste methodes worden hieronder beschreven:
 
 *   *POST /api/v2/members.json?key=x*
 
-    Voeg een nieuw lid toe. Als antwoord wordt alle opgeslagen informatie over het lid gegeven, waaronder ook het toegekende id. Verplichte parameters (als POST-body):
+    Voeg een nieuw lid toe. Als antwoord wordt alle opgeslagen informatie over het lid gegeven, waaronder ook het toegekende id. POST-parameters kunnen zowel op de klassieke manier of als een JSON-object (met correcte headers) verstuurd worden. Verplichte parameters zijn:
 
     * ``first_name`` (string)
     * ``last_name`` (string)

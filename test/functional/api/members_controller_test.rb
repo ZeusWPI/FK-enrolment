@@ -58,4 +58,11 @@ class Api::MembersControllerTest < ActionController::TestCase
     end
     assert_response :success
   end
+
+  test "should accept params that are not nested" do
+    update = @member.attributes.merge({first_name: "Pieter-Jan"})
+    put :update, params_for_api(update)
+    assert_response :success
+    assert_equal "Pieter-Jan", Member.find(@member.id).first_name
+  end
 end

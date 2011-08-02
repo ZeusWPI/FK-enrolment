@@ -42,7 +42,7 @@ class Api::MembersController < Api::ApiController
   # POST /members
   # POST /members.json
   def create
-    @member = Member.new(params[:member])
+    @member = Member.new(filtered_params(:member))
     @member.club = @club
     if @member.save
       flash[:notice] = "Successfully created member."
@@ -53,7 +53,7 @@ class Api::MembersController < Api::ApiController
   # PUT /members/1
   # PUT /members/1.json
   def update
-    if @member.update_attributes(params[:member])
+    if @member.update_attributes(filtered_params(:member))
       flash[:notice] = "Successfully updated member."
     end
     respond_with(:api, @member)

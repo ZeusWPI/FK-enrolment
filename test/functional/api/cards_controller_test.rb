@@ -20,7 +20,7 @@ class Api::CardsControllerTest < ActionController::TestCase
   test "should create card" do
     @card.destroy
     assert_difference('Card.count') do
-      post :create, params_for_api({ card: @card.attributes })
+      post :create, params_for_api({card: { number: 32, status: "paid" }})
     end
     assert_response :success
   end
@@ -34,6 +34,24 @@ class Api::CardsControllerTest < ActionController::TestCase
 
   test "should update card" do
     post :create, params_for_api({ card: { isic_status: "requested" }})
+    assert_response :success
+    assert_equal "requested", @card.reload.isic_status
+  end
+
+  test "should not error on a post-action without api-key" do
+    post :create, { member_id: @member.id, number: 52, format: "json" }
+    assert_response :forbidden
+  end
+
+  test "should wrap params in JSON request" do
+    @request.env['CONTENT_TYPE'] = 'application/json'
+    post :create, params_for_api({ isic_status: "requested" })
+    assert_response :success
+    assert_equal "requested", @card.reload.isic_status
+  end
+
+  test "should be able to process params not in the card hash" do
+    post :create, params_for_api({ isic_status: "requested" })
     assert_response :success
     assert_equal "requested", @card.reload.isic_status
   end
