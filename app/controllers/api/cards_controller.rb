@@ -20,8 +20,8 @@ class Api::CardsController < Api::ApiController
     respond_with(:api, @card.member, @card)
   end
 
-  # PUT /members/1/card.json
-  def update
+  # POST /members/1/card.json
+  def create
     @card.attributes = params[:card]
     if @card.save
       flash[:notice] = "Successfully updated card."

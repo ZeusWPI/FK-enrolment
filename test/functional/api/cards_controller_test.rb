@@ -20,20 +20,20 @@ class Api::CardsControllerTest < ActionController::TestCase
   test "should create card" do
     @card.destroy
     assert_difference('Card.count') do
-      post :update, params_for_api({ card: @card.attributes })
+      post :create, params_for_api({ card: @card.attributes })
     end
     assert_response :success
   end
 
   test "should not create card" do
     assert_no_difference('Card.count') do
-      post :update, params_for_api({ card: { status: "lol" }})
+      post :create, params_for_api({ card: { status: "lol" }})
     end
     assert_response :unprocessable_entity
   end
 
   test "should update card" do
-    post :update, params_for_api({ card: { isic_status: "requested" }})
+    post :create, params_for_api({ card: { isic_status: "requested" }})
     assert_response :success
     assert_equal "requested", @card.reload.isic_status
   end

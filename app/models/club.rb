@@ -27,7 +27,7 @@ class Club < ActiveRecord::Base
 
   # Hash for export (see to_json)
   def serializable_hash(options = nil)
-    result = super((options || {}).merge({
+    super((options || {}).merge({
       :only => [:name, :full_name, :url, :registration_method, :uses_isic]
     }))
   end

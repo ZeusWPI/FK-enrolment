@@ -18,4 +18,11 @@ class Api::ApiControllerTest < ActionController::TestCase
     result = JSON.parse(@response.body)
     assert_equal "ok", result["status"]
   end
+
+  test "should get club" do
+    get :club, params_for_api
+    assert_response :success
+    result = JSON.parse(@response.body)
+    assert_equal @club.full_name, result["full_name"]
+  end
 end
