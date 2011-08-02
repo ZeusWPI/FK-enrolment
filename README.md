@@ -53,3 +53,7 @@ De voornaamste methodes worden hieronder beschreven:
     * ``number`` (int): toegekende FK-kaart nummer
     * ``status`` (paid of unpaid): betalingsstatus
     * ``isic_status`` (none of requested): ISIC-kaart aanvragen of niet?
+
+*   *GET /api/v2/club.json?key=x*
+
+    Geeft informatie terug over de kring die deze API-sleutel identificeert, bevat ook enkele configuraties van de kring zoals ISIC-voorkeuren.

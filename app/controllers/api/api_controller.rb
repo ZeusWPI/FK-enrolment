@@ -12,4 +12,8 @@ class Api::ApiController < ApplicationController
   def test
     respond_with(status: "ok", club: @club.name)
   end
+
+  def club
+    respond_with(:api, @club)
+  end
 end

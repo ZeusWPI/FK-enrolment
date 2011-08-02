@@ -4,7 +4,7 @@ class ExtraAttributeSpec < ActiveRecord::Base
   acts_as_list :scope => :club
   serialize :values
 
-  validates :field_type, :inclusion => { :allow_emtpy => true,
+  validates :field_type, :inclusion => { :allow_blank => true,
     :in => %w(checkbox checkbox_list checkbox_grid text textarea study) }
 
   def self.build(name, type, values = [], required = false)

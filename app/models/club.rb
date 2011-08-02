@@ -24,4 +24,11 @@ class Club < ActiveRecord::Base
   def to_param
     internal_name.downcase
   end
+
+  # Hash for export (see to_json)
+  def serializable_hash(options = nil)
+    result = super((options || {}).merge({
+      :only => [:name, :full_name, :url, :registration_method, :uses_isic]
+    }))
+  end
 end

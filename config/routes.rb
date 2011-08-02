@@ -15,6 +15,7 @@ FKEnrolment::Application.routes.draw do
 
   namespace :api, :path => "api/v2" do
     get "test" => "api#test"
+    get "club" => "api#club"
     resources :members, :except => [:new, :edit] do
       resource :card, :only => [:show, :update]
     end
