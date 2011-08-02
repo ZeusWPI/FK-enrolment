@@ -12,6 +12,12 @@ class Api::MembersControllerTest < ActionController::TestCase
     assert_not_nil assigns(:members)
   end
 
+  test "should apply filters to index" do
+    get :index, params_for_api(:ugent_nr => "00800001")
+    assert_response :success
+    assert_equal members(:javache), assigns(:members)[0]
+  end
+
   test "should create member" do
     assert_difference('Member.count') do
       post :create, params_for_api({ member: @member.attributes })

@@ -12,7 +12,24 @@ class Api::MembersController < Api::ApiController
   # GET /members
   # GET /members.json
   def index
-    @members = Member.where(:club_id => @club).includes(:current_card).all
+    @members = Member.includes(:current_card).where(:club_id => @club)
+
+    if params[:card]
+      @members = @members.joins(:current_card).where('cards.number' => params[:card])
+    end
+    if params[:first_name]
+      @members = @members.where("first_name LIKE ?", "%#{params[:first_name]}%")
+    end
+    if params[:last_name]
+      @members = @members.where("last_name LIKE ?", "%#{params[:last_name]}%")
+    end
+    if params[:email]
+      @members = @members.where(:email => params[:email])
+    end
+    if params[:ugent_nr]
+      @members = @members.where(:ugent_nr => params[:ugent_nr])
+    end
+
     respond_with(:api, @members)
   end
 

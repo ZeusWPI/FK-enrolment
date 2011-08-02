@@ -15,6 +15,14 @@ De voornaamste methodes worden hieronder beschreven:
     van de array bevat een hash met alle attributen, waaronder ook een ID die in andere
     methods gebruikt kan worden.
 
+    Aan deze methode kunnen ook enkele fiters worden doorgegeven als URL-parameter om zo leden op te zoeken. Beschikbare filters:
+
+    * ``card`` (number): FK-kaart nummer
+    * ``first_name`` (string): Deel van de voornaam
+    * ``last_name`` (string): Deel van de familienaam
+    * ``email`` (string): E-mailadres
+    * ``ugent_nr`` (string): UGent nummer
+
 *   *GET /api/v2/members/[member_id].json?key=x*
 
     Haal de informatie van 1 lid op.
@@ -30,7 +38,7 @@ De voornaamste methodes worden hieronder beschreven:
     * ``date_of_birth`` (date, enkel verplicht bij ISIC)
     * ``photo_url`` (string, enkel verplicht bij ISIC)
     * ``home_address`` (string, enkel verplicht bij ISIC,
-      formaat: ``[straat] [nummer]\n[postcode] [gemeente]``)
+      formaat: ``[straat] [nummer]\r\n[postcode] [gemeente]``)
 
     Andere optionele velden zijn:
     ``email`` (string), ``sex`` (m of f), ``phone`` (string), ``studenthome_address`` (string)
