@@ -7,7 +7,8 @@ module Member::Photo
       :cropped => { :geometry => "210x270", :format => :jpg, :processors => [:Cropper] }
     }
     base.validates_attachment_content_type :photo,
-      :content_type => ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/gif', 'image/png', 'image/x-png'],
+      :content_type => ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/gif',
+                        'image/png', 'image/x-png', 'image/tiff'],
       :message => "Enkel afbeeldingen zijn toegestaan"
     base.attr_accessible :photo, :photo_url, :photo_base64
 
