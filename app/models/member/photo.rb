@@ -25,6 +25,9 @@ module Member::Photo
     sio.original_filename = "snapshot.jpg"
     sio.content_type = "image/jpeg"
     self.photo = sio
+
+    # assume that the photo has the right dimensions
+    # if it was delivered via the webcam
     @cropped = true
   end
 

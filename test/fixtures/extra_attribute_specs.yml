@@ -25,4 +25,4 @@ message:
     name: "Laat een bericht achter voor de vriendelijke testrobot."
     field_type: text
     values: nil
-    required: true
+    required: false
