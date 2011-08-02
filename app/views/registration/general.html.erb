@@ -43,12 +43,10 @@
   <% end %>
 
   <%= f.inputs :for => :extra_attributes do |f| %>
-    <% puts f.object.spec.attributes %>
     <% unless f.object.spec.field_type? %>
       <%= f.object.spec.name %>
     <% else %>
       <%= f.input :spec_id, :as => :hidden %>
-      <% puts "form_" + f.object.spec.field_type %>
       <%= render :partial => "form_" + f.object.spec.field_type, :locals => {:f => f} %>
     <% end %>
   <% end %>
