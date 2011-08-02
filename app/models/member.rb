@@ -2,8 +2,8 @@ class Member < ActiveRecord::Base
   belongs_to :club
   has_many :cards
   has_many :extra_attributes
-  accepts_nested_attributes_for :extra_attributes
 
+  accepts_nested_attributes_for :extra_attributes
   attr_accessible :first_name, :last_name, :email, :ugent_nr, :sex, :phone,
     :date_of_birth, :home_address, :studenthome_address, :photo,
     :isic_newsletter, :isic_mail_card, :extra_attributes_attributes
