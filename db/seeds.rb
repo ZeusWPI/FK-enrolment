@@ -42,25 +42,21 @@ Club.where(:internal_name => %w(Dentalia Slavia)).update_all(:registration_metho
 isic_clubs = %w(VDK VLK VEK GFK Dentalia Politeia Hilok)
 Club.where(:internal_name => isic_clubs).update_all(:uses_isic => true)
 
-def field_spec(name, type, values = [], required = false)
-  ExtraAttributeSpec.new(:name => name, :field_type => type.to_s, :values => values, :required => required)
-end
-
 c = Club.where(:internal_name => 'Chemica').first
-c.extra_attributes << field_spec("Hallo daar, dit is een tekstbericht", nil)
-c.extra_attributes << field_spec("Ja, ik wil inschrijven op de nieuwsbrief", :checkbox)
-c.extra_attributes << field_spec("Ik wil op de hoogte gehouden worden van", :checkbox_list, [
+c.extra_attributes << ExtraAttributeSpec.build("Hallo daar, dit is een tekstbericht", nil)
+c.extra_attributes << ExtraAttributeSpec.build("Ja, ik wil inschrijven op de nieuwsbrief", :checkbox)
+c.extra_attributes << ExtraAttributeSpec.build("Ik wil op de hoogte gehouden worden van", :checkbox_list, [
   'Feest (fuiven, galabal, cocktailavond, …)',
   'Sport (paintball, interfacultair tornooi, 12-urenloop, …)',
   'Excursie (citytrip, skireis, surfreis, …)',
   'Cultuur (filmavond, museumbezoek, …)',
   'Doop / Ontgroening',
   'Cantus'])
-c.extra_attributes << field_spec("Ik beoefen volgende sporten", :checkbox_grid,
+c.extra_attributes << ExtraAttributeSpec.build("Ik beoefen volgende sporten", :checkbox_grid,
   %w(Veldvoetbal Minivoetbal Basketbal Volleybal Badminton Zwemmen) +
   %w(Hardlopen Veldlopen Rugby Tafeltennis))
-c.extra_attributes << field_spec("1 lijntje tekst", :text)
-c.extra_attributes << field_spec("Vrije veld voor uw liefdesbrijven", :textarea)
-c.extra_attributes << field_spec("Studierichting", :study,
+c.extra_attributes << ExtraAttributeSpec.build("1 lijntje tekst", :text)
+c.extra_attributes << ExtraAttributeSpec.build("Vrije veld voor uw liefdesbrijven", :textarea)
+c.extra_attributes << ExtraAttributeSpec.build("Studierichting", :study,
   %w(Wiskunde Informatica Fysica), true)
 c.save!

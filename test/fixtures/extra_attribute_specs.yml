@@ -9,17 +9,20 @@ newsletter:
 
 sports:
     club: wina
-    name: "Kruis de sporten aan de je interesseren."
-    field_type: checkbox_grid
-    values:
-    - Voetbal
-    - Basketbal
-    - Tennis
-    required: false
+    name: "Studierichting"
+    field_type: study
+    required: true
+
+study:
+    club: wina
+    name: "Laat een bericht achter voor de vriendelijke testrobot."
+    field_type: text
+    values: nil
+    required: true
 
 message:
     club: wina
     name: "Laat een bericht achter voor de vriendelijke testrobot."
-    field_type: textfield
+    field_type: text
     values: nil
     required: true

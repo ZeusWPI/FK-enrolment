@@ -11,19 +11,9 @@
       Er ontbreken nog enkele zaken aan je gegevens:
     <% end %></h3>
 
-    <ul>
-    <% @member.errors.each do |attribute, message| %>
-      <% unless attribute =~ /^extra_attributes\./ %>
-        <li><%= @member.class.human_attribute_name(attribute) %>
-        <%= message %></li>
-      <% end %>
-    <% end %>
-    <% @member.extra_attributes.each do |attribute| %>
-      <% attribute.errors.each do |_, message| %>
-        <li><%= attribute.spec.name %> <%= message %></li>
-      <% end %>
-    <% end %>
-    </ul>
+    <ul><% @member.errors.full_messages_with_extra_attributes.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %></ul>
   </div>
   <% end %>
 
@@ -42,14 +32,7 @@
                                       :input_html => { :cols => 30, :rows => 3 } %>
   <% end %>
 
-  <%= f.inputs :for => :extra_attributes do |f| %>
-    <% unless f.object.spec.field_type? %>
-      <li><%= f.object.spec.name %></li>
-    <% else %>
-      <%= f.input :spec_id, :as => :hidden %>
-      <%= render :partial => "form_" + f.object.spec.field_type, :locals => {:f => f} %>
-    <% end %>
-  <% end %>
+  <%= render_extra_attributes(f) %>
 
   <%= f.buttons do %>
     <%= f.commit_button "Volgende stap" %>

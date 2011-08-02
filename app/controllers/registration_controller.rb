@@ -42,7 +42,7 @@ class RegistrationController < ApplicationController
     @member.attributes = params[:member]
 
     if @member.extra_attributes.empty?
-      @member.extra_attributes = @club.create_extra_attributes
+      @club.build_extra_attributes(@member)
     end
 
     # Override properties if they're already set through CAS
@@ -106,7 +106,7 @@ class RegistrationController < ApplicationController
   def success
     session[:member_id] = nil
 
-    # Redirect to FK-books
+    # Redirect to fk-books
     if session[:fk_books]
       key = Rails.application.config.fkbooks_key
       signature = Digest::SHA1.hexdigest(key + @member.id.to_s)
