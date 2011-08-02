@@ -43,9 +43,14 @@
   <% end %>
 
   <%= f.inputs :for => :extra_attributes do |f| %>
-    <%= f.input :spec_id, :as => :hidden %>
-    <p><%= f.object.spec.text %></p>
-    <%= render :partial => f.object.spec.field_type, :locals => {:f => f} %>
+    <% puts f.object.spec.attributes %>
+    <% unless f.object.spec.field_type? %>
+      <%= f.object.spec.name %>
+    <% else %>
+      <%= f.input :spec_id, :as => :hidden %>
+      <% puts "form_" + f.object.spec.field_type %>
+      <%= render :partial => "form_" + f.object.spec.field_type, :locals => {:f => f} %>
+    <% end %>
   <% end %>
 
   <%= f.buttons do %>

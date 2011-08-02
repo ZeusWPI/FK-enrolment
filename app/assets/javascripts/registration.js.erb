@@ -2,10 +2,28 @@
 // All this logic will automatically be available in application.js.
 
 $(function() {
-  if (!$('body').hasClass('registration photo')) return;
+  if ($('body').hasClass('registration photo')) {
+    initSeenly();
+    initCropper();
+  }
 
-  initSeenly();
-  initCropper();
+  // study form widget
+  var studyWidget = $('form .study-field select');
+  studyWidget.change(function() {
+    var enableOther = $('option:selected', this).text() == "Andere"
+    var other = $(this).parent().siblings('.study-field-other');
+    if(enableOther) { other.show(); $('input', other).attr('disabled', false); }
+    else { other.hide(); $('input', other).attr('disabled', true); }
+  });
+
+  // make sure that everything is show correctly on page load
+  studyWidget.each(function(i, e) {
+    var other = $(e).parent().siblings('.study-field-other');
+    if($(e).val() != $('input', other).val()) {
+      $('option:last', e).attr('selected', true);
+    }
+  });
+  studyWidget.change();
 })
 
 function initSeenly() {

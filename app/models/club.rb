@@ -27,6 +27,10 @@ class Club < ActiveRecord::Base
 
   # Create empty attributes for each extra-value specification
   def create_extra_attributes
-    extra_attributes.map { |spec| ExtraAttribute.new(:spec_id => spec.id) }
+    extra_attributes.map { |spec|
+      attribute = ExtraAttribute.new()
+      attribute.spec = spec
+      attribute
+    }
   end
 end

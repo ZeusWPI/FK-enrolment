@@ -55,19 +55,44 @@ form.formtastic fieldset > ol > li {
       color: $text-color;
   } }
 
+  &.check_boxes label input {
+    margin:0 0.5em 0 0.2em !important;
+  }
+
+  &.checkbox-grid li {
+    width: 150px; float: left;
+  }
+
   /* Fix weird scrolling bug */
   &.date fieldset { overflow: hidden; }
 }
 
 form.formtastic fieldset {
+  position: relative;
+
   &.buttons { padding-left: 30%; }
-  &.no-indent {
+  &.no-indent, .no-indent {
     padding-left: 0;
 
     .inline-hints {
       margin-left: 21px;
     }
 
-    ol > li.boolean > label {
-      padding-left: 0; width: 100%;
+    &.check_boxes {
+      legend {
+        position: relative;
+      }
+      legend label {
+        position: relative;
+        width: auto; float: none;
+      }
+
+      ol {
+        width: auto; padding: 0;
+      }
+    }
+
+    > label {
+      padding-left: 0 !important;
+      width: 100% !important;
 } } }

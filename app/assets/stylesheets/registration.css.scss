@@ -13,6 +13,7 @@ body.registration {
 
   .content-main {
     @include col(13); @include last;
+    position: relative;
   }
 }
 
@@ -58,7 +59,12 @@ form.formtastic {
     li {
       float: left;
       padding-right: 20px;
-} } }
+  } }
+
+  .study-field-other {
+    display: none;
+    position: absolute; right: 60px; top: 0;
+} }
 
 .crop-wrapper {
   @include col(19); @include last;
