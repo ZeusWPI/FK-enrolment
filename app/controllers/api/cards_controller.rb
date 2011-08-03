@@ -22,7 +22,7 @@ class Api::CardsController < Api::ApiController
 
   # POST /members/1/card.json
   def create
-    @card.attributes = filtered_params(:card)
+    @card.attributes = unwrap_params(:card)
     if @card.save
       flash[:notice] = "Successfully updated card."
     end

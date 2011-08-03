@@ -10,7 +10,7 @@ class Api::ApiController < ApplicationController
     end
   end
 
-  def filtered_params(name)
+  def unwrap_params(name)
     params[name] || params.except(:controller, :action, :format, :key, :member_id)
   end
 
