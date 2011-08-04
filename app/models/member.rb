@@ -29,8 +29,8 @@ class Member < ActiveRecord::Base
   # Hash for export (see to_json)
   def serializable_hash(options = nil)
     result = super((options || {}).merge({
-      :except => [:club_id, :isic_newsletter, :isic_mail_card,
-                  :photo_content_type, :photo_file_name, :photo_file_size, :photo_updated_at],
+      :except => [:club_id, :photo_content_type, :photo_file_name,
+                  :photo_file_size, :photo_updated_at],
       :include => [:current_card]
     }))
     result[:card] = result.delete :current_card
