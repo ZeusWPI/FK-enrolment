@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class RegistrationControllerTest < ActionController::TestCase
+class Frontend::RegistrationControllerTest < ActionController::TestCase
   def setup
     @params = { :club => clubs(:vtk).internal_name.downcase }
     @member = members(:javache)

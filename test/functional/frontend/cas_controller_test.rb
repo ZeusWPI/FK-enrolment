@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CasControllerTest < ActionController::TestCase
+class Frontend::CasControllerTest < ActionController::TestCase
   test "should auth user" do
     get :auth, :redirect => "/target"
     assert_response :redirect

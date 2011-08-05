@@ -1,4 +1,4 @@
-class CasController < ApplicationController
+class Frontend::CasController < Frontend::FrontendController
   skip_before_filter :verify_authenticity_token, :only => :verify
   before_filter RubyCAS::Filter, :only => :verify
 

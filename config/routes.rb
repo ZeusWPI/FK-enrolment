@@ -1,18 +1,4 @@
 FKEnrolment::Application.routes.draw do
-  root :to => "home#index"
-
-  get "cas/auth"
-  match "cas/verify"
-
-  scope :path => ":club", :as => :registration do
-    root :to => "registration#index"
-    get "cas" => "cas#auth"
-    match "algemeen" => "registration#general", :as => :general
-    match "foto" => "registration#photo", :as => :photo
-    match "isic" => "registration#isic", :as => :isic
-    get "succes" => "registration#success", :as => :success
-  end
-
   namespace :api, :path => "api/v2" do
     get "test" => "api#test"
     get "club" => "api#club"
@@ -22,7 +8,27 @@ FKEnrolment::Application.routes.draw do
   end
 
   namespace :backend do
-    resources :members
+    root :to => "home#index"
+    resources :members, :except => [:create, :new]
+  end
+
+  # should always be the last routes-entry due to the
+  # greedy nature of the :club-scope
+  namespace :frontend, :path => nil, :as => nil do
+    root :to => "home#index"
+
+    # verbosity is needed to add namespace to controller
+    get "cas/auth", :to => "cas#auth"
+    match "cas/verify", :to => "cas#verify"
+
+    scope :path => ":club", :as => :registration do
+      root :to => "registration#index"
+      get "cas" => "cas#auth"
+      match "algemeen" => "registration#general", :as => :general
+      match "foto" => "registration#photo", :as => :photo
+      match "isic" => "registration#isic", :as => :isic
+      get "succes" => "registration#success", :as => :success
+    end
   end
 
   # The priority is based upon order of creation:

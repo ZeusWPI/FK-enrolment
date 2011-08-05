@@ -1,5 +1,4 @@
-class RegistrationController < ApplicationController
-  cattr_accessor :fkbooks_key
+class Frontend::RegistrationController < Frontend::FrontendController
   respond_to :html
 
   before_filter :load_club
