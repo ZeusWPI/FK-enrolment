@@ -21,6 +21,10 @@ FKEnrolment::Application.routes.draw do
     end
   end
 
+  namespace :backend do
+    resources :members
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
