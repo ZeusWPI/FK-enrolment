@@ -1,7 +1,0 @@
-<% values = Hash[f.object.spec.values.map {|e| [e, e]}].merge("Andere" => "") %>
-<%= f.input :value, :label => f.object.spec.name,
-            :as => :select, :collection => values,
-            :wrapper_html => { :class => "study-field" } %>
-<li class="study-field-other">
-    <%= f.text_field :value, :size => 20 %>
-</li>
