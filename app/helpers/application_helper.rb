@@ -8,7 +8,7 @@ module ApplicationHelper
 
   # Generate a class to be applied to the page body for css scoping
   def generate_body_class
-    controller.controller_name.parameterize.dasherize + ' ' +
-        controller.action_name.parameterize.dasherize
+    c = controller.controller_path.split('/').each { |c| c.parameterize.dasherize }
+    c.join(' ') + ' ' + controller.action_name.parameterize.dasherize
   end
 end
