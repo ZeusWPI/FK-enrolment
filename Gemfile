@@ -31,7 +31,7 @@ end
 
 # CAS support
 gem 'rubycas-client', git: 'git://github.com/Javache/rubycas-client.git', branch: 'master'
-gem 'rubycas-client-rails', :git => "git://github.com/zuk/rubycas-client-rails.git"
+gem 'rubycas-client-rails', :git => 'git://github.com/Javache/rubycas-client-rails.git'
 
 # Photo management
 gem 'paperclip', "~> 2.3.15"
@@ -56,5 +56,4 @@ group :test do
   # Pretty printed test output
   gem 'turn', :require => false
   gem 'autotest-rails'
-  gem 'ZenTest', '~> 4.5.0'
 end
