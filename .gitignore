@@ -5,3 +5,5 @@ tmp/
 .sass-cache/
 public/data/
 .DS_Store
+*.psd
+seenly-core
