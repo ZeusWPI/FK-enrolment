@@ -23,6 +23,11 @@ class MemberTest < ActiveSupport::TestCase
     verify(@member.photo)
   end
 
+  test "should show error when an invalid url is parsed" do
+    @member.photo_url = "C:\\Users\\Jos\\foto.jpg"
+    assert !@member.save
+  end
+
   test "should create photo from base64" do
     @member.photo_base64 = Base64.encode64(@photo)
     @member.save

@@ -16,6 +16,11 @@ module Member::Photo
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
     base.attr_accessible :crop_x, :crop_y, :crop_w, :crop_h
     base.after_update :crop_photo, :if => :cropping?
+
+    # Photo url errors
+    base.validate do |photo|
+      photo.errors.add(:photo_url, photo.photo_url_error) if photo.photo_url_error
+    end
   end
 
   # Download and assign the photo found at url
@@ -37,19 +42,20 @@ module Member::Photo
   end
 
   # Download and assign the photo found at url
+  attr_accessor :photo_url, :photo_url_error
   def photo_url=(url)
+    @photo_url = url
+    self.photo_url_error = ""
     return if url.blank?
 
-    # don't download longer than 10 seconds
-    Timeout::timeout(10) do
-      # TODO: support https
-      uri = URI.parse(url)
-      self.photo = uri.open if uri.respond_to? :open
+    begin
+      # Don't download longer than 10 seconds
+      Timeout::timeout(10) do
+        self.photo = OpenURI.open_uri(url)
+      end
+    rescue
+      self.photo_url_error = "Er trad een fout op bij het ophalen van de foto."
     end
-  end
-
-  # Empty accessor
-  def photo_url
   end
 
   # Profile picture cropping
