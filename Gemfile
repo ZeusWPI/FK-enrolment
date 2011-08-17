@@ -48,6 +48,9 @@ gem 'exception_notification', :require => 'exception_notifier'
 # ActiveRecord enhancements
 gem 'acts_as_list'
 
+# Easy http requests
+gem 'httparty'
+
 group :production do
   gem 'mysql2'
 end
