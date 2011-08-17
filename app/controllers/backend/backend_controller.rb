@@ -11,8 +11,8 @@ class Backend::BackendController < ApplicationController
   end
 
 
-  # return true if the ugent_login is allowed to manage the club
-  def check_auth(ugent_login, club_name)
+  # return which club this ugent_login is allowed to manage 
+  def club_for_ugent_login(ugent_login)
     # using httparty because it is much easier to read than net/http code
     resp = HTTParty.get('http.fkgent.be/api_zeus.php', 
                   :query => {
@@ -24,10 +24,8 @@ class Backend::BackendController < ApplicationController
     # keep checking if something is wrong fall through and return false
     if resp.body != 'FAIL'
       hash = JSON[resp.body]
-      if hash['kringname'] == club_name
-        dig = Digest::SHA256.hexdigest Rails::Application.config.zeus_api_salt + '-' + ugent_login + club_name
-        return hash['controle'] == dig
-      end
+      dig = Digest::SHA256.hexdigest Rails::Application.config.zeus_api_salt + '-' + ugent_login + hash['kringname']
+      return hash['kringname'] if hash['controle'] == dig
     end
     false
   end
