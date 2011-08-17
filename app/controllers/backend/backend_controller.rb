@@ -4,12 +4,15 @@ class Backend::BackendController < ApplicationController
   before_filter :verify_auth
   def verify_auth
     # TODO: real auth
-    @club = Club.find_by_internal_name("Chemica")
-    unless @club
-      respond_with({:error => "Invalid API-key"}, :status => :forbidden, :location => nil)
+    if session[:cas_user].blank?
+      redirect_to cas_auth_path
+    else
+      if session[:club].blank?
+        session[:club] = club_for_ugent_login(session[:cas_user])
+      end
+      @club = Club.find_by_internal_name(session[:club])
     end
   end
-
 
   # return which club this ugent_login is allowed to manage 
   def club_for_ugent_login(ugent_login)
@@ -27,7 +30,7 @@ class Backend::BackendController < ApplicationController
       dig = digest(Rails::Application.config.zeus_api_salt, ugent_login, hash['kringname'])
       return hash['kringname'] if hash['controle'] == dig
     end
-    false
+    nil
   end
 
   def digest(*args)
