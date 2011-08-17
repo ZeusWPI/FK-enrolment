@@ -21,7 +21,7 @@ class Backend::BackendController < ApplicationController
                   }
                 )
 
-    # keep checking if something is wrong fall through and return false
+    # this will only return the club name if controle hash matches 
     if resp.body != 'FAIL'
       hash = JSON[resp.body]
       dig = Digest::SHA256.hexdigest Rails::Application.config.zeus_api_salt + '-' + ugent_login + hash['kringname']
