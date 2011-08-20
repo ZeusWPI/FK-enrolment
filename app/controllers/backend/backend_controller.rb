@@ -3,28 +3,31 @@ class Backend::BackendController < ApplicationController
 
   before_filter :verify_auth
   def verify_auth
-    # TODO: real auth
     if session[:cas_user].blank?
-      redirect_to cas_auth_path
+      redirect_to cas_auth_path(:redirect => request.fullpath)
     else
       if session[:club].blank?
         session[:club] = club_for_ugent_login(session[:cas_user])
       end
+
+      # TODO: fail with some security exception / log out / ..
       @club = Club.find_by_internal_name(session[:club])
     end
   end
 
-  # return which club this ugent_login is allowed to manage 
+  # return which club this ugent_login is allowed to manage
   def club_for_ugent_login(ugent_login)
-    # using httparty because it is much easier to read than net/http code
-    resp = HTTParty.get('http://fkgent.be/api_zeus.php', 
-                  :query => {
-                    :k => digest(ugent_login, Rails::Application.config.zeus_api_key), 
-                    :u => ugent_login
-                  }
-                )
+    def digest(*args)
+      Digest::SHA256.hexdigest args.join('-')
+    end
 
-    # this will only return the club name if controle hash matches 
+    # using httparty because it is much easier to read than net/http code
+    resp = HTTParty.get('http://fkgent.be/api_zeus.php', :query => {
+              :k => digest(ugent_login, Rails::Application.config.zeus_api_key),
+              :u => ugent_login
+           })
+
+    # this will only return the club name if control-hash matches
     if resp.body != 'FAIL'
       hash = JSON[resp.body]
       dig = digest(Rails::Application.config.zeus_api_salt, ugent_login, hash['kringname'])
@@ -32,9 +35,4 @@ class Backend::BackendController < ApplicationController
     end
     nil
   end
-
-  def digest(*args)
-    Digest::SHA256.hexdigest args.join('-')
-  end
-
 end
