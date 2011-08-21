@@ -43,8 +43,11 @@ class Frontend::RegistrationControllerTest < ActionController::TestCase
   end
 
   test "should get success" do
+    @member.enabled = false
     get :success, @params, @session
     assert_response :success
-  end
 
+    @member.reload
+    assert @member.enabled
+  end
 end

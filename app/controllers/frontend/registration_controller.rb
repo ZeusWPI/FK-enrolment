@@ -79,6 +79,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
   end
 
   def success
+    @member.update_attribute(:enabled, true)
     session[:member_id] = nil
 
     # Redirect to fk-books
