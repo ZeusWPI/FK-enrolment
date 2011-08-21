@@ -1,4 +1,2 @@
-<%= title "Hello world!" %>
-<p>Welcome <%= @club.name %></p>
-
-<%= render :partial => "club_settings", :club => @club %>
+<%= render :partial => 'club' %>
+<%= link_to "Instellingen", backend_settings_path %>

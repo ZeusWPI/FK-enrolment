@@ -10,6 +10,8 @@ FKEnrolment::Application.routes.draw do
   namespace :backend do
     root :to => "home#index"
     resources :members, :except => [:create, :new]
+
+    match "settings" => "home#settings", :as => :settings
   end
 
   # should always be the last routes-entry due to the

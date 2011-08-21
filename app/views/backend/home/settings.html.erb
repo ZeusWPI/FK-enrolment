@@ -1,4 +1,6 @@
-<%= semantic_form_for @club, :url => backend_root_url  do |f| %>
+<%= render :partial => 'club' %>
+
+<%= semantic_form_for @club, :url => backend_settings_path  do |f| %>
   <%= f.inputs do %>
     <%= f.input :uses_isic %> <br \>
     <%= f.input :registration_method, :as => :select,
@@ -9,4 +11,3 @@
     <%= f.commit_button "Bewaar" %>
   <% end %>
 <% end %>
-
