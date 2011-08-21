@@ -15,6 +15,9 @@ nl:
         photo_url: URL
         isic_newsletter: ISIC nieuwsbrief
         isic_mail_card: ISIC-kaart opsturen
+      club:
+        uses_isic: Gebruik ISIC
+        registration_method: Registratie methode
 
   errors:
     messages:

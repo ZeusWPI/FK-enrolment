@@ -1,2 +1,4 @@
 <%= title "Hello world!" %>
 <p>Welcome <%= @club.name %></p>
+
+<%= render :partial => "club_settings", :club => @club %>
