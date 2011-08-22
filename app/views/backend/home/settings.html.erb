@@ -1,12 +1,15 @@
 <%= render :partial => 'club' %>
 
 <%= semantic_form_for @club, :url => backend_settings_path  do |f| %>
-  <%= f.inputs do %>
-    <%= f.input :uses_isic %> <br \>
-    <%= f.input :registration_method, :as => :select,
-      :collection => {"Geen" => "none", "API" => "api", "Website" => "website"} %>
 
+  <%= f.inputs do %>
+    <%= f.input :uses_isic %><br \>
+    <%= f.input :registration_method, :as => :select,
+      :collection => {"Geen" => "none", "API" => "api", "Website" => "website"} %><br \>
+    <%= f.input :description, :as => :text, :input_html => {:cols => 40, :rows => 4 } %><br \>
+    <%= f.input :api_key, :input_html => {:disabled => true } %><br \>
   <% end %>
+
   <%= f.buttons do %>
     <%= f.commit_button "Bewaar" %>
   <% end %>

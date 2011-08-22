@@ -18,6 +18,8 @@ nl:
       club:
         uses_isic: Gebruik ISIC
         registration_method: Registratie methode
+        description: Beschrijving
+        api_key: API sleutel
 
   errors:
     messages:
