@@ -30,7 +30,7 @@ class Member < ActiveRecord::Base
   def serializable_hash(options = nil)
     result = super((options || {}).merge({
       :except => [:club_id, :photo_content_type, :photo_file_name,
-                  :photo_file_size, :photo_updated_at],
+                  :photo_file_size, :photo_updated_at, :enabled],
       :include => [:current_card]
     }))
     result[:card] = result.delete :current_card
