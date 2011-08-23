@@ -11,7 +11,10 @@ FKEnrolment::Application.routes.draw do
     root :to => "home#index"
     resources :members, :except => [:create, :new]
 
+    match "members/search" => "members#search", :as => :search
+
     match "settings" => "home#settings", :as => :settings
+    match "kassa" => "home#kassa", :as => :kassa
   end
 
   # should always be the last routes-entry due to the

@@ -1,0 +1,11 @@
+<%= render :partial => 'club' %>
+
+<%= form_tag backend_search_path, :id => 'search-form', :remote => true do |f| %>
+  <p>
+    <%= text_field_tag 'ugent_nr', params[:ugent_nr] %>
+    <%= submit_tag "Zoek", :name => nil %>
+  </p>
+<% end %>
+
+<div id="search-results">
+</div>
