@@ -14,4 +14,12 @@ class Backend::MembersController < Backend::BackendController
     end
   end
 
+  def pay
+    @member = Member.find(params[:id])
+    @card = @member.current_card
+    if params[:card]
+      @member.current_card.update_attributes!(params[:card])
+    end
+  end
+
 end

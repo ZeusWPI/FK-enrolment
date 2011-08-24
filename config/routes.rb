@@ -11,6 +11,8 @@ FKEnrolment::Application.routes.draw do
     root :to => "home#index"
     resources :members, :except => [:create, :new]
 
+    match "members/:id/pay" => "members#pay", :as => :pay
+
     match "members/search" => "members#search", :as => :search
 
     match "settings" => "home#settings", :as => :settings
