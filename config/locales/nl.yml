@@ -16,9 +16,11 @@ nl:
         isic_newsletter: ISIC nieuwsbrief
         isic_mail_card: ISIC-kaart opsturen
       club:
-        uses_isic: Gebruik ISIC
-        registration_method: Registratie methode
         description: Beschrijving
+        isic_text: ISIC-tekst
+        confirmation_text: Bevestigingstekst
+        registration_method: Registratie methode
+        uses_isic: Automatisch ISIC-kaarten aanvragen
         api_key: API sleutel
 
   errors:

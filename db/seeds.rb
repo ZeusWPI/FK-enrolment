@@ -32,7 +32,8 @@ clubs = [
   ["Filologica", "Filologica", "Filologica", "faculteitskring van de studenten Taal en Letterkunde: Twee Talen (Germaanse, Romaanse en Klassieke Talen)", "http://www.filologica.be"]
 ]
 clubs.each do |c|
-  Club.create!(:name => c[0], :full_name => c[1], :internal_name => c[2], :description => c[3], :url => c[4])
+  Club.create!(:name => c[0], :full_name => c[1], :internal_name => c[2],
+               :description => c[3], :url => c[4], :api_key => SecureRandom::hex(16))
 end
 data =
 {

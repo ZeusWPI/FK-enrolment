@@ -1,5 +1,3 @@
-<%= render :partial => 'club' %>
-
 <%= form_tag backend_search_path, :id => 'search-form', :remote => true do  %>
   <%= select_tag 'search_field',
         options_for_select({'UGent nummer' => 'ugent_nr',

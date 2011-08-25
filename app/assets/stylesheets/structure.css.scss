@@ -52,6 +52,11 @@
     color: $error-color;
     border-color: $error-color;
   }
+
+  &.success {
+    color: $success-color;
+    border-color: $success-color;
+  }
 }
 
 @import "compass/layout/sticky-footer";

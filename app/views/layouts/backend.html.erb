@@ -19,7 +19,10 @@
         <p class="flash <%= key %>"><%= msg %></p>
       <% end %>
       <div class="content">
-        <%= yield %>
+        <%= render :partial => 'layouts/club' %>
+        <div class="content-main">
+          <%= yield %>
+        </div>
       </div>
     </div>
 

@@ -3,7 +3,13 @@ class Backend::HomeController < Backend::BackendController
   end
 
   def settings
-    @club.update_attributes!(params[:club]) if params[:club]
+    if params[:club]
+      @club.attributes = params[:club]
+
+      if @club.save
+        flash[:success] = "Instellingen gewijzigd."
+      end
+    end
   end
 
   def kassa

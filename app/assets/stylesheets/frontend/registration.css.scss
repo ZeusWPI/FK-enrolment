@@ -1,20 +1,18 @@
 @import "common";
 
-body.registration {
-  .club-shield {
-    @include col(4);
-    @include leader(2.5);
-    font-weight: 900;
-    text-align: center;
-    @include adjust-font-size-to(15px, 0.9);
+.club-shield {
+  @include col(4);
+  @include leader(2.5);
+  font-weight: 900;
+  text-align: center;
+  @include adjust-font-size-to(15px, 0.9);
 
-    img { margin: 0 auto 10px; }
-  }
+  img { margin: 0 auto 10px; }
+}
 
-  .content-main {
-    @include col(13); @include last;
-    position: relative;
-  }
+.content-main {
+  @include col(13); @include last;
+  position: relative;
 }
 
 .method-chooser {
