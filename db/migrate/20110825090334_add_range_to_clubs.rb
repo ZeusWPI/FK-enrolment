@@ -1,5 +1,5 @@
 class AddRangeToClubs < ActiveRecord::Migration
-  def change
+  def up
     change_table(:clubs) do |t|
       t.integer :range_lower, :range_upper
     end
@@ -35,9 +35,15 @@ class AddRangeToClubs < ActiveRecord::Migration
 
     data.each do |name, range|
       c = Club.find_by_internal_name(name)
-      c.range_lower = range.begin
-      c.range_upper = range.end
-      c.save!
+      if c
+        c.range_lower = range.begin
+        c.range_upper = range.end
+        c.save!
+      end
     end
+  end
+
+  def down
+    remove_column :clubs, :range_upper, :range_lower
   end
 end
