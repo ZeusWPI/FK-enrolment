@@ -1,1 +1,11 @@
-TEST
+<%= semantic_form_for @card, :url => backend_pay_path do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :number, :input_html => {:disabled => @card.number} %>
+  <% end %>
+
+  <%= f.buttons do %>
+    <%= f.commit_button 'Bewaar' %>
+  <% end %>
+<% end %>
+
+<p>ISIC-status: <%= @card.isic_status %></p>

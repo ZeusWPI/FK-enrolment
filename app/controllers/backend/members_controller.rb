@@ -17,8 +17,13 @@ class Backend::MembersController < Backend::BackendController
   def pay
     @member = Member.find(params[:id])
     @card = @member.current_card
+    unless @card
+      @card = Card.new(:status => 'unpaid', :isic_status => (@member.club.uses_isic ? 'request' : 'none'))
+      @card.member = @member
+    end
     if params[:card]
-      @member.current_card.update_attributes!(params[:card])
+      @card.update_attributes(params[:card])
+      @card.save!
     end
   end
 
