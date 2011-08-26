@@ -1,11 +1,15 @@
-<%= semantic_form_for @card, :url => backend_pay_path do |f| %>
-  <%= f.inputs do %>
-    <%= f.input :number, :input_html => {:disabled => @card.number} %>
-  <% end %>
+<% unless @card.number %>
+  <%= semantic_form_for @card, :url => backend_pay_path do |f| %>
+    <%= f.inputs do %>
+      <%= f.input :number %>
+    <% end %>
 
-  <%= f.buttons do %>
-    <%= f.commit_button 'Bewaar' %>
+    <%= f.buttons do %>
+      <%= f.commit_button 'Bewaar FK-nummer' %>
+    <% end %>
   <% end %>
+<% else %>
+  <p>FK-nummer: <%= @card.number %></p>
 <% end %>
 
 <p>ISIC-status: <%= @card.isic_status %></p>
