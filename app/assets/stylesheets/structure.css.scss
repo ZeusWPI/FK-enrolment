@@ -29,17 +29,49 @@
   @include row;
   padding: 40px 0 10px 0;
   @include clearfix;
-
-  .content {
-    @include col(17);
-  }
-
-  .sponsors {
-    @include col(6);
-    @include last;
-    @include float-right;
-  }
 }
+
+.content {
+  @include col(17);
+}
+
+.sponsors {
+  @include col(6);
+  @include last;
+  @include float-right;
+}
+
+.club-shield {
+  @include col(4);
+  @include leader(2.5);
+  font-weight: 900;
+  text-align: center;
+  @include adjust-font-size-to(15px, 0.9);
+
+  img { margin: 0 auto 10px; }
+}
+
+.option-chooser {
+  margin-top: 30px;
+  list-style: none;
+  padding: 0;
+
+  li {
+    margin: 15px 0;
+    border: 1px solid #AAA;
+
+    a {
+      display: block;
+      color: #000;
+      padding: 15px 20px 15px 42px;
+      background: asset-url("selector-arrow.png", image) no-repeat #EEE;
+      background-position: 14px center;
+
+      &:hover {
+        background-color: #F9F9F9;
+        text-decoration: none;
+} } } }
+
 
 .flash {
   padding: 5px 10px;

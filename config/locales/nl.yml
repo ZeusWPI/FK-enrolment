@@ -20,7 +20,7 @@ nl:
         isic_text: ISIC-tekst
         confirmation_text: Bevestigingstekst
         registration_method: Registratie methode
-        uses_isic: Automatisch ISIC-kaarten aanvragen
+        uses_isic: Automatisch ISIC-kaarten aanvragen na registratie
         api_key: API sleutel
 
   errors:

@@ -1,3 +1,20 @@
-// Place all the styles related to the backend/BackendController controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "common";
+
+body.backend {
+  .content {
+    @include col(24); @include last;
+  }
+
+  .content-main {
+    @include col(20); @include last;
+    @include float-left;
+    @include clearfix;
+    position: relative;
+  }
+
+  .option-chooser {
+    font-weight: 900;
+    @include adjust-font-size-to(14px, 1);
+    width: 400px;
+} }
+

@@ -1,5 +1,6 @@
 class Card < ActiveRecord::Base
   belongs_to :member
+  has_one :club, :through => :member
 
   attr_accessible :number, :status, :isic_status
 
