@@ -1,5 +1,5 @@
 <% unless @card.number %>
-  <%= semantic_form_for @card, :url => backend_pay_path do |f| %>
+  <%= semantic_form_for @card, :url => pay_backend_member_path do |f| %>
     <%= f.inputs do %>
       <%= f.input :number %>
     <% end %>

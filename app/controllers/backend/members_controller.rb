@@ -1,4 +1,15 @@
 class Backend::MembersController < Backend::BackendController
+  before_filter :load_member
+  def load_member
+    @member, status = Member.find_member_for_club(params['id'], @club)
+    if params['id'] and not @member
+      respond_with({:error => "Invalid member"}, :status => status, :location => '')
+    end
+  end
+
+  def index
+    @members = Member.includes(:current_card).where(:club_id => @club, :enabled => true)
+  end
 
   def search
     case params[:search_field]

@@ -16,5 +16,6 @@ body.backend {
     font-weight: 900;
     @include adjust-font-size-to(14px, 1);
     width: 400px;
+    margin: 15px 0;
 } }
 

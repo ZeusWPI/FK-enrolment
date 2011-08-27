@@ -1,4 +1,5 @@
 class Backend::BackendController < ApplicationController
+  respond_to :html
   layout "backend"
 
   before_filter :verify_auth

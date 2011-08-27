@@ -1,1 +1,1 @@
-$('#search-results').replaceWith("<%= escape_javascript(render :partial => '/backend/members/show', :locals => {:member => @members }) %>");
+$('#search-results').replaceWith("<%= escape_javascript(render :partial => 'results', :locals => {:member => @members }) %>");

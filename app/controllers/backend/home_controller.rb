@@ -5,7 +5,6 @@ class Backend::HomeController < Backend::BackendController
   def settings
     if params[:club]
       @club.attributes = params[:club]
-
       if @club.save
         flash[:success] = "Instellingen gewijzigd."
       end
@@ -15,5 +14,4 @@ class Backend::HomeController < Backend::BackendController
   def kassa
 
   end
-
 end

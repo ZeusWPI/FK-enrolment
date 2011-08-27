@@ -40,4 +40,8 @@ class Frontend::CasController < Frontend::FrontendController
       redirect_to root_url
     end
   end
+
+  def logout
+    RubyCAS::Filter.logout(self, root_url)
+  end
 end

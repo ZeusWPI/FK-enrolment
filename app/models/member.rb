@@ -60,4 +60,15 @@ class Member < ActiveRecord::Base
       attribute.spec = club.extra_attributes[i]
     end
   end
+
+  # Load member, checking access
+  def self.find_member_for_club(member_id, club)
+    return nil if not member_id
+    member = where(:enabled => true).includes(:current_card).find(member_id)
+    if member
+      member.club_id == club.id ? [member, :success] : [nil, :forbidden]
+    else
+      [nil, :not_found]
+    end
+  end
 end
