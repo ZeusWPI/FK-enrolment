@@ -26,5 +26,4 @@ class Backend::MembersController < Backend::BackendController
       @card.save!
     end
   end
-
 end

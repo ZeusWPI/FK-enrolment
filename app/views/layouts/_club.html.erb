@@ -1,4 +1,4 @@
-<div class="club-shield">
+<div class="club-shield"><% if @club %>
   <%= image_tag(@club.shield_path) %>
   <%= @club.full_name %>
-</div>
+<% end %></div>

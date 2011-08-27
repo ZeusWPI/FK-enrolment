@@ -3,14 +3,14 @@
 javache:
   member: javache
   academic_year: 2011
-  number: 1234567
+  number: 1
   status: paid
   enabled: true
 
 nudded:
   member: nudded
   academic_year: 2011
-  number: 1234568
+  number: 21
   status: unpaid
   isic_status: requested
   enabled: true

@@ -12,10 +12,11 @@
     <%= f.input :confirmation_text, :as => :text,
         :hint => "Tekst na registratie.",
         :input_html => {:cols => 40, :rows => 4 } %>
+    <li><label>Kaartnummers</label><p><%= "#{@club.range_lower} — #{@club.range_upper}" %></p></li>
     <%= f.input :registration_method, :as => :select,
       :collection => {"Geen" => "none", "API" => "api", "Website" => "website"} %>
     <%= f.input :uses_isic, :wrapper_html => { :class => "no-indent" } %>
-    <li><label>API sleutel</label><code><%= @club.api_key %></code></li>
+    <li><label>API sleutel</label><p><code><%= @club.api_key %></code></p></li>
   <% end %>
 
   <%= f.buttons do %>

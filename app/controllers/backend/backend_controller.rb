@@ -3,15 +3,21 @@ class Backend::BackendController < ApplicationController
 
   before_filter :verify_auth
   def verify_auth
+    if request.local?
+      @club = Club.find_by_internal_name("Wina") and return
+    end
+
     if session[:cas_user].blank?
       redirect_to cas_auth_path(:redirect => request.fullpath)
     else
       if session[:club].blank?
         session[:club] = club_for_ugent_login(session[:cas_user])
       end
-
-      # TODO: fail with some security exception / log out / ..
       @club = Club.find_by_internal_name(session[:club])
+
+      unless @club
+        render '/backend/denied', :status => 403
+      end
     end
   end
 
@@ -33,6 +39,7 @@ class Backend::BackendController < ApplicationController
       dig = digest(Rails.application.config.zeus_api_salt, ugent_login, hash['kringname'])
       return hash['kringname'] if hash['controle'] == dig
     end
+
     nil
   end
 end
