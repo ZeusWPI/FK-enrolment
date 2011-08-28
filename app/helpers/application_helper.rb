@@ -13,11 +13,13 @@ module ApplicationHelper
   end
 
   # Generate icon tag and image
-  def icon(type, text = '', path = nil)
+  def icon(type, text = '', path = nil, options = {})
+    options = options.merge(:class => "icon #{type}")
+    options[:class] += ' no-text' if text == ''
     if path
-      link_to(text, path, :class => "icon #{type}")
+      link_to(text, path, options)
     else
-      content_tag(:span, text, :class => "icon #{type}")
+      content_tag(:span, text, options)
     end
   end
 end

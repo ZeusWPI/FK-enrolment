@@ -28,7 +28,13 @@ body.backend {
   padding-left: 20px;
   background-repeat: no-repeat;
 
+  &.no-text {
+    padding-left: 16px;
+    margin: 0 -1px;
+  }
+
   &.edit { background-image: asset-url('icons/pencil.png', image); }
+  &.delete { background-image: asset-url('icons/cross.png', image); }
   &.details { background-image: asset-url('icons/magnifier.png', image); }
   &.false { background-image: asset-url('icons/delete.png', image); }
   &.female { background-image: asset-url('icons/female.png', image); }

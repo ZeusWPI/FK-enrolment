@@ -89,12 +89,12 @@ table.datagrid {
   th {
     @include adjust-font-size-to(14px, 1.2);
     font-weight: 900;
-    padding: 0 8px 4px;
+    padding: 0 4px 4px;
   }
 
   td {
     @include adjust-font-size-to(13px, 1);
-    padding: 4px 8px;
+    padding: 4px;
   }
 }
 
