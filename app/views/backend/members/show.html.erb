@@ -21,7 +21,8 @@
   <dt>Voornaam:</dt><dd><%= @member.first_name %></dd>
   <dt>Familienaam:</dt><dd><%= @member.last_name %></dd>
   <% if @member.sex? %>
-  <dt>Geslacht:</dt><dd><%= @member.sex == 'm' ? 'Man' : 'Vrouw' %></dd>
+  <dt>Geslacht:</dt>
+  <dd><%= @member.sex == 'm' ? icon(:male, 'Man') : icon(:female, 'Vrouw') %></dd>
   <% end %>
   <% if @member.date_of_birth? %>
   <dt>Geboortedatum:</dt><dd><%= l @member.date_of_birth %></dd>

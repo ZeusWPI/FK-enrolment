@@ -25,10 +25,13 @@ body.backend {
 
 // Icons
 .icon {
-  padding-left: 24px;
+  padding-left: 20px;
   background-repeat: no-repeat;
 
-  &.details {
-    background-image: asset-url('icons/magnifier.png', image);
-  }
+  &.edit { background-image: asset-url('icons/pencil.png', image); }
+  &.details { background-image: asset-url('icons/magnifier.png', image); }
+  &.false { background-image: asset-url('icons/delete.png', image); }
+  &.female { background-image: asset-url('icons/female.png', image); }
+  &.male { background-image: asset-url('icons/male.png', image); }
+  &.true { background-image: asset-url('icons/accept.png', image); }
 }

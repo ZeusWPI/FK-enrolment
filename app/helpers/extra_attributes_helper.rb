@@ -48,8 +48,7 @@ module ExtraAttributesHelper
 
     value = case attribute.spec.field_type
     when "checkbox"
-      #check_box_tag("attr-#{attribute.id}",  '1', attribute.value == '1', :disabled => true)
-      attribute.value == '1' ? '✔' : '✘'
+      attribute.value == '1' ? icon(:true) : icon(:false)
     when "checkbox_grid"
       attribute.value.join(', ')
     when "checkbox_list"
