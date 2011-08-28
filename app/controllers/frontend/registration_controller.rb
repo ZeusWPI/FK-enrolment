@@ -1,6 +1,4 @@
 class Frontend::RegistrationController < Frontend::FrontendController
-  respond_to :html
-
   before_filter :load_club
   def load_club
     @club = Club.using(:website).where('LOWER(internal_name) = ?', params[:club]).first

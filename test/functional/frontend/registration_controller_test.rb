@@ -60,8 +60,7 @@ class Frontend::RegistrationControllerTest < ActionController::TestCase
     attributes = @member.attributes.clone
     attributes[:extra_attributes_attributes] = extra_attributes
 
-    def verify_response
-      @member.reload
+    def assert_valid_response
       assert_equal @club.extra_attributes.count, @member.extra_attributes.count
       assert_redirected_to :controller => "registration", :action => "isic", :club => "vtk"
 
@@ -73,12 +72,13 @@ class Frontend::RegistrationControllerTest < ActionController::TestCase
 
     post :general, @params.merge!(:member => attributes)
     @member = Member.last
-    verify_response
+    assert_valid_response
 
     # Remove message-attribute
     @params[:member][:extra_attributes_attributes].pop
     post :general, @params, {:member_id => @member.id}
-    verify_response
+    @member.reload
+    assert_valid_response
   end
 
   test "should enforce required extra attributes" do
