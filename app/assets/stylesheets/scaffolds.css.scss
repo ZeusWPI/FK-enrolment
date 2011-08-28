@@ -89,12 +89,12 @@ table.datagrid {
   th {
     @include adjust-font-size-to(14px, 1.2);
     font-weight: 900;
-    padding: 0 8px 4px;
+    padding: 0 4px 4px;
   }
 
   td {
     @include adjust-font-size-to(13px, 1);
-    padding: 4px 8px;
+    padding: 4px;
   }
 }
 
@@ -116,6 +116,9 @@ dl {
     @include adjust-font-size-to(14px, 1.2);
   }
 
+  p, ul { margin: 0; }
+  ul li { margin-bottom: 0; }
+
   &.no-indent {
     @include clearfix;
 
@@ -129,6 +132,4 @@ dl {
         margin-left: 0;
         @include trailer(0.25);
       }
-      p, ul { margin: 0; }
-      ul li { margin-bottom: 0; }
 } } }

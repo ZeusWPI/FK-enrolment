@@ -92,7 +92,7 @@ c.extra_attributes << ExtraAttributeSpec.build("Ik beoefen volgende sporten", :c
   %w(Veldvoetbal Minivoetbal Basketbal Volleybal Badminton Zwemmen) +
   %w(Hardlopen Veldlopen Rugby Tafeltennis))
 c.extra_attributes << ExtraAttributeSpec.build("1 lijntje tekst", :text)
-c.extra_attributes << ExtraAttributeSpec.build("Vrije veld voor uw liefdesbrijven", :textarea)
+c.extra_attributes << ExtraAttributeSpec.build("Vrij veld voor uw liefdesbrieven", :textarea)
 c.extra_attributes << ExtraAttributeSpec.build("Studierichting", :study,
   %w(Wiskunde Informatica Fysica), true)
 c.save!

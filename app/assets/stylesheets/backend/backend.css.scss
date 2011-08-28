@@ -2,11 +2,11 @@
 
 body.backend {
   .content {
-    @include col(22); @include last;
+    @include col(24); @include last;
   }
 
   .content-main {
-    @include col(18); @include last;
+    @include col(20); @include last;
     @include float-left;
     @include clearfix;
     position: relative;
@@ -28,7 +28,13 @@ body.backend {
   padding-left: 20px;
   background-repeat: no-repeat;
 
+  &.no-text {
+    padding-left: 16px;
+    margin: 0 -1px;
+  }
+
   &.edit { background-image: asset-url('icons/pencil.png', image); }
+  &.delete { background-image: asset-url('icons/cross.png', image); }
   &.details { background-image: asset-url('icons/magnifier.png', image); }
   &.false { background-image: asset-url('icons/delete.png', image); }
   &.female { background-image: asset-url('icons/female.png', image); }

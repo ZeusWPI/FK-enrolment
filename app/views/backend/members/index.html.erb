@@ -22,7 +22,10 @@
     <td><%= member.email %></td>
     <td><%= member.card_number %></td>
     <td><%= l member.created_at, :format => :short %></td>
-    <td><%= icon(:details, "Details", backend_member_path(member)) %></td>
+    <td><%= icon(:details, '', backend_member_path(member), :title => "Details") %></td>
+    <td><%= icon(:delete, '', disable_backend_member_path(member),
+              :title => "Verwijderen", :method => :post,
+              :confirm => "Bent u zeker dat u dit lid wil verwijderen?") %></td>
   </tr>
 <% end %>
 </tbody>

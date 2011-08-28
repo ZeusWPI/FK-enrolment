@@ -1,28 +1,28 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 newsletter:
-    club: wina
+    club: vtk
     name: "Ja, ik wil de WiNA weekmeel ontvangen."
     field_type: checkbox
     values: nil
     required: false
-
-sports:
-    club: wina
-    name: "Studierichting"
-    field_type: study
-    required: true
+    position: 1
 
 study:
-    club: wina
-    name: "Laat een bericht achter voor de vriendelijke testrobot."
-    field_type: text
-    values: nil
+    club: vtk
+    name: "Studierichting"
+    field_type: study
+    values:
+    - Wiskunde
+    - Informatica
+    - Fysica
     required: true
+    position: 2
 
 message:
-    club: wina
+    club: vtk
     name: "Laat een bericht achter voor de vriendelijke testrobot."
     field_type: text
     values: nil
     required: false
+    position: 3

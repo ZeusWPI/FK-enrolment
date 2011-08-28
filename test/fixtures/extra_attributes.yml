@@ -1,18 +1,18 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 newsletter:
-    member: javache
+    member: nudded
     spec: newsletter
     value: true
 
 sports:
-    member: javache
+    member: nudded
     spec: sports
     value:
     - Voetbal
     - Tennis
 
 message:
-    member: message
+    member: nudded
     spec: message
     value: "Sup?"

@@ -37,13 +37,9 @@ class Frontend::RegistrationController < Frontend::FrontendController
   end
 
   def general
+    # Load extra attributes before assigning them
+    @member.build_extra_attributes
     @member.attributes = params[:member]
-
-    # TODO: for existing members, add all new attribute-fields
-    # and delete the removed ones
-    if @member.extra_attributes.empty?
-      @member.build_extra_attributes
-    end
 
     # Override properties if they're already set through CAS
     @cas_authed = !session[:cas_user].blank?
