@@ -2,11 +2,11 @@
 
 body.backend {
   .content {
-    @include col(22); @include last;
+    @include col(24); @include last;
   }
 
   .content-main {
-    @include col(18); @include last;
+    @include col(20); @include last;
     @include float-left;
     @include clearfix;
     position: relative;

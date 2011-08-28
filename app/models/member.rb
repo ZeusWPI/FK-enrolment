@@ -54,11 +54,34 @@ class Member < ActiveRecord::Base
     self.isic_newsletter = true if isic_newsletter.nil? && club && club.uses_isic
   end
 
-  # Create empty attributes for each extra-value specification
+  # Create empty attributes for each extra-value specification and merge existing ones
   def build_extra_attributes
-    extra_attributes.build [{}] * club.extra_attributes.count
-    extra_attributes.each_with_index do |attribute,i|
-      attribute.spec = club.extra_attributes[i]
+    map = Hash[extra_attributes.map { |k| [k.spec_id, k] }]
+
+    # Add any attributes that do not exist yet
+    club.extra_attributes.each do |spec|
+      if not map[spec.id]
+        attribute = ExtraAttribute.new
+        attribute.spec = spec
+        extra_attributes << attribute
+      else
+        # Set the relation = a relation less that needs to be queried later
+        map[spec.id].spec = spec
+      end
+    end
+
+    # Keep them in order
+    extra_attributes.sort_by! { |a| a.spec.position }
+  end
+
+  # Assign extra_attributes to the corresponding attribute with the right spec
+  def extra_attributes_attributes=(attributes)
+    map = Hash[extra_attributes.map { |k| [k.spec_id, k] }]
+    method = attributes.respond_to?(:each_value) ? :each_value : :each
+    attributes.send(method) do |attribute|
+      if attribute[:spec_id] && map[attribute[:spec_id].to_i]
+        map[attribute[:spec_id].to_i].value = attribute[:value]
+      end
     end
   end
 

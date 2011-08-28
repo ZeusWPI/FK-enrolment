@@ -25,10 +25,6 @@ module ExtraAttributesHelper
 
   # Renders the extra attributes in the (Formtastic) form
   def render_extra_attributes(f, name = :extra_attributes)
-    f.inputs do
-      # Reset-field: if a club has no fields, extra attributes should be cleared
-      f.input(name, :as => :hidden, :value => nil)
-    end +
     f.inputs(:for => name) do |f|
       unless f.object.spec.field_type?
         content_tag :li, f.object.spec.name
@@ -41,6 +37,8 @@ module ExtraAttributesHelper
 
   # Render extra attribute value
   def render_extra_attribute_value(attribute)
+    return if attribute.spec.field_type.blank?
+
     if attribute.value.is_a? Array
       # Filter out empty values
       attribute.value.delete_if { |v| v.blank? }
@@ -57,7 +55,7 @@ module ExtraAttributesHelper
     when "study", "text", "textarea"
       simple_format(attribute.value)
     else
-      raise "Unknown field-type #{type}"
+      raise "Unknown field-type #{attribute.spec.field_type}"
     end
 
     options = {}

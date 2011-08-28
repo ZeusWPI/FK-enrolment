@@ -2,8 +2,9 @@ require 'test_helper'
 
 class Frontend::RegistrationControllerTest < ActionController::TestCase
   def setup
-    @params = { :club => clubs(:vtk).internal_name.downcase }
     @member = members(:javache)
+    @club = clubs(:vtk)
+    @params = { :club => @club.to_param }
     @session = { :member_id => @member.id }
   end
 
@@ -49,5 +50,41 @@ class Frontend::RegistrationControllerTest < ActionController::TestCase
 
     @member.reload
     assert @member.enabled
+  end
+
+  test "should handle extra attributes correctly on multiple submits" do
+    extra_attributes = [
+      { :spec_id => extra_attribute_specs(:study).id, :value => "Test" },
+      { :spec_id => extra_attribute_specs(:message).id, :value => "A" },
+    ]
+    attributes = @member.attributes.clone
+    attributes[:extra_attributes_attributes] = extra_attributes
+
+    def verify_response
+      @member.reload
+      assert_equal @club.extra_attributes.count, @member.extra_attributes.count
+      assert_redirected_to :controller => "registration", :action => "isic", :club => "vtk"
+
+      message = @member.extra_attributes.all.find do |attribute|
+        attribute.spec == extra_attribute_specs(:message)
+      end
+      assert_equal "A", message.value
+    end
+
+    post :general, @params.merge!(:member => attributes)
+    @member = Member.last
+    verify_response
+
+    # Remove message-attribute
+    @params[:member][:extra_attributes_attributes].pop
+    post :general, @params, {:member_id => @member.id}
+    verify_response
+  end
+
+  test "should enforce required extra attributes" do
+    # Posting without any extra_attributes
+    post :general, @params.merge(:member => @member.attributes)
+    assert_response :success
+    assert !assigns(:member).valid?
   end
 end

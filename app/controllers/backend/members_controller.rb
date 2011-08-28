@@ -25,6 +25,7 @@ class Backend::MembersController < Backend::BackendController
   end
 
   def show
+    @extra_attributes = @member.extra_attributes.includes(:spec).all
   end
 
   def search

@@ -1,5 +1,9 @@
 @import "common";
 
+.member-wrapper {
+  @include clearfix;
+}
+
 .member-photo {
   @include float-right;
   width: 210px;

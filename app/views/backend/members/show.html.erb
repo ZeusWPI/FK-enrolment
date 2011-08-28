@@ -2,7 +2,7 @@
 <p><%= link_to "« Terug naar alle leden", backend_members_path %></p>
 
 <h3>Basisgegevens</h3>
-
+<div class="member-wrapper">
 <% if @member.photo? %>
 <div class="member-photo">
   <%= image_tag(@member.photo(:cropped)) %>
@@ -39,10 +39,11 @@
   <dt>Kotadres:</dt><dd><%= simple_format(@member.studenthome_address) %></dd>
   <% end %>
 </dl>
+</div>
 
 <h3>Extra vragen</h3>
 <dl class="no-indent">
-<% @member.extra_attributes.each do |attribute| %>
+<% @extra_attributes.each do |attribute| %>
   <%= render_extra_attribute_value(attribute) %>
 <% end %>
 </dl>
