@@ -1,18 +1,16 @@
 class Api::MembersController < Api::ApiController
-  before_filter :load_member
+  before_filter :load_member, :except => [:index, :create]
   def load_member
-    if params[:id]
-      @member = Member.find(params[:id], :include => :current_card)
-      if @member.club_id != @club.id
-        respond_with({:error => "Invalid member"}, :status => :forbidden)
-      end
+    @member, status = Member.find_member_for_club(params['id'], @club)
+    if not @member
+      respond_with({:error => "Invalid member"}, :status => status, :location => '')
     end
   end
 
   # GET /members
   # GET /members.json
   def index
-    @members = Member.includes(:current_card).where(:club_id => @club)
+    @members = Member.includes(:current_card).where(:club_id => @club, :enabled => true)
 
     if params[:card]
       @members = @members.joins(:current_card).where('cards.number' => params[:card])
@@ -44,6 +42,7 @@ class Api::MembersController < Api::ApiController
   def create
     @member = Member.new(unwrap_params(:member))
     @member.club = @club
+    @member.enabled = true
     if @member.save
       flash[:notice] = "Successfully created member."
     end

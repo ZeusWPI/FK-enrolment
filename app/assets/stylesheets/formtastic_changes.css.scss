@@ -36,8 +36,12 @@ form.formtastic fieldset > ol > li {
     padding: 0 0 0 30%;
   }
 
-  p.inline-errors {
+  p.inline-errors, p.inline-hints {
     margin-left: 30%;
+  }
+  p.inline-hints {
+    margin-top: 0;
+    @include adjust-font-size-to(12px, 0.75);
   }
 
   input, select { margin: 3px 0;}
@@ -71,8 +75,9 @@ form.formtastic fieldset {
   position: relative;
 
   &.buttons { padding-left: 30%; }
-  &.no-indent, .no-indent {
+  &.no-indent, .no-indent, &.indent, .indent {
     padding-left: 0;
+    @include clearfix;
 
     .inline-hints {
       margin-left: 21px;
@@ -95,4 +100,8 @@ form.formtastic fieldset {
     label {
       padding-left: 0 !important;
       width: 100% !important;
-} } }
+    }
+  }
+  .indent {
+    padding-left: 30%;
+} }

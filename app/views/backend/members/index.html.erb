@@ -1,0 +1,31 @@
+<% title "Ledenbeheer" %>
+<p><%= link_to "« Terug naar overzicht", backend_root_path %></p>
+
+<p><%= @registered_members %> geregistreerde leden, <%= @card_members %> leden met lidkaart.</p>
+
+<table class="datagrid">
+<thead>
+  <tr>
+    <th>Naam</th>
+    <th>UGent-nr.</th>
+    <th>E-mailadres</th>
+    <th>FK-nummer</th>
+    <th>Geregistreerd</th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+<% @members.each do |member| %>
+  <tr class="<%= cycle("odd", "even") %>">
+    <td><%= member.first_name %> <%= member.last_name %></td>
+    <td><%= member.ugent_nr %></td>
+    <td><%= member.email %></td>
+    <td><%= member.card_number %></td>
+    <td><%= l member.created_at, :format => :short %></td>
+    <td><%= icon(:details, "Details", backend_member_path(member)) %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+<%= will_paginate @members %>

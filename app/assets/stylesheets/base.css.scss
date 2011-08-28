@@ -27,7 +27,6 @@ h2 {
 }
 
 h3 {
-  @include leader(1, 15px);
   @include adjust-font-size-to(15px, 1);
   border-bottom: 1px dotted #E1E1E1;
   @include trailer(0.5, 15px);

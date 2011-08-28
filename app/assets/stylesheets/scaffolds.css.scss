@@ -11,6 +11,37 @@ div {
   display: table;
 }
 
+.pagination {
+  padding: 1em 0;
+  cursor: default;
+
+  a, span, em {
+    padding: 0.2em 0.5em;
+  }
+
+  .disabled {
+    color: #aaaaaa;
+  }
+
+  .current {
+    font-style: normal;
+    font-weight: bold;
+  }
+
+  a {
+    border: 1px solid #dddddd;
+  }
+
+  .previous_page, .next_page {
+    border: none
+  }
+  .previous_page {
+    margin-right: 1em;
+  }
+  .next_page {
+    margin-left: 1em;
+} }
+
 #error_explanation {
   width: 450px;
   border: 2px solid $error-color;
@@ -35,3 +66,69 @@ div {
     margin: 0;
     list-style: square;
 } }
+
+table.datagrid {
+  width: 100%;
+
+  tbody tr {
+    td {
+      color: #333;
+    }
+
+    &:hover, &.odd:hover {
+      background: #e6e6e6;
+
+      td {
+        color: #000;
+    } }
+
+    &.odd {
+      background: #f3f3f3;
+  } }
+
+  th {
+    @include adjust-font-size-to(14px, 1.2);
+    font-weight: 900;
+    padding: 0 8px 4px;
+  }
+
+  td {
+    @include adjust-font-size-to(13px, 1);
+    padding: 4px 8px;
+  }
+}
+
+dl {
+  margin: 0 0 12px 0;
+
+  dt {
+    font-weight: 900;
+    width: 20%;
+    @include float-left;
+    clear: left;
+  }
+
+  dd {
+    margin-left: 20%;
+  }
+
+  dt, dd {
+    @include adjust-font-size-to(14px, 1.2);
+  }
+
+  &.no-indent {
+    @include clearfix;
+
+    dt { width: auto; }
+    dd {
+      margin-left: 8px;
+      float: left;
+
+      &.block-value {
+        clear: left;
+        margin-left: 0;
+        @include trailer(0.25);
+      }
+      p, ul { margin: 0; }
+      ul li { margin-bottom: 0; }
+} } }

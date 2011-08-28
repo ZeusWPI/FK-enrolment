@@ -4,7 +4,7 @@ class AddEnabledToMembers < ActiveRecord::Migration
 
     # Enable everyone so far
     Member.joins(:club).where("clubs.uses_isic = ?", false).update_all(:enabled => true)
-    Member.joins(:club).where("clubs.uses_isic = ? AND photo_file_name NOT NULL", true).update_all(:enabled => true)
+    Member.joins(:club).where("clubs.uses_isic = ? AND photo_file_name IS NOT NULL", true).update_all(:enabled => true)
   end
 
   def down

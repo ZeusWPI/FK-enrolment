@@ -1,0 +1,7 @@
+<div id='search-results'>
+<ul>
+<% @members.each do |m| %>
+  <li><%= link_to m.first_name, pay_backend_member_path(m) %></li>
+<% end %>
+</ul>
+</div>

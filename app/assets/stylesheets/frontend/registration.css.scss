@@ -1,42 +1,14 @@
 @import "common";
 
 body.registration {
-  .club-shield {
-    @include col(4);
-    @include leader(2.5);
-    font-weight: 900;
-    text-align: center;
-    @include adjust-font-size-to(15px, 0.9);
-
-    img { margin: 0 auto 10px; }
-  }
-
   .content-main {
     @include col(13); @include last;
     position: relative;
   }
-}
 
-.method-chooser {
-  margin-top: 30px;
-  list-style: none;
-  padding: 0;
-
-  li {
-    margin: 15px 0;
-    border: 1px solid #AAA;
-
-    a {
-      display: block;
-      color: #000;
-      padding: 15px 20px 15px 42px;
-      background: asset-url("selector-arrow.png", image) no-repeat #EEE;
-      background-position: 14px center;
-
-      &:hover {
-        background-color: #F9F9F9;
-        text-decoration: none;
-} } } }
+  h2 {
+    @include prepend(4);
+} }
 
 #seenly-modal {
   display: none;
@@ -44,8 +16,7 @@ body.registration {
   #seenly-embed-wrapper, input, p {
     margin: 0.5em auto;
     text-align: center;
-  }
-}
+} }
 
 form.formtastic {
   .disclaimer {
