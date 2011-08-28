@@ -1,4 +1,4 @@
-<%= title "Kringinstellingen #{@club.name}" %>
+<% title "Kringinstellingen #{@club.name}" %>
 <p><%= link_to "« Terug naar overzicht", backend_root_path %></p>
 
 <%= semantic_form_for @club, :url => backend_settings_path do |f| %>

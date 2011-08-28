@@ -1,7 +1,7 @@
+<% title "Inschrijven" %>
 <%= render :partial => "layouts/club" %>
 
 <div class="content-main">
-<%= title "Inschrijven" %>
 <%= semantic_form_for @member, :url => registration_general_path(@club) do |f| %>
   <% if @member.errors.any? %>
   <div id="error_explanation">
