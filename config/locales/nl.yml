@@ -15,7 +15,17 @@ nl:
         photo_url: URL
         isic_newsletter: ISIC nieuwsbrief
         isic_mail_card: ISIC-kaart opsturen
+        created_at: Geregistreerd op
+      club:
+        description: Beschrijving
+        isic_text: ISIC-tekst
+        confirmation_text: Bevestigingstekst
+        registration_method: Registratiemethode
+        uses_isic: Automatisch ISIC-kaarten aanvragen na registratie
+        api_key: API sleutel
+    card:
+        number: Kaartnummer
 
-  errors:
-    messages:
-      taken: "is al in gebruik"
+  will_paginate:
+    previous_label: "&#8592; Vorige"
+    next_label: "Volgende &#8594;"

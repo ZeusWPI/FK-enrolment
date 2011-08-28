@@ -1,2 +1,11 @@
-<%= title "Hello world!" %>
-<p>Welcome <%= @club.name %></p>
+<% title "Controlepaneel" %>
+
+<p>Welkom op controlepaneel voor <%= @club.name %>. U heeft toegang tot:</p>
+
+<ul class="option-chooser">
+  <li><%= link_to "Kassa", backend_kassa_path %></li>
+  <li><%= link_to "Ledenbeheer", backend_members_path %></li>
+  <li><%= link_to "Instellingen", backend_settings_path %></li>
+</ul>
+
+<p>Gelieve na gebruik <%= link_to "af te melden", cas_logout_path %>.</p>

@@ -1,5 +1,6 @@
 class Card < ActiveRecord::Base
   belongs_to :member
+  has_one :club, :through => :member
 
   attr_accessible :number, :status, :isic_status
 
@@ -11,12 +12,19 @@ class Card < ActiveRecord::Base
   validates :academic_year, :presence => true, :uniqueness => { :scope => :member_id }
   validates :number, :presence => true, :uniqueness => { :scope => :academic_year }
   validates :status, :inclusion => { :in => %w(unpaid paid) }
-  validates :isic_status, :inclusion => { :in => %w(none requested printed delivered) }
+  validates :isic_status, :inclusion => { :in => %w(none request requested printed delivered) }
+  validate :number, :valid_card_number
 
   # By default, always join the member
   default_scope :include => :member
 
   scope :current, where(:academic_year => Member.current_academic_year)
+
+  # Check if the assigned number falls in the range given by the club
+  def valid_card_number
+    range = self.club.range_lower..self.club.range_upper
+    errors.add(:number, "valt niet in het toegekende bereik") if not range.include? self.number
+  end
 
   # Renders the academic year in a more commonly used format
   def full_academic_year

@@ -1,0 +1,15 @@
+<% unless @card.number %>
+  <%= semantic_form_for @card, :url => pay_backend_member_path do |f| %>
+    <%= f.inputs do %>
+      <%= f.input :number %>
+    <% end %>
+
+    <%= f.buttons do %>
+      <%= f.commit_button 'Bewaar FK-nummer' %>
+    <% end %>
+  <% end %>
+<% else %>
+  <p>FK-nummer: <%= @card.number %></p>
+<% end %>
+
+<p>ISIC-status: <%= @card.isic_status %></p>

@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Member < ActiveRecord::Base
   belongs_to :club
   has_many :cards
@@ -58,6 +59,27 @@ class Member < ActiveRecord::Base
     extra_attributes.build [{}] * club.extra_attributes.count
     extra_attributes.each_with_index do |attribute,i|
       attribute.spec = club.extra_attributes[i]
+    end
+  end
+
+  # Shortcut for full name
+  def name
+    "#{self.first_name} #{self.last_name}"
+  end
+
+  # Shortcut for card number
+  def card_number
+    self.current_card ? self.current_card.number : "∅"
+  end
+
+  # Load member, checking access
+  def self.find_member_for_club(member_id, club)
+    return nil if not member_id
+    member = where(:enabled => true).includes(:current_card).find(member_id)
+    if member
+      member.club_id == club.id ? [member, :success] : [nil, :forbidden]
+    else
+      [nil, :not_found]
     end
   end
 end

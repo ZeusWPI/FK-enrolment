@@ -1,0 +1,25 @@
+<% title "Kringinstellingen #{@club.name}" %>
+<p><%= link_to "« Terug naar overzicht", backend_root_path %></p>
+
+<%= semantic_form_for @club, :url => backend_settings_path do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :description, :as => :text,
+        :label => "#{@club.name} is de …",
+        :input_html => {:cols => 40, :rows => 4 } %>
+    <%= f.input :isic_text, :as => :text,
+        :hint => "Extra informatie die bij de ISIC-promo getoond wordt.",
+        :input_html => {:cols => 40, :rows => 4 } %>
+    <%= f.input :confirmation_text, :as => :text,
+        :hint => "Tekst na registratie.",
+        :input_html => {:cols => 40, :rows => 4 } %>
+    <li><label>Kaartnummers</label><p><%= "#{@club.range_lower} — #{@club.range_upper}" %></p></li>
+    <%= f.input :registration_method, :as => :select,
+      :collection => {"Geen" => "none", "API" => "api", "Website" => "website"} %>
+    <%= f.input :uses_isic, :wrapper_html => { :class => "no-indent" } %>
+    <li><label>API sleutel</label><p><code><%= @club.api_key %></code></p></li>
+  <% end %>
+
+  <%= f.buttons do %>
+    <%= f.commit_button "Wijzigen" %>
+  <% end %>
+<% end %>

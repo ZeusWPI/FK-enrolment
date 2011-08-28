@@ -1,8 +1,7 @@
-<%= render :partial => "club" %>
+<% title "Lid worden van #{@club.name}" %>
+<%= render :partial => "layouts/club" %>
 
 <div class="content-main">
-  <%= title "Lid worden van #{@club.name}" %>
-
   <p>Via deze website kan je je registreren als lid van de <strong><%= @club.name %></strong>,
     de <%= @club.description %>.</p>
 
@@ -13,7 +12,7 @@
     stamnummer dat je op je studentenkaart vindt. Nog geen UGent gegevens?
     Je kan gerust later je gegevens nog aanvullen.</p>
 
-  <ul class="method-chooser">
+  <ul class="option-chooser">
     <li><a href="<%= url_for registration_cas_path(@club) %>">
       Ik ken mijn <strong>UGentNet gebruikersnaam</strong> en <strong>wachtwoord</strong>.
     </a></li>

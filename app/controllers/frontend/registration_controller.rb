@@ -3,7 +3,8 @@ class Frontend::RegistrationController < Frontend::FrontendController
 
   before_filter :load_club
   def load_club
-    @club = Club.using(:website).where('LOWER(internal_name) = ?', params[:club]).first!
+    @club = Club.using(:website).where('LOWER(internal_name) = ?', params[:club]).first
+    redirect_to root_path if not @club
   end
 
   # Load member set in session or create a new one

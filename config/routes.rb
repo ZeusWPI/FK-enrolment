@@ -9,7 +9,13 @@ FKEnrolment::Application.routes.draw do
 
   namespace :backend do
     root :to => "home#index"
-    resources :members, :except => [:create, :new]
+    resources :members, :except => [:create, :new, :destroy] do
+      match "pay", :on => :member
+      post "search", :on => :collection
+    end
+
+    match "settings" => "home#settings", :as => :settings
+    match "kassa" => "home#kassa", :as => :kassa
   end
 
   # should always be the last routes-entry due to the
@@ -19,6 +25,7 @@ FKEnrolment::Application.routes.draw do
 
     # verbosity is needed to add namespace to controller
     get "cas/auth", :to => "cas#auth"
+    get "cas/logout", :to => "cas#logout"
     match "cas/verify", :to => "cas#verify"
 
     scope :path => ":club", :as => :registration do

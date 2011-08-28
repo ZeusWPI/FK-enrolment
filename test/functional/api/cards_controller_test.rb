@@ -20,7 +20,7 @@ class Api::CardsControllerTest < ActionController::TestCase
   test "should create card" do
     @card.destroy
     assert_difference('Card.count') do
-      post :create, params_for_api({card: { number: 32, status: "paid" }})
+      post :create, params_for_api({card: { number: 20, status: "paid" }})
     end
     assert_response :success
   end
