@@ -39,11 +39,14 @@
   @include col(6);
   @include last;
   @include float-right;
+
+  h3 {
+    @include leader(1, 15px);
+  }
 }
 
 .club-shield {
   @include col(4);
-  @include leader(2.5);
   font-weight: 900;
   text-align: center;
   @include adjust-font-size-to(15px, 0.9);
@@ -75,12 +78,12 @@
 
 .flash {
   padding: 5px 10px;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   border: 1px solid;
   @include col(17);
   @include append(6);
 
-  &.warning {
+  &.warning, &.error {
     color: $error-color;
     border-color: $error-color;
   }

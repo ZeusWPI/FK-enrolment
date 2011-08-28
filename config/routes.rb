@@ -9,9 +9,9 @@ FKEnrolment::Application.routes.draw do
 
   namespace :backend do
     root :to => "home#index"
-    resources :members, :except => [:create, :new] do
+    resources :members, :except => [:create, :new, :destroy] do
       match "pay", :on => :member
-      match "search", :on => :collection
+      post "search", :on => :collection
     end
 
     match "settings" => "home#settings", :as => :settings

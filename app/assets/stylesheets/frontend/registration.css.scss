@@ -4,6 +4,10 @@ body.registration {
   .content-main {
     @include col(13); @include last;
     position: relative;
+  }
+
+  h2 {
+    @include prepend(4);
 } }
 
 #seenly-modal {

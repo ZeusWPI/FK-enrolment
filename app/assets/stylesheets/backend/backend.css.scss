@@ -2,11 +2,11 @@
 
 body.backend {
   .content {
-    @include col(24); @include last;
+    @include col(22); @include last;
   }
 
   .content-main {
-    @include col(20); @include last;
+    @include col(18); @include last;
     @include float-left;
     @include clearfix;
     position: relative;
@@ -17,5 +17,18 @@ body.backend {
     @include adjust-font-size-to(14px, 1);
     width: 400px;
     margin: 15px 0;
+  }
+
+  h2 {
+    @include prepend(4);
 } }
 
+// Icons
+.icon {
+  padding-left: 24px;
+  background-repeat: no-repeat;
+
+  &.details {
+    background-image: asset-url('icons/magnifier.png', image);
+  }
+}

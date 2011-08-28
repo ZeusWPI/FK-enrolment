@@ -34,10 +34,13 @@ gem 'rubycas-client', git: 'git://github.com/Javache/rubycas-client.git', branch
 gem 'rubycas-client-rails', :git => 'git://github.com/Javache/rubycas-client-rails.git'
 
 # Photo management
-gem 'paperclip', "~> 2.3.15"
+gem 'paperclip', '~> 2.3.15'
 
 # Better forms
 gem 'formtastic'
+
+# Pagination
+gem 'will_paginate', '~> 3.0'
 
 # Dutch messages
 gem 'rails-i18n'

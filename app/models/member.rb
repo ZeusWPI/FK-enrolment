@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Member < ActiveRecord::Base
   belongs_to :club
   has_many :cards
@@ -59,6 +60,16 @@ class Member < ActiveRecord::Base
     extra_attributes.each_with_index do |attribute,i|
       attribute.spec = club.extra_attributes[i]
     end
+  end
+
+  # Shortcut for full name
+  def name
+    "#{self.first_name} #{self.last_name}"
+  end
+
+  # Shortcut for card number
+  def card_number
+    self.current_card ? self.current_card.number : "∅"
   end
 
   # Load member, checking access

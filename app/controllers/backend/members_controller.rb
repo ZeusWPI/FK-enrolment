@@ -1,14 +1,24 @@
 class Backend::MembersController < Backend::BackendController
-  before_filter :load_member
+  before_filter :load_member, :except => [:index, :search]
   def load_member
     @member, status = Member.find_member_for_club(params['id'], @club)
-    if params['id'] and not @member
-      respond_with({:error => "Invalid member"}, :status => status, :location => '')
+    if not @member
+      flash[:error] = "Ongeldig lid"
+      redirect_to backend_members_path
     end
   end
 
   def index
-    @members = Member.includes(:current_card).where(:club_id => @club, :enabled => true)
+    attributes = {:club_id => @club, :enabled => true}
+
+    @registered_members = Member.where(attributes).count
+    @card_members = Member.where(attributes).joins(:current_card).count
+
+    @members = Member.includes(:current_card).where(attributes).order("created_at DESC")
+    @members = @members.paginate(:page => params[:page], :per_page => 30)
+  end
+
+  def show
   end
 
   def search
@@ -26,7 +36,6 @@ class Backend::MembersController < Backend::BackendController
   end
 
   def pay
-    @member = Member.find(params[:id])
     @card = @member.current_card
     unless @card
       @card = Card.new(:status => 'unpaid', :isic_status => (@member.club.uses_isic ? 'request' : 'none'))

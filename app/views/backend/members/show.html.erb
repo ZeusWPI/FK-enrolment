@@ -1,0 +1,47 @@
+<%= title @member.name %>
+<p><%= link_to "« Terug naar alle leden", backend_members_path %></p>
+
+<h3>Basisgegevens</h3>
+
+<% if @member.photo? %>
+<div class="member-photo">
+  <%= image_tag(@member.photo(:cropped)) %>
+  <p class="meta"><%= @member.photo_file_name %></p>
+</div>
+<% end %>
+
+<dl>
+  <dt>Kring:</dt><dd><%= @member.club.name %></dd>
+  <dt>FK-nummer:</dt><dd><%= @member.card_number %></dd>
+  <dt>Geregistreerd op:</dt>
+  <dd><%= l @member.created_at, :format => :long %></dd>
+</dl>
+
+<dl>
+  <dt>Voornaam:</dt><dd><%= @member.first_name %></dd>
+  <dt>Familienaam:</dt><dd><%= @member.last_name %></dd>
+  <% if @member.sex? %>
+  <dt>Geslacht:</dt><dd><%= @member.sex == 'm' ? 'Man' : 'Vrouw' %></dd>
+  <% end %>
+  <% if @member.date_of_birth? %>
+  <dt>Geboortedatum:</dt><dd><%= l @member.date_of_birth %></dd>
+  <% end %>
+  <dt>UGent-nummer:</dt><dd><%= @member.ugent_nr %></dd>
+  <dt>E-mailadres:</dt><dd><%= mail_to @member.email %></dd>
+  <% if @member.phone? %>
+  <dt>GSM-nummer:</dt><dd><%= @member.phone %></dd>
+  <% end %>
+  <% if @member.home_address? %>
+  <dt>Thuisadres:</dt><dd><%= simple_format(@member.home_address) %></dd>
+  <% end %>
+  <% if @member.studenthome_address? %>
+  <dt>Kotadres:</dt><dd><%= simple_format(@member.studenthome_address) %></dd>
+  <% end %>
+</dl>
+
+<h3>Extra vragen</h3>
+<dl class="no-indent">
+<% @member.extra_attributes.each do |attribute| %>
+  <%= render_extra_attribute_value(attribute) %>
+<% end %>
+</dl>

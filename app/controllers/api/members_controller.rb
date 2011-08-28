@@ -1,8 +1,8 @@
 class Api::MembersController < Api::ApiController
-  before_filter :load_member
+  before_filter :load_member, :except => [:index, :create]
   def load_member
     @member, status = Member.find_member_for_club(params['id'], @club)
-    if not @member and params['id']
+    if not @member
       respond_with({:error => "Invalid member"}, :status => status, :location => '')
     end
   end

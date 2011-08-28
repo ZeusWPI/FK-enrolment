@@ -15,12 +15,13 @@
     </div>
 
     <div id="main">
-      <% flash.each do |key, msg| %>
-        <p class="flash <%= key %>"><%= msg %></p>
-      <% end %>
+      <%= yield(:main_title) %>
       <div class="content">
         <%= render :partial => 'layouts/club' %>
         <div class="content-main">
+          <% flash.each do |key, msg| %>
+            <p class="flash <%= key %>"><%= msg %></p>
+          <% end %>
           <%= yield %>
         </div>
       </div>

@@ -1,0 +1,15 @@
+@import "common";
+
+.member-photo {
+  @include float-right;
+  width: 210px;
+  padding: 10px;
+  margin: 0 0 10px 10px;
+  border: 1px dotted #E1E1E1;
+
+  p {
+    margin: 0;
+    text-align: center;
+    @include adjust-font-size-to(12px, 0.8);
+  }
+}

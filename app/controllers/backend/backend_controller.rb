@@ -4,8 +4,9 @@ class Backend::BackendController < ApplicationController
 
   before_filter :verify_auth
   def verify_auth
+    # Development backdoor
     if request.local?
-      @club = Club.find_by_internal_name("Wina") and return
+      @club = Club.find_by_internal_name("Chemica") and return
     end
 
     if session[:cas_user].blank?
