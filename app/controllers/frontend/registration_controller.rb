@@ -24,7 +24,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
     else
       # Always set the member to the club from the current club-param
       # so the record ends up in the right place, even when the url changes
-      @member.club = @club if @member
+      @member.club = @club
     end
   end
 

@@ -34,6 +34,16 @@ class Frontend::CasController < Frontend::FrontendController
 
     # Don't save the ticket, it contains a singleton somewhere that can't be marshalled
     session[:cas_last_valid_ticket] = nil
+
+    # Check if we know a user by this number
+    if session[:cas_extra_attributes]
+      ugentNr = session[:cas_extra_attributes]["ugentStudentID"]
+      member = Member.order("created_at DESC").find_by_ugent_nr(ugentNr)
+      if member
+        session[:member_id] = member.id
+      end
+    end
+
     if session[:post_cas_redirect]
       redirect_to session[:post_cas_redirect]
     else
