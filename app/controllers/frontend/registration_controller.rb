@@ -1,6 +1,4 @@
 class Frontend::RegistrationController < Frontend::FrontendController
-  respond_to :html
-
   before_filter :load_club
   def load_club
     @club = Club.using(:website).where('LOWER(internal_name) = ?', params[:club]).first
@@ -26,7 +24,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
     else
       # Always set the member to the club from the current club-param
       # so the record ends up in the right place, even when the url changes
-      @member.club = @club if @member
+      @member.club = @club
     end
   end
 

@@ -62,17 +62,17 @@ class Member < ActiveRecord::Base
     club.extra_attributes.each do |spec|
       next if spec.field_type.blank?
 
-      if not map[spec.id]
-        attribute = ExtraAttribute.new
-        attribute.spec = spec
-        extra_attributes << attribute
-      else
-        # Set the relation = a relation less that needs to be queried later
-        map[spec.id].spec = spec
+      if !map[spec.id]
+        map[spec.id] = ExtraAttribute.new
+        extra_attributes << map[spec.id]
       end
+
+      # Set the relation = a relation less that needs to be queried later
+      map[spec.id].spec = spec
     end
 
     # Keep them in order
+    # TODO: delete attributes that do not exist in club.extra_attributes
     extra_attributes.sort_by! { |a| a.spec.position }
   end
 

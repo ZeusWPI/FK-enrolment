@@ -18,8 +18,8 @@ module Member::Photo
     base.after_update :crop_photo, :if => :cropping?
 
     # Photo url errors
-    base.validate do |photo|
-      photo.errors.add(:photo_url, photo.photo_url_error) if photo.photo_url_error
+    base.validate do |member|
+      member.errors.add(:photo_url, member.photo_url_error) if member.photo_url_error
     end
   end
 
