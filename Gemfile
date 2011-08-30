@@ -11,7 +11,7 @@ gem 'sqlite3'
 # in production environments by default.
 group :assets do
   gem 'sass-rails', "~> 3.1.0.rc"
-  gem 'compass', git: 'git://github.com/chriseppstein/compass.git', branch: 'rails31'
+  gem 'compass', "~> 0.12.alpha.0"
   gem 'uglifier'
   gem 'jquery-rails'
 
