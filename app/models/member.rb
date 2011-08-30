@@ -72,6 +72,7 @@ class Member < ActiveRecord::Base
     end
 
     # Keep them in order
+    # TODO: delete attributes that do not exist in club.extra_attributes
     extra_attributes.sort_by! { |a| a.spec.position }
   end
 
