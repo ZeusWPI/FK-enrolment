@@ -4,6 +4,9 @@ log/*.log
 tmp/
 .sass-cache/
 public/data/
+public/assets/
 .DS_Store
 *.psd
 seenly-core
+
+app/assets/images/icons-*.png

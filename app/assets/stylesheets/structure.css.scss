@@ -1,7 +1,7 @@
 @import "common";
 
 #wrapper {
-  background: asset-url("main-wrapper.gif", image) repeat-x top;
+  background: image-url("main-wrapper.gif") repeat-x top;
 }
 
 #header {
@@ -13,7 +13,7 @@
     font-size: 30px; font-weight: bold;
     position: absolute;
     height: 80px; bottom: -20px;
-    background: asset-url("fk-logo.jpg", image) no-repeat left;
+    background: image-url("fk-logo.jpg") no-repeat left;
 
     a {
       display: block;
@@ -67,7 +67,7 @@
       display: block;
       color: #000;
       padding: 15px 20px 15px 42px;
-      background: asset-url("selector-arrow.png", image) no-repeat #EEE;
+      background: image-url("selector-arrow.png") no-repeat #EEE;
       background-position: 14px center;
 
       &:hover {

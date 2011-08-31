@@ -10,14 +10,12 @@ gem 'sqlite3'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', "~> 3.1.0"
-  gem 'compass', "~> 0.12.alpha.0"
-  gem 'uglifier'
+  gem 'sass-rails', '~> 3.1.0'
+  gem 'compass', '~> 0.12.alpha.0'
+  gem 'oily_png' # Faster PNG generation for compass sprites
   gem 'jquery-rails'
-
-  # Uglifier dependencies
-  gem 'execjs'
-  gem 'therubyracer'
+  gem 'uglifier'
+  gem 'therubyracer' # Javascript engine
 end
 
 # Use unicorn as the web server
