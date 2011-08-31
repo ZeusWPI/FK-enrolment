@@ -3,7 +3,7 @@ require 'open-uri'
 module Member::Photo
   def self.included(base)
     base.has_attached_file :photo, :styles => {
-      :large => "520x700>",
+      :large => { :geometry => "520x700>", :format => :jpg },
       :cropped => { :geometry => "210x270", :format => :jpg, :processors => [:Cropper] }
     }
     base.validates_attachment_content_type :photo,
@@ -45,7 +45,7 @@ module Member::Photo
   attr_accessor :photo_url, :photo_url_error
   def photo_url=(url)
     @photo_url = url
-    self.photo_url_error = ""
+    self.photo_url_error = nil
     return if url.blank?
 
     begin
