@@ -23,7 +23,10 @@ body.backend {
     @include prepend(4);
 } }
 
+
 // Icons
+@import "icons/*.png";
+
 .icon {
   padding-left: 20px;
   background-repeat: no-repeat;
@@ -33,11 +36,11 @@ body.backend {
     margin: 0 -1px;
   }
 
-  &.edit { background-image: asset-url('icons/pencil.png', image); }
-  &.delete { background-image: asset-url('icons/cross.png', image); }
-  &.details { background-image: asset-url('icons/magnifier.png', image); }
-  &.false { background-image: asset-url('icons/delete.png', image); }
-  &.female { background-image: asset-url('icons/female.png', image); }
-  &.male { background-image: asset-url('icons/male.png', image); }
-  &.true { background-image: asset-url('icons/accept.png', image); }
+  &.edit { @include icons-sprite(pencil); }
+  &.delete { @include icons-sprite(cross); }
+  &.details { @include icons-sprite(magnifier); }
+  &.false { @include icons-sprite(delete); }
+  &.female { @include icons-sprite(female); }
+  &.male { @include icons-sprite(male); }
+  &.true { @include icons-sprite(accept); }
 }

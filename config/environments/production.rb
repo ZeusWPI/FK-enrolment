@@ -16,6 +16,16 @@ FKEnrolment::Application.configure do
   config.assets.css_compressor = :scss
   config.assets.js_compressor  = :uglifier
 
+  # Fallback to assets pipeline if a precompiled asset is missed
+  # (set to true because otherwise rake assets:precompile was misbehaving)
+  config.assets.compile = true
+
+  # Generate digests for assets URLs
+  config.assets.digest = true
+
+  # Defaults to Rails.root.join("public/assets")
+  config.assets.manifest = Rails.root.join("tmp")
+
   # Specifies the header that your server uses for sending files
   # (comment out if your front-end server doesn't support this)
   config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for nginx
