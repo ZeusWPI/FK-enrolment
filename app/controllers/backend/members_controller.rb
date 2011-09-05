@@ -51,7 +51,9 @@ class Backend::MembersController < Backend::BackendController
     end
     if params[:card]
       @card.update_attributes(params[:card])
-      @card.save!
+      unless @card.save
+        @card.number = nil
+      end
     end
   end
 end
