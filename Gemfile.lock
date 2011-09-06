@@ -14,20 +14,10 @@ GIT
     rubycas-client (2.1.0)
       activesupport
 
-GIT
-  remote: git://github.com/chriseppstein/compass.git
-  revision: 22e2458b77519e8eb8463170c1a1fe4bab105f3e
-  branch: rails31
-  specs:
-    compass (0.12.0.alpha.0.22e2458)
-      chunky_png (~> 1.2)
-      fssm (>= 0.2.7)
-      sass (~> 3.1)
-
 GEM
   remote: http://rubygems.org/
   specs:
-    ZenTest (4.5.0)
+    ZenTest (4.6.2)
     actionmailer (3.1.0)
       actionpack (= 3.1.0)
       mail (~> 2.3.0)
@@ -60,12 +50,16 @@ GEM
     acts_as_list (0.1.4)
     ansi (1.3.0)
     arel (2.2.1)
-    autotest-rails (4.1.1)
-      ZenTest (= 4.5)
+    autotest-rails (4.1.0)
+      ZenTest
     bcrypt-ruby (3.0.0)
     builder (3.0.0)
     chunky_png (1.2.1)
     cocaine (0.2.0)
+    compass (0.12.alpha.0)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
     crack (0.1.8)
     erubis (2.7.0)
     exception_notification (2.5.2)
@@ -92,6 +86,8 @@ GEM
     mime-types (1.16)
     multi_json (1.0.3)
     mysql2 (0.3.7)
+    oily_png (1.0.2)
+      chunky_png (~> 1.2.1)
     paperclip (2.3.16)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
@@ -115,7 +111,7 @@ GEM
       activesupport (= 3.1.0)
       bundler (~> 1.0)
       railties (= 3.1.0)
-    rails-i18n (0.1.7)
+    rails-i18n (0.1.6)
       i18n (~> 0.5)
     railties (3.1.0)
       actionpack (= 3.1.0)
@@ -146,7 +142,7 @@ GEM
     turn (0.8.2)
       ansi (>= 1.2.2)
     tzinfo (0.3.29)
-    uglifier (1.0.3)
+    uglifier (1.0.2)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
     will_paginate (3.0.0)
@@ -157,19 +153,19 @@ PLATFORMS
 DEPENDENCIES
   acts_as_list
   autotest-rails
-  compass!
+  compass (~> 0.12.alpha.0)
   exception_notification
-  execjs
   formtastic
   httparty
   jquery-rails
   mysql2
+  oily_png
   paperclip (~> 2.3.15)
   rails (~> 3.1.0)
   rails-i18n
   rubycas-client!
   rubycas-client-rails!
-  sass-rails (~> 3.1.0.rc)
+  sass-rails (~> 3.1.0)
   sqlite3
   therubyracer
   turn
