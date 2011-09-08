@@ -7,5 +7,4 @@ class IsicExport < ActiveRecord::Base
   validates_attachment_presence :photos
   validates_attachment_presence :exports
 
-
 end
