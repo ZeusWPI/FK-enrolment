@@ -7,4 +7,7 @@ class IsicExport < ActiveRecord::Base
   validates_attachment_presence :photos
   validates_attachment_presence :exports
 
+  def self.create_export
+    members = Member.joins(:cards, :club).where(:enabled => true).where('clubs.uses_isic = ? OR cards.isic_status = ?', true, 'request')
+  end
 end
