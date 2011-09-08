@@ -6,9 +6,7 @@ body.backend {
   }
 
   .content-main {
-    @include col(20); @include last;
-    @include float-left;
-    @include clearfix;
+    @include prepend(4);
     position: relative;
   }
 
