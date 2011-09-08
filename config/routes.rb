@@ -16,9 +16,10 @@ FKEnrolment::Application.routes.draw do
       post "search", :on => :collection
     end
 
+    resources :isic_exports, :only => [:index, :create], :as => :isic
+
     match "settings" => "home#settings", :as => :settings
     match "kassa" => "home#kassa", :as => :kassa
-    match "export" => "isic#export", :as => :export
   end
 
   # should always be the last routes-entry due to the

@@ -2,7 +2,11 @@ class Backend::IsicController < Backend::BackendController
 
   before_filter :authenticate
 
-  def export
+  def index
+    @exports = IsicExports.all
+  end
+
+  def create
 
   end
 
