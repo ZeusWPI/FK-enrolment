@@ -20,6 +20,7 @@
   <tr class="<%= cycle("odd", "even") %>">
     <td><%= l export.created_at, :format => :short %></td>
     <td><%= export.members.count %></td>
+    <td><%= export.status %></td>
     <td><%#<%= icon(:details, '', backend_member_path(member), :title => "Details") x</td>
     <td><%= icon(:delete, '', disable_backend_member_path(member),
               :title => "Verwijderen", :method => :post,

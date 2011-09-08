@@ -48,4 +48,10 @@ class Card < ActiveRecord::Base
     result[:academic_year] = full_academic_year
     result
   end
+
+  # Get the next available card number
+  def generate_number(club)
+    next_number = Card.where(:members => {:club_id => club.id}).maximum(:number)
+    self.number = next_number ? next_number + 1 : club.range_lower
+  end
 end
