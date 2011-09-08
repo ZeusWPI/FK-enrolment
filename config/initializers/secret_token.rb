@@ -10,5 +10,5 @@ FKEnrolment::Application.config.fkbooks = 'http://www.fkgent.be/fkbooks/zeus_ret
 FKEnrolment::Application.config.fkbooks_key = '#development#'
 FKEnrolment::Application.config.zeus_api_salt = '#development#'
 FKEnrolment::Application.config.zeus_api_key = '#development#'
-FKEnrolment::Application.config.isic_user = 'dev'
+FKEnrolment::Application.config.isic_pass = 'dev'
 FKEnrolment::Application.config.isic_user = 'dev
