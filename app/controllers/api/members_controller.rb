@@ -43,18 +43,14 @@ class Api::MembersController < Api::ApiController
     @member = Member.new(unwrap_params(:member))
     @member.club = @club
     @member.enabled = true
-    if @member.save
-      flash[:notice] = "Successfully created member."
-    end
+    @member.save
     respond_with(:api, @member)
   end
 
   # PUT /members/1
   # PUT /members/1.json
   def update
-    if @member.update_attributes(unwrap_params(:member))
-      flash[:notice] = "Successfully updated member."
-    end
+    @member.update_attributes(unwrap_params(:member))
     respond_with(:api, @member)
   end
 
@@ -62,7 +58,6 @@ class Api::MembersController < Api::ApiController
   # DELETE /members/1.json
   def destroy
     @member.destroy
-    flash[:notice] = "Successfully destroyed member."
     respond_with(:api, @member)
   end
 end
