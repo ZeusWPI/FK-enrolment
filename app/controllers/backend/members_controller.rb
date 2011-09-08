@@ -3,8 +3,7 @@ class Backend::MembersController < Backend::BackendController
   def load_member
     @member, status = Member.find_member_for_club(params['id'], @club)
     if not @member
-      flash[:error] = "Ongeldig lid."
-      redirect_to backend_members_path
+      redirect_to backend_members_path, :error => "Ongeldig lid."
     end
   end
 
@@ -20,8 +19,7 @@ class Backend::MembersController < Backend::BackendController
 
   def disable
     @member.update_attribute(:enabled, false)
-    flash[:success] = "#{@member.name} werd verwijderd."
-    redirect_to backend_members_path
+    redirect_to backend_members_path, :success => "#{@member.name} werd verwijderd."
   end
 
   def show
