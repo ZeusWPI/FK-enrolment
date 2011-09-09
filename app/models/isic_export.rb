@@ -52,15 +52,15 @@ class IsicExport < ActiveRecord::Base
           member.home_address.sub("\r\n", "\n"), member.current_card.number,
           "#{member.id}.jpg", member.isic_newsletter, member.isic_mail_card]
     end
-    book.write(file_name)
+    book.write(filename)
 
-    File.open(file_name) { |f| self.data = f }
-    File.unlink(file_name)
+    File.open(filename) { |f| self.data = f }
+    File.unlink(filename)
   end
 
   # create zip file for photos
   def generate_photos_zip(filename, members)
-    zip = Zippy.create(file_name.sub ".xls", ".zip") do |zip|
+    zip = Zippy.create(filename) do |zip|
       members.each do |member|
         File.open(member.photo.path(:cropped)) { |p| zip["#{member.id}.jpg"] = p }
       end
