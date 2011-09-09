@@ -1,5 +1,6 @@
 class Card < ActiveRecord::Base
   belongs_to :member
+  # for some reason, using self.club triggers an update to club, so don't use it
   has_one :club, :through => :member
 
   attr_accessible :number, :status, :isic_status
@@ -22,7 +23,7 @@ class Card < ActiveRecord::Base
 
   # Check if the assigned number falls in the range given by the club
   def valid_card_number
-    range = self.club.range_lower..self.club.range_upper
+    range = self.member.club.range_lower..self.member.club.range_upper
     errors.add(:number, "valt niet in het toegekende bereik") if not range.include? self.number
   end
 
@@ -47,5 +48,11 @@ class Card < ActiveRecord::Base
     }))
     result[:academic_year] = full_academic_year
     result
+  end
+
+  # Get the next available card number
+  def generate_number(club)
+    next_number = Card.where(:members => {:club_id => club.id}).maximum(:number)
+    self.number = next_number ? next_number + 1 : club.range_lower
   end
 end

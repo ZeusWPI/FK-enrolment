@@ -2,8 +2,8 @@ class Backend::BackendController < ApplicationController
   respond_to :html
   layout "backend"
 
-  before_filter :verify_auth
-  def verify_auth
+  before_filter :verify_club
+  def verify_club
     # Development backdoor
     if request.local?
       @club = Club.find_by_internal_name("Chemica") and return
