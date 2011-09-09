@@ -33,9 +33,11 @@ class IsicExport < ActiveRecord::Base
     # create zip file for photos
     # TODO: Better naming conventions are probably needed
     file_name = "export-photos-#{export.id}"
-    Zippy.create(file_name) do |zip|
-      members.each do |member|
-        zip["#{member.id}.jpg"] = File.open(member.photo.path)
+    Tempfile.open(file_name) do |f|
+      Zippy.open(f.path) do |zip|
+        members.each do |member|
+          zip["#{member.id}.jpg"] = File.open(member.photo.path)
+        end
       end
     end
 
