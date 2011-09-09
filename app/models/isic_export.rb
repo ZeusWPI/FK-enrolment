@@ -38,7 +38,6 @@ class IsicExport < ActiveRecord::Base
     export if export.save
   end
 
-private
   # create data file
   def generate_data_spreadsheet(filename, members)
     book = Spreadsheet::Workbook.new
