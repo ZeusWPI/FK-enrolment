@@ -31,9 +31,16 @@ class IsicExport < ActiveRecord::Base
     export = IsicExport.new
     export.members = members.map(&:id)
 
-    file_name = File.join(Dir.tmpdir, "Export %s.xls" % Time.now.strftime('%F %T'))
+    filename = File.join(Dir.tmpdir, "Export %s" % Time.now.strftime('%F %T'))
+    export.generate_data_spreadsheet(filename + ".xls", members)
+    export.generate_photos_zip(filename + ".zip", members)
 
-    # create data file
+    export if export.save
+  end
+
+private
+  # create data file
+  def generate_data_spreadsheet(filename, members)
     book = Spreadsheet::Workbook.new
     sheet = book.create_worksheet :name => "Gegevens"
     sheet.row(0).concat ["School", "Kring", "Voornaam", "Familienaam",
@@ -48,18 +55,18 @@ class IsicExport < ActiveRecord::Base
     end
     book.write(file_name)
 
-    File.open(file_name) { |f| export.data = f }
+    File.open(file_name) { |f| self.data = f }
     File.unlink(file_name)
+  end
 
-    # create zip file for photos
+  # create zip file for photos
+  def generate_photos_zip(filename, members)
     zip = Zippy.create(file_name.sub ".xls", ".zip") do |zip|
       members.each do |member|
         File.open(member.photo.path) { |p| zip["#{member.id}.jpg"] = p }
       end
     end
-    File.open(zip.filename) { |f| export.photos = f }
+    File.open(zip.filename) { |f| self.photos = f }
     File.unlink(zip.filename)
-
-    export if export.save
   end
 end

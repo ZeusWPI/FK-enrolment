@@ -16,8 +16,8 @@ class Backend::IsicExportsController < Backend::BackendController
   end
 
   def create
-    Card.destroy_all # development
     export = IsicExport.create_export
+    flash[:error] = "Er kon geen nieuwe export aangemaakt worden" if not export
     redirect_to backend_isic_exports_path
   end
 
