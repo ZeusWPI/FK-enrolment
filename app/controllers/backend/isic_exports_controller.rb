@@ -25,7 +25,7 @@ class Backend::IsicExportsController < Backend::BackendController
     export = IsicExport.find(params[:id])
     send_file(export.data.path,
       :filename => export.data.original_filename,
-      :type => :xlsx
+      :type => :xls
     )
   end
 
