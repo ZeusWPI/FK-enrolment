@@ -29,6 +29,16 @@ class IsicExport < ActiveRecord::Base
 
     export = IsicExport.new
     export.members = members.map(&:id)
+
+    # create zip file for photos
+    # TODO: Better naming conventions are probably needed
+    file_name = "export-photos-#{export.id}"
+    Zippy.create(file_name) do |zip|
+      members.each do |member|
+        zip["#{member.id}.jpg"] = File.open(member.photo.path)
+      end
+    end
+
     logger.debug export.attributes
   end
 end

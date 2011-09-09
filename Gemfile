@@ -52,6 +52,9 @@ gem 'acts_as_list'
 # Easy http requests
 gem 'httparty'
 
+# creating zip-files nice and easy
+gem 'zippy'
+
 group :production do
   gem 'mysql2'
 end
