@@ -63,7 +63,7 @@ private
   def generate_photos_zip(filename, members)
     zip = Zippy.create(file_name.sub ".xls", ".zip") do |zip|
       members.each do |member|
-        File.open(member.photo.path) { |p| zip["#{member.id}.jpg"] = p }
+        File.open(member.photo.path(:cropped)) { |p| zip["#{member.id}.jpg"] = p }
       end
     end
     File.open(zip.filename) { |f| self.photos = f }
