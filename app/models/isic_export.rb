@@ -1,12 +1,12 @@
 class IsicExport < ActiveRecord::Base
   serialize :members
 
+  has_attached_file :data
   has_attached_file :photos
-  has_attached_file :exports
 
   validates :status, :inclusion => { :in => %w(requested printed) }
-  #validates_attachment_presence :photos
-  #validates_attachment_presence :exports
+  validates_attachment_presence :data
+  validates_attachment_presence :photos
 
   def self.create_export
     members = Member.includes(:current_card, :club).where(:enabled => true).where(
@@ -18,31 +18,47 @@ class IsicExport < ActiveRecord::Base
     # assign cards to all members
     members.each do |member|
       if not member.current_card
-        # TODO: figure out why this causes an update to Club
         card = Card.new
         card.generate_number(member.club)
+        card.isic_status = 'requested'
         member.current_card = card
       else
         card = member.current_card
+        card.update_attribute(:isic_status, 'requested')
       end
-
-      card.isic_status = 'requested'
-      card.save(:validate => false)
     end
 
     export = IsicExport.new
     export.members = members.map(&:id)
-    export.save
 
-    file_name = "Export %s" % Time.now.strftime('%F %T')
+    file_name = File.join(Dir.tmpdir, "Export %s.xls" % Time.now.strftime('%F %T'))
+
+    # create data file
+    book = Spreadsheet::Workbook.new
+    sheet = book.create_worksheet :name => "Gegevens"
+    sheet.row(0).concat ["School", "Kring", "Voornaam", "Familienaam",
+        "Geboortedatum", "Thuisadres", "FK-nummer", "Foto",
+        "ISIC Nieuwsbrief" "Kaart opsturen"]
+
+    members.each_with_index do |member, i|
+      sheet.row(i+1).concat ["UGent", member.club.internal_name,
+          member.first_name, member.last_name, member.date_of_birth,
+          member.home_address.sub("\r\n", "\n"), member.current_card.number,
+          "#{member.id}.jpg", member.isic_newsletter, member.isic_mail_card]
+    end
+    book.write(file_name)
+
+    File.open(file_name) { |f| export.data = f }
+    File.unlink(file_name)
 
     # create zip file for photos
-    z = Zippy.create(File.join(Dir.tmpdir, file_name + ".zip")) do |zip|
+    zip = Zippy.create(file_name.sub ".xls", ".zip") do |zip|
       members.each do |member|
         File.open(member.photo.path) { |p| zip["#{member.id}.jpg"] = p }
       end
     end
-    File.open(z.filename) { |f| export.photos = f }
+    File.open(zip.filename) { |f| export.photos = f }
+    File.unlink(zip.filename)
 
     export if export.save
   end

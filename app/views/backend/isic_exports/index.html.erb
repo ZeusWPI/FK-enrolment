@@ -2,7 +2,7 @@
 
 <!-- TODO: some stats -->
 
-<p><%= link_to "Nieuwe leden exporteren",
+<p><%= link_to "Nieuwe export aanmaken",
                backend_isic_exports_path, :method => :POST %></p>
 
 <table class="datagrid">
@@ -21,7 +21,7 @@
     <td><%= l export.created_at, :format => :long %></td>
     <td><%= export.members.count %></td>
     <td><%= export.status %></td>
-    <td></td>
+    <td><%= link_to export.data_file_name, [:data, :backend, export] %></td>
     <td><%= link_to export.photos_file_name, [:photos, :backend, export] %></td>
     <td><%#<%= icon(:details, '', backend_member_path(member), :title => "Details") x</td>
     <td><%= icon(:delete, '', disable_backend_member_path(member),

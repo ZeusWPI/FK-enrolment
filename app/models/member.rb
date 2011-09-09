@@ -22,7 +22,7 @@ class Member < ActiveRecord::Base
   validates :email, :presence => true,
                     :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i },
                     :if => lambda { |m| m.club.registration_method != "api" if m.club }
-  validates :ugent_nr, :presence => true  # TOOD: required if not chosen for email registration
+  validates :ugent_nr, :presence => true  # TODO: required if not chosen for email registration
   validates :sex, :inclusion => { :in => %w(m f), :allow_blank => true }
   validates :date_of_birth, :presence => true, :if => lambda { |m| m.club.uses_isic if m.club }
   validates :home_address, :presence => true, :if => lambda { |m| m.club.uses_isic if m.club }

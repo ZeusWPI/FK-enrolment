@@ -18,14 +18,8 @@ group :assets do
   gem 'therubyracer' # Javascript engine
 end
 
-# Use unicorn as the web server
-# gem 'unicorn'
-
 # Deploy with Capistrano
 # gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
 
 # CAS support
 gem 'rubycas-client', git: 'git://github.com/Javache/rubycas-client.git', branch: 'master'
@@ -52,8 +46,18 @@ gem 'acts_as_list'
 # Easy http requests
 gem 'httparty'
 
-# creating zip-files nice and easy
+# M$-love
+gem 'spreadsheet'
+
+# Creating zip-files nice and easy
 gem 'zippy'
+
+group :development do
+  # To use debugger
+  # gem 'ruby-debug19', :require => 'ruby-debug'
+
+  gem 'term-ansicolor'
+end
 
 group :production do
   gem 'mysql2'
