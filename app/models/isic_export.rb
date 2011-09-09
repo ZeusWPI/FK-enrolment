@@ -13,6 +13,8 @@ class IsicExport < ActiveRecord::Base
       '(clubs.uses_isic = ? AND cards.id IS NULL) OR cards.isic_status = ?',
       true, 'request'
     )
+
+    # assign cards to all members
     members.each do |member|
       if not member.current_card
         # TODO: figure out why this causes an update to Club
@@ -29,18 +31,21 @@ class IsicExport < ActiveRecord::Base
 
     export = IsicExport.new
     export.members = members.map(&:id)
+    export.save
+
+    file_name = "Export %s" % Time.now.strftime('%F %T')
 
     # create zip file for photos
-    # TODO: Better naming conventions are probably needed
-    file_name = "export-photos-#{export.id}"
-    Tempfile.open(file_name) do |f|
-      Zippy.open(f.path) do |zip|
+    Tempfile.open(file_name + ".zip") do |f|
+      Zippy.create(f.path) do |zip|
         members.each do |member|
           zip["#{member.id}.jpg"] = File.open(member.photo.path)
         end
       end
+      export.photos = f
     end
 
+    export.save!
     logger.debug export.attributes
   end
 end
