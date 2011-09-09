@@ -67,10 +67,10 @@ ActiveRecord::Schema.define(:version => 20110908114533) do
   end
 
   create_table "isic_exports", :force => true do |t|
-    t.string   "status",            :default => "requested"
+    t.string   "status",           :default => "requested"
     t.text     "members"
+    t.string   "data_file_name"
     t.string   "photos_file_name"
-    t.string   "exports_file_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

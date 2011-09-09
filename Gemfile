@@ -32,7 +32,7 @@ gem 'rubycas-client', git: 'git://github.com/Javache/rubycas-client.git', branch
 gem 'rubycas-client-rails', :git => 'git://github.com/Javache/rubycas-client-rails.git'
 
 # Photo management
-gem 'paperclip', '~> 2.3.15'
+gem 'paperclip', '~> 2.3'
 
 # Better forms
 gem 'formtastic'

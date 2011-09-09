@@ -9,7 +9,7 @@
 <thead>
   <tr>
     <th>Datum</th>
-    <th>Aantal leden</th>
+    <th>Aantal</th>
     <th>Status</th>
     <th>Gegevens</th>
     <th>Foto's</th>
@@ -18,11 +18,11 @@
 <tbody>
 <% @exports.each do |export| %>
   <tr class="<%= cycle("odd", "even") %>">
-    <td><%= l export.created_at, :format => :short %></td>
+    <td><%= l export.created_at, :format => :long %></td>
     <td><%= export.members.count %></td>
     <td><%= export.status %></td>
     <td></td>
-    <td><%= export.photos %></td>
+    <td><%= link_to export.photos_file_name, [:photos, :backend, export] %></td>
     <td><%#<%= icon(:details, '', backend_member_path(member), :title => "Details") x</td>
     <td><%= icon(:delete, '', disable_backend_member_path(member),
               :title => "Verwijderen", :method => :post,

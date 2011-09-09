@@ -16,7 +16,11 @@ FKEnrolment::Application.routes.draw do
       post "search", :on => :collection
     end
 
-    resources :isic_exports, :only => [:index, :create], :path => :isic
+    resources :isic_exports, :only => [:index, :create], :path => :isic do
+      get "data", :on => :member
+      get "photos", :on => :member
+    end
+
     match "settings" => "home#settings"
     match "kassa" => "home#kassa"
   end

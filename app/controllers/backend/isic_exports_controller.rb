@@ -20,4 +20,20 @@ class Backend::IsicExportsController < Backend::BackendController
     export = IsicExport.create_export
     redirect_to backend_isic_exports_path
   end
+
+  def data
+    export = IsicExport.find(params[:id])
+    send_file(export.data.path,
+      :filename => export.data.original_filename,
+      :type => :xlsx
+    )
+  end
+
+  def photos
+    export = IsicExport.find(params[:id])
+    send_file(export.photos.path,
+      :filename => export.photos.original_filename,
+      :type => :zip
+    )
+  end
 end
