@@ -18,7 +18,7 @@ class Backend::MembersController < Backend::BackendController
   end
 
   def disable
-    @member.update_attribute(:enabled, false)
+    @member.disable
     redirect_to backend_members_path, :success => "#{@member.name} werd verwijderd."
   end
 

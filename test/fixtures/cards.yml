@@ -12,5 +12,5 @@ nudded:
   academic_year: 2011
   number: 21
   status: unpaid
-  isic_status: requested
+  isic_status: request
   enabled: true

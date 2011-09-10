@@ -1,9 +1,11 @@
 <% title "ISIC export" %>
 
-<!-- TODO: some stats -->
+<p><%= pluralize @unexported.count, 'lidkaart', 'lidkaarten' %> aan te vragen.</p>
 
+<% if @unexported.count > 0 %>
 <p><%= link_to "Nieuwe export aanmaken",
                backend_isic_exports_path, :method => :POST %></p>
+<% end %>
 
 <table class="datagrid">
 <thead>
@@ -23,10 +25,6 @@
     <td><%= export.status %></td>
     <td><%= link_to export.data_file_name, [:data, :backend, export] %></td>
     <td><%= link_to export.photos_file_name, [:photos, :backend, export] %></td>
-    <td><%#<%= icon(:details, '', backend_member_path(member), :title => "Details") x</td>
-    <td><%= icon(:delete, '', disable_backend_member_path(member),
-              :title => "Verwijderen", :method => :post,
-              :confirm => "Bent u zeker dat u dit lid wil verwijderen?") %></td>
   </tr>
 <% end %>
 </tbody>

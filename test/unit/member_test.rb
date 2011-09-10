@@ -33,4 +33,9 @@ class MemberTest < ActiveSupport::TestCase
     @member.save
     verify(@member.photo)
   end
+
+  test "should disable member" do
+    @member.disable
+    assert !@member.enabled
+  end
 end

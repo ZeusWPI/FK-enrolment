@@ -13,6 +13,7 @@ class Backend::IsicExportsController < Backend::BackendController
 
   def index
     @exports = IsicExport.order('created_at DESC')
+    @unexported = Member.find_all_for_isic_export
   end
 
   def create

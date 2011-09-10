@@ -8,11 +8,9 @@ class IsicExport < ActiveRecord::Base
   validates_attachment_presence :data
   validates_attachment_presence :photos
 
+  # Create a new export
   def self.create_export
-    members = Member.includes(:current_card, :club).where(:enabled => true).where(
-      '(clubs.uses_isic = ? AND cards.id IS NULL) OR cards.isic_status = ?',
-      true, 'request'
-    )
+    members = Member.find_all_for_isic_export
     return nil if members.length == 0
 
     # assign cards to all members
@@ -29,16 +27,26 @@ class IsicExport < ActiveRecord::Base
     end
 
     export = IsicExport.new
-    export.members = members.map(&:id)
-
-    filename = File.join(Dir.tmpdir, "Export %s" % Time.now.strftime('%F %T'))
-    export.generate_data_spreadsheet(filename + ".xls", members)
-    export.generate_photos_zip(filename + ".zip", members)
-
+    export.generate(members)
     export if export.save
   end
 
-  # create data file
+  # Get a list of members involved in this export
+  def full_members
+    Member.where(:id => self.members)
+  end
+
+  # Generate the export files
+  def generate(members = nil)
+    members = full_members if not members
+    self.members = members.map(&:id) if not self.members
+
+    filename = File.join(Dir.tmpdir, "Export %s" % Time.now.strftime('%F %T'))
+    generate_data_spreadsheet(filename + ".xls", members)
+    generate_photos_zip(filename + ".zip", members)
+  end
+
+  # Create data file
   def generate_data_spreadsheet(filename, members)
     book = Spreadsheet::Workbook.new
     sheet = book.create_worksheet :name => "Gegevens"
@@ -53,19 +61,24 @@ class IsicExport < ActiveRecord::Base
           "#{member.id}.jpg", member.isic_newsletter, member.isic_mail_card]
     end
     book.write(filename)
-
-    File.open(filename) { |f| self.data = f }
-    File.unlink(filename)
+    assign_file_and_unlink(:data, filename)
   end
 
-  # create zip file for photos
+  # Create zip file for photos
   def generate_photos_zip(filename, members)
-    zip = Zippy.create(filename) do |zip|
+    Zippy.create(filename) do |zip|
       members.each do |member|
         File.open(member.photo.path(:cropped)) { |p| zip["#{member.id}.jpg"] = p }
       end
     end
-    File.open(zip.filename) { |f| self.photos = f }
-    File.unlink(zip.filename)
+    assign_file_and_unlink(:photos, filename)
+  end
+
+private
+  def assign_file_and_unlink(property, filename)
+    File.open(filename) do |file|
+      self.send("#{property}=", file)
+    end
+    File.unlink(filename)
   end
 end

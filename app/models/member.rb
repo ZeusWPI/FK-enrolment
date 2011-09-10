@@ -27,16 +27,30 @@ class Member < ActiveRecord::Base
   validates :date_of_birth, :presence => true, :if => lambda { |m| m.club.uses_isic if m.club }
   validates :home_address, :presence => true, :if => lambda { |m| m.club.uses_isic if m.club }
 
-  # Hash for export (see to_json)
-  def serializable_hash(options = nil)
-    result = super((options || {}).merge({
-      :except => [:club_id, :photo_content_type, :photo_file_name,
-                  :photo_file_size, :photo_updated_at, :enabled],
-      :include => [:current_card]
-    }))
-    result[:card] = result.delete :current_card
-    result[:photo] = photo.url(:cropped) if photo?
-    result
+  # Handy defaults
+  after_initialize :defaults
+  def defaults
+    # Opt-in by default for ISIC-clubs
+    self.isic_newsletter = true if isic_newsletter.nil? && club && club.uses_isic
+  end
+
+  # Load member, checking access
+  def self.find_member_for_club(member_id, club)
+    return nil if not member_id
+    member = where(:enabled => true).includes(:current_card).find(member_id)
+    if member
+      member.club_id == club.id ? [member, :success] : [nil, :forbidden]
+    else
+      [nil, :not_found]
+    end
+  end
+
+  # Find members that need to exported to ISIC
+  def self.find_all_for_isic_export
+    Member.includes(:current_card, :club).where(:enabled => true).where(
+      '(clubs.uses_isic = ? AND cards.id IS NULL) OR cards.isic_status = ?',
+      true, 'request'
+    )
   end
 
   # Current academic year
@@ -47,11 +61,16 @@ class Member < ActiveRecord::Base
   has_one :current_card, :class_name => "Card",
     :conditions => { :academic_year => current_academic_year }
 
-  # Handy defaults
-  after_initialize :defaults
-  def defaults
-    # Opt-in by default for ISIC-clubs
-    self.isic_newsletter = true if isic_newsletter.nil? && club && club.uses_isic
+  # Hash for export (see to_json)
+  def serializable_hash(options = nil)
+    result = super((options || {}).merge({
+      :except => [:club_id, :photo_content_type, :photo_file_name,
+                  :photo_file_size, :photo_updated_at, :enabled],
+      :include => [:current_card]
+    }))
+    result[:card] = result.delete :current_card
+    result[:photo] = photo.url(:cropped) if photo?
+    result
   end
 
   # Create empty attributes for each extra-value specification and merge existing ones
@@ -87,6 +106,13 @@ class Member < ActiveRecord::Base
     end
   end
 
+  # Disable a member and any cards he has
+  def disable
+    self.cards.update_all(:enabled => false)
+    self.update_attribute(:enabled, false)
+    self
+  end
+
   # Shortcut for full name
   def name
     "#{self.first_name} #{self.last_name}"
@@ -95,16 +121,5 @@ class Member < ActiveRecord::Base
   # Shortcut for card number
   def card_number
     self.current_card ? self.current_card.number : "∅"
-  end
-
-  # Load member, checking access
-  def self.find_member_for_club(member_id, club)
-    return nil if not member_id
-    member = where(:enabled => true).includes(:current_card).find(member_id)
-    if member
-      member.club_id == club.id ? [member, :success] : [nil, :forbidden]
-    else
-      [nil, :not_found]
-    end
   end
 end

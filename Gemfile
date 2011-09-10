@@ -1,22 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '~> 3.1.0'
-
-# Bundle edge Rails instead:
-# gem 'rails',     :git => 'git://github.com/rails/rails.git'
-
 gem 'sqlite3'
-
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails', '~> 3.1.0'
-  gem 'compass', '~> 0.12.alpha.0'
-  gem 'oily_png' # Faster PNG generation for compass sprites
-  gem 'jquery-rails'
-  gem 'uglifier'
-  gem 'therubyracer' # Javascript engine
-end
 
 # Deploy with Capistrano
 # gem 'capistrano'
@@ -52,18 +37,26 @@ gem 'spreadsheet'
 # Creating zip-files nice and easy
 gem 'zippy'
 
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails', '~> 3.1.0'
+  gem 'compass', '~> 0.12.alpha.0'
+  gem 'oily_png'        # Faster PNG generation for compass sprites
+  gem 'jquery-rails'
+  gem 'uglifier'        # Javascript compressor
+  gem 'therubyracer'    # Javascript engine
+end
+
 group :development do
   # To use debugger
   # gem 'ruby-debug19', :require => 'ruby-debug'
-
   gem 'term-ansicolor'
 end
 
 group :production do
-  gem 'mysql2'
-
-  # Use unicorn as the web server
-  gem 'unicorn'
+  gem 'mysql2'          # Database
+  gem 'unicorn'         # Webserver
 end
 
 group :test do
