@@ -1,11 +1,11 @@
 <% title "ISIC export" %>
 
-<p><%= pluralize @unexported.count, 'lidkaart', 'lidkaarten' %> aan te vragen.</p>
-
+<p><%= pluralize @unexported.count, 'nieuwe lidkaart', 'nieuwe lidkaarten' %>
+  klaar voor export.
 <% if @unexported.count > 0 %>
-<p><%= link_to "Nieuwe export aanmaken",
-               backend_isic_exports_path, :method => :POST %></p>
-<% end %>
+  <%= link_to "Nieuwe export aanmaken",
+              backend_isic_exports_path, :method => :POST %></p>
+<% end %></p>
 
 <table class="datagrid">
 <thead>

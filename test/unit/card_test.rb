@@ -27,4 +27,10 @@ class CardTest < ActiveSupport::TestCase
     c.number = 99
     assert !c.valid?
   end
+
+  test "the next new number should be generated" do
+    c = Card.new
+    assert_equal 2, c.generate_number(clubs(:wina))
+    assert_equal 22, c.generate_number(clubs(:vtk))
+  end
 end

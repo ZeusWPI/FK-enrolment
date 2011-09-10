@@ -52,7 +52,10 @@ class Card < ActiveRecord::Base
 
   # Get the next available card number
   def generate_number(club)
-    next_number = Card.where(:members => {:club_id => club.id}).maximum(:number)
+    next_number = Card.where(
+      :members => {:club_id => club.id}, :enabled => true,
+      :academic_year => Member.current_academic_year
+    ).maximum(:number)
     self.number = next_number ? next_number + 1 : club.range_lower
   end
 end

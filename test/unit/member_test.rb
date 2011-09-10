@@ -5,16 +5,16 @@ class MemberTest < ActiveSupport::TestCase
   verify_fixtures Member
 
   def setup
-    @url = "http://dummyimage.com/100x100"
+    @url = "http://dummyimage.com/210x270"
+    File.open(File.join(fixture_path, "210x270.gif"), 'rb') { |f| @photo = f.read }
     @member = members(:javache)
-    @photo = open(@url).read
-    @geometry = Paperclip::Geometry.parse("100x100")
   end
 
   def verify(test)
     assert_equal @photo.length, test.size
     geometry = Paperclip::Geometry.from_file(test.path(:original))
-    assert_equal @geometry.to_s, geometry.to_s
+    original_geometry = Paperclip::Geometry.parse("210x270")
+    assert_equal original_geometry.to_s, geometry.to_s
   end
 
   test "should get photo from url" do
