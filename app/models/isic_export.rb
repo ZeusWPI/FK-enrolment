@@ -33,7 +33,7 @@ class IsicExport < ActiveRecord::Base
 
   # Get a list of members involved in this export
   def full_members
-    Member.where(:id => self.members, :enabled => true)
+    Member.includes(:current_card, :club).where(:id => self.members, :enabled => true)
   end
 
   # Generate the export files

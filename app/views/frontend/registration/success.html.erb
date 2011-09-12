@@ -3,7 +3,9 @@
 <div class="content-main">
   <% title "Registratie voltooid" %>
 
-  <%# TODO: tekstje updaten? %>
+  <% if @club.confirmation_text? %>
+    <%= simple_format(@club.confirmation_text) %>
+  <% else %>
   <p>Je inschrijving is goed ontvangen. De volgende stap
     is je te begeven naar de boekenverkoop/permanentie van je kring en
     je lidgeld te betalen. Wanneer dit gebeurd is zal de inschrijving voltooid zijn.
@@ -12,4 +14,5 @@
     en de prijzen van het lidgeld verwijzen we graag naar de
     <%= link_to "website van je kring", @club.url %>.
   </p>
+  <% end %>
 </div>
