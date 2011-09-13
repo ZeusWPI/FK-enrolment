@@ -14,8 +14,8 @@ class Backend::MembersController < Backend::BackendController
     if params[:member_report]
       report_params = report_params.merge(params[:member_report])
     end
-    @member_report = MemberReport.new(report_params)
-    @members = @member_report.assets.paginate(:page => params[:page], :per_page => 2)
+    @datagrid = MemberReport.new(report_params)
+    @members = @datagrid.assets.paginate(:page => params[:page], :per_page => 1)
 
     @registered_members = Member.where(attributes).count
     @card_members = Member.where(attributes).joins(:current_card).count

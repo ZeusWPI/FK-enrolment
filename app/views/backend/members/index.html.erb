@@ -3,7 +3,13 @@
 
 <p><%= @registered_members %> geregistreerde leden, <%= @card_members %> leden met lidkaart.</p>
 
-<%= datagrid_table(@member_report, @members,
-    :html => {:class => "datagrid"},
-    :cycle => ["odd", "even"]) %>
+<table class="datagrid">
+<thead>
+  <%= datagrid_header(@datagrid) %>
+</thead>
+<tbody>
+  <%= datagrid_rows(@datagrid, @members, :cycle => ["odd", "even"]) %>
+</tbody>
+</table>
+
 <%= will_paginate @members %>
