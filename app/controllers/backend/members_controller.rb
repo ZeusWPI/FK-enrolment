@@ -75,7 +75,9 @@ class Backend::MembersController < Backend::BackendController
     filter(:created_at)
 
     #define columns
-    column(:name, :header => "Naam")
+    column(:name, :order => "last_name, first_name" ,:header => "Naam") do |member|
+      member.last_name + ", " + member.first_name
+    end
     column(:ugent_nr, :header => "UGent-nr.")
     column(:email, :header => "E-mailadres")
     column(:card_number, :header => "FK-nummer")
