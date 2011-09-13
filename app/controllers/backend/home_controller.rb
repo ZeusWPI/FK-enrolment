@@ -12,6 +12,5 @@ class Backend::HomeController < Backend::BackendController
   end
 
   def kassa
-
   end
 end
