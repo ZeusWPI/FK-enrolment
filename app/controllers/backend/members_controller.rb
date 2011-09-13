@@ -1,7 +1,7 @@
 class Backend::MembersController < Backend::BackendController
   before_filter :load_member, :except => [:index, :search]
   def load_member
-    @member, status = Member.find_member_for_club(params['id'], @club)
+    @member, status = Member.find_member_for_club(params['id'])
     if not @member
       redirect_to backend_members_path, :error => "Ongeldig lid."
     end
@@ -10,11 +10,18 @@ class Backend::MembersController < Backend::BackendController
   def index
     attributes = {:club_id => @club, :enabled => true}
 
+    report_params = {:club_id => @club.id}
+    if params[:member_report]
+      report_params = report_params.merge(params[:member_report])
+    end
+    @member_report = MemberReport.new(report_params)
+    @assets = @member_report.assets.paginate(:page => params[:page], :per_page => 2)
+
     @registered_members = Member.where(attributes).count
     @card_members = Member.where(attributes).joins(:current_card).count
 
     @members = Member.includes(:current_card).where(attributes).order("created_at DESC")
-    @members = @members.paginate(:page => params[:page], :per_page => 30)
+    @members = @members.paginate(:page => params[:page], :per_page => 2)
   end
 
   def disable
@@ -53,5 +60,28 @@ class Backend::MembersController < Backend::BackendController
         @card.number = nil
       end
     end
+  end
+
+  class MemberReport
+    include Datagrid
+
+    scope do
+      Member.includes(:current_card).where({:enabled => true}).order("created_at DESC")
+    end
+
+    #define filters
+    filter(:club_id)
+    filter(:name)
+    filter(:ugent_nr)
+    filter(:email)
+    filter(:card_number)
+    filter(:created_at)
+
+    #define columns
+    column(:name, :header => "Naam")
+    column(:ugent_nr, :header => "UGent-nr.")
+    column(:email, :header => "E-mailadres")
+    column(:card_number, :header => "FK-nummer")
+    column(:created_at, :header => "Geregistreerd")
   end
 end

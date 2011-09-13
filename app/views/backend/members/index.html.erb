@@ -32,3 +32,6 @@
 </table>
 
 <%= will_paginate @members %>
+
+<%= datagrid_table(@member_report, @assets, {:html => {"class" => "datagrid"}, :cycle => ["odd", "even"]}) %>
+<%= will_paginate @assets %>

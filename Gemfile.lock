@@ -61,6 +61,8 @@ GEM
       fssm (>= 0.2.7)
       sass (~> 3.1)
     crack (0.1.8)
+    datagrid (0.3.6)
+      rails
     erubis (2.7.0)
     exception_notification (2.5.2)
       actionmailer (>= 3.0.4)
@@ -167,6 +169,7 @@ DEPENDENCIES
   acts_as_list
   autotest-rails
   compass (~> 0.12.alpha.0)
+  datagrid
   exception_notification
   formtastic
   httparty

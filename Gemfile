@@ -37,6 +37,9 @@ gem 'spreadsheet'
 # Creating zip-files nice and easy
 gem 'zippy'
 
+# Creating datagrids
+gem 'datagrid'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
