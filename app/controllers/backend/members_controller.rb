@@ -3,7 +3,7 @@ class Backend::MembersController < Backend::BackendController
   def load_member
     @member, status = Member.find_member_for_club(params['id'], @club)
     if not @member
-      redirect_to backend_members_path, :error => "Ongeldig lid."
+      redirect_to backend_members_path, :alert => "Ongeldig lid."
     end
   end
 

@@ -83,12 +83,12 @@
   @include col(17);
   @include append(6);
 
-  &.warning, &.error {
+  &.warning, &.alert, &.error {
     color: $error-color;
     border-color: $error-color;
   }
 
-  &.success {
+  &.success, &.notice {
     color: $success-color;
     border-color: $success-color;
   }
