@@ -11,6 +11,7 @@ div {
   display: table;
 }
 
+/* will_paginate */
 .pagination {
   padding: 1em 0;
   cursor: default;
@@ -96,7 +97,20 @@ table.datagrid {
     @include adjust-font-size-to(13px, 1);
     padding: 4px;
   }
-}
+
+  div.order {
+    display: inline;
+    margin-left: 8px;
+  }
+  a.order {
+    margin: 0 -2px;
+    color: #666;
+    @include adjust-font-size-to(12px, 1);
+  }
+  a.order:hover, a.order:active {
+    color: #F16C00;
+    text-decoration: none;
+} }
 
 dl {
   margin: 0 0 12px 0;

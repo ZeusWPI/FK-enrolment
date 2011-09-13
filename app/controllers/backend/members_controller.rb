@@ -1,7 +1,7 @@
 class Backend::MembersController < Backend::BackendController
   before_filter :load_member, :except => [:index, :search]
   def load_member
-    @member, status = Member.find_member_for_club(params['id'])
+    @member, status = Member.find_member_for_club(params['id'], @club)
     if not @member
       redirect_to backend_members_path, :error => "Ongeldig lid."
     end
@@ -15,13 +15,10 @@ class Backend::MembersController < Backend::BackendController
       report_params = report_params.merge(params[:member_report])
     end
     @member_report = MemberReport.new(report_params)
-    @assets = @member_report.assets.paginate(:page => params[:page], :per_page => 2)
+    @members = @member_report.assets.paginate(:page => params[:page], :per_page => 2)
 
     @registered_members = Member.where(attributes).count
     @card_members = Member.where(attributes).joins(:current_card).count
-
-    @members = Member.includes(:current_card).where(attributes).order("created_at DESC")
-    @members = @members.paginate(:page => params[:page], :per_page => 2)
   end
 
   def disable
@@ -82,6 +79,8 @@ class Backend::MembersController < Backend::BackendController
     column(:ugent_nr, :header => "UGent-nr.")
     column(:email, :header => "E-mailadres")
     column(:card_number, :header => "FK-nummer")
-    column(:created_at, :header => "Geregistreerd")
+    column(:created_at, :header => "Geregistreerd") do |member|
+      I18n.localize member.created_at, :format => :short
+    end
   end
 end
