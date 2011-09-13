@@ -61,12 +61,18 @@ class Backend::MembersController < Backend::BackendController
 
   class MemberReport
     include Datagrid
+    extend ActionView::Helpers::UrlHelper
+    extend ActionView::Helpers::TagHelper
+    extend ApplicationHelper
+    class << self
+      include Rails.application.routes.url_helpers
+    end
 
     scope do
       Member.includes(:current_card).where({:enabled => true}).order("created_at DESC")
     end
 
-    #define filters
+    # Filters
     filter(:club_id)
     filter(:name)
     filter(:ugent_nr)
@@ -74,13 +80,21 @@ class Backend::MembersController < Backend::BackendController
     filter(:card_number)
     filter(:created_at)
 
-    #define columns
+    # Columns
     column(:name, :header => "Naam")
     column(:ugent_nr, :header => "UGent-nr.")
     column(:email, :header => "E-mailadres")
     column(:card_number, :header => "FK-nummer")
     column(:created_at, :header => "Geregistreerd") do |member|
       I18n.localize member.created_at, :format => :short
+    end
+    column(:details, :header => "") do |member|
+      icon(:details, '', backend_member_path(member), :title => "Details")
+    end
+    column(:delete, :header => "") do |member|
+      icon(:delete, '', disable_backend_member_path(member),
+              :title => "Verwijderen", :method => :post,
+              :confirm => "Bent u zeker dat u dit lid wil verwijderen?")
     end
   end
 end
