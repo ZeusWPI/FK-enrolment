@@ -76,10 +76,13 @@ class Backend::MembersController < Backend::BackendController
 
     # Filters
     filter(:club_id)
-    filter(:name)
+    filter(:first_name)
+    filter(:last_name)
     filter(:ugent_nr)
     filter(:email)
-    filter(:card_number)
+    filter(:card_number) do |value|
+      self.where(["cards.number = ?", value])
+    end
     filter(:created_at)
 
     # Columns

@@ -5,8 +5,25 @@
 
 <div id="filters">
   <%= form_for @membergrid, :as => "member_report", :method => :get, :url => backend_members_path do |f| %>
+
+    <%= f.label :first_name %>:
+    <%= f.text_field :first_name %><br />
+
+    <%= f.label :last_name %>:
+    <%= f.text_field :last_name %><br />
+
+    <%= f.label :ugent_nr %>:
+    <%= f.text_field :ugent_nr %><br />
+
+    <%= f.label :card_number %>:
+    <%= f.text_field :card_number %><br />
+
     <%= f.label :email %>:
     <%= f.text_field :email %><br />
+
+    <%= f.label :created_at %>:
+    <%= f.text_field :created_at %><br />
+
     <%= f.submit :value => "filter" %>
   <% end -%>
 </div>
