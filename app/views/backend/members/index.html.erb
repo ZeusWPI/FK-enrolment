@@ -3,6 +3,14 @@
 
 <p><%= @registered_members %> geregistreerde leden, <%= @card_members %> leden met lidkaart.</p>
 
+<div id="filters">
+  <%= form_for @membergrid, :as => "member_report", :method => :get, :url => backend_members_path do |f| %>
+    <%= f.label :email %>:
+    <%= f.text_field :email %><br />
+    <%= f.submit %>
+  <% end -%>
+</div>
+
 <table class="datagrid">
   <thead>
     <%= datagrid_header(@membergrid) %>

@@ -15,6 +15,7 @@ class Backend::MembersController < Backend::BackendController
       report_params = report_params.merge(params[:member_report])
     end
     @membergrid = MemberReport.new(report_params)
+    puts @membergrid
     @members = @membergrid.assets.paginate(:page => params[:page], :per_page => 1)
 
     @registered_members = Member.where(attributes).count
@@ -69,7 +70,7 @@ class Backend::MembersController < Backend::BackendController
     end
 
     scope do
-      Member.includes(:current_card).where({:enabled => true}).order("created_at DESC")
+      Member.includes(:current_card).where({:enabled => true}).order("members.created_at DESC")
     end
 
     # Filters
@@ -87,7 +88,7 @@ class Backend::MembersController < Backend::BackendController
     column(:ugent_nr, :header => "UGent-nr.")
     column(:email, :header => "E-mailadres")
     column(:card_number, :header => "FK-nummer")
-    column(:created_at, :header => "Geregistreerd") do |member|
+    column(:created_at, :order => "members.created_at", :header => "Geregistreerd") do |member|
       I18n.localize member.created_at, :format => :short
     end
     column(:details, :header => "") do |member|
