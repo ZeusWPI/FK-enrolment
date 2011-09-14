@@ -7,7 +7,7 @@
   <%= form_for @membergrid, :as => "member_report", :method => :get, :url => backend_members_path do |f| %>
     <%= f.label :email %>:
     <%= f.text_field :email %><br />
-    <%= f.submit %>
+    <%= f.submit :value => "filter" %>
   <% end -%>
 </div>
 
