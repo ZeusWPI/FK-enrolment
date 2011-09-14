@@ -12,6 +12,7 @@ class Backend::MembersController < Backend::BackendController
 
     report_params = {:club_id => @club.id}
     if params[:member_report]
+      params[:member_report].delete('club_id')
       report_params = report_params.merge(params[:member_report])
     end
     @membergrid = MemberReport.new(report_params)
