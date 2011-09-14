@@ -93,6 +93,11 @@ class Backend::MembersController < Backend::BackendController
     column(:created_at, :order => "members.created_at", :header => "Geregistreerd") do |member|
       I18n.localize member.created_at, :format => :short
     end
+
+    # Icons
+    column(:photo, :header => "") do |member|
+      icon(:photo, '', '#', "data-photo" => member.photo(:cropped)) if member.photo
+    end
     column(:details, :header => "") do |member|
       icon(:details, '', backend_member_path(member), :title => "Details")
     end

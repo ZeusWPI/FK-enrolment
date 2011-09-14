@@ -3,9 +3,10 @@
 
 <p><%= @registered_members %> geregistreerde leden, <%= @card_members %> leden met lidkaart.</p>
 
-<p><%= icon(:expand, 'Filter resultaten', '') %></p>
+<%# TODO: restore expand or hidden on page load %>
+<p><%= icon(:expand, 'Filter resultaten', '#') %></p>
 <div id="filters">
-  <p class="side-icons"><%= icon(:collapse, 'Filters verbergen', '') %></p>
+  <p class="side-icons"><%= icon(:collapse, 'Filters verbergen', '#') %></p>
   <h3>Filter resultaten</h3>
   <%= semantic_form_for @membergrid, :as => "member_report",
         :method => :get, :url => backend_members_path do |f| %>
@@ -17,6 +18,7 @@
     <% end %>
     <%= f.buttons do %>
       <%= f.commit_button "Filteren" %>
+      <li class="cancel"><%= link_to "Reset filters", backend_members_path %></li>
     <% end %>
   <% end %>
 </div>

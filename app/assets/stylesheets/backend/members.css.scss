@@ -24,9 +24,14 @@
   margin-bottom: 20px;
   width: 500px;
   position: relative;
+  display: none;
 
   .side-icons {
     position: absolute;
     right: 15px;
   }
+}
+
+.photo-preview {
+  border: 2px solid #E1E1E1;
 }

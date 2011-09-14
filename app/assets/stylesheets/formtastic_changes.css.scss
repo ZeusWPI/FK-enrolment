@@ -74,7 +74,16 @@ form.formtastic fieldset > ol > li {
 form.formtastic fieldset {
   position: relative;
 
-  &.buttons { padding-left: 30%; }
+  &.buttons {
+    padding-left: 30%;
+
+    .cancel {
+      @include adjust-font-size-to(12px, 0.75);
+      line-height: 26px;
+      padding: 0 10px;
+    }
+  }
+
   &.no-indent, .no-indent, &.indent, .indent {
     padding-left: 0;
     @include clearfix;
