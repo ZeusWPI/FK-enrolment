@@ -17,3 +17,16 @@
     @include adjust-font-size-to(12px, 0.8);
   }
 }
+
+#filters {
+  border: 2px solid #E1E1E1;
+  padding: 15px 15px 5px 15px;
+  margin-bottom: 20px;
+  width: 500px;
+  position: relative;
+
+  .side-icons {
+    position: absolute;
+    right: 15px;
+  }
+}

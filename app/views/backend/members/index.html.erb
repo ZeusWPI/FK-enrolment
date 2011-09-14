@@ -3,29 +3,22 @@
 
 <p><%= @registered_members %> geregistreerde leden, <%= @card_members %> leden met lidkaart.</p>
 
+<p><%= icon(:expand, 'Filter resultaten', '') %></p>
 <div id="filters">
-  <%= form_for @membergrid, :as => "member_report", :method => :get, :url => backend_members_path do |f| %>
-
-    <%= f.label :first_name %>:
-    <%= f.text_field :first_name %><br />
-
-    <%= f.label :last_name %>:
-    <%= f.text_field :last_name %><br />
-
-    <%= f.label :ugent_nr %>:
-    <%= f.text_field :ugent_nr %><br />
-
-    <%= f.label :card_number %>:
-    <%= f.text_field :card_number %><br />
-
-    <%= f.label :email %>:
-    <%= f.text_field :email %><br />
-
-    <%= f.label :created_at %>:
-    <%= f.text_field :created_at %><br />
-
-    <%= f.submit :value => "filter" %>
-  <% end -%>
+  <p class="side-icons"><%= icon(:collapse, 'Filters verbergen', '') %></p>
+  <h3>Filter resultaten</h3>
+  <%= semantic_form_for @membergrid, :as => "member_report",
+        :method => :get, :url => backend_members_path do |f| %>
+    <%= f.inputs do %>
+      <%= f.input :first_name, :label => Member.human_attribute_name(:first_name) %>
+      <%= f.input :last_name, :label => Member.human_attribute_name(:last_name) %>
+      <%= f.input :ugent_nr, :label => Member.human_attribute_name(:ugent_nr) %>
+      <%= f.input :email, :label => Member.human_attribute_name(:email) %>
+    <% end %>
+    <%= f.buttons do %>
+      <%= f.commit_button "Filteren" %>
+    <% end %>
+  <% end %>
 </div>
 
 <table class="datagrid">

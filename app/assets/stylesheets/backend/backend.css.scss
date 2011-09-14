@@ -41,4 +41,6 @@ body.backend {
   &.female { @include icons-sprite(female); }
   &.male { @include icons-sprite(male); }
   &.true { @include icons-sprite(accept); }
+  &.expand { @include icons-sprite(expand); }
+  &.collapse { @include icons-sprite(collapse); }
 }

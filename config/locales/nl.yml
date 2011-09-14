@@ -23,7 +23,7 @@ nl:
         registration_method: Registratiemethode
         uses_isic: Automatisch ISIC-kaarten aanvragen na registratie
         api_key: API sleutel
-    card:
+      card:
         number: Kaartnummer
 
   will_paginate:

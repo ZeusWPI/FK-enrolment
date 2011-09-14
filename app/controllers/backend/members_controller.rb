@@ -12,11 +12,10 @@ class Backend::MembersController < Backend::BackendController
 
     report_params = {:club_id => @club.id}
     if params[:member_report]
-      params[:member_report].delete('club_id')
-      report_params = report_params.merge(params[:member_report])
+      # This order will guarantee club_id cannot be set from the outside
+      report_params = params[:member_report].merge(report_params)
     end
     @membergrid = MemberReport.new(report_params)
-    puts @membergrid
     @members = @membergrid.assets.paginate(:page => params[:page], :per_page => 1)
 
     @registered_members = Member.where(attributes).count
@@ -83,7 +82,6 @@ class Backend::MembersController < Backend::BackendController
     filter(:card_number) do |value|
       self.where(["cards.number = ?", value])
     end
-    filter(:created_at)
 
     # Columns
     column(:name, :order => "last_name, first_name" ,:header => "Naam") do |member|

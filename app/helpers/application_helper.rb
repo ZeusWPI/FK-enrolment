@@ -14,7 +14,7 @@ module ApplicationHelper
 
   # Generate icon tag and image
   def icon(type, text = '', path = nil, options = {})
-    options = options.merge(:class => "icon #{type}")
+    options[:class] = ("icon %s %s" % [type, options[:class]]).strip
     options[:class] += ' no-text' if text == ''
     if path
       link_to(text, path, options)
