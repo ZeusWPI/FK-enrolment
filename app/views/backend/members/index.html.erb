@@ -6,4 +6,4 @@
   <%= link_to 'Gegevens exporteren', params.merge(:format => 'xls') %>
 </p>
 
-<%= render :partial => 'filter' %>
+<%= render :partial => 'filter' ,:locals => {:submit_path => backend_members_path} %>

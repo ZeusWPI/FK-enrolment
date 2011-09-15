@@ -5,7 +5,7 @@
   <p class="side-icons"><%= icon(:collapse, 'Filters verbergen', '#') %></p>
   <h3>Filter resultaten</h3>
   <%= semantic_form_for @membergrid, :as => "member_report",
-        :method => :get, :url => backend_members_path do |f| %>
+        :method => :get, :url => submit_path do |f| %>
     <%= f.inputs do %>
       <%= f.input :first_name, :label => Member.human_attribute_name(:first_name) %>
       <%= f.input :last_name, :label => Member.human_attribute_name(:last_name) %>
@@ -16,7 +16,7 @@
     <% end %>
     <%= f.buttons do %>
       <%= f.commit_button "Filteren" %>
-      <li class="cancel"><%= link_to "Reset filters", backend_members_path %></li>
+      <li class="cancel"><%= link_to "Reset filters", submit_path %></li>
     <% end %>
   <% end %>
 </div>

@@ -1,4 +1,4 @@
 <% title "Kassa: lid opzoeken" %>
 
 <p><%= link_to "« Terug naar overzicht", backend_root_path %></p>
-<%= render :partial => 'backend/members/filter' %>
+<%= render :partial => 'backend/members/filter', :locals => {:submit_path => backend_kassa_path }%>
