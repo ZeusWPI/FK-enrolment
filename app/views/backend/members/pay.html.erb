@@ -2,7 +2,6 @@
 
 <div class="member-wrapper">
   <%= render :partial => 'photo' %>
-  <%= link_to "« Terug naar kassa", backend_kassa_path %>
   <dl>
     <dt>Naam:</dt>
     <dd><%= @member.name %></dd>
@@ -19,19 +18,30 @@
               <%= @card.errors.full_messages.join ', ' %>
             </span>
           <% end %>
-          <%= f.submit 'Koppelen' %>
+          <%= f.submit 'Koppelen en betalen' %>
+        <% end %>
+      <% end %>
+    </dd>
+
+    <dt>Status:</dt>
+    <dd>
+      <%= human_card_status @card.status %>
+      <% if !@card.number.blank? && @card.status != 'paid' %>
+        <%= form_for @card, :url => pay_backend_member_path do |f| %>
+          <%= f.submit 'Betalen' %>
         <% end %>
       <% end %>
     </dd>
 
     <% if @club.uses_isic || @card.isic_status != 'none' %>
     <dt>ISIC:</dt>
-    <dd><%= human_isic_text @card.isic_status %></dd>
+    <dd><%= human_isic_status @card.isic_status %></dd>
     <% end %>
     <% if @member.isic_mail_card %>
     <dd><strong>Extra aanrekenen voor kaartverzending!</strong></dd>
     <% end %>
     <dt>
-  </dl>
 
+    <dd><%= link_to "Volgend lid »", backend_kassa_path %></dd>
+  </dl>
 </div>

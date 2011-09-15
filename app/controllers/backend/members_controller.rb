@@ -57,7 +57,7 @@ class Backend::MembersController < Backend::BackendController
       @card.member = @member
     end
 
-    if params[:card]
+    if params[:card] || params[:commit]
       @card.update_attributes(params[:card])
       @card.status = 'paid'
       unless @card.save
