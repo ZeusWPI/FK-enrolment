@@ -12,25 +12,32 @@ class Backend::MembersController < Backend::BackendController
     @filtered = false
     if params[:member_report]
       # This will check if members are actually filtered
-      params[:member_report].each do |key, value|
-        next if key == "order" ||
-                key == "descending" ||
-                key == "club_id" ||
-                (key == "card_holders_only" && value == "false")
-        if value != ""
-          @filtered = true
-          break
-        end
+      @filtered = params[:member_report].any? do |key, value|
+        return false if %w(order descending club_id).include?(key)
+        key == "card_holders_only" ? value == '1' : !value.blank?
       end
+
       # This order will guarantee club_id cannot be set from the outside
       report_params = params[:member_report].merge(report_params)
     end
     @membergrid = MemberReport.new(report_params)
-    @members = @membergrid.assets.paginate(:page => params[:page], :per_page => 1)
+    @members = @membergrid.assets
 
-    attributes = {:club_id => @club, :enabled => true}
-    @registered_members = Member.where(attributes).count
-    @card_members = Member.where(attributes).joins(:current_card).count
+    respond_to do |format|
+      format.html {
+        @members = @members.paginate(:page => params[:page], :per_page => 30)
+
+        attributes = {:club_id => @club, :enabled => true}
+        @registered_members = Member.where(attributes).count
+        @card_members = Member.where(attributes).joins(:current_card).count
+        render
+      }
+      format.xls {
+        name = "Export %s %s.xls" % [@club.internal_name, Time.now.strftime('%F %T')]
+        @members = @members.includes({:club => :extra_attributes}, :extra_attributes)
+        send_data Member.export(@members), :filename => name, :type => :xls
+      }
+    end
   end
 
   def disable
@@ -50,7 +57,7 @@ class Backend::MembersController < Backend::BackendController
     when 'email'
       @members = Member.where(:email => params[:search_value])
     when 'name'
-      @members = Member.where('LOWER(first_name || " " || last_name) LIKE ?', "%#{params[:search_value].downcase}%")
+      @members = Member.where('LOWER(first_name || ", " || last_name) LIKE ?', "%#{params[:search_value].downcase}%")
     end
     respond_to do |format|
       format.js

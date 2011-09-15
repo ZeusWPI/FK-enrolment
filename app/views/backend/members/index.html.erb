@@ -1,10 +1,15 @@
 <% title "Ledenbeheer" %>
 <p><%= link_to "« Terug naar overzicht", backend_root_path %></p>
 
-<p><%= @registered_members %> geregistreerde leden, <%= @card_members %> leden met lidkaart.</p>
+<p>
+  <%= @registered_members %> geregistreerde leden, <%= @card_members %> leden met lidkaart.
+  <%= link_to 'Gegevens exporteren', params.merge(:format => 'xls') %>
+</p>
 
-<p <% if @filtered %> style="display: none;" <% end %> ><%= icon(:expand, 'Filter resultaten', '#') %></p>
-<div id="filters" <% if not @filtered %> style="display: none;" <% end %> >
+<p <%= raw(' style="display: none;"') if @filtered %>>
+  <%= icon(:expand, 'Filter resultaten', '#') %>
+</p>
+<div id="filters" <%= raw(' style="display: none;"') if not @filtered %>>
   <p class="side-icons"><%= icon(:collapse, 'Filters verbergen', '#') %></p>
   <h3>Filter resultaten</h3>
   <%= semantic_form_for @membergrid, :as => "member_report",
