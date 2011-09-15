@@ -56,9 +56,11 @@ class Backend::MembersController < Backend::BackendController
       @card = Card.new(:status => 'unpaid', :isic_status => (@member.club.uses_isic ? 'request' : 'none'))
       @card.member = @member
     end
+
     if params[:card]
       @card.update_attributes(params[:card])
       unless @card.save
+        # reset card number after unsuccesful save
         @card.number = nil
       end
     end

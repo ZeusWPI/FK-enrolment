@@ -1,15 +1,38 @@
-<% unless @card.number %>
-  <%= semantic_form_for @card, :url => pay_backend_member_path do |f| %>
-    <%= f.inputs do %>
-      <%= f.input :number %>
-    <% end %>
+<% title "Kassa: kaart koppelen" %>
 
-    <%= f.buttons do %>
-      <%= f.commit_button 'Bewaar FK-nummer' %>
-    <% end %>
-  <% end %>
-<% else %>
-  <p>FK-nummer: <%= @card.number %></p>
-<% end %>
+<div class="member-wrapper">
+  <%= render :partial => 'photo' %>
 
-<p>ISIC-status: <%= @card.isic_status %></p>
+  <dl>
+    <dt>Naam:</dt>
+    <dd><%= @member.name %></dd>
+
+    <dt>Kaart-nummer:</dt>
+    <dd>
+      <%= @card.number? ? @card.number : raw("<em>nog geen kaart gekoppeld</em>") %>
+
+      <% unless @card.number %>
+        <%= form_for @card, :url => pay_backend_member_path do |f| %>
+          <%= f.text_field :number %>
+          <% if not @card.errors.empty? %>
+            <span class="field_with_errors">
+              <%= @card.errors.full_messages.join ', ' %>
+            </span>
+          <% end %>
+          <%= f.submit 'Koppelen' %>
+        <% end %>
+      <% end %>
+    </dd>
+
+    <% if @club.uses_isic || @card.isic_status != 'none' %>
+    <%# TODO: show notification if user wants to receive card at home,
+              they need to pay extra! %>
+    <dt>ISIC:</dt>
+    <%# TODO: human-friendly ISIC status %>
+    <dd><%= @card.isic_status %></dd>
+    <% end %>
+    <dt>
+  </dl>
+
+  <%# TODO: link to next registration %>
+</div>

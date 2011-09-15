@@ -1,0 +1,6 @@
+<% if @member.photo? %>
+<div class="member-photo">
+  <%= image_tag(@member.photo(:cropped)) %>
+  <p class="meta"><%= @member.photo_file_name %></p>
+</div>
+<% end %>

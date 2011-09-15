@@ -7,8 +7,12 @@ div {
 
 .field_with_errors {
   padding: 2px;
-  background-color: red;
+  background-color: $error-color;
   display: table;
+}
+span.field_with_errors {
+  color: #fff;
+  padding: 0 6px;
 }
 
 /* will_paginate */

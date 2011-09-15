@@ -23,6 +23,7 @@ class Card < ActiveRecord::Base
 
   # Check if the assigned number falls in the range given by the club
   def valid_card_number
+    return if self.number.blank?
     range = self.member.club.range_lower..self.member.club.range_upper
     errors.add(:number, "valt niet in het toegekende bereik") if not range.include? self.number
   end

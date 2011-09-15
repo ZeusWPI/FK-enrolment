@@ -34,3 +34,16 @@
 .photo-preview {
   border: 2px solid #E1E1E1;
 }
+
+.backend.pay {
+  dt, dd {
+    @include adjust-font-size-to(18px, 2.2);
+  }
+  input {
+    @include adjust-font-size-to(18px, 1);
+  }
+
+  span.field_with_errors {
+    @include adjust-font-size-to(12px, 1.2);
+  }
+}
