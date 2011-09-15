@@ -21,6 +21,8 @@ FKEnrolment::Application.routes.draw do
       get "photos", :on => :member
     end
 
+    match "fk" => "fk#index"
+
     match "settings" => "home#settings"
     match "kassa" => "home#kassa"
   end
