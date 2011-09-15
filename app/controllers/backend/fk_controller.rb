@@ -18,7 +18,7 @@ class Backend::FkController < Backend::BackendController
   end
 
   def index
-    @clubs = Club.all
+    @clubs = Club.order(:name)
     @data = {
       :count => Member,
       :paid => Member.joins(:current_card).where(:cards => {:status => 'paid'}),
