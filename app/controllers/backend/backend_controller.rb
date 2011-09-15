@@ -23,23 +23,6 @@ class Backend::BackendController < ApplicationController
     end
   end
 
-  def verify_fk
-    if request.local?
-      session[:club] = "FK" and return
-    end
-
-    if session[:cas_user].blank?
-      redirect_to cas_auth_path(:redirect => request.fullpath)
-    else
-      if session[:club].blank?
-        session[:club] = club_for_ugent_login(session[:cas_user])
-      end
-      if session[:club] != "FK"
-        render '/backend/denied', :status => 403
-      end
-    end
-  end
-
   # return which club this ugent_login is allowed to manage
   def club_for_ugent_login(ugent_login)
     def digest(*args)

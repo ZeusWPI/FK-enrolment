@@ -1,5 +1,6 @@
 <% title 'Overzicht' %>
 
 <% @count.each do |club, count| %>
-  <p><%= club.name %>: <%= count %></p>
+  <%# @paid[club].to_i is used since this could be nil and nil.to_i is 0 %>
+  <p><%= club.name %>: <%= count %> ingeschreven, <%= @paid[club].to_i %> kaarten afgeleverd </p>
 <% end %>
