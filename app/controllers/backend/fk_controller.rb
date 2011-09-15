@@ -21,6 +21,7 @@ class Backend::FkController < Backend::BackendController
   end
 
   def index
+    @clubs = Club.all
     @count = Member.includes(:club).where(:enabled => true).group(:club).count
     @paid = Member.includes(:club).joins(:current_card).where(:enabled => true).where(:cards => {:status => 'paid'}).group(:club).count
   end
