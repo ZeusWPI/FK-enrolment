@@ -39,7 +39,7 @@ class Member < ActiveRecord::Base
     return nil if not member_id
     member = includes(:current_card).where(:id => member_id, :enabled => true)
     if member.first
-      member.club_id == club.id ? [member, :success] : [nil, :forbidden]
+      member.first.club_id == club.id ? [member.first, :success] : [nil, :forbidden]
     else
       [nil, :not_found]
     end

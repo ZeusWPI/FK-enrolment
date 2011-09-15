@@ -45,7 +45,6 @@ class Backend::BackendController < ApplicationController
   end
 
   module BasicMemberReport
-
     def self.included(klass)
       klass.instance_eval do
         include Datagrid
@@ -93,7 +92,6 @@ class Backend::BackendController < ApplicationController
         end
       end
     end
-
   end
 
   class MemberReport

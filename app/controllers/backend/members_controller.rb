@@ -1,5 +1,5 @@
 class Backend::MembersController < Backend::BackendController
-  before_filter :load_member, :except => [:index, :search]
+  before_filter :load_member, :except => [:index]
   def load_member
     @member, status = Member.find_member_for_club(params['id'], @club)
     if not @member
@@ -50,20 +50,6 @@ class Backend::MembersController < Backend::BackendController
     @extra_attributes = @member.extra_attributes.includes(:spec).all
   end
 
-  def search
-    case params[:search_field]
-    when 'ugent_nr'
-      @members = Member.where(:ugent_nr => params[:search_value])
-    when 'email'
-      @members = Member.where(:email => params[:search_value])
-    when 'name'
-      @members = Member.where('LOWER(first_name || ", " || last_name) LIKE ?', "%#{params[:search_value].downcase}%")
-    end
-    respond_to do |format|
-      format.js
-    end
-  end
-
   def pay
     @card = @member.current_card
     unless @card
@@ -77,5 +63,4 @@ class Backend::MembersController < Backend::BackendController
       end
     end
   end
-
 end
