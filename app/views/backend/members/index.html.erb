@@ -14,6 +14,7 @@
       <%= f.input :first_name, :label => Member.human_attribute_name(:first_name) %>
       <%= f.input :last_name, :label => Member.human_attribute_name(:last_name) %>
       <%= f.input :ugent_nr, :label => Member.human_attribute_name(:ugent_nr) %>
+      <%= f.input :card_number, :label => Card.human_attribute_name(:number) %>
       <%= f.input :email, :label => Member.human_attribute_name(:email) %>
     <% end %>
     <%= f.buttons do %>
