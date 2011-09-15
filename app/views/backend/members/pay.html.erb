@@ -28,8 +28,7 @@
     <%# TODO: show notification if user wants to receive card at home,
               they need to pay extra! %>
     <dt>ISIC:</dt>
-    <%# TODO: human-friendly ISIC status %>
-    <dd><%= @card.isic_status %></dd>
+    <dd><%= human_isic_text @card.isic_status %></dd>
     <% end %>
     <dt>
   </dl>
