@@ -112,6 +112,9 @@ class Backend::BackendController < ApplicationController
   class PayMemberReport
     include BasicMemberReport
 
+    column(:photo, :header => "") do |member|
+      icon(:photo, '', '#', "data-photo" => member.photo(:cropped)) if member.photo
+    end
     column(:pay, :header => "") do |member|
       link_to "Betalen", pay_backend_member_path(member)
     end
