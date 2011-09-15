@@ -14,7 +14,7 @@ class Backend::BackendController < ApplicationController
         session[:club] = club_for_ugent_login(session[:cas_user])
       end
 
-      return redirect_to backend_fk_path if session[:club] == 'fk'
+      return redirect_to backend_fk_path if session[:club] == 'FK'
       @club = Club.find_by_internal_name(session[:club])
       unless @club
         render '/backend/denied', :status => 403
