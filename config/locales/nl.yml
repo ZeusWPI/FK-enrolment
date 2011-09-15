@@ -27,9 +27,9 @@ nl:
         number: Kaartnummer
 
   will_paginate:
-    previous_label: "&#8592; Vorige"
-    next_label: "Volgende &#8594;"
-    page_gap: "&hellip;"
+    previous_label: ← Vorige
+    next_label: Volgende →
+    page_gap: …
 
   datagrid:
     table:

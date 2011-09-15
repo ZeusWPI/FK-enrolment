@@ -11,6 +11,10 @@ class Club < ActiveRecord::Base
     where(:registration_method => Array.wrap(method).map(&:to_s))
   end
 
+  def uses?(method)
+    registration_method == method.to_s
+  end
+
   # Get the asset path for the club's shield
   def shield_path(size = :normal)
     if size == :small
