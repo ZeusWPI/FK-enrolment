@@ -1,5 +1,23 @@
 <% title 'Overzicht' %>
-<% @clubs.each do |club| %>
-  <%# @hash[club].to_i is used since this could be nil and nil.to_i is 0 %>
-  <p><%= club.name %>: <%= @count[club].to_i %> ingeschreven, <%= @paid[club].to_i %> kaarten afgeleverd </p>
-<% end %>
+
+<table class="datagrid numbers">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Registraties</th>
+      <th>Betaalde kaarten</th>
+      <th>ISIC kaarten</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @clubs.each do |club| %>
+    <%# @hash[club].to_i is used since this could be nil and nil.to_i is 0 %>
+    <tr>
+      <th><%= club.name %></th>
+      <td><%= @data[:count][club].to_i %></td>
+      <td><%= @data[:paid][club].to_i %></td>
+      <td><%= @data[:isic][club].to_i %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -70,6 +70,12 @@ div {
 
 table.datagrid {
   width: 100%;
+  &.numbers {
+    width: 60%;
+    td {
+      text-align: center;
+    }
+  }
 
   tbody tr {
     td {
