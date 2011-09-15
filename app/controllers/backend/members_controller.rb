@@ -8,16 +8,28 @@ class Backend::MembersController < Backend::BackendController
   end
 
   def index
-    attributes = {:club_id => @club, :enabled => true}
-
     report_params = {:club_id => @club.id}
+    @filtered = false
     if params[:member_report]
+      # This will check if members are actually filtered
+      params[:member_report].each do |key, value| 
+        next if key == "order" || key == "descending" || key == "club_id"
+        if key == "card_holders_only" && value == "true"
+          @filtered = true
+          break
+        end
+        if value != ""
+          @filtered = true
+          break
+        end
+      end
       # This order will guarantee club_id cannot be set from the outside
       report_params = params[:member_report].merge(report_params)
     end
     @membergrid = MemberReport.new(report_params)
     @members = @membergrid.assets.paginate(:page => params[:page], :per_page => 1)
 
+    attributes = {:club_id => @club, :enabled => true}
     @registered_members = Member.where(attributes).count
     @card_members = Member.where(attributes).joins(:current_card).count
   end
