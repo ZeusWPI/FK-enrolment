@@ -34,6 +34,7 @@
   <dt>Kotadres:</dt><dd><%= simple_format(@member.studenthome_address) %></dd>
   <% end %>
 </dl>
+<%= link_to "Naar de kassa", pay_backend_member_path(@member) %>
 </div>
 
 <% if @member.current_card %>
