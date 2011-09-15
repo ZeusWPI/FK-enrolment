@@ -44,4 +44,77 @@ class Backend::BackendController < ApplicationController
 
     nil
   end
+
+  module BasicMemberReport
+
+    def self.included(klass)
+      klass.instance_eval do
+        include Datagrid
+        extend ActionView::Helpers::UrlHelper
+        extend ActionView::Helpers::TagHelper
+        extend ApplicationHelper
+        class << self
+          include Rails.application.routes.url_helpers
+        end
+
+        scope do
+          Member.includes(:current_card).where({:enabled => true}).order("members.created_at DESC")
+        end
+        # Filters
+        filter(:club_id, :integer)
+        filter(:first_name) do |value|
+          self.where(["LOWER(members.first_name) LIKE ?", "%#{value.downcase}%"])
+        end
+        filter(:last_name) do |value|
+          self.where(["LOWER(members.last_name) LIKE ?", "%#{value.downcase}%"])
+        end
+        filter(:ugent_nr)
+        filter(:email) do |value|
+          self.where(["LOWER(members.email) LIKE ?", "%#{value.downcase}%"])
+        end
+        filter(:card_number) do |value|
+          self.where(["cards.number = ?", value])
+        end
+        filter(:card_holders_only, :boolean) do |value|
+          self.where(["cards.number IS NOT NULL"])
+        end
+
+        # Columns
+        column(:name, :order => "last_name, first_name" ,:header => "Naam") do |member|
+          member.last_name + ", " + member.first_name
+        end
+        column(:ugent_nr, :header => "UGent-nr.")
+        column(:email, :header => "E-mailadres")
+        column(:card_number, :header => "FK-nummer")
+        column(:created_at, :order => "members.created_at", :header => "Geregistreerd") do |member|
+          I18n.localize member.created_at, :format => :short
+        end
+      end
+    end
+
+  end
+
+  class MemberReport
+    include BasicMemberReport
+    # Icons
+    column(:photo, :header => "") do |member|
+      icon(:photo, '', '#', "data-photo" => member.photo(:cropped)) if member.photo
+    end
+    column(:details, :header => "") do |member|
+      icon(:details, '', backend_member_path(member), :title => "Details")
+    end
+    column(:delete, :header => "") do |member|
+      icon(:delete, '', disable_backend_member_path(member),
+              :title => "Verwijderen", :method => :post,
+              :confirm => "Bent u zeker dat u dit lid wil verwijderen?")
+    end
+  end
+
+  class PayMemberReport
+    include BasicMemberReport
+
+    column(:pay, :header => "") do |member|
+      link_to "Betalen", pay_backend_member_path(member)
+    end
+  end
 end
