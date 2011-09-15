@@ -25,10 +25,11 @@
     </dd>
 
     <% if @club.uses_isic || @card.isic_status != 'none' %>
-    <%# TODO: show notification if user wants to receive card at home,
-              they need to pay extra! %>
     <dt>ISIC:</dt>
     <dd><%= human_isic_text @card.isic_status %></dd>
+    <% end %>
+    <% if @member.isic_mail_card %>
+    <dd><strong>Extra aanrekenen voor kaartverzending!</strong></dd>
     <% end %>
     <dt>
   </dl>
