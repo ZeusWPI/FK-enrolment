@@ -5,9 +5,7 @@ class Backend::BackendController < ApplicationController
   before_filter :verify_club
   def verify_club
     # Development backdoor
-    if request.local?
-      @club = Club.find_by_internal_name("Chemica") and return
-    end
+    return @club = Club.find_by_internal_name("Chemica") if request.local?
 
     if session[:cas_user].blank?
       redirect_to cas_auth_path(:redirect => request.fullpath)
@@ -15,8 +13,9 @@ class Backend::BackendController < ApplicationController
       if session[:club].blank?
         session[:club] = club_for_ugent_login(session[:cas_user])
       end
-      @club = Club.find_by_internal_name(session[:club])
 
+      return redirect_to backend_fk_path if session[:club] == 'fk'
+      @club = Club.find_by_internal_name(session[:club])
       unless @club
         render '/backend/denied', :status => 403
       end
