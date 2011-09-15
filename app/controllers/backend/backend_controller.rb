@@ -88,6 +88,9 @@ class Backend::BackendController < ApplicationController
         column(:created_at, :order => "members.created_at", :header => "Geregistreerd") do |member|
           I18n.localize member.created_at, :format => :short
         end
+        column(:photo, :header => "") do |member|
+          icon(:photo, '', '#', "data-photo" => member.photo(:cropped)) if member.photo
+        end
       end
     end
 
@@ -96,9 +99,6 @@ class Backend::BackendController < ApplicationController
   class MemberReport
     include BasicMemberReport
     # Icons
-    column(:photo, :header => "") do |member|
-      icon(:photo, '', '#', "data-photo" => member.photo(:cropped)) if member.photo
-    end
     column(:details, :header => "") do |member|
       icon(:details, '', backend_member_path(member), :title => "Details")
     end
@@ -112,9 +112,6 @@ class Backend::BackendController < ApplicationController
   class PayMemberReport
     include BasicMemberReport
 
-    column(:photo, :header => "") do |member|
-      icon(:photo, '', '#', "data-photo" => member.photo(:cropped)) if member.photo
-    end
     column(:pay, :header => "") do |member|
       link_to "Betalen", pay_backend_member_path(member)
     end
