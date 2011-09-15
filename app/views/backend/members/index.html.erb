@@ -16,6 +16,7 @@
       <%= f.input :ugent_nr, :label => Member.human_attribute_name(:ugent_nr) %>
       <%= f.input :card_number, :label => Card.human_attribute_name(:number) %>
       <%= f.input :email, :label => Member.human_attribute_name(:email) %>
+      <%= f.input :card_holders_only, :as => :boolean, :label => "Enkel leden met kaartnummer?" %>
     <% end %>
     <%= f.buttons do %>
       <%= f.commit_button "Filteren" %>

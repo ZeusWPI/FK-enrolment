@@ -82,6 +82,9 @@ class Backend::MembersController < Backend::BackendController
     filter(:card_number) do |value|
       self.where(["cards.number = ?", value])
     end
+    filter(:card_holders_only, :boolean) do |value|
+      self.where(["cards.number IS NOT NULL"])
+    end
 
     # Columns
     column(:name, :order => "last_name, first_name" ,:header => "Naam") do |member|
