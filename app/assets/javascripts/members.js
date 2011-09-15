@@ -26,7 +26,7 @@ $(function() {
     }).click(function() { return false; });
   }
 
-  if($('body').hasClass('backend members')) {
+  if($('body').hasClass('backend')) {
     initFilters();
     initPhotoOverlay();
   }
