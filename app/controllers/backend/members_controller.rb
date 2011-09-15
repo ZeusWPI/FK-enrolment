@@ -74,11 +74,17 @@ class Backend::MembersController < Backend::BackendController
     end
 
     # Filters
-    filter(:club_id)
-    filter(:first_name)
-    filter(:last_name)
+    filter(:club_id, :integer)
+    filter(:first_name) do |value|
+      self.where(["LOWER(members.first_name) LIKE ?", "%#{value.downcase}%"])
+    end
+    filter(:last_name) do |value|
+      self.where(["LOWER(members.last_name) LIKE ?", "%#{value.downcase}%"])
+    end
     filter(:ugent_nr)
-    filter(:email)
+    filter(:email) do |value|
+      self.where(["LOWER(members.email) LIKE ?", "%#{value.downcase}%"])
+    end
     filter(:card_number) do |value|
       self.where(["cards.number = ?", value])
     end
