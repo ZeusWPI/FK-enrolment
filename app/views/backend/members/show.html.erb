@@ -41,6 +41,18 @@
 </dl>
 </div>
 
+<% if @member.current_card %>
+<h3>Lidkaart</h3>
+
+<dl>
+  <dt>Nummer:</dt><dd><%= @member.current_card.number %></dd>
+  <dt>Status:</dt><dd>
+    <%= @member.current_card.status %>
+    (ISIC: <%= @member.current_card.isic_status %>)
+  </dd>
+</dl>
+<% end %>
+
 <h3>Extra vragen</h3>
 <dl class="no-indent">
 <% @extra_attributes.each do |attribute| %>

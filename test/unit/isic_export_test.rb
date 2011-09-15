@@ -18,7 +18,7 @@ class IsicExportTest < ActiveSupport::TestCase
   end
 
   test "should generate export spreadsheet" do
-    IsicExport.destroy_all
+    IsicExport.delete_all
 
     @export = IsicExport.new
     @export.generate([@member])
@@ -31,7 +31,7 @@ class IsicExportTest < ActiveSupport::TestCase
   end
 
   test "should generate export zip" do
-    IsicExport.destroy_all
+    IsicExport.delete_all
 
     @export = IsicExport.new
     @export.generate([@member])
