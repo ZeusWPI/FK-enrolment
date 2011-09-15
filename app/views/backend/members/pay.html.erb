@@ -2,7 +2,7 @@
 
 <div class="member-wrapper">
   <%= render :partial => 'photo' %>
-
+  <%= link_to "« Terug naar kassa", backend_kassa_path %>
   <dl>
     <dt>Naam:</dt>
     <dd><%= @member.name %></dd>
@@ -34,5 +34,4 @@
     <dt>
   </dl>
 
-  <%# TODO: link to next registration %>
 </div>
