@@ -1,4 +1,4 @@
-# [FK-enrolment](http://registratie.fkgent.be)
+§§§§# [FK-enrolment](http://registratie.fkgent.be)
 
 FK-enrolment werd ontwikkeld door [Zeus WPI](http://zeus.ugent.be) voor het [FaculteitenKonvent Gent](http://fkgent.be).
 Alle code is eigendom van hun respectievelijke eigenaars, bij vragen: contacteer fk-enrolment@zeus.ugent.be.
@@ -52,7 +52,7 @@ De voornaamste methodes worden hieronder beschreven:
 
     * ``number`` (int): toegekende FK-kaart nummer
     * ``status`` (paid of unpaid): betalingsstatus
-    * ``isic_status`` (none/requested/printed/delivered): ISIC-kaart aanvragen of niet?
+    * ``isic_status`` (none/request/requested/printed/delivered): ISIC-kaart aanvragen of niet?
 
 *   *GET /api/v2/club.json?key=x*
 
