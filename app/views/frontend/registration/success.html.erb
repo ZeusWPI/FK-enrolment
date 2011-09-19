@@ -15,4 +15,7 @@
     <%= link_to "website van je kring", @club.url %>.
   </p>
   <% end %>
+
+  <%# Log user out after registration, useful on shared computers %>
+  <iframe src="<%= cas_logout_path %>" class="hidden"></iframe>
 </div>

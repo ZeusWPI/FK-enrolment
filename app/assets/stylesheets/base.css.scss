@@ -68,3 +68,7 @@ pre {
   padding: 10px;
   @include adjust-font-size-to(11px, 1);
 }
+
+.hidden {
+  display: none;
+}
