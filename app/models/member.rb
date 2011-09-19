@@ -154,11 +154,15 @@ class Member < ActiveRecord::Base
         extra_attributes = member.extra_attributes
         club.extra_attributes.each do |spec|
           next if spec.field_type.blank?
-          value = extra_attributes.detect {|attr| attr.spec_id == spec.id }.value
-          if value.class.include? Enumerable
-            attributes << value.delete_if { |v| v.blank? }.join(', ')
+          attribute = extra_attributes.detect {|attr| attr.spec_id == spec.id }
+          if attribute
+            if attribute.value.class.include?(Enumerable)
+              attributes << attribute.value.delete_if { |v| v.blank? }.join(', ')
+            else
+              attributes << attribute.value.sub("\r\n", "\n")
+            end
           else
-            attributes << value.sub("\r\n", "\n")
+            attributes << ''
           end
         end
         sheet.row(i+1).concat attributes
