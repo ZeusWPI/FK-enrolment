@@ -31,7 +31,7 @@ class Member < ActiveRecord::Base
   after_initialize :defaults
   def defaults
     # Opt-in by default for ISIC-clubs
-    self.isic_newsletter = true if isic_newsletter.nil? && club && club.uses_isic
+    self.isic_newsletter = true if isic_newsletter.nil? && club.try(:uses_isic)
   end
 
   # Load member, checking access
