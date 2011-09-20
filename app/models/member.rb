@@ -135,8 +135,8 @@ class Member < ActiveRecord::Base
       club = members.first.club
       members.each_with_index do |member, i|
         card = member.current_card || Card.new
-        sheet.row(i+1).concat [club.name, member.first_name, member.sex,
-          member.last_name, member.ugent_nr, member.email, member.date_of_birth,
+        sheet.row(i+1).concat [club.name, member.first_name, member.last_name,
+          member.sex, member.ugent_nr, member.email, member.date_of_birth,
           member.home_address.sub("\r\n", "\n"),
           member.studenthome_address.sub("\r\n", "\n"),
           member.photo.url(:cropped, use_timestamp = false), member.created_at,

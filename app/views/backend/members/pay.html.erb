@@ -9,16 +9,19 @@
 
     <dt>Kaart-nummer:</dt>
     <dd>
-      <%= @card.number? ? @card.number : raw("<em>nog geen kaart gekoppeld</em>") %>
-
-      <% unless @card.number %>
-          <%= f.text_field :number %>
-          <% if not @card.errors.empty? %>
-            <span class="field_with_errors">
-              <%= @card.errors.full_messages.join ', ' %>
-            </span>
-          <% end %>
+      <% if @card.number? %>
+        <%= @card.number %>
+      <% elsif @club.uses_isic %>
+        tijdelijke kaart
+      <% else %>
+        <em>nog geen kaart gekoppeld</em>
+        <%= f.text_field :number %>
+        <% if not @card.errors.empty? %>
+          <span class="field_with_errors">
+            <%= @card.errors.full_messages.join ', ' %>
+          </span>
         <% end %>
+      <% end %>
     </dd>
 
     <dt>Status:</dt>
@@ -29,12 +32,12 @@
     <dd><%= human_isic_status @card.isic_status %></dd>
     <% end %>
     <% if @member.isic_mail_card %>
-    <dd><strong>Extra aanrekenen voor kaartverzending!</strong></dd>
+    <dd><strong>Kaart wordt opgestuurd: €1 extra aanrekenen!</strong></dd>
     <% end %>
 
     <dd>
       <% if @card.status != 'paid' %>
-        <%= f.submit (@card.number.blank? ? 'Koppelen en betalen' : 'Betalen') %>
+        <%= f.submit 'Betalen' %>
       <% end %>
     </dd>
 

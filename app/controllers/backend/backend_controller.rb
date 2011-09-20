@@ -58,6 +58,7 @@ class Backend::BackendController < ApplicationController
         scope do
           Member.includes(:current_card).where({:enabled => true}).order("members.created_at DESC")
         end
+
         # Filters
         filter(:club_id, :integer)
         filter(:first_name) do |value|
