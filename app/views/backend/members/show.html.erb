@@ -1,5 +1,8 @@
 <% title @member.name %>
-<p><%= link_to "« Terug naar alle leden", backend_members_path %></p>
+<p>
+  <%= link_to "« Terug naar alle leden", backend_members_path %>,
+  <%= link_to "betalingsinformatie aanpassen »", pay_backend_member_path(@member) %>
+</p>
 
 <h3>Basisgegevens</h3>
 <div class="member-wrapper">
@@ -34,7 +37,6 @@
   <dt>Kotadres:</dt><dd><%= simple_format(@member.studenthome_address) %></dd>
   <% end %>
 </dl>
-<%= link_to "Naar de kassa", pay_backend_member_path(@member) %>
 </div>
 
 <% if @member.current_card %>
@@ -43,8 +45,8 @@
 <dl>
   <dt>Nummer:</dt><dd><%= @member.current_card.number %></dd>
   <dt>Status:</dt><dd>
-    <%= @member.current_card.status %>
-    (ISIC: <%= @member.current_card.isic_status %>)
+    <%= human_card_status(@member.current_card.status) %>
+    (ISIC: <%= human_isic_status(@member.current_card.isic_status) %>)
   </dd>
 </dl>
 <% end %>

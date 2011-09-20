@@ -13,7 +13,7 @@ class Backend::MembersController < Backend::BackendController
     if params[:member_report]
       # This will check if members are actually filtered
       @filtered = params[:member_report].any? do |key, value|
-        return false if %w(order descending club_id).include?(key)
+        next false if %w(order descending club_id).include?(key)
         key == "card_holders_only" ? value == '1' : !value.blank?
       end
 
@@ -30,7 +30,6 @@ class Backend::MembersController < Backend::BackendController
         attributes = {:club_id => @club, :enabled => true}
         @registered_members = Member.where(attributes).count
         @card_members = Member.where(attributes).joins(:current_card).count
-        render
       }
       format.xls {
         name = "Export %s %s.xls" % [@club.internal_name, Time.now.strftime('%F %T')]

@@ -16,10 +16,7 @@ class IsicExport < ActiveRecord::Base
     # assign cards to all members
     members.each do |member|
       if not member.current_card
-        card = Card.new
-        card.generate_number(member.club)
-        card.isic_status = 'requested'
-        member.current_card = card
+        member.current_card = Card.new(:isic_status => 'requested')
       else
         card = member.current_card
         card.update_attribute(:isic_status, 'requested')

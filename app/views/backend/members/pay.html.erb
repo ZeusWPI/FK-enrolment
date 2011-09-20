@@ -2,6 +2,7 @@
 
 <div class="member-wrapper">
   <%= render :partial => 'photo' %>
+  <%= form_for @card, :url => pay_backend_member_path do |f| %>
   <dl>
     <dt>Naam:</dt>
     <dd><%= @member.name %></dd>
@@ -11,27 +12,17 @@
       <%= @card.number? ? @card.number : raw("<em>nog geen kaart gekoppeld</em>") %>
 
       <% unless @card.number %>
-        <%= form_for @card, :url => pay_backend_member_path do |f| %>
           <%= f.text_field :number %>
           <% if not @card.errors.empty? %>
             <span class="field_with_errors">
               <%= @card.errors.full_messages.join ', ' %>
             </span>
           <% end %>
-          <%= f.submit 'Koppelen en betalen' %>
         <% end %>
-      <% end %>
     </dd>
 
     <dt>Status:</dt>
-    <dd>
-      <%= human_card_status @card.status %>
-      <% if !@card.number.blank? && @card.status != 'paid' %>
-        <%= form_for @card, :url => pay_backend_member_path do |f| %>
-          <%= f.submit 'Betalen' %>
-        <% end %>
-      <% end %>
-    </dd>
+    <dd><%= human_card_status @card.status %></dd>
 
     <% if @club.uses_isic || @card.isic_status != 'none' %>
     <dt>ISIC:</dt>
@@ -40,8 +31,14 @@
     <% if @member.isic_mail_card %>
     <dd><strong>Extra aanrekenen voor kaartverzending!</strong></dd>
     <% end %>
-    <dt>
+
+    <dd>
+      <% if @card.status != 'paid' %>
+        <%= f.submit (@card.number.blank? ? 'Koppelen en betalen' : 'Betalen') %>
+      <% end %>
+    </dd>
 
     <dd><%= link_to "Volgend lid »", backend_kassa_path %></dd>
   </dl>
+  <% end %>
 </div>

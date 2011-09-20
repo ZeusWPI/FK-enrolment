@@ -23,7 +23,7 @@ class Card < ActiveRecord::Base
 
   # Check if the assigned number falls in the range given by the club
   def valid_card_number
-    return if self.number.blank?
+    return if self.number.blank? or not self.member
     range = self.member.club.range_lower..self.member.club.range_upper
     errors.add(:number, "valt niet in het toegekende bereik") if not range.include? self.number
   end
@@ -42,7 +42,7 @@ class Card < ActiveRecord::Base
     self.academic_year ||= Member.current_academic_year
   end
 
-  # Hash for export (see to_json)
+  # Hash for export (see to_json)§
   def serializable_hash(options = nil)
     result = super((options || {}).merge({
       :except => [:member_id]
@@ -51,10 +51,14 @@ class Card < ActiveRecord::Base
     result
   end
 
+  # Force generating numbers for ISIC registrations
+  before_validation :generate_number
+
   # Get the next available card number
-  def generate_number(club)
+  def generate_number
+    return unless self.number.blank? and self.isic_status != 'none'
     next_number = Card.where(
-      :members => {:club_id => club.id}, :enabled => true,
+      :members => {:club_id => member.club_id}, :enabled => true,
       :academic_year => Member.current_academic_year
     ).maximum(:number)
     self.number = next_number ? next_number + 1 : club.range_lower
