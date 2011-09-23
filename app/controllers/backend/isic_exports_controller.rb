@@ -17,9 +17,8 @@ class Backend::IsicExportsController < Backend::BackendController
   end
 
   def create
-    export = IsicExport.create_export
-    flash[:error] = "Er kon geen nieuwe export aangemaakt worden" if not export
-    redirect_to backend_isic_exports_path
+    DelayedJob.enqueue IsicExportJob.new
+    redirect_to backend_isic_exports_path, :notice => 'De export wordt in de achtergrond aangemaakt'
   end
 
   def data
@@ -37,4 +36,5 @@ class Backend::IsicExportsController < Backend::BackendController
       :type => :zip
     )
   end
+
 end
