@@ -23,8 +23,12 @@
     <td><%= l export.created_at, :format => :long %></td>
     <td><%= export.members.count %></td>
     <td><%= export.status %></td>
+    <% if export.data_file_name? %>
     <td><%= link_to export.data_file_name, [:data, :backend, export] %></td>
     <td><%= link_to export.photos_file_name, [:photos, :backend, export] %></td>
+    <% else %>
+    <td colspan="2"><em>wordt aangemaakt…</em></td>
+    <% end %>
   </tr>
 <% end %>
 </tbody>

@@ -89,7 +89,7 @@ class Backend::BackendController < ApplicationController
           I18n.localize member.created_at, :format => :short
         end
         column(:photo, :header => "") do |member|
-          icon(:photo, '', '#', "data-photo" => member.photo(:cropped)) if member.photo.present?
+          icon(:photo, '', '#', "data-photo" => member.photo(:cropped)) if member.photo?
         end
       end
     end

@@ -5,8 +5,6 @@ class IsicExport < ActiveRecord::Base
   has_attached_file :photos
 
   validates :status, :inclusion => { :in => %w(requested printed) }
-  validates_attachment_presence :data
-  validates_attachment_presence :photos
 
   # Create a new export
   def self.create_export
@@ -18,13 +16,12 @@ class IsicExport < ActiveRecord::Base
       if not member.current_card
         member.current_card = Card.new(:isic_status => 'requested')
       else
-        card = member.current_card
-        card.update_attribute(:isic_status, 'requested')
+        member.current_card.update_attribute(:isic_status, 'requested')
       end
     end
 
     export = IsicExport.new
-    export.generate(members)
+    export.members = members.map(&:id)
     export if export.save
   end
 
@@ -36,11 +33,11 @@ class IsicExport < ActiveRecord::Base
   # Generate the export files
   def generate(members = nil)
     members = full_members if not members
-    self.members = members.map(&:id) if not self.members
-
     filename = File.join(Dir.tmpdir, "Export %s" % Time.now.strftime('%F %T'))
+
     generate_data_spreadsheet(filename + ".xls", members)
     generate_photos_zip(filename + ".zip", members)
+    save!
   end
 
   # Create data file
@@ -49,7 +46,7 @@ class IsicExport < ActiveRecord::Base
     sheet = book.create_worksheet :name => "Gegevens"
     sheet.row(0).concat ["School", "Kring", "Voornaam", "Familienaam",
         "Geboortedatum", "E-mailadres", "Thuisadres", "FK-nummer", "Foto",
-        "ISIC Nieuwsbrief" "Kaart opsturen"]
+        "ISIC Nieuwsbrief", "Kaart opsturen"]
 
     members.each_with_index do |member, i|
       sheet.row(i+1).concat ["UGent", member.club.internal_name,
