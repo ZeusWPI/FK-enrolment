@@ -17,7 +17,7 @@ class Backend::IsicExportsController < Backend::BackendController
   end
 
   def create
-    Delayed::Job.enqueue IsicExportJob.new
+    IsicExport.send_later(:create_export)
     redirect_to backend_isic_exports_path, :notice => 'De export wordt in de achtergrond aangemaakt'
   end
 
