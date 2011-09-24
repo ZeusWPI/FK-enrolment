@@ -40,6 +40,8 @@ gem 'zippy'
 # Creating datagrids
 gem 'datagrid'
 
+gem 'delayed_job'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

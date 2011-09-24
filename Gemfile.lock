@@ -60,8 +60,12 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
+    daemons (1.1.4)
     datagrid (0.3.6)
       rails
+    delayed_job (2.1.4)
+      activesupport (~> 3.0)
+      daemons
     erubis (2.7.0)
     exception_notification (2.5.2)
       actionmailer (>= 3.0.4)
@@ -172,6 +176,7 @@ DEPENDENCIES
   autotest-rails
   compass (~> 0.12.alpha.0)
   datagrid
+  delayed_job
   exception_notification
   formtastic
   httparty
