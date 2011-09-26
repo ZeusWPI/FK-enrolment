@@ -57,7 +57,7 @@ class Backend::MembersController < Backend::BackendController
     end
 
     if params[:card] || params[:commit]
-      @card.update_attributes(params[:card])
+      @card.attributes = params[:card]
       @card.status = 'paid'
       unless @card.save
         # reset card number after unsuccesful save
