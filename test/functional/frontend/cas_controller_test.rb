@@ -21,10 +21,4 @@ class Frontend::CasControllerTest < ActionController::TestCase
     post :verify, params
     assert_response :success
   end
-
-  test "should set the member_id in session" do
-    RubyCAS::Filter.fake("pdbaets", {"ugentStudentID" => "00800001"})
-    get :verify
-    assert_equal members(:javache).id, session[:member_id]
-  end
 end
