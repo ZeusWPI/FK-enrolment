@@ -11,10 +11,13 @@ class IsicExport < ActiveRecord::Base
     Member.includes(:current_card, :club).where(:id => self.members, :enabled => true)
   end
 
+  after_initialize do
+    self.members = Member.find_all_for_isic_export.map(&:id)
+  end
+
   # Generate the export files
-  def generate(members = nil)
-    members = Member.find_all_for_isic_export
-    return nil if members.length == 0
+  def generate
+    members = self.full_members
 
     # assign cards to all members
     members.each do |member|
@@ -24,9 +27,6 @@ class IsicExport < ActiveRecord::Base
         member.current_card.update_attribute(:isic_status, 'requested')
       end
     end
-
-    self.members = members.map(&:id)
-    save!
 
     filename = File.join(Dir.tmpdir, "Export %s" % Time.now.strftime('%F %T'))
     generate_data_spreadsheet(filename + ".xls", members)

@@ -21,7 +21,8 @@ class IsicExportTest < ActiveSupport::TestCase
     IsicExport.delete_all
 
     @export = IsicExport.new
-    @export.generate([@member])
+    @export.members = [@member.id]
+    @export.generate
     @export.save!
 
     assert File.exists?(@export.data.path)
@@ -34,7 +35,8 @@ class IsicExportTest < ActiveSupport::TestCase
     IsicExport.delete_all
 
     @export = IsicExport.new
-    @export.generate([@member])
+    @export.members = [@member.id]
+    @export.generate
     @export.save!
 
     assert File.exists?(@export.photos.path)
