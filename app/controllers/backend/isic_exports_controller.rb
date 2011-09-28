@@ -17,7 +17,7 @@ class Backend::IsicExportsController < Backend::BackendController
   end
 
   def create
-    IsicExport.create_export.send_later(:generate)
+    IsicExport.create.send_later(:generate)
     redirect_to backend_isic_exports_path, :notice => ('De export wordt gegenereerd. ' \
         'Gelieve binnen enkele minuten deze pagina opnieuw te laden.')
   end

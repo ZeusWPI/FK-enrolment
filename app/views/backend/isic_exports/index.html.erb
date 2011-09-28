@@ -21,7 +21,7 @@
 <% @exports.each do |export| %>
   <tr class="<%= cycle("odd", "even") %>">
     <td><%= l export.created_at, :format => :long %></td>
-    <td><%= export.members.count %></td>
+    <td><%= export.members.count if export.members? %></td>
     <td><%= export.status %></td>
     <% if export.data_file_name? %>
     <td><%= link_to export.data_file_name, [:data, :backend, export] %></td>

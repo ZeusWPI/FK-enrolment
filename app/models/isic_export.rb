@@ -6,8 +6,13 @@ class IsicExport < ActiveRecord::Base
 
   validates :status, :inclusion => { :in => %w(requested printed) }
 
-  # Create a new export
-  def self.create_export
+  # Get a list of members involved in this export
+  def full_members
+    Member.includes(:current_card, :club).where(:id => self.members, :enabled => true)
+  end
+
+  # Generate the export files
+  def generate(members = nil)
     members = Member.find_all_for_isic_export
     return nil if members.length == 0
 
@@ -20,21 +25,10 @@ class IsicExport < ActiveRecord::Base
       end
     end
 
-    export = IsicExport.new
-    export.members = members.map(&:id)
-    export if export.save
-  end
+    self.members = members.map(&:id)
+    save!
 
-  # Get a list of members involved in this export
-  def full_members
-    Member.includes(:current_card, :club).where(:id => self.members, :enabled => true)
-  end
-
-  # Generate the export files
-  def generate(members = nil)
-    members = full_members if not members
     filename = File.join(Dir.tmpdir, "Export %s" % Time.now.strftime('%F %T'))
-
     generate_data_spreadsheet(filename + ".xls", members)
     generate_photos_zip(filename + ".zip", members)
     save!
