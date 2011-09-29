@@ -11,7 +11,7 @@ class IsicExport < ActiveRecord::Base
     Member.includes(:current_card, :club).where(:id => self.members, :enabled => true)
   end
 
-  after_create do
+  before_create do
     self.members = Member.find_all_for_isic_export.map(&:id)
   end
 
