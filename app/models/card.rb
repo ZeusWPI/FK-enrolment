@@ -58,7 +58,7 @@ class Card < ActiveRecord::Base
   def generate_number
     return unless self.number.blank? and self.isic_status != 'none'
     next_number = Card.where(
-      :members => {:club_id => member.club_id}, :enabled => true,
+      :members => {:club_id => member.club_id},
       :academic_year => Member.current_academic_year
     ).maximum(:number)
     self.number = next_number ? next_number + 1 : club.range_lower
