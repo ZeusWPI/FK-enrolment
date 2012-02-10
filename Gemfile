@@ -68,4 +68,7 @@ group :test do
   # Pretty printed test output
   gem 'turn', :require => false
   gem 'autotest-rails'
+
+  # Code coverage
+  gem 'cover_me', '>= 1.2.0'
 end

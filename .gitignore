@@ -8,5 +8,7 @@ public/assets/
 .DS_Store
 *.psd
 seenly-core
+coverage.data
+coverage
 
 app/assets/images/icons-*.png
