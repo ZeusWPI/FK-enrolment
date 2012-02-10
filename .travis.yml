@@ -1,0 +1,8 @@
+language: ruby
+rvm:
+    - 1.9.3
+
+notifications:
+    email:
+        - admin@zeus.ugent.be
+    irc: "wina.ugent.be#zeus
