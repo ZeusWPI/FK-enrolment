@@ -1,4 +1,5 @@
-# [FK-enrolment](http://registratie.fkgent.be)
+# [FK-enrolment](http://registratie.fkgent.be) [![Build Status](https://secure.travis-ci.org/ZeusWPI/FK-enrolment.png)](http://travis-ci.org/ZeusWPI/FK-enrolment)
+
 
 FK-enrolment werd ontwikkeld door [Zeus WPI](http://zeus.ugent.be) voor het [FaculteitenKonvent Gent](http://fkgent.be).
 Alle code is eigendom van hun respectievelijke eigenaars, bij vragen: contacteer fk-enrolment@zeus.ugent.be.
