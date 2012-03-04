@@ -1,7 +1,7 @@
 class Api::MembersController < Api::ApiController
   before_filter :load_member, :except => [:index, :create]
   def load_member
-    @member, status = Member.find_member_for_club(params['id'], @club)
+    @member, status = Member.find_member_for_club(params[:id], @club)
     if not @member
       respond_with({:error => "Invalid member"}, :status => status, :location => '')
     end
@@ -40,7 +40,7 @@ class Api::MembersController < Api::ApiController
   # POST /members
   # POST /members.json
   def create
-    @member = Member.new(unwrap_params(:member))
+    @member = Member.new unwrap_params(:member)
     @member.club = @club
     @member.enabled = true
     @member.save
@@ -50,7 +50,7 @@ class Api::MembersController < Api::ApiController
   # PUT /members/1
   # PUT /members/1.json
   def update
-    @member.update_attributes(unwrap_params(:member))
+    @member.update_attributes unwrap_params(:member)
     respond_with(:api, @member)
   end
 

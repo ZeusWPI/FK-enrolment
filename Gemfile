@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.1.0'
+gem 'rails', '~> 3.2'
 gem 'sqlite3'
 
 # Deploy with Capistrano
@@ -11,10 +11,10 @@ gem 'rubycas-client', git: 'git://github.com/Javache/rubycas-client.git', branch
 gem 'rubycas-client-rails', :git => 'git://github.com/Javache/rubycas-client-rails.git'
 
 # Photo management
-gem 'paperclip', '~> 2.3'
+gem 'paperclip', '~> 2.7'
 
 # Better forms
-gem 'formtastic'
+gem 'formtastic', '~> 1.2'
 
 # Pagination
 gem 'will_paginate', '~> 3.0'
@@ -40,13 +40,14 @@ gem 'zippy'
 # Creating datagrids
 gem 'datagrid'
 
+# Larger, more CPU-intensive jobs
 gem 'delayed_job'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', '~> 3.1.0'
-  gem 'compass', '~> 0.12.alpha.0'
+  gem 'sass-rails', '~> 3.2'
+  gem 'compass-rails'
   gem 'oily_png'        # Faster PNG generation for compass sprites
   gem 'jquery-rails'
   gem 'uglifier'        # Javascript compressor
@@ -57,6 +58,7 @@ group :development do
   # To use debugger
   # gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'term-ansicolor'
+  gem 'rails-erd'
 end
 
 group :production do
@@ -66,8 +68,8 @@ end
 
 group :test do
   # Pretty printed test output
-  gem 'turn', :require => false
-  gem 'autotest-rails'
+  gem 'minitest'
+  gem 'turn'
 
   # Code coverage
   gem 'cover_me', '>= 1.2.0'

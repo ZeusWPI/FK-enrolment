@@ -10,5 +10,6 @@ public/assets/
 seenly-core
 coverage.data
 coverage
+ERD.*
 
 app/assets/images/icons-*.png

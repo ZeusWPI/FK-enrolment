@@ -11,6 +11,7 @@ class Api::ApiController < ApplicationController
   end
 
   def unwrap_params(name)
+    # why is member_id in this list?
     params[name] || params.except(:controller, :action, :format, :key, :member_id)
   end
 

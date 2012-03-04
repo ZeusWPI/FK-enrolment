@@ -7,5 +7,5 @@ Paperclip::Attachment.class_eval {
 }
 
 Paperclip.interpolates :hash_prefix do |attachment, style|
-  attachment.hash(style)[0,2]
+  attachment.hash_key(style)[0,2]
 end

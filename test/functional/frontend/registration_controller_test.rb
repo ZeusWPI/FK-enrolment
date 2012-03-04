@@ -57,12 +57,12 @@ class Frontend::RegistrationControllerTest < ActionController::TestCase
       { :spec_id => extra_attribute_specs(:study).id, :value => "Test" },
       { :spec_id => extra_attribute_specs(:message).id, :value => "A" },
     ]
-    attributes = @member.attributes.clone
+    attributes = @member.attributes.slice *Member.accessible_attributes
     attributes[:extra_attributes_attributes] = extra_attributes
 
     def assert_valid_response
-      assert_equal @club.extra_attributes.count, @member.extra_attributes.count
       assert_redirected_to :controller => "registration", :action => "isic", :club => "vtk"
+      assert_equal @club.extra_attributes.count, @member.extra_attributes.count
 
       message = @member.extra_attributes.all.find do |attribute|
         attribute.spec == extra_attribute_specs(:message)
@@ -70,7 +70,8 @@ class Frontend::RegistrationControllerTest < ActionController::TestCase
       assert_equal "A", message.value
     end
 
-    post :general, @params.merge!(:member => attributes)
+    @params[:member] = attributes
+    post :general, @params
     @member = Member.last
     assert_valid_response
 
@@ -83,7 +84,8 @@ class Frontend::RegistrationControllerTest < ActionController::TestCase
 
   test "should enforce required extra attributes" do
     # Posting without any extra_attributes
-    post :general, @params.merge(:member => @member.attributes)
+    attributes = @member.attributes.slice *Member.accessible_attributes
+    post :general, @params.merge(:member => attributes)
     assert_response :success
     assert !assigns(:member).valid?
   end

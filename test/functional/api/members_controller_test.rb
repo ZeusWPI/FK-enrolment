@@ -19,20 +19,20 @@ class Api::MembersControllerTest < ActionController::TestCase
   end
 
   test "should create member" do
+    attributes = @member.attributes.slice *Member.accessible_attributes
     assert_difference('Member.count') do
-      post :create, params_for_api({ member: @member.attributes })
+      post :create, params_for_api({ member: attributes })
+      assert_response :success
     end
-    assert_response :success
-
-    result = JSON.parse(@response.body)
-    assert Member.exists? result[:id]
+    result = JSON.parse(response.body)
+    assert Member.exists? result["id"]
   end
 
   test "should not create member" do
     assert_no_difference('Member.count') do
-      post :create, params_for_api({ member: {first_name: "Pieter"}})
+      post :create, params_for_api({ member: { first_name: "Pieter" }})
+      assert_response :unprocessable_entity
     end
-    assert_response :unprocessable_entity
   end
 
   test "should show member" do
@@ -46,7 +46,7 @@ class Api::MembersControllerTest < ActionController::TestCase
   end
 
   test "should update member" do
-    update = @member.attributes.merge({first_name: "Pieter-Jan"})
+    update = { first_name: "Pieter-Jan" }
     put :update, params_for_api({ id: @member.to_param, member: update })
     assert_response :success
     assert_equal "Pieter-Jan", Member.find(@member.id).first_name
@@ -55,12 +55,12 @@ class Api::MembersControllerTest < ActionController::TestCase
   test "should destroy member" do
     assert_difference('Member.count', -1) do
       delete :destroy, params_for_api({ id: @member.to_param })
+      assert_response :success
     end
-    assert_response :success
   end
 
   test "should accept params that are not nested" do
-    update = @member.attributes.merge({first_name: "Pieter-Jan"})
+    update = { id: @member.to_param, first_name: "Pieter-Jan" }
     put :update, params_for_api(update)
     assert_response :success
     assert_equal "Pieter-Jan", Member.find(@member.id).first_name
