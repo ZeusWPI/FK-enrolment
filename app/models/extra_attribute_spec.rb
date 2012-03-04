@@ -8,6 +8,11 @@ class ExtraAttributeSpec < ActiveRecord::Base
     :in => %w(checkbox checkbox_list checkbox_grid text textarea study) }
 
   def self.build(name, type, values = [], required = false)
-    new(:name => name, :field_type => type.to_s, :values => values, :required => required)
+    spec = new
+    spec.name = name
+    spec.field_type = type.to_s
+    spec.values = values
+    spec.required = required
+    spec
   end
 end
