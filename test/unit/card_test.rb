@@ -6,16 +6,18 @@ class CardTest < ActiveSupport::TestCase
   test "should not allow duplicates" do
     c = Card.new
     c.member = members(:javache)
-    c.academic_year = 2011
+    c.academic_year = Member.current_academic_year
     c.number = 2
     assert !c.valid?
 
-    c.academic_year = 2010
+    c.academic_year = Member.current_academic_year + 1
     assert c.valid?
   end
 
   test "should provide full academic year" do
-    assert_equal "2011-2012", cards(:javache).full_academic_year
+    c = cards(:javache)
+    c.academic_year = 2011
+    assert_equal "2011-2012", c.full_academic_year
   end
 
   test "a card can access its club" do

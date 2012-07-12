@@ -67,8 +67,9 @@ group :production do
 end
 
 group :test do
-  # Pretty printed test output
   gem 'minitest'
+
+  # Pretty printed test output
   gem 'turn'
 
   # Code coverage

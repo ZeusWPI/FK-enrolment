@@ -2,14 +2,14 @@
 
 javache:
   member: javache
-  academic_year: 2011
+  academic_year: <%= Member.current_academic_year %>
   number: 1
   status: paid
   enabled: true
 
 nudded:
   member: nudded
-  academic_year: 2011
+  academic_year: <%= Member.current_academic_year %>
   number: 21
   status: unpaid
   isic_status: request
