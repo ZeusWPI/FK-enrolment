@@ -1,6 +1,5 @@
 class Frontend::CasController < Frontend::FrontendController
   skip_before_filter :verify_authenticity_token, :only => :verify
-  before_filter RubyCAS::Filter, :only => :verify
 
   def auth
     if params[:redirect]
@@ -17,6 +16,7 @@ class Frontend::CasController < Frontend::FrontendController
     redirect_to cas_verify_path
   end
 
+  before_filter RubyCAS::Filter, :only => :verify
   def verify
     # After redirection the session will contain information like this
     # {
