@@ -1,7 +1,7 @@
 class Frontend::EidController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
-  def init
+  def index
     request = Onelogin::Saml::Authrequest.new
     redirect_to request.create(saml_settings)
   end
@@ -9,7 +9,8 @@ class Frontend::EidController < ApplicationController
   def receive
     response = Onelogin::Saml::Response.new(params[:SAMLResponse])
     response.settings = saml_settings
-    render :text => response.attributes
+
+    render :text => response.attributes.to_json
   end
 
   private

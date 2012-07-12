@@ -1,15 +1,18 @@
 .bundle
+.DS_Store
+.sass-cache/
 db/*.sqlite3
 log/*.log
-tmp/
-.sass-cache/
-public/data/
-public/assets/
-.DS_Store
 *.psd
 seenly-core
+
 coverage.data
 coverage
 ERD.*
+
+tmp/
+public/data/
+public/assets/
+vendor/bundle/
 
 app/assets/images/icons-*.png

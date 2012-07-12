@@ -37,7 +37,7 @@ FKEnrolment::Application.routes.draw do
     get "cas/logout", :to => "cas#logout"
     match "cas/verify", :to => "cas#verify"
 
-    get "eid/init", :to => "eid#init"
+    get "eid", :to => "eid#index"
     post "eid/receive", :to => "eid#receive"
 
     scope :path => ":club", :as => :registration do
