@@ -1,16 +1,18 @@
 class Frontend::EidController < ApplicationController
-  skip_before_filter :verify_authenticity_token
-
+  before_filter :load_club, :only => :auth
   def index
+    save_redirect :post_eid_redirect
+
     request = Onelogin::Saml::Authrequest.new
     redirect_to request.create(saml_settings)
   end
 
+  skip_before_filter :verify_authenticity_token, :only => :receive
   def receive
-    response = Onelogin::Saml::Response.new(params[:SAMLResponse])
-    response.settings = saml_settings
+    result = Onelogin::Saml::Response.new(params[:SAMLResponse])
+    session[:eid] = result.attributes
 
-    render :text => response.attributes.to_json
+    redirect_to session.delete(:post_eid_redirect) || root_url
   end
 
   private

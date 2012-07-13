@@ -25,7 +25,7 @@ class Card < ActiveRecord::Base
   def valid_card_number
     return if self.number.blank? or not self.member
     range = self.member.club.range_lower..self.member.club.range_upper
-    errors.add(:number, "valt niet in het toegekende bereik") if not range.include? self.number
+    errors.add(:number, "valt niet in het toegekende bereik") unless range.include? self.number
   end
 
   # Renders the academic year in a more commonly used format

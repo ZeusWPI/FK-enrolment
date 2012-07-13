@@ -36,10 +36,11 @@ class Member < ActiveRecord::Base
 
   # Load member, checking access
   def self.find_member_for_club(member_id, club)
-    return nil if not member_id
+    return [nil, :not_found] unless member_id
+
     member = includes(:current_card).where(:id => member_id, :enabled => true)
-    if member.first
-      member.first.club_id == club.id ? [member.first, :success] : [nil, :forbidden]
+    if member = member.first
+      member.club_id == club.id ? [member, :success] : [nil, :forbidden]
     else
       [nil, :not_found]
     end

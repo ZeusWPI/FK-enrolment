@@ -1,5 +1,4 @@
 class Backend::FkController < Backend::BackendController
-
   skip_before_filter :verify_club
   before_filter :verify_fk
   def verify_fk

@@ -32,13 +32,12 @@ FKEnrolment::Application.routes.draw do
   namespace :frontend, :path => nil, :as => nil do
     root :to => "home#index"
 
-    # verbosity is needed to add namespace to controller
-    get "cas/auth", :to => "cas#auth"
-    get "cas/logout", :to => "cas#logout"
-    match "cas/verify", :to => "cas#verify"
+    get "cas/auth" => "cas#auth"
+    get "cas/logout" => "cas#logout"
+    match "cas/verify" => "cas#verify"
 
-    get "eid", :to => "eid#index"
-    post "eid/receive", :to => "eid#receive"
+    get "eid" => "eid#index"
+    post "eid/receive" => "eid#receive"
 
     scope :path => ":club", :as => :registration do
       root :to => "registration#index"

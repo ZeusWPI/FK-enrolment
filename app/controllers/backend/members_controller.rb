@@ -2,7 +2,7 @@ class Backend::MembersController < Backend::BackendController
   before_filter :load_member, :except => [:index]
   def load_member
     @member, status = Member.find_member_for_club(params['id'], @club)
-    if not @member
+    unless @member
       redirect_to backend_members_path, :alert => "Ongeldig lid."
     end
   end

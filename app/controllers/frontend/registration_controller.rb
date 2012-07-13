@@ -1,9 +1,5 @@
 class Frontend::RegistrationController < Frontend::FrontendController
-  before_filter :load_club
-  def load_club
-    @club = Club.using(:website).where('LOWER(internal_name) = ?', params[:club]).first
-    raise ActionController::RoutingError.new('Unknown club') if not @club
-  end
+  before_filter :load_club!
 
   # Load member set in session or create a new one
   before_filter :load_member, :except => [:index]
@@ -31,7 +27,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
   def index
     # We were not sent here through fk-books, so there definitely
     # shouldn't be a redirect afterwards
-    session[:fk_books] = nil
+    session.delete :fk_books
   end
 
   def general
@@ -78,12 +74,11 @@ class Frontend::RegistrationController < Frontend::FrontendController
     session[:member_id] = nil
 
     # Redirect to fk-books
-    if session[:fk_books]
+    if session.delete :fk_books
       key = Rails.application.config.fkbooks_key
       signature = Digest::SHA1.hexdigest(key + @member.id.to_s)
 
       redirect_to Rails.application.config.fkbooks % [@member.id, signature]
-      session[:fk_books] = nil
     end
   end
 end

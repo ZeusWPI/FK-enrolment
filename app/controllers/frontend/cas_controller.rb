@@ -1,21 +1,13 @@
 class Frontend::CasController < Frontend::FrontendController
-  skip_before_filter :verify_authenticity_token, :only => :verify
-
+  before_filter :load_club, :only => :auth
   def auth
-    if params[:redirect]
-      session[:post_cas_redirect] = params[:redirect]
-    elsif params[:club]
-      club = Club.where('LOWER(internal_name) = ?', params[:club]).first!
-      session[:post_cas_redirect] = registration_general_path(club)
-    end
-
-    if request.referer =~ /fkgent.be\/fkbooks/
-      session[:fk_books] = true
-    end
+    save_redirect :post_cas_redirect
+    session[:fk_books] = request.referer =~ /fkgent.be\/fkbooks/
 
     redirect_to cas_verify_path
   end
 
+  skip_before_filter :verify_authenticity_token, :only => :verify
   before_filter RubyCAS::Filter, :only => :verify
   def verify
     # After redirection the session will contain information like this
@@ -35,11 +27,7 @@ class Frontend::CasController < Frontend::FrontendController
     # Don't save the ticket, it contains a singleton somewhere that can't be marshalled
     session[:cas_last_valid_ticket] = nil
 
-    if session[:post_cas_redirect]
-      redirect_to session[:post_cas_redirect]
-    else
-      redirect_to root_url
-    end
+    redirect_to session.delete(:post_cas_redirect) || root_url
   end
 
   def logout
