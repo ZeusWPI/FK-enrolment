@@ -96,9 +96,11 @@ class Frontend::RegistrationController < Frontend::FrontendController
   def load_eid_member_attributes
     attributes = session[:eid]
     key_prefix = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/"
+
     @member.first_name = attributes[key_prefix + "givenname"]
     @member.last_name = attributes[key_prefix + "surname"]
-    @member.sex = attributes[key_prefix + "gender"] == '1' ? 'm' : 'f'
+    sex = attributes[key_prefix + "gender"]
+    @member.sex = {'1' => 'm', '2' => 'f'}[sex] || @member.sex
     @member.date_of_birth = Date.parse attributes[key_prefix + "dateofbirth"]
     @member.home_address = attributes[key_prefix + "streetaddress"] + "\n" +
                            attributes[key_prefix + "postalcode"] + " " +
