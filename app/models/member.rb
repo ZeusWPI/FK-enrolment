@@ -116,7 +116,7 @@ class Member < ActiveRecord::Base
 
   # Shortcut for full name
   def name
-    "#{self.first_name} #{self.last_name}"
+    "#{first_name} #{last_name}"
   end
 
   # Shortcut for card number

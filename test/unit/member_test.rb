@@ -17,6 +17,10 @@ class MemberTest < ActiveSupport::TestCase
     assert_equal original_geometry.to_s, geometry.to_s
   end
 
+  test "should get full name" do
+    assert_equal "Pieter De Baets", @member.name
+  end
+
   test "should get photo from url" do
     @member.photo_url = @url
     @member.save

@@ -22,6 +22,8 @@ class Card < ActiveRecord::Base
   scope :current, where(:academic_year => Member.current_academic_year)
 
   # Check if the assigned number falls in the range given by the club
+  # TODO: only check the ranges for cards currently being issued
+  # as these assignments might change
   def valid_card_number
     return if self.number.blank? or not self.member
     range = self.member.club.range_lower..self.member.club.range_upper

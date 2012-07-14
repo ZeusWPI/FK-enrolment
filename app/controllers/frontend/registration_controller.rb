@@ -2,11 +2,11 @@ class Frontend::RegistrationController < Frontend::FrontendController
   before_filter :load_club!
 
   # Load member set in session or create a new one
-  before_filter :load_member, :except => [:index]
+  before_filter :load_member, :except => :index
   def load_member
     if session[:member_id]
       begin
-        @member = Member.find(session[:member_id])
+        @member = Member.find session[:member_id]
       rescue ActiveRecord::RecordNotFound
       end
     elsif action_name == "general"
@@ -15,7 +15,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
 
     unless @member
       # Return to start to create a new member
-      session[:member_id] = nil
+      session.delete :member_id
       redirect_to registration_root_path(@club)
     else
       # Always set the member to the club from the current club-param
@@ -35,14 +35,8 @@ class Frontend::RegistrationController < Frontend::FrontendController
     @member.build_extra_attributes
     @member.attributes = params[:member]
 
-    # Override properties if they're already set through CAS
-    @cas_authed = !session[:cas_user].blank?
-    if @cas_authed
-      attributes = session[:cas_extra_attributes]
-      @member.first_name = attributes["givenname"]
-      @member.last_name = attributes["surname"]
-      @member.ugent_nr = attributes["ugentStudentID"]
-    end
+    load_cas_member_attributes if cas_authed?
+    load_eid_member_attributes if eid_authed?
 
     if params[:member] && @member.save
       session[:member_id] = @member.id
@@ -71,7 +65,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
 
   def success
     @member.update_attribute(:enabled, true)
-    session[:member_id] = nil
+    session.delete :member_id
 
     # Redirect to fk-books
     if session.delete :fk_books
@@ -80,5 +74,35 @@ class Frontend::RegistrationController < Frontend::FrontendController
 
       redirect_to Rails.application.config.fkbooks % [@member.id, signature]
     end
+  end
+
+  private
+
+  def cas_authed?
+    !session[:cas_user].blank?
+  end
+
+  def load_cas_member_attributes
+    attributes = session[:cas_extra_attributes]
+    @member.first_name = attributes["givenname"]
+    @member.last_name = attributes["surname"]
+    @member.ugent_nr = attributes["ugentStudentID"]
+  end
+
+  def eid_authed?
+    session[:eid]
+  end
+
+  def load_eid_member_attributes
+    attributes = session[:eid]
+    key_prefix = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/"
+    @member.first_name = attributes[key_prefix + "givenname"]
+    @member.last_name = attributes[key_prefix + "surname"]
+    @member.sex = attributes[key_prefix + "gender"] == '1' ? 'm' : 'f'
+    @member.date_of_birth = Date.parse attributes[key_prefix + "dateofbirth"]
+    @member.home_address = attributes[key_prefix + "streetaddress"] + "\n" +
+                           attributes[key_prefix + "postalcode"] + " " +
+                           attributes[key_prefix + "locality"]
+    # TODO: use be:fedict:eid:idp:photo later on
   end
 end

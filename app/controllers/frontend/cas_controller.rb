@@ -25,7 +25,7 @@ class Frontend::CasController < Frontend::FrontendController
     # }
 
     # Don't save the ticket, it contains a singleton somewhere that can't be marshalled
-    session[:cas_last_valid_ticket] = nil
+    session.delete :cas_last_valid_ticket
 
     redirect_to session.delete(:post_cas_redirect) || root_url
   end

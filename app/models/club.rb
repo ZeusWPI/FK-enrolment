@@ -6,6 +6,9 @@ class Club < ActiveRecord::Base
   validates_presence_of :name, :full_name, :internal_name, :description, :url
   validates :registration_method, :inclusion => { :in => %w(none api website) }
 
+  attr_accessible :description, :isic_text, :confirmation_text,
+    :registration_method, :uses_isic
+
   # Find clubs using a specified registration method
   def self.using(method)
     where(:registration_method => Array.wrap(method).map(&:to_s))

@@ -1,6 +1,6 @@
-class Frontend::EidController < ApplicationController
+class Frontend::EidController < Frontend::FrontendController
   before_filter :load_club, :only => :auth
-  def index
+  def auth
     save_redirect :post_eid_redirect
 
     request = Onelogin::Saml::Authrequest.new
