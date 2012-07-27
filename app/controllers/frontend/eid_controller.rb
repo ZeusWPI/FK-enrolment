@@ -15,6 +15,11 @@ class Frontend::EidController < Frontend::FrontendController
     redirect_to session.delete(:post_eid_redirect) || root_url
   end
 
+  def logout
+    session.delete :eid
+    redirect_to root_url
+  end
+
   private
 
   def saml_settings

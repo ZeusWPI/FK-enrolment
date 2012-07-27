@@ -79,7 +79,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
   private
 
   def cas_authed?
-    !session[:cas_user].blank?
+    @cas_authed = !session[:cas_user].blank?
   end
 
   def load_cas_member_attributes
@@ -90,7 +90,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
   end
 
   def eid_authed?
-    session[:eid]
+    @eid_authed = !session[:eid].blank?
   end
 
   def load_eid_member_attributes

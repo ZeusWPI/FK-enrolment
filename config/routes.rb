@@ -38,6 +38,7 @@ FKEnrolment::Application.routes.draw do
 
     get "eid" => "eid#auth"
     post "eid/receive" => "eid#receive"
+    get "eid/logout" => "eid#logout"
 
     scope :path => ":club", :as => :registration do
       root :to => "registration#index"
