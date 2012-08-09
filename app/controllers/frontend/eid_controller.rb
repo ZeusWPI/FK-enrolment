@@ -7,6 +7,11 @@ class Frontend::EidController < Frontend::FrontendController
     redirect_to request.create(saml_settings)
   end
 
+  def photo
+    photo = session[:eid]["be:fedict:eid:idp:photo"]
+    send_data(Base64.decode64(photo), :type => 'image/jpeg')
+  end
+
   skip_before_filter :verify_authenticity_token, :only => :receive
   def receive
     result = Onelogin::Saml::Response.new(params[:SAMLResponse])

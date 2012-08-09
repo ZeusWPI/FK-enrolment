@@ -4,7 +4,7 @@ module Member::Photo
   def self.included(base)
     base.has_attached_file :photo, :styles => {
       :large => { :geometry => "520x700>", :format => :jpg },
-      :cropped => { :geometry => "210x270", :format => :jpg, :processors => [:Cropper] }
+      :cropped => { :geometry => "312x374>", :format => :jpg, :processors => [:Cropper] }
     }
     base.validates_attachment_content_type :photo,
       :content_type => ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/gif',
@@ -70,6 +70,6 @@ module Member::Photo
 
   # Check if a valid photo with the correct dimensions are present
   def valid_photo?
-    @cropped || false
+    @cropped
   end
 end

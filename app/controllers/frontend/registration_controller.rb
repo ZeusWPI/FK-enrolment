@@ -57,6 +57,8 @@ class Frontend::RegistrationController < Frontend::FrontendController
   end
 
   def photo
+    eid_authed?
+
     # All image uploading and processing is done by the model
     if params[:member] && @member.update_attributes(params[:member])
       redirect_to registration_success_path(@club) if @member.valid_photo?
@@ -105,6 +107,5 @@ class Frontend::RegistrationController < Frontend::FrontendController
     @member.home_address = attributes[key_prefix + "streetaddress"] + "\n" +
                            attributes[key_prefix + "postalcode"] + " " +
                            attributes[key_prefix + "locality"]
-    # TODO: use be:fedict:eid:idp:photo later on
   end
 end

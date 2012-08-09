@@ -15,7 +15,7 @@ module Paperclip
         ratio = Paperclip::Geometry.from_file(@attachment.path(:original)).width /
                 Paperclip::Geometry.from_file(@attachment.path(:large)).width
 
-        "-crop '%dx%d+%d+%d' " % [
+        "-crop '%dx%d+%d+%d' -colorspace Gray " % [
           target.crop_w.to_i * ratio, target.crop_h.to_i * ratio,
           target.crop_x.to_i * ratio, target.crop_y.to_i * ratio
         ]

@@ -28,6 +28,18 @@
 </div>
 
 <h3>Een andere foto kiezen?</h3>
+<% elsif @eid_authed %>
+<p>Deze foto haalden we van je elektronische identiteitskaart.</p>
+<%= image_tag eid_photo_path %>
+
+<%= semantic_form_for @member, :url => registration_photo_path(@club) do |f| %>
+  <%= f.input :photo_base64, :as => :hidden, :value => session[:eid]["be:fedict:eid:idp:photo"] %>
+  <%= f.buttons :class => "member no-indent" do %>
+    <%= f.commit_button "Foto gebruiken" %>
+  <% end %>
+<% end %>
+
+<h3>Een andere foto kiezen?</h3>
 <% end %>
 
 <div id="seenly-modal" title="Foto via webcam">
