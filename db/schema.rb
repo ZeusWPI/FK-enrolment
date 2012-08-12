@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120812181947) do
+ActiveRecord::Schema.define(:version => 20120812185058) do
 
   create_table "cards", :force => true do |t|
     t.integer  "member_id"
@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(:version => 20120812181947) do
     t.datetime "photo_updated_at"
     t.boolean  "isic_newsletter"
     t.boolean  "isic_mail_card"
+    t.integer  "last_registration"
     t.boolean  "enabled",             :default => false
   end
 

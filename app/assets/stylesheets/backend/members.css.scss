@@ -10,6 +10,7 @@
   padding: 10px;
   margin: 0 0 10px 10px;
   border: 1px dotted #E1E1E1;
+  text-align: center;
 
   p {
     margin: 0;
@@ -36,14 +37,25 @@
 }
 
 .backend.pay {
+  position: relative;
+
   dt, dd {
-    @include adjust-font-size-to(18px, 2.2);
+    @include adjust-font-size-to(18px, 1.2);
+    margin-bottom: 10px;
   }
+
   input {
     @include adjust-font-size-to(18px, 1);
   }
 
   span.field_with_errors {
     @include adjust-font-size-to(12px, 1.2);
+  }
+
+  .order-notice {
+    display: block;
+    color: #E00;
+    font-weight: 900;
+    margin: 8px 0 12px 0;
   }
 }

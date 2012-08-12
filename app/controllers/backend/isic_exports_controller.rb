@@ -34,7 +34,9 @@ class Backend::IsicExportsController < Backend::BackendController
   end
 
   def index
-    @exports = IsicExport.order('created_at DESC')
+    # Only show exports created after July 1st
+    cutoff = Time.new(Member.current_academic_year, 7, 1)
+    @exports = IsicExport.where('created_at >= ?', cutoff).order('created_at DESC')
     @unexported = Member.find_all_for_isic_export
   end
 

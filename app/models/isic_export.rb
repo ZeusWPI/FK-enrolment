@@ -56,7 +56,11 @@ class IsicExport < ActiveRecord::Base
   def generate_photos_zip(filename, members)
     Zippy.create(filename) do |zip|
       members.each do |member|
-        File.open(member.photo.path(:cropped)) { |p| zip["#{member.id}.jpg"] = p }
+        if member.photo?
+          File.open(member.photo.path(:cropped)) do |p|
+            zip["#{member.id}.jpg"] = p
+          end
+        end
       end
     end
     assign_file_and_unlink(:photos, filename)

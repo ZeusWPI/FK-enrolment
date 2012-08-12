@@ -56,7 +56,9 @@ class Backend::BackendController < ApplicationController
         end
 
         scope do
-          Member.includes(:current_card).where({:enabled => true}).order("members.created_at DESC")
+          Member.includes(:current_card)
+                .active_registrations.where({:enabled => true})
+                .order("members.created_at DESC")
         end
 
         # Filters

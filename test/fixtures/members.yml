@@ -11,6 +11,7 @@ javache:
   date_of_birth: 1990-01-01
   home_address: "Dorpsstraat 25\n9000 Gent"
   studenthome_address: nil
+  last_registration: <%= Member.current_academic_year %>
   enabled: true
 
 nudded:
@@ -24,4 +25,5 @@ nudded:
   date_of_birth: 1990-01-02
   home_address: "Dreef 1\n1000 Middle-of-nowhere"
   studenthome_address: "Kotstraat 1\n9000 Gent"
+  last_registration: <%= Member.current_academic_year %>
   enabled: true

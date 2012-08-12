@@ -28,16 +28,18 @@
     <dd><%= human_card_status @card.status %></dd>
 
     <% if @club.uses_isic || @card.isic_status != 'none' %>
-    <dt>ISIC:</dt>
-    <dd><%= human_isic_status @card.isic_status %></dd>
-    <% end %>
-    <% if @member.isic_mail_card %>
-    <dd><strong>Kaart wordt opgestuurd: €1 extra aanrekenen!</strong></dd>
+    <dt>ISIC-status:</dt>
+    <dd>
+      <%= human_isic_status @card.isic_status %>
+      <% if @member.isic_mail_card %>
+      <span class="order-notice">Kaart wordt opgestuurd: reken €1 extra aan!</span>
+      <% end %>
+    </dd>
     <% end %>
 
     <dd>
       <% if @card.status != 'paid' %>
-        <%= f.submit 'Betalen' %>
+        <%= f.submit 'Als betaald markeren' %>
       <% end %>
     </dd>
 

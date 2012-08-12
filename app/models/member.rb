@@ -34,6 +34,10 @@ class Member < ActiveRecord::Base
     self.isic_newsletter = true if isic_newsletter.nil? && club.try(:uses_isic)
   end
 
+  before_save do
+    self.last_registration = Member.current_academic_year
+  end
+
   # Load member, checking access
   def self.find_member_for_club(member_id, club)
     return [nil, :not_found] unless member_id
@@ -48,10 +52,10 @@ class Member < ActiveRecord::Base
 
   # Find members that need to exported to ISIC
   def self.find_all_for_isic_export
-    Member.includes(:current_card, :club).where(:enabled => true).where(
-      '(clubs.uses_isic = ? AND cards.id IS NULL) OR cards.isic_status = ?',
-      true, 'request'
-    )
+    Member.includes(:current_card, :club)
+          .where(:enabled => true, :last_registration => self.current_academic_year)
+          .where('(clubs.uses_isic = ? AND cards.id IS NULL) OR cards.isic_status = ?',
+                  true, 'request')
   end
 
   # Current academic year
@@ -59,8 +63,23 @@ class Member < ActiveRecord::Base
     # registrations end in june
     (Time.now - 6.months).year
   end
+
   has_one :current_card, :class_name => "Card",
     :conditions => { :academic_year => current_academic_year }
+
+  # Find a previous member record, given a current student ID
+  def self.member_for_ugent_nr(ugent_nr, club)
+    Member.joins(:cards)
+          .select('members.*, COUNT(cards.id) as card_count')
+          .where(:ugent_nr => ugent_nr, :club_id => club.id, :enabled => true,
+                 :cards => { :enabled => true })
+          .order('card_count DESC, updated_at DESC')
+          .first
+  end
+
+  def self.active_registrations
+    where(:last_registration => self.current_academic_year)
+  end
 
   # Hash for export (see to_json)
   def serializable_hash(options = nil)

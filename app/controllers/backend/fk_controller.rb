@@ -23,6 +23,6 @@ class Backend::FkController < Backend::BackendController
       :paid => Member.joins(:current_card).where(:cards => {:status => 'paid'}),
       :isic => Member.joins(:current_card).where(:cards => {:isic_status => 'requested'})
     }
-    @data.update(@data) { |key, value| value.where(:enabled => true).group(:club).count }
+    @data.update(@data) { |key, value| value.active_registrations.where(:enabled => true).group(:club).count }
   end
 end
