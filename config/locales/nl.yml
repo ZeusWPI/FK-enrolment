@@ -21,7 +21,7 @@ nl:
         isic_text: ISIC-tekst
         confirmation_text: Bevestigingstekst
         registration_method: Registratiemethode
-        uses_isic: Automatisch ISIC-kaarten aanvragen na registratie
+        uses_isic: Integratie met ISIC activeren
         api_key: API sleutel
       card:
         number: Kaartnummer

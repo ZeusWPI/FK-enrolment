@@ -42,7 +42,7 @@
 <h3>Een andere foto kiezen?</h3>
 <% end %>
 
-<div id="seenly-modal" title="Foto via webcam">
+<%#<div id="seenly-modal" title="Foto via webcam">
   <div id="seenly-embed-wrapper"><div id="seenly-embed">
     <p><a href="http://www.adobe.com/go/getflashplayer">
       <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif"
@@ -53,7 +53,7 @@
     <input type="button" id="seenly-snap" value="Foto nemen" />
     <input type="button" id="seenly-submit" value="Verzenden" disabled="disabled" />
   </p>
-</div>
+</div>%>
 
 <p>Omdat je ISIC-kaart een internationale en gepersonaliseerde kaart is, hebben
 we een foto nodig. Die zal op je kaart gedrukt worden, en dus hebben we, net
@@ -67,11 +67,11 @@ voor commerciële doeleinden gebruikt worden.</p>
   <%= f.inputs do %>
     <%= f.input :photo %>
 
-    <%= f.input :photo_base64, :as => :hidden %>
+    <!-- <%= f.input :photo_base64, :as => :hidden %>
     <li class="file optional">
       <label>Webcam</label>
       <a href="#webcam" class="seenly">Foto met webcam nemen</a>
-    </li>
+    </li>-->
 
     <%= f.input :photo_url, :input_html => { :placeholder => "http://" } %>
   <% end %>

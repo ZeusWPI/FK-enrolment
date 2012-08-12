@@ -58,6 +58,7 @@ group :assets do
 end
 
 group :development do
+  gem 'thin'
   # To use debugger
   # gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'term-ansicolor'
