@@ -25,9 +25,9 @@ class Backend::IsicExportsController < Backend::BackendController
         elsif card.count > 1
           @result << "<li>Multiple cards found for #{fk_number}</li>"
         elsif card.first.member.email != email
-          @result << "<li>Email mismatch for #{fk_number}, expecting #{card.member.email}"
+          @result << "<li>Email mismatch for #{fk_number}, expecting #{card.first.member.email}"
         else
-          card.first.update_attribute :isic_number => isic_number
+          card.first.update_attribute :isic_number, isic_number
         end
       end
     end
