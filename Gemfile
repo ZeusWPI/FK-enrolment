@@ -41,7 +41,7 @@ gem 'zippy'
 gem 'datagrid'
 
 # Larger, more CPU-intensive jobs
-gem 'delayed_job'
+gem 'delayed_job_active_record'
 
 # eID-integration
 gem 'ruby-saml'
@@ -68,6 +68,7 @@ end
 group :production do
   gem 'mysql2'          # Database
   gem 'unicorn'         # Webserver
+  gem 'daemons'         # Running delayed_job
 end
 
 group :test do

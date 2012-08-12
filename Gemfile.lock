@@ -68,6 +68,9 @@ GEM
       rails (>= 3.0)
     delayed_job (3.0.3)
       activesupport (~> 3.0)
+    delayed_job_active_record (0.3.2)
+      activerecord (> 2.1.0)
+      delayed_job (~> 3.0.0)
     erubis (2.7.0)
     eventmachine (0.12.10)
     exception_notification (2.6.1)
@@ -199,8 +202,9 @@ DEPENDENCIES
   acts_as_list
   compass-rails
   cover_me (>= 1.2.0)
+  daemons
   datagrid
-  delayed_job
+  delayed_job_active_record
   exception_notification
   formtastic (~> 1.2)
   httparty
