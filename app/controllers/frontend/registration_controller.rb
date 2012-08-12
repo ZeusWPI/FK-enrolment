@@ -32,8 +32,8 @@ class Frontend::RegistrationController < Frontend::FrontendController
 
   def general
     # Check if there exists a member with this student-ID
-    if !@member.id #&& cas_authed?
-      student_nr = "00801756" #session[:cas_extra_attributes]["ugentStudentID"]
+    if !@member.id && cas_authed?
+      student_nr = session[:cas_extra_attributes]["ugentStudentID"]
       old_record = Member.member_for_ugent_nr(student_nr, @club)
       if old_record
         @member = old_record
