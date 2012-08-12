@@ -14,6 +14,7 @@ class Backend::IsicExportsController < Backend::BackendController
 
   def import
     if params[:input]
+      require 'csv'
       @result = ""
       CSV.parse(params[:input], :col_sep => ';').each do |row|
         fk_number, isic_number, email = row
@@ -23,10 +24,10 @@ class Backend::IsicExportsController < Backend::BackendController
           @result << "<li>Card #{fk_number} not found!</li>"
         elsif card.count > 1
           @result << "<li>Multiple cards found for #{fk_number}</li>"
-        elsif card.member.email != email
+        elsif card.first.member.email != email
           @result << "<li>Email mismatch for #{fk_number}, expecting #{card.member.email}"
         else
-          card.update_attribute :isic_number => isic_number
+          card.first.update_attribute :isic_number => isic_number
         end
       end
     end
