@@ -1,0 +1,10 @@
+<% title "ISIC import" %>
+
+<% if @result %>
+<ul><%= raw(@result) %></ul>
+<% end %>
+
+<%= form_tag import_backend_isic_exports_path do %>
+  <p><%= text_area_tag :input, nil, :rows => 20, :cols => 60 %></p>
+  <p><%= submit_tag "Import" %></p>
+<% end %>

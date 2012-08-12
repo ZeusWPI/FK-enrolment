@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110924105434) do
+ActiveRecord::Schema.define(:version => 20120812150757) do
 
   create_table "cards", :force => true do |t|
     t.integer  "member_id"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20110924105434) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "isic_status",   :default => "none"
+    t.integer  "isic_number"
   end
 
   add_index "cards", ["academic_year", "number"], :name => "index_cards_on_academic_year_and_number", :unique => true
