@@ -28,8 +28,8 @@ class Backend::MembersController < Backend::BackendController
         @members = @members.paginate(:page => params[:page], :per_page => 30)
 
         attributes = {:club_id => @club, :enabled => true}
-        @registered_members = Member.where(attributes).count
-        @card_members = Member.where(attributes).joins(:current_card).count
+        @registered_members = Member.active_registrations.where(attributes).count
+        @card_members = Member.active_registrations.where(attributes).joins(:current_card).count
       }
       format.xls {
         name = "Export %s %s.xls" % [@club.internal_name, Time.now.strftime('%F %T')]

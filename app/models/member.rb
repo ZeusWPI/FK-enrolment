@@ -69,12 +69,13 @@ class Member < ActiveRecord::Base
 
   # Find a previous member record, given a current student ID
   def self.member_for_ugent_nr(ugent_nr, club)
-    Member.joins(:cards)
-          .select('members.*, COUNT(cards.id) as card_count')
-          .where(:ugent_nr => ugent_nr, :club_id => club.id, :enabled => true,
-                 :cards => { :enabled => true })
-          .order('card_count DESC, updated_at DESC')
-          .first
+    result = Member.joins(:cards)
+                   .select('members.*, COUNT(cards.id) as card_count')
+                   .where(:ugent_nr => ugent_nr, :club_id => club.id, :enabled => true,
+                          :cards => { :enabled => true })
+                   .order('card_count DESC, updated_at DESC')
+                   .first
+    result.id ? result : nil
   end
 
   def self.active_registrations
