@@ -3,7 +3,7 @@ class Backend::FkController < Backend::BackendController
   before_filter :verify_fk
   def verify_fk
     # Development backdoor
-    return session[:club] = "FK" if request.local?
+    # return session[:club] = "FK" if request.local?
 
     if session[:cas_user].blank?
       redirect_to cas_auth_path(:redirect => request.fullpath)
