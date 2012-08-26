@@ -4,7 +4,7 @@ class Club < ActiveRecord::Base
   has_many :extra_attributes, :class_name => 'ExtraAttributeSpec', :order => :position
 
   validates_presence_of :name, :full_name, :internal_name, :description, :url
-  validates :registration_method, :inclusion => { :in => %w(none api website) }
+  validates :registration_method, :inclusion => { :in => %w(none api website hidden) }
 
   attr_accessible :description, :isic_text, :confirmation_text,
     :registration_method, :uses_isic
