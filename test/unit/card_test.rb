@@ -46,4 +46,22 @@ class CardTest < ActiveSupport::TestCase
     c.save
     assert_not_nil c.number
   end
+
+  test "a new card should be requested for new users" do
+    cards(:javache).destroy
+    c = Card.new
+    c.member = members(:javache)
+    c.determine_isic_status
+    assert_equal "request", c.isic_status
+    assert_nil c.isic_number
+  end
+
+  test "a card should have the same isic_number as last year's card" do
+    cards(:nudded).destroy
+    c = Card.new
+    c.member = members(:nudded)
+    c.determine_isic_status
+    assert_equal "revalidate", c.isic_status
+    assert_equal cards(:nudded).isic_number, c.isic_number
+  end
 end

@@ -12,5 +12,14 @@ nudded:
   academic_year: <%= Member.current_academic_year %>
   number: 21
   status: unpaid
-  isic_status: request
+  isic_status: revalidate
+  isic_number: 2101
   enabled: true
+
+nudded2:
+  member: nudded
+  academic_year: <%= Member.current_academic_year - 1 %>
+  number: 21
+  isic_number: 2101
+  isic_status: requested
+  enabled: yes

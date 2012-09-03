@@ -1,7 +1,7 @@
 <% title "ISIC export" %>
 
-<p><%= pluralize @unexported.count, 'nieuwe lidkaart', 'nieuwe lidkaarten' %>
-  klaar voor export.
+<p><%= pluralize @unexported.count, 'nieuwe lidkaart', 'nieuwe lidkaarten' %> 
+  klaar voor export. 
 <% if @unexported.count > 0 %>
   <%= link_to "Nieuwe export aanmaken",
               backend_isic_exports_path, :method => :POST %></p>

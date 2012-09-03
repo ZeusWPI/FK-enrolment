@@ -42,4 +42,19 @@ class IsicExportTest < ActiveSupport::TestCase
     assert File.exists?(@export.photos.path)
     assert_equal ["#{@member.id}.jpg"], Zippy.list(@export.photos.path).to_a
   end
+
+  test "should assign cards" do
+    IsicExport.delete_all
+    cards(:nudded).destroy
+
+    @export = IsicExport.new
+    @export.members = [members(:nudded).id]
+    @export.generate
+
+    card = members(:nudded).current_card
+    assert_not_nil card
+    assert_equal "revalidate", card.isic_status
+    assert_equal true, card.isic_exported
+    assert_equal cards(:nudded2).isic_number, card.isic_number
+  end
 end

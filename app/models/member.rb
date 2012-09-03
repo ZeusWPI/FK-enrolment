@@ -22,7 +22,7 @@ class Member < ActiveRecord::Base
   validates :email, :presence => true,
                     :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i },
                     :if => lambda { |m| m.club.registration_method != "api" if m.club }
-  validates :ugent_nr, :presence => true  # TODO: required if not chosen for email registration
+  validates :ugent_nr, :presence => true # TODO: required if not chosen for email registration
   validates :sex, :inclusion => { :in => %w(m f), :allow_blank => true }
   validates :date_of_birth, :presence => true, :if => lambda { |m| m.club.uses_isic if m.club }
   validates :home_address, :presence => true, :if => lambda { |m| m.club.uses_isic if m.club }
@@ -54,8 +54,8 @@ class Member < ActiveRecord::Base
   def self.find_all_for_isic_export
     Member.includes(:current_card, :club)
           .where(:enabled => true, :last_registration => self.current_academic_year)
-          .where('(clubs.uses_isic = ? AND cards.id IS NULL) OR cards.isic_status = ?',
-                  true, 'request')
+          .where('(clubs.uses_isic = ? AND cards.id IS NULL) OR cards.isic_exported = ?',
+                  true, false)
   end
 
   # Current academic year

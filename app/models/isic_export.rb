@@ -21,11 +21,24 @@ class IsicExport < ActiveRecord::Base
 
     # assign cards to all members
     members.each do |member|
-      if not member.current_card
-        member.current_card = Card.new(:isic_status => 'requested')
-      else
-        member.current_card.update_attribute(:isic_status, 'requested')
+      card = member.current_card
+      if not card
+        card = Card.new
+        card.member = member
+        card.determine_isic_status
       end
+
+      if card.isic_status == 'request'
+        member.current_card.isic_status = 'requested'
+      elsif card.isic_status == 'revalidate'
+        # Don't do anything
+      else
+        raise "Unable to handle isic_status #{member.current_card.isic_status}"
+      end
+
+      card.isic_exported = 1
+      card.save!
+      member.reload
     end
 
     filename = File.join(Dir.tmpdir, "Export %s" % Time.now.strftime('%F %T'))
