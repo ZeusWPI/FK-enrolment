@@ -52,13 +52,15 @@ class Backend::MembersController < Backend::BackendController
   def pay
     @card = @member.current_card
     unless @card
-      @card = Card.new(:status => 'unpaid', :isic_status => (@member.club.uses_isic ? 'request' : 'none'))
+      @card = Card.new
       @card.member = @member
+      @card.determine_isic_status if @member.club.uses_isic
     end
 
     if params[:card] || params[:commit]
       @card.attributes = params[:card]
       @card.status = 'paid'
+      @card.isic_status = 'revalidated' if @card.isic_status = 'revalidate'
       unless @card.save
         # reset card number after unsuccesful save
         @card.number = nil

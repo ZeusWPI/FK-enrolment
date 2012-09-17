@@ -3,8 +3,8 @@ module MembersHelper
     {
       'request'   => 'aanvraag nog niet doorgegeven',
       'requested' => 'aanvraag is doorgegeven',
-      'printed'   => 'kaart is afgedrukt',
-      'delivered' => 'kaart is afgeleverd'
+      'revalidate' => 'kaart moet hervalideerd worden',
+      'revalidated' => 'kaart is hervalideerd'
     }[status]
   end
 

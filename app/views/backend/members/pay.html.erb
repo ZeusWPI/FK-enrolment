@@ -3,6 +3,7 @@
 <div class="member-wrapper">
   <%= render :partial => 'photo' %>
   <%= form_for @card, :url => pay_backend_member_path do |f| %>
+
   <dl>
     <dt>Naam:</dt>
     <dd><%= @member.name %></dd>
@@ -12,7 +13,7 @@
       <% if @card.number? %>
         <%= @card.number %>
       <% elsif @club.uses_isic %>
-        tijdelijke kaart
+        [tijdelijke kaart]
       <% else %>
         <em>nog geen kaart gekoppeld</em>
         <%= f.text_field :number %>
@@ -30,7 +31,13 @@
     <% if @club.uses_isic || @card.isic_status != 'none' %>
     <dt>ISIC-status:</dt>
     <dd>
+      <% if @card.isic_status == "revalidate" %>
+      <%= f.select :isic_status, options_for_select({ human_isic_status("revalidate") => "revalidate",
+                                   "nieuwe ISIC-kaart aanvragen" => "request" }) %>
+      <% else %>
       <%= human_isic_status @card.isic_status %>
+      <% end %>
+
       <% if @member.isic_mail_card %>
       <span class="order-notice">Kaart wordt opgestuurd: reken €1 extra aan!</span>
       <% end %>

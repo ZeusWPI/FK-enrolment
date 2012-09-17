@@ -40,6 +40,7 @@ class Card < ActiveRecord::Base
   # Set some practical defaults
   after_initialize :defaults
   def defaults
+    self.status ||= "unpaid"
     # registrations for the old year end in june
     self.academic_year ||= Member.current_academic_year
   end
