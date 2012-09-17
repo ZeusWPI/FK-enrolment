@@ -6,7 +6,7 @@ class MemberTest < ActiveSupport::TestCase
 
   def setup
     @url = "http://placehold.it/210x270"
-    File.open(File.join(fixture_path, "210x270.gif"), 'rb') { |f| @photo = f.read }
+    File.open(File.join(fixture_path, "210x270"), 'rb') { |f| @photo = f.read }
     @member = members(:javache)
   end
 
@@ -46,5 +46,22 @@ class MemberTest < ActiveSupport::TestCase
   test "should find member with same student number" do
     result = Member.member_for_ugent_nr(@member.ugent_nr, @member.club)
     assert_equal @member, result
+  end
+
+  test "should request card in isic export" do
+    @member = members(:nudded)
+    @member.cards.destroy_all
+
+    result = Member.find_all_for_isic_export(@member.club.id, "new")
+    assert_equal [@member], result
+    assert_nil result.first.current_card
+
+    export = IsicExport.new
+    export.members = result
+    export.generate
+    export.save!
+
+    @member.reload
+    assert_equal "requested", @member.current_card.isic_status
   end
 end

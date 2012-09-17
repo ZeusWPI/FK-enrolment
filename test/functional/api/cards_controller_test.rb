@@ -17,6 +17,12 @@ class Api::CardsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should generate new values for non-existing card" do
+    @card.destroy
+    get :show, params_for_api
+    assert_response :success
+  end
+
   test "should create card" do
     @card.destroy
     assert_difference('Card.count') do

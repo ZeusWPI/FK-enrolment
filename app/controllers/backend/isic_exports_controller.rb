@@ -34,16 +34,27 @@ class Backend::IsicExportsController < Backend::BackendController
   end
 
   def index
+    @unexported = Member.find_all_for_isic_export(false, "new")
+    @clubs = Club.where(:uses_isic => true).all
+
     # Only show exports created after July 1st
     cutoff = Time.new(Member.current_academic_year, 7, 1)
     @exports = IsicExport.where('created_at >= ?', cutoff).order('created_at DESC')
-    @unexported = Member.find_all_for_isic_export
   end
 
   def create
-    IsicExport.create.send_later(:generate)
-    redirect_to backend_isic_exports_path, :notice => ('De export wordt gegenereerd. ' \
+    members = Member.find_all_for_isic_export(params[:club], params[:type])
+    if members.count > 0
+      export = IsicExport.new
+      export.members = members.map(&:id)
+      export.save
+      export.send_later(:generate)
+      redirect_to backend_isic_exports_path, :notice => ('De export wordt gegenereerd. ' \
         'Gelieve binnen enkele minuten deze pagina opnieuw te laden.')
+    else
+      redirect_to backend_isic_exports_path, :notice => ('Er werden geen kaarten gevonden ' \
+        'die aan deze voorwaarden voldoen.')
+    end
   end
 
   def data

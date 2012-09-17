@@ -8,6 +8,7 @@ class Api::CardsController < Api::ApiController
     unless @card
       @card = Card.new
       @card.member = @member
+      @card.determine_isic_status
     end
 
     if @member.club_id != @club.id

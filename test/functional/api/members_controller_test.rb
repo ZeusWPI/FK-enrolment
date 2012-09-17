@@ -19,7 +19,7 @@ class Api::MembersControllerTest < ActionController::TestCase
   end
 
   test "should create member" do
-    attributes = @member.attributes.slice *Member.accessible_attributes
+    attributes = @member.attributes.slice(*Member.accessible_attributes)
     assert_difference('Member.count') do
       post :create, params_for_api({ member: attributes })
       assert_response :success

@@ -10,7 +10,9 @@ class Api::MembersController < Api::ApiController
   # GET /members
   # GET /members.json
   def index
-    @members = Member.includes(:current_card).where(:club_id => @club, :enabled => true)
+    @members = Member.active_registrations
+                     .includes(:current_card)
+                     .where(:club_id => @club, :enabled => true)
 
     if params[:card]
       @members = @members.joins(:current_card).where('cards.number' => params[:card])

@@ -49,7 +49,7 @@ class Card < ActiveRecord::Base
     result = super((options || {}).merge({
       :except => [:member_id]
     }))
-    result[:academic_year] = full_academic_year
+    result["academic_year"] = full_academic_year
     result
   end
 
@@ -74,7 +74,7 @@ class Card < ActiveRecord::Base
 
   # Get the next available card number
   def generate_number
-    return unless self.number.blank? and self.isic_status != 'none'
+    return if !self.number.blank? || self.isic_status == 'none'
     next_number = Card.where(
       :members => {:club_id => member.club_id},
       :academic_year => Member.current_academic_year

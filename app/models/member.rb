@@ -51,11 +51,33 @@ class Member < ActiveRecord::Base
   end
 
   # Find members that need to exported to ISIC
-  def self.find_all_for_isic_export
-    Member.includes(:current_card, :club)
-          .where(:enabled => true, :last_registration => self.current_academic_year)
-          .where('(clubs.uses_isic = ? AND cards.id IS NULL) OR cards.isic_exported = ?',
-                  true, false)
+  def self.find_all_for_isic_export(club, type)
+    result = Member.includes(:current_card, :club)
+                   .where(:enabled => true, :last_registration => self.current_academic_year)
+    result = result.where(:club_id => club) if club
+
+    case type
+    when "paid_new"
+      only_paid = true
+      status = "request"
+    when "new"
+      only_paid = false
+      status = "request"
+    when "revalidated"
+      only_paid = true
+      status = "revalidated"
+    else
+      raise "Unkown ISIC export request type"
+    end
+
+    if only_paid
+      result.where('cards.isic_exported = ? AND cards.isic_status = ? AND cards.status = ?',
+                   false, status, :paid)
+    else
+      result.where('(clubs.uses_isic = ? AND cards.id IS NULL) OR ' \
+                   '(cards.isic_exported = ? AND cards.isic_status = ?)',
+                   true, false, status)
+    end
   end
 
   # Current academic year
