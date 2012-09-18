@@ -52,16 +52,45 @@ class MemberTest < ActiveSupport::TestCase
     @member = members(:nudded)
     @member.cards.destroy_all
 
-    result = Member.find_all_for_isic_export(@member.club.id, "new")
+    result = Member.find_all_for_isic_export(@member.club.id, "request")
     assert_equal [@member], result
     assert_nil result.first.current_card
 
     export = IsicExport.new
-    export.members = result
+    export.club_id = @member.club_id
+    export.export_type = 'request'
+    export.members = result.map(&:id)
     export.generate
     export.save!
 
     @member.reload
     assert_equal "requested", @member.current_card.isic_status
+  end
+
+  test "should not include unpaid cards in isic export" do
+    @member = members(:nudded)
+
+    result = Member.find_all_for_isic_export(@member.club.id, "request_paid")
+    assert_equal [], result
+  end
+
+  test "should filter isic export after processing" do
+    @member = members(:nudded)
+    @member.current_card.destroy
+
+    result = Member.find_all_for_isic_export(@member.club.id, "request")
+    assert_equal [@member], result
+    assert_nil result.first.current_card
+
+    export = IsicExport.new
+    export.club_id = @member.club_id
+    export.export_type = 'request'
+    export.members = result.map(&:id)
+    export.generate
+    export.save!
+
+    @member.reload
+    assert_equal "revalidate", @member.current_card.isic_status
+    assert_equal [], export.members
   end
 end

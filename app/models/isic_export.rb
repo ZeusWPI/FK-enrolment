@@ -13,7 +13,7 @@ class IsicExport < ActiveRecord::Base
 
   # Generate the export files
   def generate
-    members = self.full_members
+    members = full_members
 
     # assign cards to all members
     members.each do |member|
@@ -24,22 +24,21 @@ class IsicExport < ActiveRecord::Base
         card.determine_isic_status
       end
 
-      if card.isic_status == 'request'
-        card.isic_status = 'requested'
-      elsif card.isic_status == 'revalidate'
-        # Don't do anything
-      else
-        raise "Unable to handle isic_status #{member.current_card.isic_status}"
-      end
+      card.isic_status = 'requested' if card.isic_status == 'request'
 
-      # TODO: don't handle cards that were not in the original request
+      # In this case cards might have just been generated
+      if export_type == 'request' && card.isic_status != 'request'
+        self.members.delete member.id
+      end
 
       card.isic_exported = 1
       card.save!
       member.reload
     end
 
-    filename = File.join(Dir.tmpdir, "Export %s" % Time.now.strftime('%F %T'))
+    members = full_members
+    club = club_id ? Club.find(club_id).internal_name : ''
+    filename = File.join(Dir.tmpdir, "Export %s %s %s" % [club, export_type, Time.now.strftime('%F %T')])
     generate_data_spreadsheet(filename + ".xls", members)
     generate_photos_zip(filename + ".zip", members)
     save!

@@ -30,8 +30,8 @@
     <td><%= export.export_type %></td>
     <td><%= export.members.count if export.members? %></td>
     <% if export.data_file_name? %>
-    <td><%= link_to export.data_file_name, [:data, :backend, export] %></td>
-    <td><%= link_to export.photos_file_name, [:photos, :backend, export] %></td>
+    <td><%= link_to "Download .xls", [:data, :backend, export] %></td>
+    <td><%= link_to "Download .zip", [:photos, :backend, export] %></td>
     <% else %>
     <td colspan="2"><em>wordt aangemaakt…</em></td>
     <% end %>
