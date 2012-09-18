@@ -34,8 +34,8 @@ class Backend::IsicExportsController < Backend::BackendController
   end
 
   def index
-    @cards_to_request = Member.find_all_for_isic_export(false, "request_paid")
-    @revalidated_cards = Member.find_all_for_isic_export(false, "revalidated")
+    @cards_to_request = Member.find_all_for_isic_export(nil, "request_paid")
+    @revalidated_cards = Member.find_all_for_isic_export(nil, "revalidated")
     @clubs = Club.where(:uses_isic => true).all
 
     # Only show exports created after July 1st
@@ -44,6 +44,7 @@ class Backend::IsicExportsController < Backend::BackendController
   end
 
   def create
+    params[:club] = nil if params[:club].blank?
     members = Member.find_all_for_isic_export(params[:club], params[:type])
     if members.count > 0
       export = IsicExport.new

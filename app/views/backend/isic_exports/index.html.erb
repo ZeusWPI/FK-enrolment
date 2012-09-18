@@ -4,7 +4,8 @@
   klaar voor export, <%= pluralize @revalidated_cards.count, 'lidkaart', 'lidkaarten' %>
   te hervalideren.</p>
 <p><%= form_tag backend_isic_exports_path, :method => :POST do %>
-  <%= select_tag "club", options_from_collection_for_select(@clubs, "id", "internal_name") %>
+  <%= select_tag "club", raw("<option selected='selected' value=''>Alle kringen</option>") +
+                         options_from_collection_for_select(@clubs, "id", "internal_name") %>
   <%= select_tag "type", options_for_select({ "Betaalde nieuwe kaarten" => "request_paid",
                                               "Alle nieuwe kaarten" => "request",
                                               "Gehervalideerde kaarten" => "revalidated"}, "request_paid") %>
@@ -26,7 +27,7 @@
 <% @exports.each do |export| %>
   <tr class="<%= cycle("odd", "even") %>">
     <td><%= l export.created_at, :format => :long %></td>
-    <td><%= Club.find(export.club_id).internal_name %></td>
+    <td><%= Club.find(export.club_id).internal_name if export.club_id %></td>
     <td><%= export.export_type %></td>
     <td><%= export.members.count if export.members? %></td>
     <% if export.data_file_name? %>
