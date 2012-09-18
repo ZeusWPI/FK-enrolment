@@ -13,7 +13,7 @@ class Card < ActiveRecord::Base
   validates :academic_year, :presence => true, :uniqueness => { :scope => :member_id }
   validates :number, :presence => true, :uniqueness => { :scope => :academic_year }
   validates :status, :inclusion => { :in => %w(unpaid paid) }
-  validates :isic_status, :inclusion => { :in => %w(none request requested revalidate revalidated) }
+  validates :isic_status, :inclusion => { :in => %w(none request requested revalidate revalidated printed) }
   validate :number, :valid_card_number
 
   # By default, always join the member

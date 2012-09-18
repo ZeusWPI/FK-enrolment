@@ -49,15 +49,16 @@ class IsicExport < ActiveRecord::Base
     book = Spreadsheet::Workbook.new
     sheet = book.create_worksheet :name => "Gegevens"
     sheet.row(0).concat ["School", "Kring", "Voornaam", "Familienaam",
-        "Geboortedatum", "E-mailadres", "Thuisadres", "FK-nummer",
-        "ISIC nummer", "ISIC status", "Foto", "ISIC nieuwsbrief", "Kaart opsturen"]
+        "Geboortedatum", "E-mailadres", "Thuisadres",  "FK-nummer",
+        "ISIC nummer", "ISIC status", "Status", "Foto", "ISIC nieuwsbrief", "Kaart opsturen"]
 
     members.each_with_index do |member, i|
       sheet.row(i+1).concat ["UGent", member.club.internal_name,
           member.first_name, member.last_name, member.date_of_birth, member.email,
           member.home_address.sub("\r\n", "\n"), member.current_card.number,
           member.current_card.isic_number, member.current_card.isic_status,
-          "#{member.id}.jpg", member.isic_newsletter, member.isic_mail_card]
+          member.current_card.status, "#{member.id}.jpg", member.isic_newsletter,
+          member.isic_mail_card]
     end
     book.write(filename)
     assign_file_and_unlink(:data, filename)

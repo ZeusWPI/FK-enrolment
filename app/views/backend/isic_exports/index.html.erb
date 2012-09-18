@@ -1,6 +1,6 @@
 <% title "ISIC export" %>
 
-<p><%= pluralize @cards_to_request.count, 'nieuwe lidkaart', 'nieuwe lidkaarten' %>
+<p><%= pluralize @cards_to_request.count, 'betaalde nieuwe lidkaart', 'betaalde nieuwe lidkaarten' %>
   klaar voor export, <%= pluralize @revalidated_cards.count, 'lidkaart', 'lidkaarten' %>
   te hervalideren.</p>
 <p><%= form_tag backend_isic_exports_path, :method => :POST do %>
