@@ -60,7 +60,7 @@ class Backend::MembersController < Backend::BackendController
     if params[:card] || params[:commit]
       @card.attributes = params[:card]
       @card.status = 'paid'
-      @card.isic_status = 'revalidated' if @card.isic_status = 'revalidate'
+      @card.isic_status = 'revalidated' if @card.isic_status == 'revalidate'
       unless @card.save
         # reset card number after unsuccesful save
         @card.number = nil

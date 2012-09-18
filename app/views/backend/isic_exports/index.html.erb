@@ -1,23 +1,23 @@
 <% title "ISIC export" %>
 
-<p><%= pluralize @unexported.count, 'nieuwe lidkaart', 'nieuwe lidkaarten' %>
-  klaar voor export.
-<% if @unexported.count > 0 %>
-  <p><%= form_tag backend_isic_exports_path, :method => :POST do %>
-    <%= select_tag "club", options_from_collection_for_select(@clubs, "id", "name") %>
-    <%= select_tag "type", options_for_select({ "Betaalde nieuwe kaarten" => "paid_new",
-                                                "Alle nieuwe kaarten" => "new",
-                                                "Gehervalideerde kaarten" => "revalidated"}, "all_new") %>
-    <%= submit_tag "Export aanmaken" %>
-  <% end %></p>
+<p><%= pluralize @cards_to_request.count, 'nieuwe lidkaart', 'nieuwe lidkaarten' %>
+  klaar voor export, <%= pluralize @revalidated_cards.count, 'lidkaart', 'lidkaarten' %>
+  te hervalideren.</p>
+<p><%= form_tag backend_isic_exports_path, :method => :POST do %>
+  <%= select_tag "club", options_from_collection_for_select(@clubs, "id", "internal_name") %>
+  <%= select_tag "type", options_for_select({ "Betaalde nieuwe kaarten" => "request_paid",
+                                              "Alle nieuwe kaarten" => "request",
+                                              "Gehervalideerde kaarten" => "revalidated"}, "request_paid") %>
+  <%= submit_tag "Export aanmaken" %></p>
 <% end %>
 
 <table class="datagrid">
 <thead>
   <tr>
     <th>Datum</th>
+    <th>Kring</th>
+    <th>Type</th>
     <th>Aantal</th>
-    <!--<th>Status</th>-->
     <th>Gegevens</th>
     <th>Foto's</th>
   </tr>
@@ -26,8 +26,9 @@
 <% @exports.each do |export| %>
   <tr class="<%= cycle("odd", "even") %>">
     <td><%= l export.created_at, :format => :long %></td>
+    <td><%= Club.find(export.club_id).internal_name %></td>
+    <td><%= export.export_type %></td>
     <td><%= export.members.count if export.members? %></td>
-    <!--<td><%= export.status %></td>-->
     <% if export.data_file_name? %>
     <td><%= link_to export.data_file_name, [:data, :backend, export] %></td>
     <td><%= link_to export.photos_file_name, [:photos, :backend, export] %></td>

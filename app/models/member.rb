@@ -57,10 +57,10 @@ class Member < ActiveRecord::Base
     result = result.where(:club_id => club) if club
 
     case type
-    when "paid_new"
+    when "request_paid"
       only_paid = true
       status = "request"
-    when "new"
+    when "request"
       only_paid = false
       status = "request"
     when "revalidated"
