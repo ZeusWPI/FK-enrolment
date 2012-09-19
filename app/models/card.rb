@@ -62,10 +62,11 @@ class Card < ActiveRecord::Base
 
     prev_member = Member.member_for_ugent_nr(member.ugent_nr, member.club)
     if prev_member
-      prev_card = prev_member.cards.where(:academic_year => member.last_registration - 1)
+      prev_card = prev_member.cards.where(:academic_year => member.last_registration - 1).first
       if prev_card
         self.isic_status = 'revalidate'
-        self.isic_number = prev_card.first.isic_number
+        self.isic_number = prev_card.isic_number
+        self.number = prev_card.number
       end
     end
   end
@@ -76,9 +77,11 @@ class Card < ActiveRecord::Base
   # Get the next available card number
   def generate_number
     return if !self.number.blank? || self.isic_status == 'none'
+
+    academic_year = Member.current_academic_year
     next_number = Card.where(
       :members => {:club_id => member.club_id},
-      :academic_year => Member.current_academic_year
+      :academic_year => (academic_year - 1)..academic_year
     ).maximum(:number)
     self.number = next_number ? next_number + 1 : club.range_lower
   end

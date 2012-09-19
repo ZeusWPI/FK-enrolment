@@ -62,6 +62,14 @@ class CardTest < ActiveSupport::TestCase
     c.member = members(:nudded)
     c.determine_isic_status
     assert_equal "revalidate", c.isic_status
-    assert_equal cards(:nudded).isic_number, c.isic_number
+    assert_equal cards(:nudded2).isic_number, c.isic_number
+    assert_equal cards(:nudded2).number, c.number
+  end
+
+  test "new cards should not be lower than last year's maximum" do
+    cards(:nudded).destroy
+    c = Card.new(:isic_status => 'request')
+    c.member = members(:nudded)
+    assert_equal 22, c.generate_number
   end
 end
