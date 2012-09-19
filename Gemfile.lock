@@ -64,7 +64,7 @@ GEM
       configatron
       hashie
     daemons (1.1.9)
-    datagrid (0.6.2)
+    datagrid (0.6.4)
       rails (>= 3.0)
     delayed_job (3.0.3)
       activesupport (~> 3.0)

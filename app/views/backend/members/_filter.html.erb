@@ -4,7 +4,7 @@
 <div id="filters" <%= raw(' style="display: none;"') if not @filtered %>>
   <p class="side-icons"><%= icon(:collapse, 'Filters verbergen', '#') %></p>
   <h3>Filter resultaten</h3>
-  <%= semantic_form_for @membergrid, :as => "member_report",
+  <%= semantic_form_for @membergrid,
         :method => :get, :url => submit_path do |f| %>
     <%= f.inputs do %>
       <%= f.input :first_name, :label => Member.human_attribute_name(:first_name) %>

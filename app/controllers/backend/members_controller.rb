@@ -8,7 +8,7 @@ class Backend::MembersController < Backend::BackendController
   end
 
   def index
-    report_params = {:club_id => @club.id}
+    report_params = { club_id: @club.id }
     @filtered = false
     if params[:member_report]
       # This will check if members are actually filtered
@@ -67,5 +67,19 @@ class Backend::MembersController < Backend::BackendController
         @card.status = 'unpaid'
       end
     end
+  end
+end
+
+class MemberReport
+  include BasicMemberReport
+
+  # Icons
+  column(:details, :header => "") do |member|
+    icon(:details, '', backend_member_path(member), :title => "Details")
+  end
+  column(:delete, :header => "") do |member|
+    icon(:delete, '', disable_backend_member_path(member),
+            :title => "Verwijderen", :method => :post,
+            :confirm => "Bent u zeker dat u dit lid wil verwijderen?")
   end
 end
