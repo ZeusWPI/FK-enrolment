@@ -53,7 +53,7 @@ De voornaamste methodes worden hieronder beschreven:
 
     * ``number`` (int): toegekende FK-kaart nummer
     * ``status`` (paid of unpaid): betalingsstatus
-    * ``isic_status`` (none/request/requested/printed/delivered): ISIC-kaart aanvragen of niet?
+    * ``isic_status`` (none/request/requested/revalidate/revalidated/printed): ISIC-kaart aanvragen of niet?
 
 *   *GET /api/v2/club.json?key=x*
 

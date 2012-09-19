@@ -98,6 +98,7 @@ class Backend::BackendController < ApplicationController
 
   class MemberReport
     include BasicMemberReport
+
     # Icons
     column(:details, :header => "") do |member|
       icon(:details, '', backend_member_path(member), :title => "Details")

@@ -7,7 +7,7 @@ class Club < ActiveRecord::Base
   validates :registration_method, :inclusion => { :in => %w(none api website hidden) }
 
   attr_accessible :description, :isic_text, :confirmation_text,
-    :registration_method, :uses_isic
+    :registration_method, :uses_isic, :offer_isic_mail_option
 
   # Find clubs using a specified registration method
   def self.using(method)

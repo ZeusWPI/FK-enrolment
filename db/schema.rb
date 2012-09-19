@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120918080054) do
+ActiveRecord::Schema.define(:version => 20120919121123) do
 
   create_table "cards", :force => true do |t|
     t.integer  "member_id"
@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(:version => 20120918080054) do
     t.string   "internal_name"
     t.string   "description"
     t.string   "url"
-    t.string   "registration_method", :default => "none"
-    t.boolean  "uses_isic",           :default => false
+    t.string   "registration_method",    :default => "none"
+    t.boolean  "uses_isic",              :default => false
     t.text     "isic_text"
     t.text     "confirmation_text"
     t.string   "api_key"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20120918080054) do
     t.datetime "updated_at"
     t.integer  "range_lower"
     t.integer  "range_upper"
+    t.boolean  "offer_isic_mail_option", :default => true
   end
 
   add_index "clubs", ["api_key"], :name => "index_clubs_on_api_key", :unique => true
