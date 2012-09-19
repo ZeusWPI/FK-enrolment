@@ -65,4 +65,19 @@ class Api::MembersControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal "Pieter-Jan", Member.find(@member.id).first_name
   end
+
+  test "should always have a current card" do
+    def assert_card_in_response
+      get :show, params_for_api({ id: @member.to_param })
+      assert_response :success
+      result = JSON.parse(response.body)
+      assert_not_nil result["card"]
+    end
+
+    @member = members(:nudded)
+    @club = @member.club
+    assert_card_in_response
+    cards(:nudded).destroy
+    assert_card_in_response
+  end
 end

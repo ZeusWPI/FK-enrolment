@@ -19,6 +19,7 @@ vtk:
   description: "Faculteitskring van de studenten Toegepaste Wetenschappen"
   url: http://www.vtk.ugent.be
   registration_method: website
+  api_key: f7caf6207c36bebcf8a45be5a581a4a0
   uses_isic: true
   isic_text: "Buy ISIC now!"
   confirmation_text: "Now pay up."

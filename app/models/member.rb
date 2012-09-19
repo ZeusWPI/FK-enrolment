@@ -113,6 +113,14 @@ class Member < ActiveRecord::Base
     }))
     result[:card] = result.delete :current_card
     result[:photo] = photo.url(:cropped) if photo?
+
+    unless result[:card]
+      card = Card.new
+      card.member = self
+      card.determine_isic_status if club.uses_isic
+      result[:card] = card
+    end
+
     result
   end
 
