@@ -81,7 +81,9 @@ class Card < ActiveRecord::Base
     academic_year = Member.current_academic_year
     next_number = Card.where(
       :members => {:club_id => member.club_id},
-      :academic_year => (academic_year - 1)..academic_year
+      :academic_year => academic_year
+#      :academic_year => (academic_year - 1)..academic_year
+      :enabled => true
     ).maximum(:number)
     self.number = next_number ? next_number + 1 : club.range_lower
   end
