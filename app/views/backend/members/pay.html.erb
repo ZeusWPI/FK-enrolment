@@ -17,11 +17,12 @@
       <% else %>
         <em>nog geen kaart gekoppeld</em>
         <%= f.text_field :number %>
-        <% if not @card.errors.empty? %>
-          <span class="field_with_errors">
-            <%= @card.errors.full_messages.join ', ' %>
-          </span>
-        <% end %>
+      <% end %>
+
+      <% if not @card.errors.empty? %>
+        <span class="field_with_errors">
+          <%= @card.errors.full_messages.join ', ' %>
+        </span>
       <% end %>
     </dd>
 
