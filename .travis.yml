@@ -3,9 +3,9 @@ rvm:
     - 1.9.3
 
 before_script:
-    - "bundle exec rake db:setup"
+    - "bundle exec rake db:test:prepare"
 
 notifications:
     email:
-        - admin@zeus.ugent.be
-    irc: "wina.ugent.be#zeus
+        - fk-enrolment@zeus.ugent.be
+    irc: "wina.ugent.be#zeus"
