@@ -26,6 +26,8 @@ class Card < ActiveRecord::Base
   # as these assignments might change
   def valid_card_number
     return if self.number.blank? or not self.member
+    return if self.club.uses_isic
+
     range = self.member.club.range_lower..self.member.club.range_upper
     errors.add(:number, "valt niet in het toegekende bereik") unless range.include? self.number
   end
@@ -63,7 +65,7 @@ class Card < ActiveRecord::Base
     prev_member = Member.member_for_ugent_nr(member.ugent_nr, member.club)
     if prev_member
       prev_card = prev_member.cards.where(:academic_year => member.last_registration - 1).first
-      if prev_card
+      if prev_card && !prev_card.isic_number.blank?
         self.isic_status = 'revalidate'
         self.isic_number = prev_card.isic_number
         self.number = prev_card.number
@@ -78,12 +80,21 @@ class Card < ActiveRecord::Base
   def generate_number
     return if !self.number.blank? || self.isic_status == 'none'
 
+    # new procedure
+    # academic_year = Member.current_academic_year
+    # base_number = (academic_year % 100) * 1000000
+    #             + member.club_id * 10000
+    # next_number = Card.where(
+    #   :members => {:club_id => member.club_id},
+    #   :number => base_number .. (base_number + 9999)
+    # ).maximum(:number)
+    # self.number = next_number ? next_number + 1 : base_number + 1
+
+    # old procedure
     academic_year = Member.current_academic_year
     next_number = Card.where(
       :members => {:club_id => member.club_id},
-      :academic_year => academic_year,
-#      :academic_year => (academic_year - 1)..academic_year
-      :enabled => true
+      :academic_year => academic_year
     ).maximum(:number)
     self.number = next_number ? next_number + 1 : club.range_lower
   end

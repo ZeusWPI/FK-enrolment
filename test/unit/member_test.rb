@@ -6,7 +6,7 @@ class MemberTest < ActiveSupport::TestCase
 
   def setup
     @url = "http://placehold.it/210x270"
-    File.open(File.join(fixture_path, "210x270"), 'rb') { |f| @photo = f.read }
+    File.open(File.join(fixture_path, "210x270.gif"), 'rb') { |f| @photo = f.read }
     @member = members(:javache)
   end
 
