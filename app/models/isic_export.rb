@@ -27,13 +27,13 @@ class IsicExport < ActiveRecord::Base
       card.isic_status = 'requested' if card.isic_status == 'request'
 
       # In this case cards might have just been generated
-      if export_type == 'request' && card.isic_status != 'request'
+      if export_type == 'request' && card.isic_status != 'requested'
         self.members.delete member.id
+      else
+        card.isic_exported = 1
       end
 
-      card.isic_exported = 1
       card.save!
-      member.reload
     end
 
     members = full_members
