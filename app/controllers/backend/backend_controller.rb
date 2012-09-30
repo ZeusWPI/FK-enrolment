@@ -91,7 +91,12 @@ module BasicMemberReport
         I18n.localize member.created_at, :format => :short
       end
       column(:photo, :header => "") do |member|
-        icon(:photo, '', '#', "data-photo" => member.photo(:cropped)) if member.photo?
+        if member.photo?
+          icon(:photo, '', photo_backend_member_path(member),
+            "data-photo" => member.photo(:cropped))
+        else
+          icon(:nophoto, '', photo_backend_member_path(member))
+        end
       end
     end
   end

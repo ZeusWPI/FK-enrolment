@@ -43,5 +43,6 @@ body.backend {
   &.female { @include icons-sprite(female); }
   &.male { @include icons-sprite(male); }
   &.photo { @include icons-sprite(image); }
+  &.nophoto { @include icons-sprite(no-image); }
   &.true { @include icons-sprite(accept); }
 }

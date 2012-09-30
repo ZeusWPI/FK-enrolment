@@ -2,8 +2,8 @@
 // All this logic will automatically be available in application.js.
 
 $(function() {
-  if ($('body').hasClass('registration photo')) {
-    initSeenly();
+  if ($('body').hasClass('photo')) {
+    //initSeenly();
     initCropper();
   }
 
@@ -96,7 +96,7 @@ function initCropper() {
     initial = { x: 50, y: 10, w: 315, h: 405 };
   }
 
-  $('body.registration.photo #crop-image').Jcrop({
+  $('#crop-image').Jcrop({
     setSelect: [initial.x, initial.y, initial.x + initial.w, initial.y + initial.h],
     aspectRatio: aspectRatio,
     onChange: updateCrop,

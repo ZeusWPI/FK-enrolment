@@ -68,6 +68,10 @@ class Backend::MembersController < Backend::BackendController
       end
     end
   end
+
+  def photo
+    @member.update_attributes(params[:member]) if params[:member]
+  end
 end
 
 class MemberReport

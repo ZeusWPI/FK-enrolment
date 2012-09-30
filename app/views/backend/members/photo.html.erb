@@ -1,0 +1,62 @@
+<% title "Foto wijzigen" %>
+<p>
+  <%= link_to "« Terug naar alle leden", backend_members_path %>,
+  <%= link_to "betalingsinformatie aanpassen »", pay_backend_member_path(@member) %>
+</p>
+
+<% if @member.photo? %>
+<div class="crop-wrapper">
+  <h3>Foto bijsnijden</h3>
+
+  <%= semantic_form_for @member, :url => photo_backend_member_path(@member) do |f| %>
+    <%= image_tag @member.photo.url(:large), :id => "crop-image" %>
+
+    <span>Voorbeeld:</span>
+    <div id="crop-preview">
+      <%= image_tag @member.photo.url(:large) %>
+    </div>
+
+    <%= f.inputs do %>
+      <% for crop_attr in [:crop_x, :crop_y, :crop_w, :crop_h] %>
+        <%= f.input crop_attr, :as => :hidden %>
+      <% end %>
+    <% end %>
+
+    <%= f.buttons :class => "member no-indent" do %>
+      <%= f.commit_button "Selectie vastleggen" %>
+    <% end %>
+  <% end %>
+</div>
+
+<h3>Een andere foto kiezen?</h3>
+<% elsif @eid_authed %>
+<p>Deze foto haalden we van je elektronische identiteitskaart.</p>
+<%= image_tag eid_photo_path %>
+
+<%= semantic_form_for @member, :url => photo_backend_member_path(@member) do |f| %>
+  <%= f.input :photo_base64, :as => :hidden, :value => session[:eid]["be:fedict:eid:idp:photo"] %>
+  <%= f.buttons :class => "member no-indent" do %>
+    <%= f.commit_button "Foto gebruiken" %>
+  <% end %>
+<% end %>
+
+<h3>Een andere foto kiezen?</h3>
+<% end %>
+
+<%= semantic_form_for @member, :url => photo_backend_member_path(@member) do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :photo %>
+
+    <!-- <%= f.input :photo_base64, :as => :hidden %>
+    <li class="file optional">
+      <label>Webcam</label>
+      <a href="#webcam" class="seenly">Foto met webcam nemen</a>
+    </li>-->
+
+    <%= f.input :photo_url, :input_html => { :placeholder => "http://" } %>
+  <% end %>
+
+  <%= f.buttons do %>
+    <%= f.commit_button "Foto doorsturen" %>
+  <% end %>
+<% end %>

@@ -23,7 +23,7 @@ $(function() {
                  .attr('src', $(this).data('photo'))
                  .attr('width', 210).attr('height', 270)
       }
-    }).click(function() { return false; });
+    });
   }
 
   if($('body').hasClass('backend')) {

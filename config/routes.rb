@@ -12,7 +12,7 @@ FKEnrolment::Application.routes.draw do
 
     resources :members, :except => [:create, :new, :destroy] do
       post "disable", :on => :member
-      match "pay", :on => :member
+      match "pay", "photo", :on => :member
       post "search", :on => :collection
     end
 
