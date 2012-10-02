@@ -33,6 +33,15 @@ class IsicExport < ActiveRecord::Base
         card.isic_exported = 1
       end
 
+      # fix duplicate card numbers
+      if !card.valid?
+        other_card = Card.where(:number => card.number, :academic_year => Member.current_academic_year).first!
+        if !other_card.isic_exported
+          other_card.number = nil
+          other_card.save!
+        end
+      end
+
       card.save!
     end
 
