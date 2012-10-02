@@ -5,7 +5,7 @@ class MemberTest < ActiveSupport::TestCase
   verify_fixtures Member
 
   def setup
-    @url = "http://placehold.it/210x270"
+    @url = "http://kelder.zeus.ugent.be/~nudded/fk-test.gif"
     File.open(File.join(fixture_path, "210x270.gif"), 'rb') { |f| @photo = f.read }
     @member = members(:javache)
   end
