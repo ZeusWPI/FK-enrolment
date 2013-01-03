@@ -54,7 +54,8 @@ group :assets do
   gem 'oily_png'        # Faster PNG generation for compass sprites
   gem 'jquery-rails'
   gem 'uglifier'        # Javascript compressor
-  gem 'mustang'         # Javascript engine
+  gem 'therubyracer'    # Javascript engine
+  gem 'libv8', '3.11.8.3'
 end
 
 group :development do
