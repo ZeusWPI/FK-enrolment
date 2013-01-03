@@ -92,6 +92,7 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.7.6)
     kgio (2.7.4)
+    libv8 (3.11.8.3)
     macaddr (1.6.1)
       systemu (~> 2.5.0)
     mail (2.4.4)
@@ -210,6 +211,7 @@ DEPENDENCIES
   formtastic (~> 2.2)
   httparty
   jquery-rails
+  libv8
   minitest
   mysql2
   oily_png

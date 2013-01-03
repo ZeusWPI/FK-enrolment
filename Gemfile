@@ -55,6 +55,7 @@ group :assets do
   gem 'jquery-rails'
   gem 'uglifier'        # Javascript compressor
   gem 'therubyracer'    # Javascript engine
+  gem 'libv8'
 end
 
 group :development do
