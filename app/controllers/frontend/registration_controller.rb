@@ -37,6 +37,8 @@ class Frontend::RegistrationController < Frontend::FrontendController
       old_record = Member.member_for_ugent_nr(student_nr, @club)
       if old_record
         @member = old_record
+        # TODO: add check for re-registering members with a ISIC club that
+        # do not have a photo yet
         session[:member_id] = old_record.id
       end
     end

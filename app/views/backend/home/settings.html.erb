@@ -20,7 +20,7 @@
     <li><label>API sleutel</label><p><code><%= @club.api_key %></code></p></li>
   <% end %>
 
-  <%= f.buttons do %>
-    <%= f.commit_button "Wijzigen" %>
+  <%= f.actions do %>
+    <%= f.action :submit, :label => "Wijzigen" %>
   <% end %>
 <% end %>

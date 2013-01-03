@@ -14,8 +14,8 @@
       <%= f.input :email, :label => Member.human_attribute_name(:email) %>
       <%= f.input :card_holders_only, :as => :boolean, :label => "Enkel leden met kaartnummer?" %>
     <% end %>
-    <%= f.buttons do %>
-      <%= f.commit_button "Filteren" %>
+    <%= f.actions do %>
+      <%= f.action :submit, :label => "Filteren" %>
       <li class="cancel"><%= link_to "Reset filters", submit_path %></li>
     <% end %>
   <% end %>

@@ -22,8 +22,8 @@
       <% end %>
     <% end %>
 
-    <%= f.buttons :class => "member no-indent" do %>
-      <%= f.commit_button "Selectie vastleggen" %>
+    <%= f.actions :class => "member no-indent" do %>
+      <%= f.action :submit, :label => "Selectie vastleggen" %>
     <% end %>
   <% end %>
 </div>
@@ -35,8 +35,8 @@
 
 <%= semantic_form_for @member, :url => photo_backend_member_path(@member) do |f| %>
   <%= f.input :photo_base64, :as => :hidden, :value => session[:eid]["be:fedict:eid:idp:photo"] %>
-  <%= f.buttons :class => "member no-indent" do %>
-    <%= f.commit_button "Foto gebruiken" %>
+  <%= f.actions :class => "member no-indent" do %>
+    <%= f.action :submit, :label => "Foto gebruiken" %>
   <% end %>
 <% end %>
 
@@ -56,7 +56,7 @@
     <%= f.input :photo_url, :input_html => { :placeholder => "http://" } %>
   <% end %>
 
-  <%= f.buttons do %>
-    <%= f.commit_button "Foto doorsturen" %>
+  <%= f.actions do %>
+    <%= f.action :submit, :label => "Foto doorsturen" %>
   <% end %>
 <% end %>

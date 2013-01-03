@@ -41,8 +41,8 @@
 
   <%= render_extra_attributes(f) %>
 
-  <%= f.buttons do %>
-    <%= f.commit_button "Volgende stap" %>
+  <%= f.actions do %>
+    <%= f.action :submit, :label => "Volgende stap" %>
   <% end %>
 
   <p class="disclaimer">

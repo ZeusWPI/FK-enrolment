@@ -14,7 +14,7 @@ gem 'rubycas-client-rails', :git => 'git://github.com/Javache/rubycas-client-rai
 gem 'paperclip', '~> 2.7'
 
 # Better forms
-gem 'formtastic', '~> 1.2'
+gem 'formtastic', '~> 2.2'
 
 # Pagination
 gem 'will_paginate', '~> 3.0'
@@ -23,7 +23,7 @@ gem 'will_paginate', '~> 3.0'
 gem 'rails-i18n'
 
 # Send error messages
-gem 'exception_notification', :require => 'exception_notifier'
+gem 'exception_notification', '~> 2.6', :require => 'exception_notifier'
 
 # ActiveRecord enhancements
 gem 'acts_as_list'
