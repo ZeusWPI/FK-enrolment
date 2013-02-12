@@ -55,6 +55,7 @@ group :assets do
   gem 'jquery-rails'
   gem 'uglifier'        # Javascript compressor
   gem 'therubyracer', '~> 0.10.0' # Javascript engine
+  gem 'yui-compressor', '~> 0.9.6'
 end
 
 group :development do
