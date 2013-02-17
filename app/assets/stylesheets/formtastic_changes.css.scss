@@ -15,7 +15,7 @@ form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
 
 @import "common";
 
-form.formtastic fieldset > ol > li {
+.formtastic .input {
   @include leader(0.5);
   @include trailer(0.5);
   padding: 0;
@@ -25,20 +25,11 @@ form.formtastic fieldset > ol > li {
     margin-top: 0;
   }
 
-  label {
-    font-weight: 900;
+  .label {
     color: $text-color;
-    width: 30%;
+    padding: 0;
   }
 
-  fieldset ol {
-    width: 69%;
-    padding: 0 0 0 30%;
-  }
-
-  p.inline-errors, p.inline-hints {
-    margin-left: 30%;
-  }
   p.inline-hints {
     margin-top: 0;
     @include adjust-font-size-to(12px, 0.75);
@@ -51,24 +42,19 @@ form.formtastic fieldset > ol > li {
   &.error label { color: $error-color; }
   &.required label abbr { color: $error-color; }
 
-  &.radio fieldset, &.check_boxes fieldset {
-    ol { margin-bottom: 0; }
-    ol li { margin-bottom: 0; }
-    ol li label {
-      font-weight: normal;
-      color: $text-color;
-  } }
+  .choices-group, .fragments-group {
+    padding-left: 30%; width: 69%;
 
-  &.check_boxes label input {
-    margin:0 0.5em 0 0.2em !important;
+    .choice label input { margin-right: 8px; }
+    .fragment {
+      float: left;
+      margin: 0 8px 0 0;
+    }
   }
 
   &.checkbox-grid li {
     width: 150px; float: left;
   }
-
-  /* Fix weird scrolling bug */
-  &.date fieldset { overflow: hidden; }
 }
 
 form.formtastic fieldset {

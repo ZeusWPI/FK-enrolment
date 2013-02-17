@@ -31,7 +31,8 @@
     <%= f.input :phone, :as => :phone %>
     <%= f.input :sex, :as => :radio,
                       :collection => {"Man" => "m", "Vrouw" => "f"}  %>
-    <%= f.input :date_of_birth, :start_year => 1920, :end_year => Time.now.year,
+    <%= f.input :date_of_birth, :labels => {:year => false, :month => false, :day => false },
+                                :start_year => 1920, :end_year => Time.now.year,
                                 :input_html => { :disabled => @eid_authed } %>
     <%= f.input :home_address, :as => :text,
                                :input_html => { :cols => 30, :rows => 3 } %>
