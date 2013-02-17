@@ -6,10 +6,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui.custom
 //= require jquery.color
 //= require jquery.Jcrop
-//= require jquery.tooltip
-//= require jquery-ui.custom
-//= require swfobject
+//= requrie jquery.tooltip
 //= require Seenly
+//= require swfobject
 //= require_tree .

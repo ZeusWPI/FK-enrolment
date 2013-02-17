@@ -52,7 +52,7 @@ group :assets do
   gem 'sass-rails', '~> 3.2'
   gem 'compass-rails'
   gem 'oily_png'        # Faster PNG generation for compass sprites
-  gem 'jquery-rails'
+  gem 'jquery-rails', '~> 2.1.0'
   gem 'uglifier'        # Javascript compressor
   gem 'therubyracer', '~> 0.10.0' # Javascript engine
   gem 'yui-compressor', '~> 0.9.6'
