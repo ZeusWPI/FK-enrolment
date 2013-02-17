@@ -26,8 +26,10 @@ form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
   }
 
   .label {
+    font-weight: 900;
     color: $text-color;
     padding: 0;
+    width: 30%;
   }
 
   p.inline-hints {
@@ -50,6 +52,10 @@ form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
       float: left;
       margin: 0 8px 0 0;
     }
+  }
+
+  &.check_boxes .label {
+    width: 100%;
   }
 
   &.checkbox-grid li {
