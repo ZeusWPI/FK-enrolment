@@ -9,8 +9,6 @@ wina:
   registration_method: api
   api_key: f7caf6207c36bebcf8a45be5a581a4a9
   uses_isic: false
-  range_lower: 1
-  range_upper: 20
 
 vtk:
   name: VTK
@@ -23,5 +21,3 @@ vtk:
   uses_isic: true
   isic_text: "Buy ISIC now!"
   confirmation_text: "Now pay up."
-  range_lower: 21
-  range_upper: 40

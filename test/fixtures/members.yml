@@ -27,3 +27,17 @@ nudded:
   studenthome_address: "Kotstraat 1\n9000 Gent"
   last_registration: <%= Member.current_academic_year %>
   enabled: true
+
+siloks:
+  club: wina
+  first_name: Tom
+  last_name: Naessens
+  email: silox@zeus.ugent.be
+  ugent_nr: "01002990"
+  phone: nil
+  sex: m
+  date_of_birth: 199
+  home_address: "Bruggeh"
+  studenthome_address: "Kotstraat 2\n9000 Gent"
+  last_registration: <%= Member.current_academic_year - 1 %>
+  enabled: true

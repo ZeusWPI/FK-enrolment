@@ -32,12 +32,8 @@ class CardTest < ActiveSupport::TestCase
 
   test "the next new number should be generated" do
     c = Card.new(:isic_status => 'request')
-    c.member = members(:javache)
-    assert_equal 2, c.generate_number
-
-    c = Card.new(:isic_status => 'request')
-    c.member = members(:nudded)
-    assert_equal 22, c.generate_number
+    c.member = members(:siloks)
+    assert_equal cards(:javache).number + 1, c.generate_number
   end
 
   test "a card number should be automatically assigned" do

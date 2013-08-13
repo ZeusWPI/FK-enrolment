@@ -22,14 +22,17 @@ class Card < ActiveRecord::Base
   scope :current, where(:academic_year => Member.current_academic_year)
 
   # Check if the assigned number falls in the range given by the club
-  # TODO: only check the ranges for cards currently being issued
-  # as these assignments might change
   def valid_card_number
     return if self.number.blank? or not self.member
     return if self.club.uses_isic
 
-    range = self.member.club.range_lower..self.member.club.range_upper
-    errors.add(:number, "valt niet in het toegekende bereik") unless range.include? self.number
+    # TODO: cards numbers copied from previous years are still allowed
+
+    # Only check the rules of current cards
+    if self.academic_year == Member.current_academic_year
+      range = self.club.card_range
+      errors.add(:number, "valt niet in het toegekende bereik") unless range.include? self.number
+    end
   end
 
   # Renders the academic year in a more commonly used format
@@ -81,21 +84,11 @@ class Card < ActiveRecord::Base
     return if !self.number.blank? || self.isic_status == 'none'
 
     # new procedure
-    # academic_year = Member.current_academic_year
-    # base_number = (academic_year % 100) * 1000000
-    #             + member.club_id * 10000
-    # next_number = Card.where(
-    #   :members => {:club_id => member.club_id},
-    #   :number => base_number .. (base_number + 9999)
-    # ).maximum(:number)
-    # self.number = next_number ? next_number + 1 : base_number + 1
-
-    # old procedure
-    academic_year = Member.current_academic_year
+    card_range = self.club.card_range
     next_number = Card.where(
-      :members => {:club_id => member.club_id},
-      :academic_year => academic_year
+      :members => { :club_id => self.club.id },
+      :number => card_range
     ).maximum(:number)
-    self.number = next_number ? next_number + 1 : club.range_lower
+    self.number = next_number ? next_number + 1 : card_range.begin + 1
   end
 end

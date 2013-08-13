@@ -51,10 +51,10 @@ gem 'ruby-saml'
 group :assets do
   gem 'sass-rails', '~> 3.2'
   gem 'compass-rails'
-  gem 'oily_png'        # Faster PNG generation for compass sprites
+  gem 'oily_png'                        # Faster PNG generation for compass sprites
   gem 'jquery-rails', '~> 2.1.0'
-  gem 'uglifier'        # Javascript compressor
-  gem 'therubyracer', '~> 0.10.0' # Javascript engine
+  gem 'uglifier'                        # Javascript compressor
+  gem 'therubyracer', '~> 0.10.0'       # Javascript engine
   gem 'yui-compressor', '~> 0.9.6'
 end
 
@@ -73,11 +73,7 @@ group :production do
 end
 
 group :test do
-  gem 'minitest'
-
-  # Pretty printed test output
-  gem 'turn'
-
-  # Code coverage
-  gem 'cover_me', '>= 1.2.0'
+  gem 'minitest', '~> 4.0'
+  gem 'turn'                  # Pretty printed test output
+  gem 'cover_me', '~> 1.2.0'  # Code coverage
 end

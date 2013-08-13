@@ -1,5 +1,3 @@
-require 'cover_me'
-
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
@@ -15,8 +13,18 @@ class ActiveSupport::TestCase
 
   def self.verify_fixtures(clazz)
     test "fixtures for #{clazz.name} should validate" do
-      clazz.all.map { |o| assert o.valid?, o.errors.full_messages.join("\n") }
+      clazz.all.map { |o| assert o.valid?, o.inspect.to_s + "\n" + o.errors.full_messages.join("\n") }
     end
+  end
+
+  def self.generate_card_number(club, number)
+    if club.is_a? Symbol
+      club_id = ActiveRecord::Fixtures.identify(club)
+    else
+      club_id = club.id
+    end
+
+    ((Member.current_academic_year % 100) * 100 + (club_id % 100)) * 10000 + number
   end
 
   def params_for_api(params = {}, format = "json", club = @club)

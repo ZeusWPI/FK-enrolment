@@ -3,14 +3,14 @@
 javache:
   member: javache
   academic_year: <%= Member.current_academic_year %>
-  number: 1
+  number: <%= ActiveSupport::TestCase.generate_card_number(:wina, 1) %>
   status: paid
   enabled: true
 
 nudded:
   member: nudded
   academic_year: <%= Member.current_academic_year %>
-  number: 21
+  number: 10001
   status: unpaid
   isic_status: revalidate
   isic_number: 2101
@@ -19,7 +19,23 @@ nudded:
 nudded2:
   member: nudded
   academic_year: <%= Member.current_academic_year - 1 %>
-  number: 21
+  number: 10001
   isic_number: 2101
+  isic_status: requested
+  enabled: yes
+
+siloks:
+  member: siloks
+  academic_year: <%= Member.current_academic_year - 1 %>
+  number: 12001
+  isic_number: 2102
+  isic_status: revalidated
+  enabled: yes
+
+siloks2:
+  member: siloks
+  academic_year: <%= Member.current_academic_year - 2 %>
+  number: 12001
+  isic_number: 2102
   isic_status: requested
   enabled: yes

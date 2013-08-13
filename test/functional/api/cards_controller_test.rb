@@ -26,16 +26,17 @@ class Api::CardsControllerTest < ActionController::TestCase
   test "should create card" do
     @card.destroy
     assert_difference('Card.count') do
-      post :create, params_for_api({card: { number: 20, status: "paid" }})
+      card_number = self.class.generate_card_number(@club, 20)
+      post :create, params_for_api({card: { number: card_number, status: "paid" }})
+      assert_response :success
     end
-    assert_response :success
   end
 
   test "should not create card" do
     assert_no_difference('Card.count') do
       post :create, params_for_api({ card: { status: "lol" }})
+      assert_response :unprocessable_entity
     end
-    assert_response :unprocessable_entity
   end
 
   test "should update card" do

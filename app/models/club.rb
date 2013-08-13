@@ -27,6 +27,12 @@ class Club < ActiveRecord::Base
     end
   end
 
+  def card_range
+    academic_year = Member.current_academic_year
+    base_number = ((academic_year % 100) * 100 + (self.id % 100)) * 10000
+    base_number .. (base_number + 9999)
+  end
+
   # Allows url to contain internal_name as a param
   def to_param
     internal_name.downcase
@@ -35,7 +41,7 @@ class Club < ActiveRecord::Base
   # Hash for export (see to_json)
   def serializable_hash(options = nil)
     super((options || {}).merge({
-      :only => [:name, :full_name, :url, :registration_method, :uses_isic, :range_lower, :range_upper]
+      :only => [:name, :full_name, :url, :registration_method, :uses_isic]
     }))
   end
 end
