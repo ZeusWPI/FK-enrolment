@@ -3,6 +3,9 @@ source 'http://rubygems.org'
 gem 'rails', '~> 3.2'
 gem 'sqlite3'
 
+# We <3 New Relic
+gem 'newrelic_rpm'
+
 # Deploy with Capistrano
 # gem 'capistrano'
 
