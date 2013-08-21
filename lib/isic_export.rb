@@ -7,7 +7,7 @@ class IsicExport
     end
 
     export = IsicExport.new(wsdl)
-    export.execute(member, card)
+    export.submit(member, card)
   end
 
   def initialize(wsdl_path)
@@ -18,20 +18,15 @@ class IsicExport
     @defaults = {
       username: Rails.application.config.isic_soap_user,
       password: Rails.application.config.isic_soap_password,
-      card_type: "ISIC",
-
-      is_student: "1",
-      student_city: "Gent",
-      school: "Universiteit Gent",
-
-      promotion_code: "",
-      optin_third: "0",
-      special: "1",
     }
   end
 
-  def execute(member, card)
-    params = @defaults.merge {
+  def submit(member, card)
+    params = @defaults.merge({
+      card_type: "ISIC",
+      student_city: "Gent",
+      school: "Universiteit Gent",
+
       client_id: "FK", # TODO: get client id from club
       member_number: card.number,
       isic_card_number: card.isic_number, # TODO: what if empty?
@@ -57,11 +52,15 @@ class IsicExport
       photo: ActiveSupport::Base64.encode64(open(member.photo_file_name).string),
       image_extension: "jpg",
 
+      is_student: "1",
       send_to_home: member.isic_mail_card ? "1" : "0",
       optin: member.isic_newsletter ? "1" : "0",
       # TODO: figure this one out correctly
-      type: member.current_card.isic_number.blank? "REQUESTED" : "REVALIDATE"
-    }
+      type: member.current_card.isic_number.blank? ? "REQUESTED" : "REVALIDATE",
+      promotion_code: "",
+      optin_third: "0",
+      special: "1",
+    })
 
     client.call(:add_isic_registration, message: params)
     end
