@@ -7,7 +7,8 @@ class Member < ActiveRecord::Base
   accepts_nested_attributes_for :extra_attributes
   attr_accessible :first_name, :last_name, :email, :ugent_nr, :sex, :phone,
     :date_of_birth, :home_address, :studenthome_address,
-    :isic_newsletter, :isic_mail_card, :extra_attributes_attributes
+    :isic_newsletter, :isic_mail_card, :extra_attributes_attributes, :street,
+    :city, :postal_code
 
   # Profile picture
   include Member::Photo
@@ -223,5 +224,50 @@ class Member < ActiveRecord::Base
     io = StringIO.new
     export.write io
     io.string
+  end
+
+
+  def soap_export
+    client = Savon.client(wsdl: "http://staging-isicregistrations.guido.be/service.asmx?WSDL")
+    client.call :add_isic_registration,
+      message: {username: Rails.application.config.isic_soap_user,
+        password: Rails.application.config.isic_soap_password,
+        client_id: "FK",
+        member_number: self.current_card.number,
+        isic_card_number: self.current_card.isic_number,
+        card_type: "ISIC",
+        first_name: self.first_name,
+        last_name: self.last_name,
+        birth_date: self.date_of_birth.strftime("%d/%m/%Y"),
+        birth_place: "",
+        gender: self.sex.upcase,
+        nationality: "",
+        language: "NL",
+        street: self.street,
+        postal_code: self.postal_code,
+        city: self.city,
+        email: self.email,
+        phone_number: self.phone,
+        is_student: "1",
+        student_city: "Gent",
+        school: "Universiteit Gent",
+        course: self.club.full_name,
+        # TODO: we currently don't store what year they are studying
+        year: "1",
+        # TODO: crop correctly according to spec
+        photo: ActiveSupport::Base64.encode64(open(self.photo_file_name).string),
+        image_extension: "jpg",
+        # TODO: what does sendtohome do?
+        send_to_home: "1",
+        client_id: "FK",
+        promotion_code: "",
+        optin: self.isic_newsletter ? "1" : "0",
+        optin_third: "0",
+        special: "1",
+        # TODO: figure this one out correctly
+        type: self.current_card.isic_number.blank? "REQUESTED" : "REVALIDATE"
+      }
+
+
   end
 end
