@@ -41,6 +41,6 @@ siloks:
   ugent_nr: "01002990"
   phone: nil
   sex: m
-  date_of_birth: 1992
+  date_of_birth: 1992-01-01
   last_registration: <%= Member.current_academic_year - 1 %>
   enabled: true
