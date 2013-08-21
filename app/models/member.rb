@@ -265,7 +265,7 @@ class Member < ActiveRecord::Base
         optin_third: "0",
         special: "1",
         # TODO: figure this one out correctly
-        type: self.current_card.isic_number.blank? "REQUESTED" : "REVALIDATE"
+        type: self.current_card.isic_number.blank? ? "REQUESTED" : "REVALIDATE"
       }
 
 
