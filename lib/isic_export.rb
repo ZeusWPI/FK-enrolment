@@ -63,7 +63,6 @@ class IsicExport
     })
 
     client.call(:add_isic_registration, message: params)
-    end
   rescue Savon::Error => error
     Logger.log error
   end

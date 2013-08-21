@@ -1,7 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
-
-one:
-  status: requested
-  members: [<%= ActiveRecord::Fixtures.identify(:nudded) %>]
-  data_file_name: Export.xls
-  photos_file_name: Export.zip

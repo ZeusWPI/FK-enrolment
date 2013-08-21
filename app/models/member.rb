@@ -5,17 +5,16 @@ class Member < ActiveRecord::Base
   has_many :extra_attributes, :dependent => :destroy
 
   accepts_nested_attributes_for :extra_attributes
-  attr_accessible :first_name, :last_name, :email, :ugent_nr, :sex, :phone,
-    :date_of_birth, :home_address, :studenthome_address,
-    :isic_newsletter, :isic_mail_card, :extra_attributes_attributes, :street,
-    :city, :postal_code
+  attr_accessible :first_name, :last_name, :email, :ugent_nr, :sex, :phone, 
+    :date_of_birth, :home_street, :home_postal_code, :home_city,
+    :studenthome_street, :studenthome_code, :studenthome_city,
+    :isic_newsletter, :isic_mail_card, :extra_attributes_attributes
 
   # Profile picture
   include Member::Photo
 
   # Associated club
-  validates :club_id, :presence => true
-  validates_associated :club
+  validates :club, :presence => true
 
   # Validation rules
   validates :first_name, :presence => true
