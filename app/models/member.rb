@@ -7,7 +7,7 @@ class Member < ActiveRecord::Base
   accepts_nested_attributes_for :extra_attributes
   attr_accessible :first_name, :last_name, :email, :ugent_nr, :sex, :phone,
     :date_of_birth, :home_street, :home_postal_code, :home_city,
-    :studenthome_street, :studenthome_code, :studenthome_city,
+    :studenthome_street, :studenthome_postal_code, :studenthome_city,
     :isic_newsletter, :isic_mail_card, :extra_attributes_attributes
 
   # Profile picture
@@ -22,8 +22,9 @@ class Member < ActiveRecord::Base
   validates :email, :presence => true,
                     :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i },
                     :if => lambda { |m| m.club.registration_method != "api" if m.club }
-  validates :ugent_nr, :presence => true # TODO: required if not chosen for email registration
+  validates :ugent_nr, :presence => true
   validates :sex, :inclusion => { :in => %w(m f), :allow_blank => true }
+  validates :sex, :presence => true, :if => lambda { |m| m.club.uses_isic if m.club }
   validates :date_of_birth, :presence => true, :if => lambda { |m| m.club.uses_isic if m.club }
   validates :home_street, :presence => true, :if => lambda { |m| m.club.uses_isic if m.club }
   validates :home_postal_code, :presence => true, :if => lambda { |m| m.club.uses_isic if m.club }

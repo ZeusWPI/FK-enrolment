@@ -28,7 +28,7 @@ nl:
         confirmation_text: Bevestigingstekst
         registration_method: Registratiemethode
         uses_isic: Integratie met ISIC activeren
-        offer_isic_mail_option: Mogelijkheid om ISIC kaart op te sturen aanbieden
+        isic_mail_option: ISIC kaart opsturen
         api_key: API sleutel
       card:
         number: Kaartnummer

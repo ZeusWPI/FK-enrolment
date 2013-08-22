@@ -53,10 +53,10 @@ class IsicExport
       PostalCode: member.home_postal_code,
       City: member.home_city,
       email: member.email,
-      PhoneNumber: member.phone,
+      PhoneNumber: "",
 
       isStudent: "1",
-      Year: "1", # TODO: check if this a good default
+      Year: "0", # TODO: check if this a good default
       sendToHome: member.isic_mail_card ? "1" : "0",
       promotionCode: "",
       Optin: member.isic_newsletter ? "1" : "0",
