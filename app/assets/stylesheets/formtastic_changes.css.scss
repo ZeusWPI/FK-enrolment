@@ -106,3 +106,34 @@ form.formtastic fieldset {
   .indent {
     padding-left: 30%;
 } }
+
+/* Nested fieldsets */
+form.formtastic .inputs {
+  legend {
+    font-weight: 900;
+    @include trailer(0.25);
+  }
+
+  .inputs {
+    li {
+      @include leader(0.1);
+      @include trailer(0);
+    }
+
+    label {
+      font-weight: normal;
+      width: 27%; padding-left: 3%;
+    }
+  }
+}
+
+/* Specific fields */
+#member_home_postal_code, #member_studenthome_postal_code {
+  width: 14%;
+  float: left;
+}
+#member_home_city, #member_studenthome_city{
+  width: 37%;
+  float: left;
+  margin-left: 3px;
+}
