@@ -21,10 +21,6 @@ form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
   padding: 0;
   overflow: inherit;
 
-  p.inline-errors {
-    margin-top: 0;
-  }
-
   .label {
     font-weight: 900;
     color: $text-color;
@@ -32,8 +28,12 @@ form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
     width: 30%;
   }
 
+  p.inline-errors, p.inline-hints {
+    margin: 0 0 0 30%;
+    clear: both;
+  }
+
   p.inline-hints {
-    margin-top: 0;
     @include adjust-font-size-to(12px, 0.75);
   }
 
@@ -125,15 +125,4 @@ form.formtastic .inputs {
       width: 27%; padding-left: 3%;
     }
   }
-}
-
-/* Specific fields */
-#member_home_postal_code, #member_studenthome_postal_code {
-  width: 14%;
-  float: left;
-}
-#member_home_city, #member_studenthome_city{
-  width: 37%;
-  float: left;
-  margin-left: 3px;
 }

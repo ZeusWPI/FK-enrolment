@@ -37,15 +37,25 @@
 
     <%= f.inputs :name => "Thuisadres" do %>
       <%= f.input :home_street %>
-      <%= f.input :home_postal_code, :label => "Gemeente", 
-            :placeholder => 'Postcode' %>
+      <%
+        # small hack to display only error on these fields
+        if @member.errors.include? :home_city and not @member.errors.include? :home_city
+          @member.errors[:home_postal_code] = @member.errors[:home_city]
+        end
+      %>
+      <%= f.input :home_postal_code, :label => "Gemeente", :placeholder => 'Postcode' %>
       <%= f.input :home_city, :label => false %>
     <% end %>
 
     <%= f.inputs :name => "Kotadres" do %>
       <%= f.input :studenthome_street %>
-      <%= f.input :studenthome_postal_code, :label => "Gemeente", 
-            :placeholder => 'Postcode' %>
+      <%
+        # small hack to display only error on these fields
+        if @member.errors.include? :studenthome_city and not @member.errors.include? :studenthome_city
+          @member.errors[:studenthome_postal_code] = @member.errors[:studenthome_city]
+        end
+      %>
+      <%= f.input :studenthome_postal_code, :label => "Gemeente", :placeholder => 'Postcode' %>
       <%= f.input :studenthome_city, :label => false %>
     <% end %>
   <% end %>

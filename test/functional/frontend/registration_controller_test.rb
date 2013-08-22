@@ -16,6 +16,12 @@ class Frontend::RegistrationControllerTest < ActionController::TestCase
   test "should get general" do
     get :general, @params
     assert_response :success
+
+    # submit an incomplete form
+    post :general, @params.merge(member: members(:nudded).attributes.slice([
+      :first_name, :last_name, :email, :ugent_nr, :sex]))
+    assert_response :success
+    refute assigns(:member).errors.empty?
   end
 
   test "should redirect to index" do
