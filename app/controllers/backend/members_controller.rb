@@ -1,3 +1,6 @@
+require 'member_report'
+require 'excel_export'
+
 class Backend::MembersController < Backend::BackendController
   before_filter :load_member, :except => [:index]
   def load_member
@@ -34,7 +37,7 @@ class Backend::MembersController < Backend::BackendController
       format.xls {
         name = "Export %s %s.xls" % [@club.internal_name, Time.now.strftime('%F %T')]
         @members = @members.includes({:club => :extra_attributes}, :extra_attributes)
-        send_data Member.export(@members), :filename => name, :type => :xls
+        send_data ExcelExport.create(@members), :filename => name, :type => :xls
       }
     end
   end
@@ -71,19 +74,5 @@ class Backend::MembersController < Backend::BackendController
 
   def photo
     @member.update_attributes(params[:member]) if params[:member]
-  end
-end
-
-class MemberReport
-  include BasicMemberReport
-
-  # Icons
-  column(:details, :header => "") do |member|
-    icon(:details, '', backend_member_path(member), :title => "Details")
-  end
-  column(:delete, :header => "") do |member|
-    icon(:delete, '', disable_backend_member_path(member),
-            :title => "Verwijderen", :method => :post,
-            :confirm => "Bent u zeker dat u dit lid wil verwijderen?")
   end
 end

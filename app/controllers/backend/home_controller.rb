@@ -1,3 +1,5 @@
+require 'pay_member_report'
+
 class Backend::HomeController < Backend::BackendController
   def index
   end
@@ -20,13 +22,5 @@ class Backend::HomeController < Backend::BackendController
     end
     @membergrid = PayMemberReport.new(report_params)
     @members = @membergrid.assets.paginate(:page => params[:page], :per_page => 30)
-  end
-end
-
-class PayMemberReport
-  include BasicMemberReport
-
-  column(:pay, :header => "") do |member|
-    link_to "Betalen", pay_backend_member_path(member)
   end
 end
