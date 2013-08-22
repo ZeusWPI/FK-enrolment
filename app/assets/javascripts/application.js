@@ -10,6 +10,6 @@
 //= require jquery.color
 //= require jquery.Jcrop
 //= require jquery.tooltip
-//= require Seenly
 //= require swfobject
+//= require scriptcam
 //= require_tree .
