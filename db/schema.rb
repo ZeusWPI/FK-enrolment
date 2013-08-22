@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120919121123) do
+ActiveRecord::Schema.define(:version => 20130822105503) do
 
   create_table "cards", :force => true do |t|
     t.integer  "member_id"
@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(:version => 20120919121123) do
     t.string   "internal_name"
     t.string   "description"
     t.string   "url"
-    t.string   "registration_method",    :default => "none"
-    t.boolean  "uses_isic",              :default => false
+    t.string   "registration_method", :default => "none"
+    t.boolean  "uses_isic",           :default => false
     t.text     "isic_text"
     t.text     "confirmation_text"
     t.string   "api_key"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(:version => 20120919121123) do
     t.datetime "updated_at"
     t.integer  "range_lower"
     t.integer  "range_upper"
-    t.boolean  "offer_isic_mail_option", :default => true
+    t.integer  "isic_mail_option",    :default => 0
   end
 
   add_index "clubs", ["api_key"], :name => "index_clubs_on_api_key", :unique => true
@@ -116,7 +116,13 @@ ActiveRecord::Schema.define(:version => 20120919121123) do
     t.boolean  "isic_newsletter"
     t.boolean  "isic_mail_card"
     t.integer  "last_registration"
-    t.boolean  "enabled",             :default => false
+    t.boolean  "enabled",                 :default => false
+    t.string   "home_street"
+    t.string   "home_postal_code"
+    t.string   "home_city"
+    t.string   "studenthome_street"
+    t.string   "studenthome_postal_code"
+    t.string   "studenthome_city"
   end
 
   add_index "members", ["ugent_nr"], :name => "index_members_on_ugent_nr"

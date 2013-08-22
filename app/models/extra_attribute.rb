@@ -5,8 +5,7 @@ class ExtraAttribute < ActiveRecord::Base
   attr_accessible :value, :spec_id
 
   validates :value, :presence => true, :if => lambda { |m| m.spec && m.spec.required }
-  validates :spec_id, :presence => true
-  validates_associated :spec
+  validates :spec, :presence => true
 
   serialize :value
 end

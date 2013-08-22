@@ -49,6 +49,9 @@ gem 'delayed_job_active_record'
 # eID-integration
 gem 'ruby-saml'
 
+# SOAP gem
+gem 'savon'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

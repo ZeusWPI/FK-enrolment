@@ -21,10 +21,6 @@ form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
   padding: 0;
   overflow: inherit;
 
-  p.inline-errors {
-    margin-top: 0;
-  }
-
   .label {
     font-weight: 900;
     color: $text-color;
@@ -32,8 +28,12 @@ form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
     width: 30%;
   }
 
+  p.inline-errors, p.inline-hints {
+    margin: 0 0 0 30%;
+    clear: both;
+  }
+
   p.inline-hints {
-    margin-top: 0;
     @include adjust-font-size-to(12px, 0.75);
   }
 
@@ -106,3 +106,23 @@ form.formtastic fieldset {
   .indent {
     padding-left: 30%;
 } }
+
+/* Nested fieldsets */
+form.formtastic .inputs {
+  legend {
+    font-weight: 900;
+    @include trailer(0.25);
+  }
+
+  .inputs {
+    li {
+      @include leader(0.1);
+      @include trailer(0);
+    }
+
+    label {
+      font-weight: normal;
+      width: 27%; padding-left: 3%;
+    }
+  }
+}

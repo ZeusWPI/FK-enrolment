@@ -1,13 +1,11 @@
 class Card < ActiveRecord::Base
   belongs_to :member
-  # for some reason, using self.club triggers an update to club, so don't use it
   has_one :club, :through => :member
 
   attr_accessible :number, :status, :isic_status
 
   # Associated member
-  validates :member_id, :presence => true
-  validates_associated :member
+  validates :member, :presence => true
 
   # Validation rules
   validates :academic_year, :presence => true, :uniqueness => { :scope => :member_id }
@@ -26,7 +24,10 @@ class Card < ActiveRecord::Base
     return if self.number.blank? or not self.member
     return if self.club.uses_isic
 
-    # TODO: cards numbers copied from previous years are still allowed
+    # Cards numbers copied from previous years are still allowed
+    if self.isic_status == 'revalidate' or self.isic_status == 'revalidated'
+      return
+    end
 
     # Only check the rules of current cards
     if self.academic_year == Member.current_academic_year

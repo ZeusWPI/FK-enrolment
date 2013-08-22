@@ -63,6 +63,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
   end
 
   def isic
+    @member.isic_mail_card = true if @club.isic_mail_option == Club::ISIC_MAIL_CARD_FORCED
     if params[:member] && @member.update_attributes(params[:member])
       redirect_to registration_photo_path(@club)
     end

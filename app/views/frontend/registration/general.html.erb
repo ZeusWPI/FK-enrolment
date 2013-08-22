@@ -34,10 +34,28 @@
     <%= f.input :date_of_birth, :labels => {:year => false, :month => false, :day => false },
                                 :start_year => 1920, :end_year => Time.now.year,
                                 :input_html => { :disabled => @eid_authed } %>
-    <%= f.input :home_address, :as => :text,
-                               :input_html => { :cols => 30, :rows => 3 } %>
-    <%= f.input :studenthome_address, :as => :text,
-                                      :input_html => { :cols => 30, :rows => 3 } %>
+
+    <%= f.inputs :name => "Thuisadres" do %>
+      <%= f.input :home_street %>
+      <%
+        # small hack to display only error on these fields
+        errors = @member.errors[:home_postal_code] + @member.errors[:home_city]
+        @member.errors[:home_postal_code] = @member.errors[:home_city] = errors
+      %>
+      <%= f.input :home_postal_code, :label => "Gemeente", :placeholder => 'Postcode' %>
+      <%= f.input :home_city, :label => false %>
+    <% end %>
+
+    <%= f.inputs :name => "Kotadres" do %>
+      <%= f.input :studenthome_street %>
+      <%
+        # small hack to display only error on these fields
+        errors = @member.errors[:studenthome_postal_code] + @member.errors[:studenthome_city]
+        @member.errors[:studenthome_postal_code] = @member.errors[:studenthome_city] = errors
+      %>
+      <%= f.input :studenthome_postal_code, :label => "Gemeente", :placeholder => 'Postcode' %>
+      <%= f.input :studenthome_city, :label => false %>
+    <% end %>
   <% end %>
 
   <%= render_extra_attributes(f) %>

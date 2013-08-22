@@ -9,8 +9,9 @@ javache:
   phone: "0471010101"
   sex: m
   date_of_birth: 1990-01-01
-  home_address: "Dorpsstraat 25\n9000 Gent"
-  studenthome_address: nil
+  home_street: "Dorpsstraat 25"
+  home_postal_code: "9000"
+  home_city: "Gent"
   last_registration: <%= Member.current_academic_year %>
   enabled: true
 
@@ -23,8 +24,12 @@ nudded:
   phone: nil
   sex: m
   date_of_birth: 1990-01-02
-  home_address: "Dreef 1\n1000 Middle-of-nowhere"
-  studenthome_address: "Kotstraat 1\n9000 Gent"
+  home_street: "Dreef 1"
+  home_postal_code: "1000"
+  home_city: "Middle-of-nowhere"
+  studenthome_street: "Kotstraat 1"
+  studenthome_postal_code: "9000"
+  studenthome_city: "Gent"
   last_registration: <%= Member.current_academic_year %>
   enabled: true
 
@@ -36,8 +41,6 @@ siloks:
   ugent_nr: "01002990"
   phone: nil
   sex: m
-  date_of_birth: 199
-  home_address: "Bruggeh"
-  studenthome_address: "Kotstraat 2\n9000 Gent"
+  date_of_birth: 1992-01-01
   last_registration: <%= Member.current_academic_year - 1 %>
   enabled: true

@@ -26,3 +26,14 @@ message:
     values: nil
     required: false
     position: 3
+
+sports:
+    club: vtk
+    name: "Welke sporten beoefent u?"
+    field_type: checkbox_list
+    values:
+    - Voetbal
+    - Tennis
+    - Zwemmen
+    required: false
+    position: 4

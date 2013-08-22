@@ -10,7 +10,13 @@ nl:
         sex: Geslacht
         date_of_birth: Geboortedatum
         home_address: Thuisadres
+        home_street: Straat
+        home_postal_code: Postcode
+        home_city: Gemeente
         studenthome_address: Kotadres
+        studenthome_street: Straat
+        studenthome_postal_code: Postcode
+        studenthome_city: Gemeente
         photo: Foto
         photo_url: URL
         isic_newsletter: ISIC nieuwsbrief
@@ -22,7 +28,7 @@ nl:
         confirmation_text: Bevestigingstekst
         registration_method: Registratiemethode
         uses_isic: Integratie met ISIC activeren
-        offer_isic_mail_option: Mogelijkheid om ISIC kaart op te sturen aanbieden
+        isic_mail_option: ISIC kaart opsturen
         api_key: API sleutel
       card:
         number: Kaartnummer

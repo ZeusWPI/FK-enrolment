@@ -108,19 +108,24 @@ table.datagrid {
     padding: 4px;
   }
 
-  div.order {
+  .order {
     display: inline;
-    margin-left: 8px;
+    margin-left: 5px;
+
+    a {
+      margin: 0 -3px;
+      color: #666;
+      @include adjust-font-size-to(12px, 1);
+    }
+    a:hover, a:active {
+      color: #F16C00;
+      text-decoration: none;
+    }
   }
-  a.order {
-    margin: 0 -2px;
-    color: #666;
-    @include adjust-font-size-to(12px, 1);
-  }
-  a.order:hover, a.order:active {
-    color: #F16C00;
-    text-decoration: none;
-} }
+
+  th.ordered.desc a.desc { color: #F16C00; }
+  th.ordered.asc a.asc { color: #F16C00; }
+}
 
 dl {
   margin: 0 0 12px 0;

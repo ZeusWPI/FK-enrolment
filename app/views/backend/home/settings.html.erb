@@ -12,11 +12,14 @@
     <%= f.input :confirmation_text, :as => :text,
         :hint => "Tekst na registratie.",
         :input_html => {:cols => 40, :rows => 4 } %>
-    <li><label>Kaartnummers</label><p><%= "#{@club.range_lower} — #{@club.range_upper}" %></p></li>
-    <%= f.input :registration_method, :as => :select,
+    <li><label>Kaartnummers</label><p><%= "#{@club.card_range.first} — #{@club.card_range.last}" %></p></li>
+    <%= f.input :registration_method, :as => :select, :include_blank => false,
       :collection => {"Geen" => "none", "API" => "api", "Website" => "website"} %>
     <%= f.input :uses_isic, :wrapper_html => { :class => "no-indent" } %>
-    <%= f.input :offer_isic_mail_option, :wrapper_html => { :class => "no-indent" } %>
+    <%= f.input :isic_mail_option, :as => :select, :include_blank => false,
+      :collection => { "Optie niet aanbieden" => Club::ISIC_MAIL_CARD_DISABLED,
+                       "Optie aanbieden" => Club::ISIC_MAIL_CARD_OPTIONAL,
+                       "Verplicht" => Club::ISIC_MAIL_CARD_FORCED } %>
     <li><label>API sleutel</label><p><code><%= @club.api_key %></code></p></li>
   <% end %>
 
