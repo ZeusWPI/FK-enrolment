@@ -39,9 +39,8 @@
       <%= f.input :home_street %>
       <%
         # small hack to display only error on these fields
-        if @member.errors.include? :home_city and not @member.errors.include? :home_city
-          @member.errors[:home_postal_code] = @member.errors[:home_city]
-        end
+        errors = @member.errors[:home_postal_code] + @member.errors[:home_city]
+        @member.errors[:home_postal_code] = @member.errors[:home_city] = errors
       %>
       <%= f.input :home_postal_code, :label => "Gemeente", :placeholder => 'Postcode' %>
       <%= f.input :home_city, :label => false %>
@@ -51,9 +50,8 @@
       <%= f.input :studenthome_street %>
       <%
         # small hack to display only error on these fields
-        if @member.errors.include? :studenthome_city and not @member.errors.include? :studenthome_city
-          @member.errors[:studenthome_postal_code] = @member.errors[:studenthome_city]
-        end
+        errors = @member.errors[:studenthome_postal_code] + @member.errors[:studenthome_city]
+        @member.errors[:studenthome_postal_code] = @member.errors[:studenthome_city] = errors
       %>
       <%= f.input :studenthome_postal_code, :label => "Gemeente", :placeholder => 'Postcode' %>
       <%= f.input :studenthome_city, :label => false %>
