@@ -21,7 +21,7 @@ $(function() {
       bodyHandler: function() {
         return $('<img>')
                  .attr('src', $(this).data('photo'))
-                 .attr('width', 210).attr('height', 270)
+                 .attr('width', 140).attr('height', 200)
       }
     });
   }

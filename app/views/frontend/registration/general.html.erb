@@ -17,20 +17,20 @@
   </div>
   <% end %>
 
-  <% if @cas_authed %>
+  <% if cas_authed? %>
   <p>Niet <%= @member.name %>? <%= link_to "Wisselen van gebruiker", cas_logout_path %>.</p>
-  <% elsif @eid_authed %>
+  <% elsif eid_authed? %>
   <p>Niet <%= @member.name %>? <%= link_to "Wisselen van gebruiker", eid_logout_path %>.</p>
   <% end %>
 
   <%= f.inputs do %>
-    <%= f.input :first_name, :input_html => { :disabled => @cas_authed || @eid_authed } %>
-    <%= f.input :last_name, :input_html => { :disabled => @cas_authed || @eid_authed } %>
-    <%= f.input :ugent_nr, :input_html => { :disabled => @cas_authed } %>
+    <%= f.input :first_name, :input_html => { :disabled => cas_authed? || eid_authed? } %>
+    <%= f.input :last_name, :input_html => { :disabled => cas_authed? || eid_authed? } %>
+    <%= f.input :ugent_nr, :input_html => { :disabled => cas_authed? } %>
     <%= f.input :email %>
     <%= f.input :phone, :as => :phone %>
-    <%= f.input :sex, :as => :radio,
-                      :collection => {"Man" => "m", "Vrouw" => "f"}  %>
+    <%= f.input :sex, :as => :radio, :collection => {"Man" => "m", "Vrouw" => "f"},
+          :input_html => { :disabled => eid_authed? } %>
     <%= f.input :date_of_birth, :labels => {:year => false, :month => false, :day => false },
                                 :start_year => 1920, :end_year => Time.now.year,
                                 :input_html => { :disabled => @eid_authed } %>

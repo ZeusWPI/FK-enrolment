@@ -22,4 +22,14 @@ module ApplicationHelper
       content_tag(:span, text, options)
     end
   end
+
+  # Check if the user has an active CAS authentication
+  def cas_authed?
+    !session[:cas_user].blank?
+  end
+
+  # Check if user has an active eID authentication
+  def eid_authed?
+    !session[:eid].blank?
+  end
 end

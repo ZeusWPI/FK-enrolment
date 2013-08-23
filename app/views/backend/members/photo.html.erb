@@ -34,7 +34,8 @@
 <%= image_tag eid_photo_path %>
 
 <%= semantic_form_for @member, :url => photo_backend_member_path(@member) do |f| %>
-  <%= f.input :photo_base64, :as => :hidden, :value => session[:eid]["be:fedict:eid:idp:photo"] %>
+  <%= f.input :photo_base64, :as => :hidden, :input_html => {
+    :value => session[:eid]["be:fedict:eid:idp:photo"] } %>
   <%= f.actions :class => "member no-indent" do %>
     <%= f.action :submit, :label => "Foto gebruiken" %>
   <% end %>
@@ -70,6 +71,7 @@
       </a></p>
     </div>
     <img id="cam-preview" />
+    <%= image_tag('webcam-mask.png', id: 'cam-mask') %>
   </div>
   <p>
     <input type="button" id="cam-snap" value="Foto nemen" />

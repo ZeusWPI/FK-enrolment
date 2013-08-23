@@ -28,7 +28,8 @@
 </div>
 
 <h3>Een andere foto kiezen?</h3>
-<% elsif @eid_authed %>
+<% elsif eid_authed? %>
+<div class="eid-wrapper">
 <p>Deze foto haalden we van je elektronische identiteitskaart.</p>
 <%= image_tag eid_photo_path %>
 
@@ -38,6 +39,7 @@
     <%= f.action :submit, :label => "Foto gebruiken" %>
   <% end %>
 <% end %>
+</div>
 
 <h3>Een andere foto kiezen?</h3>
 <% end %>
@@ -57,7 +59,7 @@ voor commerciële doeleinden gebruikt worden.</p>
     <%= f.input :photo_base64, :as => :hidden %>
     <li class="file input optional">
       <label class="label">Webcam</label>
-      <a href="#webcam" class="seenly">Foto met webcam nemen</a>
+      <a href="#webcam" id="webcam-trigger">Foto met webcam nemen</a>
     </li>
 
     <%= f.input :photo_url, :input_html => { :placeholder => "http://" } %>
@@ -70,15 +72,19 @@ voor commerciële doeleinden gebruikt worden.</p>
 
 </div>
 
-<div id="seenly-modal" title="Foto via webcam">
-  <div id="seenly-embed-wrapper"><div id="seenly-embed">
-    <p><a href="http://www.adobe.com/go/getflashplayer">
-      <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif"
-           alt="Get Adobe Flash player" />
-    </a></p>
-  </div></div>
+<div id="cam-modal" title="Foto via webcam">
+  <div id="cam-embed-wrapper">
+    <div id="cam-embed">
+      <p><a href="http://www.adobe.com/go/getflashplayer">
+        <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif"
+             alt="Get Adobe Flash player" />
+      </a></p>
+    </div>
+    <img id="cam-preview" />
+    <%= image_tag('webcam-mask.png', id: 'cam-mask') %>
+  </div>
   <p>
-    <input type="button" id="seenly-snap" value="Foto nemen" />
-    <input type="button" id="seenly-submit" value="Verzenden" disabled="disabled" />
+    <input type="button" id="cam-snap" value="Foto nemen" />
+    <input type="button" id="cam-submit" value="Verzenden" disabled="disabled" />
   </p>
 </div>

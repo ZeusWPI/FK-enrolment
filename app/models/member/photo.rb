@@ -10,12 +10,13 @@ module Member::Photo
       :content_type => ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/gif',
                         'image/png', 'image/x-png', 'image/tiff'],
       :message => "Enkel afbeeldingen zijn toegestaan"
+    base.validate :photo_dimensions
     base.attr_accessible :photo, :photo_url, :photo_base64
 
     # Cropping
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
     base.attr_accessible :crop_x, :crop_y, :crop_w, :crop_h
-    base.after_update :crop_photo, :if => :cropping?
+    base.after_update :crop_photo
 
     # Photo url errors
     base.validate do |member|
@@ -26,15 +27,12 @@ module Member::Photo
   # Download and assign the photo found at url
   def photo_base64=(image)
     return if image.blank?
+    @auto_crop = true
 
     sio = StringIO.new(Base64.decode64(image))
     sio.original_filename = "snapshot.jpg"
     sio.content_type = "image/jpeg"
     self.photo = sio
-
-    # assume that the photo has the right dimensions
-    # if it was delivered via the webcam
-    @cropped = true
   end
 
   # Empty accessor
@@ -58,18 +56,29 @@ module Member::Photo
     end
   end
 
-  # Profile picture cropping
-  def cropping?
-    !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
-  end
-
-  def crop_photo
-    photo.reprocess!
-    @cropped = true
-  end
-
-  # Check if a valid photo with the correct dimensions are present
+  # The photo is valid when it has been cropped, either automatically or manually
   def valid_photo?
-    @cropped
+    @auto_crop || (!crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?)
+  end
+
+  # Force cropping the photo when crop-coordinates are set
+  def crop_photo
+    if !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
+      photo.reprocess!
+    end
+  end
+
+  # Validate minimum photo size
+  def photo_dimensions
+    return unless photo?
+
+    minimum = Paperclip::Geometry.parse(photo.styles[:cropped].geometry)
+    dimensions = Paperclip::Geometry.from_file(photo.queued_for_write[:original])
+
+    unless dimensions.width >= minimum.width && dimensions.height >= minimum.height
+      errors.add :photo, "De foto dient ten minste #{minimum.width.to_i} bij " \
+        "#{minimum.height.to_i} pixels te zijn."
+      self.photo = nil
+    end
   end
 end

@@ -53,13 +53,21 @@ function initWebcam() {
 
     // dismiss modal window and submit
     $('#dialog:ui-dialog').dialog('destroy');
+
+    $('#member_crop_x').val(0);
+    $('#member_crop_y').val(0);
+    $('#member_crop_w').val(0);
+    $('#member_crop_h').val(0);
     $('#member_photo_base64').parents('form').submit();
   });
 
   var camOptions = {
     path: '/scriptcam/',
     width: 640, height: 480,
-    cornerRadius: 0
+    cornerRadius: 0,
+    onWebcamReady: function() {
+      $('#cam-mask').show();
+    }
   }
 
   $('#webcam-trigger').click(function() {
@@ -71,6 +79,7 @@ function initWebcam() {
       modal: true, draggable: false, resizable: false,
       width: 680, height: 620
     });
+    $('#cam-mask').hide();
     $("#cam-embed").scriptcam(camOptions);
     return false;
   });
@@ -90,10 +99,10 @@ function initCropper() {
       marginTop: '-' + Math.round(ry * coords.y) + 'px'
     });
 
-    $('#member_crop_x').val(coords.x);
-    $('#member_crop_y').val(coords.y);
-    $('#member_crop_w').val(coords.w);
-    $('#member_crop_h').val(coords.h);
+    $('#member_crop_x').val(Math.round(coords.x));
+    $('#member_crop_y').val(Math.round(coords.y));
+    $('#member_crop_w').val(Math.round(coords.w));
+    $('#member_crop_h').val(Math.round(coords.h));
   }
 
   var aspectRatio = 140/200;
@@ -101,14 +110,28 @@ function initCropper() {
     x: Number($('#member_crop_x').val()), y: Number($('#member_crop_y').val()),
     w: Number($('#member_crop_w').val()), h: Number($('#member_crop_h').val())
   }
-  if(initial.w == 0 || initial.h == 0) {
-    initial = { x: 10, y: 10, w: 140, h: 200 };
-  }
 
   $('#crop-image').Jcrop({
     setSelect: [initial.x, initial.y, initial.x + initial.w, initial.y + initial.h],
-    aspectRatio: aspectRatio,
+    aspectRatio: aspectRatio, minSize: [140, 200],
     onChange: updateCrop,
     onSelect: updateCrop
+  }, function() {
+    var currentSelect = this.tellSelect(),
+        width = $('#crop-image').width(),
+        height = $('#crop-image').height(),
+        select = [0, 0, width, height];
+
+    if(currentSelect.w != 0 && currentSelect.h != 0) return;
+
+    if(width / height > aspectRatio) {
+      select[0] = (width - aspectRatio * height) / 2;
+      select[2] = select[0] + aspectRatio * height;
+    }
+    else {
+      select[1] = (height - width / aspectRatio) / 2;
+      select[3] = select[1] + width / aspectRatio;
+    }
+    this.setSelect(select);
   });
 }

@@ -70,8 +70,6 @@ class Frontend::RegistrationController < Frontend::FrontendController
   end
 
   def photo
-    eid_authed?
-
     # All image uploading and processing is done by the model
     if params[:member] && @member.update_attributes(params[:member])
       redirect_to registration_success_path(@club) if @member.valid_photo?
@@ -91,21 +89,23 @@ class Frontend::RegistrationController < Frontend::FrontendController
     end
   end
 
-  private
-
+  helper_method :cas_authed?
   def cas_authed?
-    @cas_authed = !session[:cas_user].blank?
+    !session[:cas_user].blank?
   end
+
+  helper_method :eid_authed?
+  def eid_authed?
+    !session[:eid].blank?
+  end
+
+  private
 
   def load_cas_member_attributes
     attributes = session[:cas_extra_attributes]
     @member.first_name = attributes["givenname"]
     @member.last_name = attributes["surname"]
     @member.ugent_nr = attributes["ugentStudentID"]
-  end
-
-  def eid_authed?
-    @eid_authed = !session[:eid].blank?
   end
 
   def load_eid_member_attributes
