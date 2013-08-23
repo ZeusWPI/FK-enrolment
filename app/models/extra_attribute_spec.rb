@@ -5,7 +5,7 @@ class ExtraAttributeSpec < ActiveRecord::Base
   serialize :values
 
   validates :field_type, :inclusion => { :allow_blank => true,
-    :in => %w(checkbox checkbox_list checkbox_grid text textarea study) }
+    :in => %w(checkbox checkbox_list checkbox_grid dropdown text textarea study) }
 
   def self.build(name, type, values = [], required = false)
     spec = new

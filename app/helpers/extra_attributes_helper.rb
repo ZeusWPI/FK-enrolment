@@ -53,7 +53,7 @@ module ExtraAttributesHelper
     when "checkbox_list"
       items = attribute.value.reduce(raw('')) { |acc, v| acc + content_tag(:li, v) }
       content_tag(:ul, items)
-    when "study", "text", "textarea"
+    when "dropdown", "study", "text", "textarea"
       simple_format(attribute.value)
     else
       raise "Unknown field-type #{attribute.spec.field_type}"
@@ -68,6 +68,7 @@ module ExtraAttributesHelper
   end
 
   private
+
   # One larger case-statement > a lot of silly erb-files.
   def field_for_extra_attribute_type(f, type)
     label = f.object.spec.name
@@ -81,6 +82,8 @@ module ExtraAttributesHelper
       classes = "no-indent" + (type == "checkbox_grid" ? " checkbox-grid" : "")
       f.input :value , :as => :check_boxes, :label => label,
         :collection => values, :wrapper_html => { :class => classes }
+    when "dropdown"
+      f.input(:value, :as => :select, :label => label, :collection => values)
     when "study"
       values = Hash[values.map {|e| [e, e]}].merge("Andere" => "")
       f.input(:value, :as => :select, :label => label,
