@@ -11,8 +11,7 @@ module Paperclip
     private
 
     def automatic_cropbox(geometry)
-      aspect_ratio = @target_geometry.width /
-                     @target_geometry.height
+      aspect_ratio = @target_geometry.width / @target_geometry.height
       crop = [geometry.width, geometry.height, 0, 0]
       if geometry.width / geometry.height > aspect_ratio
         crop[0] = aspect_ratio * geometry.height

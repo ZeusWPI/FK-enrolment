@@ -30,11 +30,13 @@
   <% if @member.phone? %>
   <dt>GSM-nummer:</dt><dd><%= @member.phone %></dd>
   <% end %>
-  <% if @member.home_address? %>
-  <dt>Thuisadres:</dt><dd><%= simple_format(@member.home_address) %></dd>
+  <% if @member.home_street? %>
+  <dt>Thuisadres:</dt><dd><%= @member.home_street %><br />
+      <%= @member.home_postal_code %> <%= @member.home_city %></dd>
   <% end %>
-  <% if @member.studenthome_address? %>
-  <dt>Kotadres:</dt><dd><%= simple_format(@member.studenthome_address) %></dd>
+  <% if @member.studenthome_street? %>
+  <dt>Kotadres:</dt><dd><%= @member.studenthome_street %><br />
+      <%= @member.studenthome_postal_code %> <%= @member.studenthome_city %></dd>
   <% end %>
 </dl>
 </div>

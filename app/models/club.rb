@@ -5,6 +5,7 @@ class Club < ActiveRecord::Base
 
   validates_presence_of :name, :full_name, :internal_name, :description, :url
   validates :registration_method, :inclusion => { :in => %w(none api website hidden) }
+  validates :isic_mail_option, :inclusion => { :in => 0..2 }
 
   attr_accessible :description, :isic_text, :confirmation_text,
     :registration_method, :uses_isic, :isic_mail_option

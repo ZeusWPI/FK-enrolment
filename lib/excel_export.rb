@@ -22,8 +22,8 @@ class ExcelExport
       card = member.current_card || Card.new
       sheet.row(i+1).concat [club.name, member.first_name, member.last_name,
         member.sex, member.ugent_nr, member.email, member.date_of_birth,
-        member.home_address.try { |a| a.sub("\r\n", "\n") },
-        member.studenthome_address.try { |a| a.sub("\r\n", "\n") },
+        member.home_street + "\n" + member.home_postal_code + ' ' + member.home_city,
+        member.studenthome_street + "\n" + member.studenthome_postal_code + ' ' + member.studenthome_city,
         member.photo.url(:cropped, use_timestamp = false), member.created_at,
         card.number, card.status, card.isic_status]
     end

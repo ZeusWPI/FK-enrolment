@@ -114,11 +114,12 @@ class Frontend::RegistrationController < Frontend::FrontendController
 
     @member.first_name = attributes[key_prefix + "givenname"]
     @member.last_name = attributes[key_prefix + "surname"]
+    @member.date_of_birth = Date.parse attributes[key_prefix + "dateofbirth"]
+    @member.home_street = attributes[key_prefix + "streetaddress"]
+    @member.home_postal_code = attributes[key_prefix + "postalcode"]
+    @member.home_city = attributes[key_prefix + "locality"]
+
     sex = attributes[key_prefix + "gender"]
     @member.sex = {'1' => 'm', '2' => 'f'}[sex] || @member.sex
-    @member.date_of_birth = Date.parse attributes[key_prefix + "dateofbirth"]
-    @member.home_address = attributes[key_prefix + "streetaddress"] + "\n" +
-                           attributes[key_prefix + "postalcode"] + " " +
-                           attributes[key_prefix + "locality"]
   end
 end
