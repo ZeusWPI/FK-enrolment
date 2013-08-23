@@ -62,4 +62,5 @@ class ExcelExport
     else
       return ''
     end
+  end
 end

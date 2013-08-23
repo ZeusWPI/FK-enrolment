@@ -8,6 +8,22 @@ module Paperclip
       end
     end
 
+    private
+
+    def automatic_cropbox(geometry)
+      aspect_ratio = @target_geometry.width /
+                     @target_geometry.height
+      crop = [geometry.width, geometry.height, 0, 0]
+      if geometry.width / geometry.height > aspect_ratio
+        crop[0] = aspect_ratio * geometry.height
+        crop[2] = (geometry.width - crop[0]) / 2
+      else
+        crop[1] = geometry.width / aspect_ratio
+        crop[3] = (geometry.height - crop[1]) / 2
+      end
+      crop
+    end
+
     def crop_command
       target = @attachment.instance
       large = Geometry.from_file(@attachment.queued_for_write[:large])
@@ -17,19 +33,7 @@ module Paperclip
 
       # Automaticall determine crop values
       if crop[0] == 0 || crop[1] == 0
-        aspect_ratio = @target_geometry.width /
-                       @target_geometry.height
-        if large.width / large.height > aspect_ratio
-          crop[0] = aspect_ratio * large.height
-          crop[1] = large.height
-          crop[2] = (large.width - crop[0]) / 2
-          crop[3] = 0
-        else
-          crop[0] = large.width
-          crop[1] = large.width / aspect_ratio
-          crop[2] = 0
-          crop[3] = (large.height - crop[1]) / 2
-        end
+        crop = automatic_cropbox(large)
       end
 
       # Scale crop values
