@@ -59,7 +59,9 @@ form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
   }
 
   &.checkbox-grid li {
-    width: 150px; float: left;
+    float: left;
+    width: 155px;
+    margin-right: 10px;
   }
 }
 
