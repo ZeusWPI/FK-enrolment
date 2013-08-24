@@ -105,8 +105,6 @@ class Member < ActiveRecord::Base
 
     # Add any attributes that do not exist yet
     club.extra_attributes.each do |spec|
-      next if spec.field_type.blank?
-
       if !map[spec.id]
         map[spec.id] = ExtraAttribute.new
         extra_attributes << map[spec.id]

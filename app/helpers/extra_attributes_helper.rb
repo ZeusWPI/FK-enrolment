@@ -24,7 +24,6 @@ module ExtraAttributesHelper
   end
 
   # Renders the extra attributes in the (Formtastic) form
-  # TODO: fields without field_type (aka text-snippets aren't shown)
   def render_extra_attributes(f, name = :extra_attributes)
     f.inputs(:for => name) do |f|
       unless f.object.spec.field_type?
