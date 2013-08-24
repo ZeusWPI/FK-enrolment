@@ -21,6 +21,7 @@ body.registration {
   #cam-preview, #cam-mask {
     position: absolute;
     top: 0; left: 0;
+    display: none;
   }
 
   input, p {

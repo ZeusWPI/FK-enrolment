@@ -35,14 +35,14 @@ function initWebcam() {
       var base64 = $.scriptcam.getFrameAsBase64();
       $('#member_photo_base64').val(base64);
       $('#cam-preview').attr('src', 'data:image/png;base64,' + base64);
-      $('#cam-preview').show();
+      $('#cam-preview, #cam-mask').show();
 
       $('#cam-submit').button('enable')
       $(this).val("Nieuwe foto");
     }
     else {
       $('#cam-submit').button('disable');
-      $('#cam-preview').hide();
+      $('#cam-preview, #cam-mask').hide();
       $(this).val("Foto nemen");
     }
     frozen = !frozen;
@@ -65,9 +65,7 @@ function initWebcam() {
     path: '/scriptcam/',
     width: 640, height: 480,
     cornerRadius: 0,
-    onWebcamReady: function() {
-      $('#cam-mask').show();
-    }
+    maskImage: $('#cam-mask').attr('src')
   }
 
   $('#webcam-trigger').click(function() {

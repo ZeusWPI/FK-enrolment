@@ -29,19 +29,6 @@
 </div>
 
 <h3>Een andere foto kiezen?</h3>
-<% elsif @eid_authed %>
-<p>Deze foto haalden we van je elektronische identiteitskaart.</p>
-<%= image_tag eid_photo_path %>
-
-<%= semantic_form_for @member, :url => photo_backend_member_path(@member) do |f| %>
-  <%= f.input :photo_base64, :as => :hidden, :input_html => {
-    :value => session[:eid]["be:fedict:eid:idp:photo"] } %>
-  <%= f.actions :class => "member no-indent" do %>
-    <%= f.action :submit, :label => "Foto gebruiken" %>
-  <% end %>
-<% end %>
-
-<h3>Een andere foto kiezen?</h3>
 <% end %>
 
 <%= semantic_form_for @member, :url => photo_backend_member_path(@member) do |f| %>
