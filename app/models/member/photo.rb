@@ -73,7 +73,8 @@ module Member::Photo
     return unless photo?
 
     minimum = Paperclip::Geometry.parse(photo.styles[:cropped].geometry)
-    dimensions = Paperclip::Geometry.from_file(photo.queued_for_write[:original])
+    photo_path = photo.queued_for_write[:original] || photo.path(:original)
+    dimensions = Paperclip::Geometry.from_file(photo_path)
 
     unless dimensions.width >= minimum.width && dimensions.height >= minimum.height
       errors.add :photo, "De foto dient ten minste #{minimum.width.to_i} bij " \
