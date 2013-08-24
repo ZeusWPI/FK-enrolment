@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130822105503) do
+ActiveRecord::Schema.define(:version => 20130824072109) do
 
   create_table "cards", :force => true do |t|
     t.integer  "member_id"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(:version => 20130822105503) do
     t.integer  "club_id"
     t.string   "name"
     t.string   "field_type"
-    t.string   "values"
+    t.text     "values",     :limit => 65535
     t.boolean  "required"
     t.integer  "position"
     t.datetime "created_at"
