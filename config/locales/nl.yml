@@ -43,3 +43,7 @@ nl:
       order:
         desc: ▼
         asc: ▲
+
+  time:
+    formats:
+      medium: '%d %b %Y %H:%M'

@@ -41,8 +41,8 @@ class BasicMemberReport
   column(:ugent_nr, :header => "UGent-nr.")
   column(:email, :header => "E-mailadres")
   column(:card_number, :header => "FK-nummer")
-  column(:created_at, :order => "members.created_at", :header => "Geregistreerd") do |member|
-    I18n.localize member.created_at, :format => :short
+  column(:created_at, :order => "members.updated_at", :header => "Laatst gewijzigd") do |member|
+    I18n.localize member.created_at, :format => :medium
   end
   column(:photo, :header => "") do |member|
     if member.photo?
