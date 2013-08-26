@@ -75,7 +75,10 @@ function initWebcam() {
     $('#cam-modal input[type=button]').button();
     $('#cam-modal').dialog({
       modal: true, draggable: false, resizable: false,
-      width: 680, height: 620
+      width: 680, height: 620,
+      close: function(evt, ui) {
+        $('#member_photo_base64').val('');
+      }
     });
     $('#cam-mask').hide();
     $("#cam-embed").scriptcam(camOptions);

@@ -32,8 +32,13 @@
   }
 }
 
-.photo-preview {
-  border: 2px solid #E1E1E1;
+.ui-tooltip {
+  border: none;
+  padding: 0;
+
+  img {
+    display: block;
+  }
 }
 
 .backend.pay {

@@ -70,8 +70,10 @@ FKEnrolment::Application.configure do
   ActionMailer::Base.smtp_settings[:enable_starttls_auto] = false
 
   # Send notifications when exceptions occur
-  config.middleware.use ExceptionNotifier,
-    :email_prefix => "[FK-Enrolment] ",
-    :sender_address => %{"Exception Notifier" <fk-enrolment@zeus.ugent.be>},
-    :exception_recipients => %w{fk-enrolment@zeus.ugent.be}
+  config.middleware.use ExceptionNotification::Rack,
+    :email => {
+      :email_prefix => "[FK-Enrolment] ",
+      :sender_address => %{"Exception Notifier" <fk-enrolment@zeus.ugent.be>},
+      :exception_recipients => %w{fk-enrolment@zeus.ugent.be}
+    }
 end

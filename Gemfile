@@ -26,7 +26,7 @@ gem 'will_paginate', '~> 3.0'
 gem 'rails-i18n'
 
 # Send error messages
-gem 'exception_notification', '~> 2.6', :require => 'exception_notifier'
+gem 'exception_notification', '~> 4.0'
 
 # ActiveRecord enhancements
 gem 'acts_as_list'
@@ -58,10 +58,10 @@ group :assets do
   gem 'sass-rails', '~> 3.2'
   gem 'compass-rails'
   gem 'oily_png'                        # Faster PNG generation for compass sprites
-  gem 'jquery-rails', '~> 2.1.0'
+  gem 'jquery-rails', '~> 2.1'
   gem 'uglifier'                        # Javascript compressor
-  gem 'therubyracer', '~> 0.10.0'       # Javascript engine
-  gem 'yui-compressor', '~> 0.9.6'
+  gem 'therubyracer', '~> 0.12.0'       # Javascript engine
+  gem 'yui-compressor', '~> 0.11.0'
 end
 
 group :development do

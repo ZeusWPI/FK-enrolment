@@ -14,7 +14,7 @@
         :input_html => {:cols => 40, :rows => 4 } %>
     <li><label>Kaartnummers</label><p><%= "#{@club.card_range.first} — #{@club.card_range.last}" %></p></li>
     <%= f.input :registration_method, :as => :select, :include_blank => false,
-      :collection => {"Geen" => "none", "API" => "api", "Website" => "website"} %>
+      :collection => {"Geen" => "none", "API" => "api", "Website" => "website", "Verborgen" => "hidden"} %>
     <%= f.input :uses_isic, :wrapper_html => { :class => "no-indent" } %>
     <%= f.input :isic_mail_option, :as => :select, :include_blank => false,
       :collection => { "Optie niet aanbieden" => Club::ISIC_MAIL_CARD_DISABLED,

@@ -4,14 +4,15 @@
 <div class="content-main">
   <p><%= image_tag('isic.jpg') %></p>
 
-  <p>Jouw ISIC (International Student Identity Card) is de <strong>enige wereldwijd aanvaarde</strong>
-  studenten- en voordelenkaart erkend door UNESCO.</p>
-  <ul>
-      <li>een voordelenkaart die je toegang geeft tot meer dan 25 <strong>permanente</strong> voordelen in Gent,
-          meer dan 125 voordelen in België en 40.000 voordelen wereldwijd</li>
-      <li>een bewijs dat je <strong>student hoger onderwijs</strong> bent</strong>
-  </ul>
-  <p>Jouw ISIC, haal eruit wat erin zit!</p>
+  <p>ISIC (International Student Identity Card) is de enige wereldwijd aanvaarde studenten- en voordelenkaart, erkend door UNESCO. Dankzij ISIC heb je overal en altijd een bewijs op zak dat je student hoger onderwijs bent.</p>
+
+  <p>Ga je op reis of vertrek je op Erasmus? Vergeet dan zeker geen ISIC mee te nemen, want wereldwijd geeft de kaart recht op 40.000 voordelen.</p>
+
+  <p><%= image_tag('isic-qr.png', style: "float: right; margin: 0 0 4px 4px;") %></p>
+
+  <p>Ook wie gewoon thuis of op kot blijft, houdt maar liever een ISIC bij de hand, want alleen al in Gent zijn er niet minder dan 40 ISIC-voordelen: lifestyle, cultuur, eten, drinken, noem maar op.</p>
+
+  <p>Een volledig overzicht van alle voordelen vind je op <a href="http://www.isic.be">www.isic.be</a> of op de <a href="http://www.isic.be/download.html">gratis ISIC-app</a> (scan hier).
 
   <%= simple_format(@club.isic_text) unless @club.isic_text.blank? %>
 

@@ -16,9 +16,8 @@ $(function() {
 
   function initPhotoOverlay() {
     $('a.icon.photo').tooltip({
-      track: true,
-      showURL: false,
-      bodyHandler: function() {
+      show: false, hide: false, track: true,
+      content: function() {
         return $('<img>')
                  .attr('src', $(this).data('photo'))
                  .attr('width', 140).attr('height', 200)

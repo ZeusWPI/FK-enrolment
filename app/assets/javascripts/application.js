@@ -9,7 +9,6 @@
 //= require jquery-ui.custom
 //= require jquery.color
 //= require jquery.Jcrop
-//= require jquery.tooltip
 //= require swfobject
 //= require scriptcam
 //= require_tree .

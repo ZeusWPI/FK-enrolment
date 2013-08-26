@@ -8,7 +8,7 @@ class ExcelExport
 
   def initialize
     @export = Spreadsheet::Workbook.new
-    sheet = export.create_worksheet :name => 'Leden'
+    sheet = @export.create_worksheet :name => 'Leden'
     sheet.row(0).concat ['Kring', 'Voornaam', 'Familienaam', 'Geslacht',
       'UGent-nummer', 'E-mailadres', 'Geboortedatum', 'Thuisadres', 'Kotadres',
       'Foto', 'Geregistreerd', 'Kaartnummer', 'Status', 'ISIC status']
@@ -45,7 +45,7 @@ class ExcelExport
 
   def to_s
     io = StringIO.new
-    export.write io
+    @export.write io
     io.string
   end
 
