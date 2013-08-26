@@ -39,6 +39,7 @@ class Member < ActiveRecord::Base
     end
   end
 
+  # TODO: find a way to disable this when doing large-scale migrations
   before_save do
     self.last_registration = Member.current_academic_year
   end
