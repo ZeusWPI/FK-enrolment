@@ -28,6 +28,7 @@ class IsicExport
   def submit(member, card)
     return if card.academic_year != Member.current_academic_year
     return if not ['request', 'revalidate'].include? card.isic_status
+    return if card.status != 'paid'
 
     state_info = {
       'request' => ['REQUESTED', 'requested'],

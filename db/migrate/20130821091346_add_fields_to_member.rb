@@ -16,15 +16,15 @@ class AddFieldsToMember < ActiveRecord::Migration
   end
 
   def parse_address(member, prop)
-    re = /^(.*?)[\s,]+[B\-]*([0-9]+)[\s,]+([^0-9]+)$/
+    re = /^(((?!,).)*)[\s,]+[B\-]*([0-9]+)[\s,]+([^0-9]+)$/
     value = member.send(prop + '_address')
     return if value.blank?
 
     match = re.match(value)
     if match
-      member.send(prop + '_street=', match[1])
-      member.send(prop + '_postal_code=', match[2])
-      member.send(prop + '_city=', match[3])
+      member.send(prop + '_street=', match[1].strip)
+      member.send(prop + '_postal_code=', match[3].strip)
+      member.send(prop + '_city=', match[4].strip)
     end
   end
 
