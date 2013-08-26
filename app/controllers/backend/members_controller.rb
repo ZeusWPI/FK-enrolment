@@ -17,12 +17,16 @@ class Backend::MembersController < Backend::BackendController
       # This will check if members are actually filtered
       @filtered = params[:member_report].any? do |key, value|
         next false if %w(order descending club_id).include?(key)
-        key == "card_holders_only" ? value == '1' : !value.blank?
+        key == 'card_holders_only' ? value == '1' : !value.blank?
       end
 
       # This order will guarantee club_id cannot be set from the outside
       report_params = params[:member_report].merge(report_params)
     end
+
+    # Defaults
+    report_params[:last_registration] ||= Member.current_academic_year
+
     @membergrid = MemberReport.new(report_params)
     @members = @membergrid.assets
 

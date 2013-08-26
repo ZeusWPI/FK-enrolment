@@ -10,28 +10,30 @@ class BasicMemberReport
   end
 
   scope do
-    Member.includes(:current_card)
-          .active_registrations.where({:enabled => true})
+    Member.includes(:current_card).where(:enabled => true)
           .order("members.created_at DESC")
   end
 
   # Filters
   filter(:club_id, :integer)
   filter(:first_name) do |value|
-    self.where(["LOWER(members.first_name) LIKE ?", "%#{value.downcase}%"])
+    self.where("LOWER(members.first_name) LIKE ?", "%#{value.downcase}%")
   end
   filter(:last_name) do |value|
-    self.where(["LOWER(members.last_name) LIKE ?", "%#{value.downcase}%"])
+    self.where("LOWER(members.last_name) LIKE ?", "%#{value.downcase}%")
   end
   filter(:ugent_nr)
   filter(:email) do |value|
-    self.where(["LOWER(members.email) LIKE ?", "%#{value.downcase}%"])
+    self.where("LOWER(members.email) LIKE ?", "%#{value.downcase}%")
   end
   filter(:card_number) do |value|
-    self.where(["cards.number = ?", value])
+    self.where("cards.number = ?", value)
+  end
+  filter(:last_registration) do |value|
+    self.where("last_registration = ?", value) unless value.blank?
   end
   filter(:card_holders_only, :boolean) do |value|
-    self.where(["cards.number IS NOT NULL"])
+    self.where("cards.number IS NOT NULL")
   end
 
   # Columns
@@ -47,7 +49,7 @@ class BasicMemberReport
   column(:photo, :header => "") do |member|
     if member.photo?
       icon(:photo, '', photo_backend_member_path(member),
-        "data-photo" => member.photo(:cropped))
+        "data-photo" => member.photo(:cropped), :title => '')
     else
       icon(:nophoto, '', photo_backend_member_path(member))
     end

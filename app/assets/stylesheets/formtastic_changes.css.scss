@@ -63,6 +63,10 @@ form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
     width: 155px;
     margin-right: 10px;
   }
+
+  &.boolean label {
+    padding-left: 30%;
+  }
 }
 
 form.formtastic fieldset {
@@ -105,6 +109,7 @@ form.formtastic fieldset {
       width: 100% !important;
     }
   }
+
   .indent {
     padding-left: 30%;
 } }

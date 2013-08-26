@@ -22,6 +22,7 @@ nl:
         isic_newsletter: ISIC nieuwsbrief
         isic_mail_card: ISIC-kaart opsturen
         created_at: Geregistreerd op
+        last_registration: Academiejaar
       club:
         description: Beschrijving
         isic_text: ISIC-tekst
