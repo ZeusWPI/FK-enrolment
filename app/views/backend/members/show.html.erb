@@ -10,7 +10,6 @@
 
 <dl>
   <dt>Kring:</dt><dd><%= @member.club.name %></dd>
-  <dt>FK-nummer:</dt><dd><%= @member.card_number %></dd>
   <dt>Geregistreerd op:</dt>
   <dd><%= l @member.created_at, :format => :long %></dd>
 </dl>
@@ -41,23 +40,23 @@
 </dl>
 </div>
 
-<% if @member.current_card %>
-<h3>Lidkaart</h3>
-
-<dl>
-  <dt>Nummer:</dt><dd><%= @member.current_card.number %></dd>
-  <dt>Status:</dt><dd>
-    <%= human_card_status(@member.current_card.status) %>
-    <% if @member.club.uses_isic %>
-    (ISIC: <%= human_isic_status(@member.current_card.isic_status) %>)
-    <% end %>
-  </dd>
-</dl>
-<% end %>
-
 <h3>Extra vragen</h3>
 <dl class="no-indent">
 <% @extra_attributes.each do |attribute| %>
   <%= render_extra_attribute_value(attribute) %>
 <% end %>
 </dl>
+
+<% @member.cards.reverse.each do |card| %>
+<h3>Lidkaart <%= card.academic_year %>-<%= card.academic_year + 1 %></h3>
+
+<dl>
+  <dt>Nummer:</dt><dd><%= card.number %></dd>
+  <dt>Status:</dt><dd>
+    <%= human_card_status(card.status) %>
+    <% if card.isic_status != 'none' %>
+    (ISIC: <%= human_isic_status(card.isic_status) %>)
+    <% end %>
+  </dd>
+</dl>
+<% end %>

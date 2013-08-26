@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 class BasicMemberReport
   include Datagrid
 
@@ -10,8 +12,7 @@ class BasicMemberReport
   end
 
   scope do
-    Member.includes(:current_card).where(:enabled => true)
-          .order("members.created_at DESC")
+    Member.includes(:cards).where(:enabled => true).order("members.created_at DESC")
   end
 
   # Filters
@@ -30,7 +31,8 @@ class BasicMemberReport
     self.where("cards.number = ?", value)
   end
   filter(:last_registration) do |value|
-    self.where("last_registration = ?", value) unless value.blank?
+    return if value.blank?
+    self.where("last_registration = ? OR cards.academic_year = ?", value, value)
   end
   filter(:card_holders_only, :boolean) do |value|
     self.where("cards.number IS NOT NULL")
@@ -42,7 +44,10 @@ class BasicMemberReport
   end
   column(:ugent_nr, :header => "UGent-nr.")
   column(:email, :header => "E-mailadres")
-  column(:card_number, :header => "FK-nummer")
+  column(:card_number, :header => "FK-nummer") do |member, grid|
+    card = member.cards.find { |c| c.academic_year = grid.last_registration }
+    card ? card.number : "∅"
+  end
   column(:created_at, :order => "members.updated_at", :header => "Laatst gewijzigd") do |member|
     I18n.localize member.updated_at, :format => :medium
   end

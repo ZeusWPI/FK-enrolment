@@ -142,9 +142,4 @@ class Member < ActiveRecord::Base
   def name
     "#{first_name} #{last_name}"
   end
-
-  # Shortcut for card number
-  def card_number
-    self.current_card ? self.current_card.number : "∅"
-  end
 end
