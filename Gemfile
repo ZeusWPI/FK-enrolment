@@ -52,11 +52,13 @@ gem 'ruby-saml'
 # SOAP
 gem 'savon'
 
+# Moved outside :assets group since we reference it in application.rb
+gem 'compass-rails'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'sass-rails', '~> 3.2'
-  gem 'compass-rails'
   gem 'oily_png'                        # Faster PNG generation for compass sprites
   gem 'jquery-rails', '~> 2.1'
   gem 'uglifier'                        # Javascript compressor

@@ -8,8 +8,8 @@ class ExcelExport
 
   def initialize
     @export = Spreadsheet::Workbook.new
-    sheet = @export.create_worksheet :name => 'Leden'
-    sheet.row(0).concat ['Kring', 'Voornaam', 'Familienaam', 'Geslacht',
+    @sheet = @export.create_worksheet :name => 'Leden'
+    @sheet.row(0).concat ['Kring', 'Voornaam', 'Familienaam', 'Geslacht',
       'UGent-nummer', 'E-mailadres', 'Geboortedatum', 'Thuisadres', 'Kotadres',
       'Foto', 'Geregistreerd', 'Kaartnummer', 'Status', 'ISIC status']
   end
@@ -20,7 +20,7 @@ class ExcelExport
     club = members.first.club
     members.each_with_index do |member, i|
       card = member.current_card || Card.new
-      sheet.row(i+1).concat [club.name, member.first_name, member.last_name,
+      @sheet.row(i+1).concat [club.name, member.first_name, member.last_name,
         member.sex, member.ugent_nr, member.email, member.date_of_birth,
         member.home_street + "\n" + member.home_postal_code + ' ' + member.home_city,
         member.studenthome_street + "\n" + member.studenthome_postal_code + ' ' + member.studenthome_city,
@@ -31,7 +31,7 @@ class ExcelExport
     # Extra attributes
     club.extra_attributes.each do |spec|
       next if spec.field_type.blank?
-      sheet.row(0).concat [spec.name]
+      @sheet.row(0).concat [spec.name]
     end
     members.each_with_index do |member, i|
       attributes = []
@@ -39,7 +39,7 @@ class ExcelExport
         next if spec.field_type.blank?
         attributes << encode_attribute(spec, member.extra_attributes)
       end
-      sheet.row(i+1).concat attributes
+      @sheet.row(i+1).concat attributes
     end
   end
 

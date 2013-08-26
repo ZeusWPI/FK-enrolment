@@ -48,7 +48,9 @@
   <dt>Nummer:</dt><dd><%= @member.current_card.number %></dd>
   <dt>Status:</dt><dd>
     <%= human_card_status(@member.current_card.status) %>
+    <% if @member.club.uses_isic %>
     (ISIC: <%= human_isic_status(@member.current_card.isic_status) %>)
+    <% end %>
   </dd>
 </dl>
 <% end %>
