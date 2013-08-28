@@ -8,20 +8,13 @@
 
   <p>Ga je op reis of vertrek je op Erasmus? Vergeet dan zeker geen ISIC mee te nemen, want wereldwijd geeft de kaart recht op 40.000 voordelen.</p>
 
-  <p><%= image_tag('isic-qr.png', style: "float: right; margin: 0 0 4px 4px;") %></p>
+  <p><%= image_tag('isic-qr.png', style: "float: right; margin: 0 0 4px 12px;") %></p>
 
   <p>Ook wie gewoon thuis of op kot blijft, houdt maar liever een ISIC bij de hand, want alleen al in Gent zijn er niet minder dan 40 ISIC-voordelen: lifestyle, cultuur, eten, drinken, noem maar op.</p>
 
   <p>Een volledig overzicht van alle voordelen vind je op <a href="http://www.isic.be">www.isic.be</a> of op de <a href="http://www.isic.be/download.html">gratis ISIC-app</a> (scan hier).
 
   <%= simple_format(@club.isic_text) unless @club.isic_text.blank? %>
-
-  <%# Extra message for early registrations %>
-  <% if Time.now < Time.new(Member.current_academic_year,9,6) %>
-  <p><strong>Vertrek je op Erasmus?</strong> Contacteer dan zo snel mogelijk
-    je club na registratie, misschien kunnen we je je ISIC-kaart dan nog op tijd
-    bezorgen en kan je genieten van de vele internationale ISIC voordelen!</p>
-  <% end %>
 
   <%= semantic_form_for @member, :url => registration_isic_path(@club) do |f| %>
     <%= f.inputs :class => "inputs no-indent" do %>
