@@ -72,14 +72,19 @@ module Member::Photo
   def photo_dimensions
     return unless photo?
 
-    minimum = Paperclip::Geometry.parse(photo.styles[:cropped].geometry)
-    photo_path = photo.queued_for_write[:original] || photo.path(:original)
-    dimensions = Paperclip::Geometry.from_file(photo_path)
+    # If an exception occurs, its probably not a valid photo
+    # and a previous validator will show an error
+    begin
+      minimum = Paperclip::Geometry.parse(photo.styles[:cropped].geometry)
+      photo_path = photo.queued_for_write[:original] || photo.path(:original)
+      dimensions = Paperclip::Geometry.from_file(photo_path)
 
-    unless dimensions.width >= minimum.width && dimensions.height >= minimum.height
-      errors.add :photo, "De foto dient ten minste #{minimum.width.to_i} bij " \
-        "#{minimum.height.to_i} pixels te zijn."
-      self.photo = nil
+      unless dimensions.width >= minimum.width && dimensions.height >= minimum.height
+        errors.add :photo, "De foto dient ten minste #{minimum.width.to_i} bij " \
+          "#{minimum.height.to_i} pixels te zijn."
+        self.photo = nil
+      end
+    rescue
     end
   end
 end
