@@ -1,12 +1,6 @@
 class IsicExport
   def self.export(member, card)
-    if Rails.env.production?
-      wsdl = "http://isicregistrations.guido.be/service.asmx?WSDL"
-    else
-      wsdl = "http://staging-isicregistrations.guido.be/service.asmx?WSDL"
-    end
-
-    export = IsicExport.new(wsdl)
+    export = IsicExport.new(Rails.application.isic_api_wsdl)
     export.submit(member, card)
   end
 
@@ -16,8 +10,8 @@ class IsicExport
       convert_request_keys_to: :none
     )
     @defaults = {
-      username: Rails.application.config.isic_soap_user,
-      password: Rails.application.config.isic_soap_password,
+      username: Rails.application.config.isic_api_user,
+      password: Rails.application.config.isic_api_password,
 
       cardType: "ISIC",
       StudentCity: "Gent",
@@ -38,7 +32,7 @@ class IsicExport
     params = @defaults.merge({
       ClientID: "FK", # TODO: get client id from club
       MemberNumber: card.number,
-      ISICCardNumber: card.isic_number, # TODO: what if empty?
+      ISICCardNumber: card.isic_number,
       Course: member.club.full_name,
       type: state_info[card.isic_status][0],
 
@@ -57,7 +51,7 @@ class IsicExport
       PhoneNumber: "",
 
       isStudent: "1",
-      Year: "0", # TODO: check if this a good default
+      Year: "0",
       sendToHome: member.isic_mail_card ? "1" : "0",
       promotionCode: "",
       Optin: member.isic_newsletter ? "1" : "0",
@@ -82,4 +76,5 @@ class IsicExport
     else
       raise result
     end
+  end
 end

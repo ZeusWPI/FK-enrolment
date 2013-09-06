@@ -28,15 +28,15 @@ class Backend::BackendController < ApplicationController
     end
 
     # using httparty because it is much easier to read than net/http code
-    resp = HTTParty.get('http://fkgent.be/api_zeus.php', :query => {
-              :k => digest(ugent_login, Rails.application.config.zeus_api_key),
+    resp = HTTParty.get(Rails.application.fk_auth_url, :query => {
+              :k => digest(ugent_login, Rails.application.config.fk_auth_key),
               :u => ugent_login
            })
 
     # this will only return the club name if control-hash matches
     if resp.body != 'FAIL'
       hash = JSON[resp.body]
-      dig = digest(Rails.application.config.zeus_api_salt, ugent_login, hash['kringname'])
+      dig = digest(Rails.application.config.fk_auth_salt, ugent_login, hash['kringname'])
       return hash['kringname'] if hash['controle'] == dig
     end
 
