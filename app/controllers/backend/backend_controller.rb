@@ -28,7 +28,7 @@ class Backend::BackendController < ApplicationController
     end
 
     # using httparty because it is much easier to read than net/http code
-    resp = HTTParty.get(Rails.application.fk_auth_url, :query => {
+    resp = HTTParty.get(Rails.application.config.fk_auth_url, :query => {
               :k => digest(ugent_login, Rails.application.config.fk_auth_key),
               :u => ugent_login
            })
