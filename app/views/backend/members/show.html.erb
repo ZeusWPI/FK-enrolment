@@ -52,6 +52,9 @@
 
 <dl>
   <dt>Nummer:</dt><dd><%= card.number %></dd>
+  <% if !card.isic_number.blank? %>
+  <dt>ISIC-nummer:</dt><dd><%= card.isic_number %></dd>
+  <% end %>
   <dt>Status:</dt><dd>
     <%= human_card_status(card.status) %>
     <% if card.isic_status != 'none' %>

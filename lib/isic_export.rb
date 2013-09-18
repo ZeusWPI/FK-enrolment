@@ -1,12 +1,7 @@
 class IsicExport
-  def self.export(member, card)
-    export = IsicExport.new(Rails.application.isic_api_wsdl)
-    export.submit(member, card)
-  end
-
-  def initialize(wsdl_path)
+  def initialize
     @client = Savon.client(
-      wsdl: wsdl_path,
+      wsdl: Rails.application.config.isic_api_wsdl,
       convert_request_keys_to: :none
     )
     @defaults = {
@@ -30,7 +25,7 @@ class IsicExport
     }
 
     params = @defaults.merge({
-      ClientID: "FK", # TODO: get client id from club
+      ClientID: member.club.isic_name,
       MemberNumber: card.number,
       ISICCardNumber: card.isic_number,
       Course: member.club.full_name,
@@ -55,13 +50,14 @@ class IsicExport
       sendToHome: member.isic_mail_card ? "1" : "0",
       promotionCode: "",
       Optin: member.isic_newsletter ? "1" : "0",
-      optinThird: "0",
+      postOptOut: "1",
+      postOptOutThird: "1",
       special: "1"
     })
 
     photo = File.read(member.photo.path(:cropped), mode: 'rb')
     params.update({
-      Photo: ActiveSupport::Base64.encode64(photo),
+      Photo: Base64.encode64(photo),
       ImageExtension: "jpg"
     })
 
@@ -72,6 +68,7 @@ class IsicExport
       # Update card state
       card.isic_status = state_info[card.isic_status][1]
       card.isic_number = result
+      card.isic_exported = true
       card.save
     else
       raise result

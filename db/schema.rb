@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130824072109) do
+ActiveRecord::Schema.define(:version => 20130918141506) do
 
   create_table "cards", :force => true do |t|
     t.integer  "member_id"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20130824072109) do
     t.integer  "range_lower"
     t.integer  "range_upper"
     t.integer  "isic_mail_option",    :default => 0
+    t.string   "isic_name"
   end
 
   add_index "clubs", ["api_key"], :name => "index_clubs_on_api_key", :unique => true

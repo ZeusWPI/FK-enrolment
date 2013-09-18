@@ -1,3 +1,5 @@
+require 'isic_export'
+
 class Card < ActiveRecord::Base
   belongs_to :member
   has_one :club, :through => :member
@@ -91,5 +93,11 @@ class Card < ActiveRecord::Base
       :number => card_range
     ).maximum(:number)
     self.number = next_number ? next_number + 1 : card_range.begin + 1
+  end
+
+  # Export info to ISIC
+  def export_to_isic
+    return if not self.club.uses_isic
+    IsicExport.new.submit(self.member, self)
   end
 end
