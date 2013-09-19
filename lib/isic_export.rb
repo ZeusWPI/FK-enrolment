@@ -64,10 +64,15 @@ class IsicExport
     response = @client.call(:add_isic_registration, message: params)
     result = response.body[:add_isic_registration_response][:add_isic_registration_result]
 
-    if result[0] == 'S'
+    # Response is either "OKS 000 000 000 000 A"
+    # or "ASK FOR YOUR REVALIDATION STICKER"
+    if result[0..1] == 'OK' or result[0..2] == 'ASK'
+      if result[0..1] == 'OK'
+        card.isic_number = result[2..-1]
+      end
+
       # Update card state
       card.isic_status = state_info[card.isic_status][1]
-      card.isic_number = result
       card.isic_exported = true
       card.save
     else
