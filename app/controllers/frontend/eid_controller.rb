@@ -8,8 +8,12 @@ class Frontend::EidController < Frontend::FrontendController
   end
 
   def photo
-    photo = session[:eid]["be:fedict:eid:idp:photo"]
-    send_data(Base64.decode64(photo), :type => 'image/jpeg')
+    if session[:eid]
+      photo = session[:eid]["be:fedict:eid:idp:photo"]
+      send_data(Base64.decode64(photo), :type => 'image/jpeg')
+    else
+      raise ActionController::RoutingError.new
+    end
   end
 
   skip_before_filter :verify_authenticity_token, :only => :receive
