@@ -70,7 +70,7 @@ module Member::Photo
 
   # Validate minimum photo size
   def photo_dimensions
-    return unless photo?
+    return unless photo? or not photo.dirty?
 
     # If an exception occurs, its probably not a valid photo
     # and a previous validator will show an error
