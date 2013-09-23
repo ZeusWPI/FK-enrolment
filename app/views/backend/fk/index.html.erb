@@ -6,7 +6,8 @@
       <th></th>
       <th>Registraties</th>
       <th>Betaalde kaarten</th>
-      <th>ISIC kaarten</th>
+      <th>ISIC nieuw</th>
+      <th>ISIC hervalideerd</th>
     </tr>
   </thead>
   <tbody>
@@ -16,7 +17,8 @@
       <th><%= club.name %></th>
       <td><%= @data[:count][club].to_i %></td>
       <td><%= @data[:paid][club].to_i %></td>
-      <td><%= @data[:isic][club].to_i %></td>
+      <td><%= @data[:isic1][club].to_i %></td>
+      <td><%= @data[:isic2][club].to_i %></td>
     </tr>
   <% end %>
   </tbody>
