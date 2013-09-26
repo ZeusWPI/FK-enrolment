@@ -70,7 +70,9 @@ class Card < ActiveRecord::Base
 
     prev_member = Member.member_for_ugent_nr(member.ugent_nr, member.club)
     if prev_member
-      prev_card = prev_member.cards.where(:academic_year => member.last_registration - 1).first
+      prev_card = prev_member.cards.where(
+        :academic_year => member.last_registration - 1,
+        :status => 'paid').first
       if prev_card && !prev_card.isic_number.blank?
         self.isic_status = 'revalidate'
         self.isic_number = prev_card.isic_number
