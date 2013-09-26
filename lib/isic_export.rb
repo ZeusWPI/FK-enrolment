@@ -27,7 +27,7 @@ class IsicExport
     params = @defaults.merge({
       ClientID: member.club.isic_name,
       MemberNumber: card.number,
-      ISICCardNumber: card.isic_number,
+      ISICCardNumber: card.isic_status == 'revalidate' ? card.isic_number : nil,
       Course: member.club.full_name,
       type: state_info[card.isic_status][0],
 
