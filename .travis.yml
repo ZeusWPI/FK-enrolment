@@ -8,4 +8,4 @@ before_script:
 notifications:
     email:
         - fk-enrolment@zeus.ugent.be
-    irc: "wina.ugent.be#zeus"
+    irc: "wina.ugent.be#hydra"
