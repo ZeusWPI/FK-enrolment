@@ -10,6 +10,13 @@ class Api::ApiController < ApplicationController
     end
   end
 
+  # verify gandalf API key
+  def verify_api_key
+    unless params[:key] == Rails.application.config.fk_api_key
+      respond_with({:error => "Invalid API-key"}, :status => :forbidden, :location => nil)
+    end
+  end
+
   def unwrap_params(name)
     # why is member_id in this list?
     params[name] || params.except(:controller, :action, :format, :key, :member_id)
