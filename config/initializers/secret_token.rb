@@ -16,3 +16,5 @@ FKEnrolment::Application.config.fk_auth_key = '#development#'
 FKEnrolment::Application.config.isic_api_wsdl = 'http://staging-isicregistrations.guido.be/service.asmx?WSDL'
 FKEnrolment::Application.config.isic_api_user = 'ISICFK'
 FKEnrolment::Application.config.isic_api_password = 'h4fs836t2U1'
+
+FKEnrolment::Application.config.fk_gandalf_key = '#development#'

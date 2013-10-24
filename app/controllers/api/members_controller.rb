@@ -1,10 +1,21 @@
 class Api::MembersController < Api::ApiController
   before_filter :load_member, :except => [:index, :create]
+
+  skip_before_filter :verify_key, :only => [:clubs_for_ugent_nr]
+  before_filter :verify_gandalf_key, :only => [:clubs_for_ugent_nr]
+
   def load_member
     @member, status = Member.find_member_for_club(params[:id], @club)
     unless @member
       respond_with({:error => "Invalid member"}, :status => status, :location => '')
     end
+  end
+
+
+  def clubs_for_ugent_nr
+    ugent_nr = params[:ugent_nr]
+    @clubs = Member.joins(:club).joins(:current_card).where(:ugent_nr => ugent_nr, cards: { status: "paid" }).pluck("clubs.internal_name")
+    respond_with(:api, @clubs)
   end
 
   # GET /members
