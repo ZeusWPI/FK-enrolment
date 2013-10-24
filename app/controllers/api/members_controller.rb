@@ -1,5 +1,5 @@
 class Api::MembersController < Api::ApiController
-  before_filter :load_member, :except => [:index, :create]
+  before_filter :load_member, :except => [:index, :create, :clubs_for_ugent_nr]
 
   skip_before_filter :verify_key, :only => [:clubs_for_ugent_nr]
   before_filter :verify_gandalf_key, :only => [:clubs_for_ugent_nr]
