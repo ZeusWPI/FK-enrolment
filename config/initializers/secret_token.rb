@@ -17,4 +17,4 @@ FKEnrolment::Application.config.isic_api_wsdl = 'http://staging-isicregistration
 FKEnrolment::Application.config.isic_api_user = 'ISICFK'
 FKEnrolment::Application.config.isic_api_password = 'h4fs836t2U1'
 
-FKEnrolment::Application.config.fk_api_key = '#development#'
+FKEnrolment::Application.config.fk_gandalf_key = '#development#'

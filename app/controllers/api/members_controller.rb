@@ -2,7 +2,7 @@ class Api::MembersController < Api::ApiController
   before_filter :load_member, :except => [:index, :create]
 
   skip_before_filter :verify_key, :only => [:clubs_for_ugent_nr]
-  before_filter :verify_api_key, :only => [:clubs_for_ugent_nr]
+  before_filter :verify_gandalf_key, :only => [:clubs_for_ugent_nr]
 
   def load_member
     @member, status = Member.find_member_for_club(params[:id], @club)
