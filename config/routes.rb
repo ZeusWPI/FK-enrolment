@@ -4,6 +4,7 @@ FKEnrolment::Application.routes.draw do
     get "club" => "api#club"
     resources :members, :except => [:new, :edit] do
       resource :card, :only => [:show, :create]
+      get 'clubs_for_ugent_nr'
     end
   end
 
