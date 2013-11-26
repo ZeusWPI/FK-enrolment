@@ -235,6 +235,7 @@ DEPENDENCIES
   cover_me (~> 1.2.0)
   daemons
   datagrid
+  delayed_job (~> 4.0)
   delayed_job_active_record
   exception_notification (~> 4.0)
   formtastic (~> 2.2)

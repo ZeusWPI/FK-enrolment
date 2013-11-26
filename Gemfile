@@ -44,6 +44,8 @@ gem 'zippy'
 gem 'datagrid'
 
 # Larger, more CPU-intensive jobs
+gem 'daemons'         # Running delayed_job
+gem 'delayed_job', '~> 4.0'
 gem 'delayed_job_active_record'
 
 # eID-integration
@@ -77,7 +79,6 @@ end
 group :production do
   gem 'mysql2'          # Database
   gem 'unicorn'         # Webserver
-  gem 'daemons'         # Running delayed_job
 end
 
 group :test do

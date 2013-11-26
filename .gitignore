@@ -12,6 +12,7 @@ ERD.*
 
 tmp/
 public/data/
+public/system/
 public/assets/
 vendor/bundle/
 
