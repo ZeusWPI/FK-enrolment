@@ -1,3 +1,33 @@
+# == Schema Information
+#
+# Table name: clubs
+#
+#  id                  :integer          not null, primary key
+#  name                :string(255)
+#  full_name           :string(255)
+#  internal_name       :string(255)
+#  description         :string(255)
+#  url                 :string(255)
+#  registration_method :string(255)      default("none")
+#  uses_isic           :boolean          default(FALSE)
+#  isic_text           :text
+#  confirmation_text   :text
+#  api_key             :string(255)
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  range_lower         :integer
+#  range_upper         :integer
+#  isic_mail_option    :integer          default(0)
+#  isic_name           :string(255)
+#  export_file_name    :string(255)
+#  export_content_type :string(255)
+#  export_file_size    :integer
+#  export_updated_at   :datetime
+#  export_status       :string(255)
+#
+
+require 'excel_export'
+
 class Club < ActiveRecord::Base
   has_many :members
   has_many :cards, :through => :members
@@ -6,6 +36,8 @@ class Club < ActiveRecord::Base
   validates_presence_of :name, :full_name, :internal_name, :description, :url
   validates :registration_method, :inclusion => { :in => %w(none api website hidden) }
   validates :isic_mail_option, :inclusion => { :in => 0..2 }
+
+  has_attached_file :export
 
   attr_accessible :description, :isic_text, :confirmation_text,
     :registration_method, :uses_isic, :isic_mail_option
@@ -49,4 +81,25 @@ class Club < ActiveRecord::Base
       :only => [:name, :full_name, :url, :registration_method, :uses_isic]
     }))
   end
+
+  # Export excel
+  def generate_xls
+    self.export_status = 'generating'
+    self.save
+
+
+    members = Member.active_registrations.where(last_registration: Member.current_academic_year, club_id: self.id, enabled: true)
+
+    members = members.includes({:club => :extra_attributes}, :extra_attributes)
+
+    generated = ExcelExport.create(members)
+
+    self.export = generated
+    self.export_status = 'done'
+    self.save!
+    generated.close
+  end
+  handle_asynchronously :generate_xls
+
+
 end

@@ -1,3 +1,31 @@
+# == Schema Information
+#
+# Table name: clubs
+#
+#  id                  :integer          not null, primary key
+#  name                :string(255)
+#  full_name           :string(255)
+#  internal_name       :string(255)
+#  description         :string(255)
+#  url                 :string(255)
+#  registration_method :string(255)      default("none")
+#  uses_isic           :boolean          default(FALSE)
+#  isic_text           :text
+#  confirmation_text   :text
+#  api_key             :string(255)
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  range_lower         :integer
+#  range_upper         :integer
+#  isic_mail_option    :integer          default(0)
+#  isic_name           :string(255)
+#  export_file_name    :string(255)
+#  export_content_type :string(255)
+#  export_file_size    :integer
+#  export_updated_at   :datetime
+#  export_status       :string(255)
+#
+
 require 'test_helper'
 
 class ClubTest < ActiveSupport::TestCase

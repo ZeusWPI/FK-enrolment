@@ -1,0 +1,6 @@
+<% if @club.export.present? %>
+  <p> Download als <%= link_to 'xls', @club.export.url %> (Gegenereerd op: <%= @club.export_updated_at.strftime("%d/%m/%Y %H:%M") %>)
+<% else %>
+  <p> No excel yet generated, click:
+<% end %>
+<%= link_to 'Refresh', backend_member_generate_export_path(@club.id), method: :post, remote: true, id: "refresh-export" %></p>

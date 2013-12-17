@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: cards
+#
+#  id            :integer          not null, primary key
+#  member_id     :integer
+#  academic_year :integer
+#  number        :integer
+#  status        :string(255)      default("unpaid")
+#  enabled       :boolean          default(TRUE)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  isic_status   :string(255)      default("none")
+#  isic_number   :string(255)
+#  isic_exported :boolean          default(FALSE)
+#
+
 require 'isic_export'
 
 class Card < ActiveRecord::Base

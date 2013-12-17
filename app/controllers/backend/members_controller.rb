@@ -1,10 +1,13 @@
 require 'member_report'
-require 'excel_export'
 
 class Backend::MembersController < Backend::BackendController
   before_filter :load_member, :except => [:index]
+  skip_before_filter :load_member, only: [:export_status, :generate_export]
+
+  respond_to :html, :js
+
   def load_member
-    @member, status = Member.find_member_for_club(params['id'], @club)
+    @member, _ = Member.find_member_for_club(params['id'], @club)
     unless @member
       redirect_to backend_members_path, :alert => "Ongeldig lid."
     end
@@ -30,20 +33,23 @@ class Backend::MembersController < Backend::BackendController
     @membergrid = MemberReport.new(report_params)
     @members = @membergrid.assets
 
-    respond_to do |format|
-      format.html {
-        @members = @members.paginate(:page => params[:page], :per_page => 30)
+    @members = @members.paginate(:page => params[:page], :per_page => 30)
 
-        attributes = {:club_id => @club, :enabled => true}
-        @registered_members = Member.active_registrations.where(attributes).count
-        @card_members = Member.active_registrations.where(attributes).joins(:current_card).count
-      }
-      format.xls {
-        name = "Export %s %s.xls" % [@club.internal_name, Time.now.strftime('%F %T')]
-        @members = @members.includes({:club => :extra_attributes}, :extra_attributes)
-        send_data ExcelExport.create(@members), :filename => name, :type => :xls
-      }
+    attributes = {:club_id => @club, :enabled => true}
+    @registered_members = Member.active_registrations.where(attributes).count
+    @card_members = Member.active_registrations.where(attributes).joins(:current_card).count
+  end
+
+  def export_status
+    if @club.export_status == 'done'
+      render partial: 'backend/members/export'
+    else
+      redirect_to :back, status: :not_found
     end
+  end
+
+  def generate_export
+    @club.generate_xls
   end
 
   def disable

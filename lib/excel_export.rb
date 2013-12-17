@@ -1,9 +1,11 @@
+require 'tempfile'
+
 # Generate excel-export
 class ExcelExport
   def self.create(members)
     export = ExcelExport.new
     export.add_members(members)
-    export.to_s
+    export.save
   end
 
   def initialize
@@ -43,10 +45,10 @@ class ExcelExport
     end
   end
 
-  def to_s
-    io = StringIO.new
-    @export.write io
-    io.string
+  def save
+    data = Tempfile.new(["export", ".xls"])
+    @export.write(data)
+    data
   end
 
   private
