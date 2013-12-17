@@ -87,9 +87,7 @@ class Club < ActiveRecord::Base
     self.export_status = 'generating'
     self.save
 
-
     members = Member.active_registrations.where(last_registration: Member.current_academic_year, club_id: self.id, enabled: true)
-
     members = members.includes({:club => :extra_attributes}, :extra_attributes)
 
     generated = ExcelExport.create(members)
