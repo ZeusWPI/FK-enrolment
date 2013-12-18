@@ -90,12 +90,13 @@ class Club < ActiveRecord::Base
     members = Member.active_registrations.where(last_registration: Member.current_academic_year, club_id: self.id, enabled: true)
     members = members.includes({:club => :extra_attributes}, :extra_attributes)
 
-    generated = ExcelExport.create(members)
+    ExcelExport.create(members) do |result|
+      self.export = result
+      self.export_status = 'done'
+      self.save!
+      result.close
+    end
 
-    self.export = generated
-    self.export_status = 'done'
-    self.save!
-    generated.close
   end
   handle_asynchronously :generate_xls
 
