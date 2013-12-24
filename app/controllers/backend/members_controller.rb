@@ -50,7 +50,7 @@ class Backend::MembersController < Backend::BackendController
 
   def export_xls
     name = "Export %s %s.xls" % [@club.internal_name, Time.now.strftime('%F %T')]
-    send_file @club.export.path, :filename => name
+    send_file @club.export.path, :filename => name, :type => :xls
   end
 
   def generate_export
