@@ -57,8 +57,6 @@ gem 'savon'
 # Moved outside :assets group since we reference it in application.rb
 gem 'compass-rails'
 
-# Annotations are nice and pretty
-gem 'annotate'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -72,6 +70,9 @@ group :assets do
 end
 
 group :development do
+  # Annotations are nice and pretty
+  gem 'annotate'
+
   gem 'thin'
   # To use debugger
   # gem 'ruby-debug19', :require => 'ruby-debug'
