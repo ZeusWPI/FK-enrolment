@@ -2,11 +2,7 @@ require 'open-uri'
 
 module Member::Photo
   def self.included(base)
-    base.has_attached_file :photo,
-      :url => "/data/:class/:attachment/:hash_prefix/:id-:hash",
-      :hash_data => ":class/:attachment/:id/:filename/:style",
-      :hash_secret => "oJqDNFLYmaRb4CEqfodA3pbLhTtQF9PV2hMt8xBAXWQAf",
-      :styles => {
+    base.has_attached_file :photo, :styles => {
         :large => { :geometry => "520x700>", :format => :jpg },
         :cropped => { :geometry => "140x200", :format => :jpg, :processors => [:Cropper] }
       }
