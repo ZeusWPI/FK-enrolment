@@ -97,7 +97,6 @@ class Club < ActiveRecord::Base
       self.export = result
       self.export_status = 'done'
       self.save!
-      result.close
     end
 
   end
