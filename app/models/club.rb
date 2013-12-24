@@ -35,6 +35,7 @@ class Club < ActiveRecord::Base
 
   validates_presence_of :name, :full_name, :internal_name, :description, :url
   validates :registration_method, :inclusion => { :in => %w(none api website hidden) }
+  validates :export_status, :inclusion => { :in => %w(none generating done) }
   validates :isic_mail_option, :inclusion => { :in => 0..2 }
 
   has_attached_file :export
