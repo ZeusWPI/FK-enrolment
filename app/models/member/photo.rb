@@ -3,9 +3,9 @@ require 'open-uri'
 module Member::Photo
   def self.included(base)
     base.has_attached_file :photo, :styles => {
-        :large => { :geometry => "520x700>", :format => :jpg },
-        :cropped => { :geometry => "140x200", :format => :jpg, :processors => [:Cropper] }
-      }
+      :large => { :geometry => "520x700>", :format => :jpg },
+      :cropped => { :geometry => "140x200", :format => :jpg, :processors => [:Cropper] }
+    }
     base.validates_attachment_content_type :photo,
       :content_type => ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/gif',
                         'image/png', 'image/x-png', 'image/tiff'],
