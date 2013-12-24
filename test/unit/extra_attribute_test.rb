@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: extra_attributes
+#
+#  id         :integer          not null, primary key
+#  member_id  :integer
+#  spec_id    :integer
+#  value      :string(255)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require 'test_helper'
 
 class ExtraAttributeTest < ActiveSupport::TestCase

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130918141506) do
+ActiveRecord::Schema.define(:version => 20131217131941) do
 
   create_table "cards", :force => true do |t|
     t.integer  "member_id"
@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(:version => 20130918141506) do
     t.integer  "number"
     t.string   "status",        :default => "unpaid"
     t.boolean  "enabled",       :default => true
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.string   "isic_status",   :default => "none"
     t.string   "isic_number"
     t.boolean  "isic_exported", :default => false
@@ -40,12 +40,17 @@ ActiveRecord::Schema.define(:version => 20130918141506) do
     t.text     "isic_text"
     t.text     "confirmation_text"
     t.string   "api_key"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
     t.integer  "range_lower"
     t.integer  "range_upper"
     t.integer  "isic_mail_option",    :default => 0
     t.string   "isic_name"
+    t.string   "export_file_name"
+    t.string   "export_content_type"
+    t.integer  "export_file_size"
+    t.datetime "export_updated_at"
+    t.string   "export_status",       :default => "none"
   end
 
   add_index "clubs", ["api_key"], :name => "index_clubs_on_api_key", :unique => true
@@ -60,8 +65,8 @@ ActiveRecord::Schema.define(:version => 20130918141506) do
     t.datetime "locked_at"
     t.datetime "failed_at"
     t.string   "locked_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.string   "queue"
   end
 
@@ -74,16 +79,16 @@ ActiveRecord::Schema.define(:version => 20130918141506) do
     t.text     "values",     :limit => 65535
     t.boolean  "required"
     t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
   end
 
   create_table "extra_attributes", :force => true do |t|
     t.integer  "member_id"
     t.integer  "spec_id"
     t.string   "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "isic_exports", :force => true do |t|
@@ -91,8 +96,8 @@ ActiveRecord::Schema.define(:version => 20130918141506) do
     t.text     "members"
     t.string   "data_file_name"
     t.string   "photos_file_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.integer  "club_id"
     t.string   "export_type"
   end
@@ -108,16 +113,16 @@ ActiveRecord::Schema.define(:version => 20130918141506) do
     t.date     "date_of_birth"
     t.string   "home_address"
     t.string   "studenthome_address"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.boolean  "isic_newsletter"
     t.boolean  "isic_mail_card"
-    t.integer  "last_registration"
     t.boolean  "enabled",                 :default => false
+    t.integer  "last_registration"
     t.string   "home_street"
     t.string   "home_postal_code"
     t.string   "home_city"
@@ -131,8 +136,8 @@ ActiveRecord::Schema.define(:version => 20130918141506) do
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"

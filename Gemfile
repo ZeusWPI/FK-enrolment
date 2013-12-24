@@ -44,6 +44,8 @@ gem 'zippy'
 gem 'datagrid'
 
 # Larger, more CPU-intensive jobs
+gem 'daemons'         # Running delayed_job
+gem 'delayed_job', '~> 4.0'
 gem 'delayed_job_active_record'
 
 # eID-integration
@@ -54,6 +56,9 @@ gem 'savon'
 
 # Moved outside :assets group since we reference it in application.rb
 gem 'compass-rails'
+
+# Annotations are nice and pretty
+gem 'annotate'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -77,7 +82,6 @@ end
 group :production do
   gem 'mysql2'          # Database
   gem 'unicorn'         # Webserver
-  gem 'daemons'         # Running delayed_job
 end
 
 group :test do

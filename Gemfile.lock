@@ -49,6 +49,8 @@ GEM
     akami (1.2.0)
       gyoku (>= 0.4.0)
       nokogiri (>= 1.4.0)
+    annotate (2.5.0)
+      rake
     ansi (1.4.3)
     arel (3.0.2)
     builder (3.0.4)
@@ -57,7 +59,7 @@ GEM
     chunky_png (1.2.8)
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    cocaine (0.5.1)
+    cocaine (0.5.3)
       climate_control (>= 0.0.3, < 1.0)
     compass (0.12.2)
       chunky_png (~> 1.2)
@@ -231,10 +233,12 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_list
+  annotate
   compass-rails
   cover_me (~> 1.2.0)
   daemons
   datagrid
+  delayed_job (~> 4.0)
   delayed_job_active_record
   exception_notification (~> 4.0)
   formtastic (~> 2.2)
