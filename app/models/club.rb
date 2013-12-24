@@ -44,7 +44,6 @@ class Club < ActiveRecord::Base
 
   attr_accessible :description, :isic_text, :confirmation_text,
     :registration_method, :uses_isic, :isic_mail_option,
-    :export_status
 
   ISIC_MAIL_CARD_DISABLED = 0
   ISIC_MAIL_CARD_OPTIONAL = 1
