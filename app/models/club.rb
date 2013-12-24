@@ -43,7 +43,8 @@ class Club < ActiveRecord::Base
     :url => "/:class/:attachment/:id/:style_:basename.:extension"
 
   attr_accessible :description, :isic_text, :confirmation_text,
-    :registration_method, :uses_isic, :isic_mail_option
+    :registration_method, :uses_isic, :isic_mail_option, 
+    :export_status
 
   ISIC_MAIL_CARD_DISABLED = 0
   ISIC_MAIL_CARD_OPTIONAL = 1
