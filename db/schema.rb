@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(:version => 20131217131941) do
     t.string   "export_content_type"
     t.integer  "export_file_size"
     t.datetime "export_updated_at"
-    t.string   "export_status"
+    t.string   "export_status",       :default => "none"
   end
 
   add_index "clubs", ["api_key"], :name => "index_clubs_on_api_key", :unique => true
