@@ -15,8 +15,9 @@ FKEnrolment::Application.routes.draw do
       post "disable", :on => :member
       match "pay", "photo", :on => :member
       post "search", :on => :collection
-      get "export_status"
-      post "generate_export"
+      get "export_status", :on => :collection
+      get "export_xls", :on => :collection
+      post "generate_export", :on => :collection
     end
 
     resources :isic_exports, :only => [:index, :create], :path => :isic do

@@ -6,7 +6,7 @@
   <div id="export-link">
     <%= render 'backend/members/export' %>
   </div>
-  <%= tag :div, id: "export_status_url", data: {url: backend_member_export_status_path(@club.id)} %>
+  <%= tag :div, id: "export_status_url", data: {url: export_status_backend_members_path} %>
 
 </p>
 

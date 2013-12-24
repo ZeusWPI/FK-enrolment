@@ -38,9 +38,7 @@ class Club < ActiveRecord::Base
   validates :isic_mail_option, :inclusion => { :in => 0..2 }
   validates :export_status, :inclusion => { :in => %w(none generating done) }
 
-  has_attached_file :export,
-    :path => ":rails_root/public/:class/:attachment/:id/:style_:basename.:extension",
-    :url => "/:class/:attachment/:id/:style_:basename.:extension"
+  has_attached_file :export
 
   attr_accessible :description, :isic_text, :confirmation_text,
     :registration_method, :uses_isic, :isic_mail_option,

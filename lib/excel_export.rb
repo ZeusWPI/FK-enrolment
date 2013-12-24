@@ -5,8 +5,9 @@ class ExcelExport
   def self.create(members)
     export = ExcelExport.new
     export.add_members(members)
-    yield export.save
-    export.close!
+    data = export.save
+    yield data
+    data.close
   end
 
   def initialize

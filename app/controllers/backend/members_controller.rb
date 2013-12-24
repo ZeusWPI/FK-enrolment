@@ -2,7 +2,7 @@ require 'member_report'
 
 class Backend::MembersController < Backend::BackendController
   before_filter :load_member, :except => [:index]
-  skip_before_filter :load_member, only: [:export_status, :generate_export]
+  skip_before_filter :load_member, only: [:export_status, :export_xls, :generate_export]
 
   respond_to :html, :js
 
@@ -46,6 +46,11 @@ class Backend::MembersController < Backend::BackendController
     else
       redirect_to :back, status: :not_found
     end
+  end
+
+  def export_xls
+    name = "Export %s %s.xls" % [@club.internal_name, Time.now.strftime('%F %T')]
+    send_file @club.export.path, :filename => name
   end
 
   def generate_export
