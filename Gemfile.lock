@@ -68,10 +68,6 @@ GEM
     compass-rails (1.1.7)
       compass (>= 0.12.2)
       sprockets (<= 2.11.0)
-    configatron (3.0.2)
-    cover_me (1.2.0)
-      configatron
-      hashie
     daemons (1.1.9)
     datagrid (1.1.2)
       rails (>= 3.0)
@@ -91,7 +87,6 @@ GEM
     fssm (0.2.10)
     gyoku (1.1.1)
       builder (>= 2.1.2)
-    hashie (2.0.5)
     hike (1.2.3)
     httparty (0.13.0)
       json (~> 1.8)
@@ -235,7 +230,6 @@ DEPENDENCIES
   acts_as_list
   annotate
   compass-rails
-  cover_me (~> 1.2.0)
   daemons
   datagrid
   delayed_job (~> 4.0)

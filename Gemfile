@@ -85,5 +85,4 @@ end
 group :test do
   gem 'minitest', '~> 4.0'
   gem 'turn'                  # Pretty printed test output
-  gem 'cover_me', '~> 1.2.0'  # Code coverage
 end
