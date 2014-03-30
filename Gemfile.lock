@@ -171,7 +171,6 @@ GEM
       nokogiri (>= 1.5.0)
       uuid (~> 2.3)
     rubyntlm (0.3.4)
-    rubyzip (1.1.2)
     sass (3.2.18)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -228,8 +227,6 @@ GEM
       nokogiri (>= 1.4.0)
     will_paginate (3.0.5)
     yui-compressor (0.11.0)
-    zippy (0.2.1)
-      rubyzip (>= 0.9.1)
 
 PLATFORMS
   ruby
@@ -270,4 +267,3 @@ DEPENDENCIES
   unicorn
   will_paginate (~> 3.0)
   yui-compressor (~> 0.11.0)
-  zippy

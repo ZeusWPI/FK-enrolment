@@ -37,9 +37,6 @@ gem 'httparty'
 # M$-love
 gem 'spreadsheet'
 
-# Creating zip-files nice and easy
-gem 'zippy'
-
 # Creating datagrids
 gem 'datagrid'
 
