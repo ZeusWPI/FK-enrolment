@@ -1,4 +1,37 @@
 # encoding: utf-8
+# == Schema Information
+#
+# Table name: members
+#
+#  id                      :integer          not null, primary key
+#  club_id                 :integer
+#  first_name              :string(255)
+#  last_name               :string(255)
+#  email                   :string(255)
+#  ugent_nr                :string(255)
+#  sex                     :string(255)
+#  phone                   :string(255)
+#  date_of_birth           :date
+#  home_address            :string(255)
+#  studenthome_address     :string(255)
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  photo_file_name         :string(255)
+#  photo_content_type      :string(255)
+#  photo_file_size         :integer
+#  photo_updated_at        :datetime
+#  isic_newsletter         :boolean
+#  isic_mail_card          :boolean
+#  enabled                 :boolean          default(FALSE)
+#  last_registration       :integer
+#  home_street             :string(255)
+#  home_postal_code        :string(255)
+#  home_city               :string(255)
+#  studenthome_street      :string(255)
+#  studenthome_postal_code :string(255)
+#  studenthome_city        :string(255)
+#
+
 class Member < ActiveRecord::Base
   belongs_to :club
   has_many :cards

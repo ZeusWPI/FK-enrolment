@@ -11,6 +11,10 @@ class BasicMemberReport
     include Rails.application.routes.url_helpers
   end
 
+  def self.default_url_options
+    {}
+  end
+
   scope do
     Member.includes(:cards).where(:enabled => true).order("members.created_at DESC")
   end

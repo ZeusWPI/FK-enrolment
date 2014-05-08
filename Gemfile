@@ -37,13 +37,12 @@ gem 'httparty'
 # M$-love
 gem 'spreadsheet'
 
-# Creating zip-files nice and easy
-gem 'zippy'
-
 # Creating datagrids
 gem 'datagrid'
 
 # Larger, more CPU-intensive jobs
+gem 'daemons'         # Running delayed_job
+gem 'delayed_job', '~> 4.0'
 gem 'delayed_job_active_record'
 
 # eID-integration
@@ -54,6 +53,7 @@ gem 'savon'
 
 # Moved outside :assets group since we reference it in application.rb
 gem 'compass-rails'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -67,6 +67,9 @@ group :assets do
 end
 
 group :development do
+  # Annotations are nice and pretty
+  gem 'annotate'
+
   gem 'thin'
   # To use debugger
   # gem 'ruby-debug19', :require => 'ruby-debug'
@@ -77,11 +80,9 @@ end
 group :production do
   gem 'mysql2'          # Database
   gem 'unicorn'         # Webserver
-  gem 'daemons'         # Running delayed_job
 end
 
 group :test do
   gem 'minitest', '~> 4.0'
   gem 'turn'                  # Pretty printed test output
-  gem 'cover_me', '~> 1.2.0'  # Code coverage
 end

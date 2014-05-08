@@ -3,7 +3,11 @@
 
 <p>
   <%= @registered_members %> geregistreerde leden, <%= @card_members %> leden met lidkaart.
-  <%= link_to 'Gegevens exporteren', params.merge(:format => 'xls') %>
+  <div id="export-link">
+    <%= render 'backend/members/export' %>
+  </div>
+  <%= tag :div, id: "export_status_url", data: {url: export_status_backend_members_path} %>
+
 </p>
 
 <%= render :partial => 'filter' ,:locals => {:submit_path => backend_members_path} %>
