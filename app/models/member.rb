@@ -73,7 +73,7 @@ class Member < ActiveRecord::Base
                           :cards => { :enabled => true })
                    .order('card_count DESC, updated_at DESC')
                    .first
-    result.id ? result : nil
+    result.try(:id).to_i != 0 ? result : nil
   end
 
   def self.active_registrations
