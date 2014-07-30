@@ -9,3 +9,4 @@ notifications:
     email:
         - fk-enrolment@zeus.ugent.be
     irc: "wina.ugent.be#hydra"
+    slack: zeuswpi:UNoxzGviaHfnoVebZqV6doJW
