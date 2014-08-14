@@ -43,11 +43,6 @@ class Card < ActiveRecord::Base
     return if self.number.blank? or not self.member
     return if self.club.uses_isic
 
-    # Cards numbers copied from previous years are still allowed
-    if self.isic_status == 'revalidate' or self.isic_status == 'revalidated'
-      return
-    end
-
     # Only check the rules of current cards
     if self.academic_year == Member.current_academic_year
       range = self.club.card_range
