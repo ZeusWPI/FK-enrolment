@@ -30,7 +30,7 @@ FKEnrolment::Application.configure do
   config.assets.digest = true
 
   # Defaults to Rails.root.join("public/assets")
-  config.assets.manifest = Rails.root.join("tmp")
+  config.assets.manifest = Rails.root.join("public/assets")
 
   # Specifies the header that your server uses for sending files
   config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for nginx
