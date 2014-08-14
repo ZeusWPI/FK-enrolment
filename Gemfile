@@ -54,6 +54,7 @@ gem 'savon'
 # Moved outside :assets group since we reference it in application.rb
 gem 'compass-rails'
 
+gem 'airbrake'
 
 # Gems used only for assets and not required
 # in production environments by default.
