@@ -56,6 +56,7 @@ gem 'savon'
 # Moved outside :assets group since we reference it in application.rb
 gem 'compass-rails'
 
+gem 'term-ansicolor'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -75,7 +76,6 @@ group :development do
   gem 'thin'
   # To use debugger
   # gem 'ruby-debug19', :require => 'ruby-debug'
-  gem 'term-ansicolor'
   gem 'rails-erd'
 end
 
