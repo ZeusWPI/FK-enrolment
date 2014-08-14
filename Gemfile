@@ -7,7 +7,9 @@ gem 'sqlite3'
 gem 'newrelic_rpm'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano'
+gem 'capistrano-rails'
+gem 'capistrano-rvm'
 
 # CAS support
 gem 'rubycas-client', git: 'git://github.com/Javache/rubycas-client.git', branch: 'master'
