@@ -68,4 +68,12 @@ class CardTest < ActiveSupport::TestCase
     assert_equal "request", c.isic_status
     assert_nil c.isic_number
   end
+
+  test "cards for existing users should be requested too" do
+    cards(:nudded).destroy
+    c = Card.new
+    c.member = members(:nudded)
+    c.determine_isic_status
+    assert_equal "request", c.isic_status
+  end
 end

@@ -29,7 +29,6 @@ nudded:
   academic_year: <%= Member.current_academic_year %>
   number: 10001
   status: unpaid
-  isic_status: revalidate
   isic_number: 2101
   enabled: true
 
@@ -47,7 +46,7 @@ siloks:
   academic_year: <%= Member.current_academic_year - 1 %>
   number: 12001
   isic_number: 2102
-  isic_status: revalidated
+  isic_status: requested
   enabled: yes
 
 siloks2:
