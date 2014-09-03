@@ -34,7 +34,7 @@
 
 class Member < ActiveRecord::Base
   belongs_to :club
-  has_many :cards
+  has_many :cards, :dependent => :destroy
   has_many :extra_attributes, :dependent => :destroy
 
   accepts_nested_attributes_for :extra_attributes
