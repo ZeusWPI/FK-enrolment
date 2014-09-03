@@ -33,10 +33,9 @@
     <dt>ISIC-status:</dt>
     <dd>
       <% if @card.isic_status == "revalidate" %>
-      <%= f.select :isic_status, options_for_select({ "kaart hervalideren" => "revalidate",
-                                   "nieuwe ISIC-kaart aanvragen" => "request" }) %>
+        <%= f.select :isic_status, options_for_select({"nieuwe ISIC-kaart aanvragen" => "request" }) %>
       <% else %>
-      <%= human_isic_status @card.isic_status %>
+        <%= human_isic_status @card.isic_status %>
       <% end %>
 
       <% if @club.isic_mail_option == Club::ISIC_MAIL_CARD_OPTIONAL && @member.isic_mail_card %>

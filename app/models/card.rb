@@ -30,7 +30,7 @@ class Card < ActiveRecord::Base
   validates :academic_year, :presence => true, :uniqueness => { :scope => :member_id }
   validates :number, :presence => true, :uniqueness => { :scope => :academic_year }
   validates :status, :inclusion => { :in => %w(unpaid paid) }
-  validates :isic_status, :inclusion => { :in => %w(none request requested revalidate revalidated printed) }
+  validates :isic_status, :inclusion => { :in => %w(none request requested printed) }
   validate :number, :valid_card_number
 
   # By default, always join the member
@@ -42,11 +42,6 @@ class Card < ActiveRecord::Base
   def valid_card_number
     return if self.number.blank? or not self.member
     return if self.club.uses_isic
-
-    # Cards numbers copied from previous years are still allowed
-    if self.isic_status == 'revalidate' or self.isic_status == 'revalidated'
-      return
-    end
 
     # Only check the rules of current cards
     if self.academic_year == Member.current_academic_year
@@ -84,18 +79,6 @@ class Card < ActiveRecord::Base
     raise "Record is not new, won't change status" unless new_record?
     raise "No member associated yet" unless member
     self.isic_status = 'request'
-
-    prev_member = Member.member_for_ugent_nr(member.ugent_nr, member.club)
-    if prev_member
-      prev_card = prev_member.cards.where(
-        :academic_year => member.last_registration - 1,
-        :status => 'paid').first
-      if prev_card && !prev_card.isic_number.blank?
-        self.isic_status = 'revalidate'
-        self.isic_number = prev_card.isic_number
-        self.number = prev_card.number
-      end
-    end
   end
 
   # Force generating numbers for ISIC registrations

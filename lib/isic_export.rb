@@ -16,18 +16,17 @@ class IsicExport
 
   def submit(member, card)
     return if card.academic_year != Member.current_academic_year
-    return if not ['request', 'revalidate'].include? card.isic_status
+    return if not ['request'].include? card.isic_status
     return if card.status != 'paid'
 
     state_info = {
       'request' => ['REQUESTED', 'requested'],
-      'revalidate' => ['REVALIDATE', 'revalidated']
     }
 
     params = @defaults.merge({
       ClientID: member.club.isic_name,
       MemberNumber: card.number,
-      ISICCardNumber: card.isic_status == 'revalidate' ? card.isic_number : "",
+      ISICCardNumber: "",
       Course: member.club.full_name,
       type: state_info[card.isic_status][0],
 
