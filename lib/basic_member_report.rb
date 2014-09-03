@@ -49,7 +49,7 @@ class BasicMemberReport
   column(:ugent_nr, :header => "UGent-nr.")
   column(:email, :header => "E-mailadres")
   column(:card_number, :header => "FK-nummer") do |member, grid|
-    card = member.cards.find { |c| c.academic_year == grid.last_registration }
+    card = member.cards.find { |c| c.academic_year == grid.last_registration.to_i }
     card ? card.number : "∅"
   end
   column(:created_at, :order => "members.updated_at", :header => "Laatst gewijzigd") do |member|
