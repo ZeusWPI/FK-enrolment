@@ -102,6 +102,7 @@ class Member < ActiveRecord::Base
   def self.member_for_ugent_nr(ugent_nr, club)
     result = Member.joins(:cards)
                    .select('members.*, COUNT(cards.id) as card_count')
+                   .group(:member_id) # See https://github.com/ZeusWPI/FK-enrolment/issues/23
                    .where(:ugent_nr => ugent_nr, :club_id => club.id,
                           :cards => { :enabled => true })
                    .order('card_count DESC, updated_at DESC')
