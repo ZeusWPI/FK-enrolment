@@ -76,8 +76,4 @@ class MemberTest < ActiveSupport::TestCase
     assert !@member.enabled
   end
 
-  test "should find member with same student number" do
-    result = Member.member_for_ugent_nr(@member.ugent_nr, @member.club)
-    assert_equal @member, result
-  end
 end
