@@ -35,7 +35,7 @@ De voornaamste methodes worden hieronder beschreven:
     * ``first_name`` (string)
     * ``last_name`` (string)
     * ``ugent_nr`` (string)
-    * ``email`` (string, enkel verplicht bij ISIC)
+    * ``email`` (string)
     * ``date_of_birth`` (date, enkel verplicht bij ISIC)
     * ``photo_url`` (string, enkel verplicht bij ISIC)
     * ``home_address`` (string, enkel verplicht bij ISIC,
