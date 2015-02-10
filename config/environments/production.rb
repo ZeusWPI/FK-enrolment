@@ -13,7 +13,7 @@ FKEnrolment::Application.configure do
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
-  config.assets.css_compressor = :yui
+  #config.assets.css_compressor = :yui
   config.assets.js_compressor  = :uglifier
 
   # Ensure this only runs in the :assets bundler group
