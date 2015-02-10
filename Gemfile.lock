@@ -256,7 +256,6 @@ GEM
       mime-types (< 2.0.0)
       nokogiri (>= 1.4.0)
     will_paginate (3.0.7)
-    yui-compressor (0.11.0)
 
 PLATFORMS
   ruby
@@ -299,4 +298,3 @@ DEPENDENCIES
   uglifier
   unicorn
   will_paginate (~> 3.0)
-  yui-compressor (~> 0.11.0)
