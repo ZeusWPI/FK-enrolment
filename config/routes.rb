@@ -23,7 +23,7 @@ FKEnrolment::Application.routes.draw do
     resources :isic_exports, :only => [:index, :create], :path => :isic do
       get "data", :on => :member
       get "photos", :on => :member
-      match "import", :on => :collection
+      get "import", :on => :collection
     end
 
     get "fk" => "fk#index"
