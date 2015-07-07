@@ -55,7 +55,6 @@ class MemberTest < ActiveSupport::TestCase
   end
 
   test "should get photo from url" do
-    binding.pry
     @member.photo_url = @url
     @member.save
     verify(@member.photo)
