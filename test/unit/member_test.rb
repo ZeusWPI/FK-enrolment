@@ -38,8 +38,8 @@ class MemberTest < ActiveSupport::TestCase
   verify_fixtures Member
 
   def setup
-    @url = "http://placehold.it/210x270.gif"
-    File.open(File.join(fixture_path, "210x270.gif"), 'rb') { |f| @photo = f.read }
+    @url = "http://placehold.it/210x270.png"
+    File.open(File.join(fixture_path, "210x270.png"), 'rb') { |f| @photo = f.read }
     @member = members(:javache)
   end
 
@@ -55,6 +55,7 @@ class MemberTest < ActiveSupport::TestCase
   end
 
   test "should get photo from url" do
+    binding.pry
     @member.photo_url = @url
     @member.save
     verify(@member.photo)

@@ -18,6 +18,9 @@ gem 'rubycas-client-rails', :git => 'git://github.com/Javache/rubycas-client-rai
 # Photo management
 gem 'paperclip', '~> 2.7'
 
+# Better OpenURI with redirections
+gem 'open_uri_redirections'
+
 # Better forms
 gem 'formtastic', '~> 2.2'
 
@@ -77,8 +80,6 @@ group :development do
   gem 'annotate'
 
   gem 'thin'
-  # To use debugger
-  # gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'rails-erd'
 end
 
@@ -90,4 +91,8 @@ end
 group :test do
   gem 'minitest', '~> 4.0'
   gem 'turn'                  # Pretty printed test output
+end
+
+group :development, :test do
+  gem 'pry-byebug'
 end

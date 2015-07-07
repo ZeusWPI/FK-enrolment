@@ -49,7 +49,7 @@ module Member::Photo
     begin
       # Don't download longer than 10 seconds
       Timeout::timeout(10) do
-        self.photo = OpenURI.open_uri(url)
+        self.photo = open(url, :allow_redirections => :safe)
       end
     rescue
       self.photo_url_error = "Er trad een fout op bij het ophalen van de foto."
