@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.2'
+gem 'rails', '~> 4.2'
 gem 'sqlite3'
 
 # We <3 New Relic
@@ -16,19 +16,16 @@ gem 'rubycas-client', git: 'git://github.com/Javache/rubycas-client.git', branch
 gem 'rubycas-client-rails', :git => 'git://github.com/Javache/rubycas-client-rails.git'
 
 # Photo management
-gem 'paperclip', '~> 2.7'
+gem 'paperclip', '~> 4.3'
 
 # Better OpenURI with redirections
 gem 'open_uri_redirections'
 
 # Better forms
-gem 'formtastic', '~> 2.2'
+gem 'formtastic'
 
 # Pagination
 gem 'will_paginate', '~> 3.0'
-
-# Dutch messages
-gem 'rails-i18n'
 
 # Send error messages
 gem 'exception_notification', '~> 4.0'
@@ -68,7 +65,7 @@ gem 'airbrake'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', '~> 3.2'
+  gem 'sass-rails', '~> 4.0'
   gem 'oily_png'                        # Faster PNG generation for compass sprites
   gem 'jquery-rails', '~> 2.1'
   gem 'uglifier'                        # Javascript compressor
@@ -89,7 +86,6 @@ group :production do
 end
 
 group :test do
-  gem 'minitest', '~> 4.0'
   gem 'turn'                  # Pretty printed test output
 end
 
