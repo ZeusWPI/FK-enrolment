@@ -12,8 +12,7 @@ gem 'capistrano-rails'
 gem 'capistrano-rvm'
 
 # CAS support
-gem 'rubycas-client', git: 'git://github.com/Javache/rubycas-client.git', branch: 'master'
-gem 'rubycas-client-rails', :git => 'git://github.com/Javache/rubycas-client-rails.git'
+gem 'rack-cas'
 
 # Photo management
 gem 'paperclip', '~> 4.3'
