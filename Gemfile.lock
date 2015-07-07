@@ -202,6 +202,8 @@ GEM
     raindrops (0.14.0)
     rake (10.4.2)
     ref (1.0.5)
+    responders (2.1.0)
+      railties (>= 4.2.0, < 5)
     ruby-graphviz (1.2.2)
     ruby-ole (1.2.11.8)
     ruby-saml (1.0.0)
@@ -297,6 +299,7 @@ DEPENDENCIES
   pry-byebug
   rails (~> 4.2)
   rails-erd
+  responders (~> 2.0)
   ruby-saml
   rubycas-client!
   rubycas-client-rails!

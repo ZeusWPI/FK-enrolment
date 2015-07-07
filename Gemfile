@@ -18,6 +18,9 @@ gem 'rubycas-client-rails', :git => 'git://github.com/Javache/rubycas-client-rai
 # Photo management
 gem 'paperclip', '~> 4.3'
 
+# Responders
+gem 'responders', '~> 2.0'
+
 # Better OpenURI with redirections
 gem 'open_uri_redirections'
 
