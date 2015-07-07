@@ -21,8 +21,6 @@ class Card < ActiveRecord::Base
   belongs_to :member
   has_one :club, :through => :member
 
-  attr_accessible :number, :status, :isic_status
-
   # Associated member
   validates :member, :presence => true
 
@@ -36,7 +34,7 @@ class Card < ActiveRecord::Base
   # By default, always join the member
   default_scope :include => :member
 
-  scope :current, where(:academic_year => Member.current_academic_year)
+  scope :current, -> { where :academic_year => Member.current_academic_year }
 
   # Check if the assigned number falls in the range given by the club
   def valid_card_number
