@@ -13,7 +13,7 @@ FKEnrolment::Application.routes.draw do
 
     resources :members, :except => [:create, :new, :destroy] do
       post "disable", :on => :member
-      get "pay", "photo", :on => :member
+      match "pay", "photo", :on => :member, :via => [:get, :post]
       post "search", :on => :collection
       get "export_status", :on => :collection
       get "export_xls", :on => :collection
@@ -26,10 +26,10 @@ FKEnrolment::Application.routes.draw do
       get "import", :on => :collection
     end
 
-    get "fk" => "fk#index"
+    match "fk" => "fk#index", :via => [:get, :post]
 
-    get "settings" => "home#settings"
-    get "kassa" => "home#kassa"
+    match "settings" => "home#settings", :via => [:get, :post]
+    match "kassa" => "home#kassa", :via => [:get, :post]
   end
 
   # should always be the last routes-entry due to the
@@ -39,7 +39,7 @@ FKEnrolment::Application.routes.draw do
 
     get "cas/auth" => "cas#auth"
     get "cas/logout" => "cas#logout"
-    get "cas/verify" => "cas#verify"
+    match "cas/verify" => "cas#verify", :via => [:get, :post]
 
     get "eid" => "eid#auth"
     post "eid/receive" => "eid#receive"
@@ -50,9 +50,9 @@ FKEnrolment::Application.routes.draw do
       root :to => "registration#index"
       get "cas" => "cas#auth"
       get "eid" => "eid#auth"
-      get "algemeen" => "registration#general", :as => :general
-      get "foto" => "registration#photo", :as => :photo
-      get "isic" => "registration#isic", :as => :isic
+      match "algemeen" => "registration#general", :as => :general, :via => [:get, :post]
+      match "foto" => "registration#photo", :as => :photo, :via => [:get, :post]
+      match "isic" => "registration#isic", :as => :isic, :via => [:get, :post]
       get "succes" => "registration#success", :as => :success
     end
   end
