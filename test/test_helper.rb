@@ -1,4 +1,5 @@
-ENV["RAILS_ENV"] = "test"
+ENV["RAILS_ENV"] ||= "test"
+
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
@@ -19,7 +20,7 @@ class ActiveSupport::TestCase
 
   def self.generate_card_number(club, number)
     if club.is_a? Symbol
-      club_id = ActiveRecord::Fixtures.identify(club)
+      club_id = ActiveRecord::FixtureSet.identify(club)
     else
       club_id = club.id
     end

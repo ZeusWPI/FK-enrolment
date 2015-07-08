@@ -88,10 +88,6 @@ group :production do
   gem 'mysql2'          # Database
 end
 
-group :test do
-  gem 'turn'                  # Pretty printed test output
-end
-
 group :development, :test do
   gem 'pry-byebug'
 end

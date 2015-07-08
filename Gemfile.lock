@@ -48,7 +48,6 @@ GEM
     annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
-    ansi (1.5.0)
     arel (6.0.0)
     builder (3.2.2)
     byebug (4.0.5)
@@ -240,8 +239,6 @@ GEM
     thread_safe (0.3.5)
     tilt (1.4.1)
     tins (1.5.4)
-    turn (0.9.6)
-      ansi
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.1)
@@ -291,7 +288,6 @@ DEPENDENCIES
   sqlite3
   term-ansicolor
   therubyracer
-  turn
   uglifier
   will_paginate (~> 3.0)
 
