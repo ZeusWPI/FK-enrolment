@@ -32,7 +32,7 @@ class Card < ActiveRecord::Base
   validate :number, :valid_card_number
 
   # By default, always join the member
-  default_scope :include => :member
+  default_scope { includes(:member) }
 
   scope :current, -> { where :academic_year => Member.current_academic_year }
 
