@@ -81,13 +81,11 @@ group :development do
   # Annotations are nice and pretty
   gem 'annotate'
 
-  gem 'thin'
   gem 'rails-erd'
 end
 
 group :production do
   gem 'mysql2'          # Database
-  gem 'unicorn'         # Webserver
 end
 
 group :test do
