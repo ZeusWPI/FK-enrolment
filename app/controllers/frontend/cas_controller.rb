@@ -7,8 +7,16 @@ class Frontend::CasController < Frontend::FrontendController
     redirect_to cas_verify_path
   end
 
+  before_filter :verify_cas, :only => :verify
+  skip_before_filter :verify_authenticity_token, :only => :verify
   def verify
-    render text: "Access Denied", status: :unauthorized
+    redirect_to session.delete(:post_cas_redirect) || root_url
+  end
+
+  def verify_cas
+    unless session['cas'] && session['cas']['user']
+      render text: "Access Denied", status: :unauthorized
+    end
   end
 
 end
