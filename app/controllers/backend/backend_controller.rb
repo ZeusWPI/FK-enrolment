@@ -5,13 +5,13 @@ class Backend::BackendController < ApplicationController
   before_filter :verify_club
   def verify_club
     # Development backdoor
-    return @club = Club.find_by_internal_name("Chemica") if Rails.env.development?
+    #return @club = Club.find_by_internal_name("Chemica") if Rails.env.development?
 
-    if session[:cas_user].blank?
+    if session[:cas].blank?
       redirect_to cas_auth_path(:redirect => request.fullpath)
     else
       if session[:club].blank?
-        session[:club] = club_for_ugent_login(session[:cas_user])
+        session[:club] = club_for_ugent_login(session[:cas][:user])
       end
 
       @club = Club.find_by_internal_name(session[:club])
@@ -28,15 +28,15 @@ class Backend::BackendController < ApplicationController
     end
 
     # using httparty because it is much easier to read than net/http code
-    resp = HTTParty.get(Rails.application.config.fk_auth_url, :query => {
-              :k => digest(ugent_login, Rails.application.config.fk_auth_key),
+    resp = HTTParty.get(Rails.application.secrets.fk_auth_url, :query => {
+              :k => digest(ugent_login, Rails.application.secrets.fk_auth_key),
               :u => ugent_login
            })
 
     # this will only return the club name if control-hash matches
     if resp.body != 'FAIL'
       hash = JSON[resp.body]
-      dig = digest(Rails.application.config.fk_auth_salt, ugent_login, hash['kringname'])
+      dig = digest(Rails.application.secrets.fk_auth_salt, ugent_login, hash['kringname'])
       return hash['kringname'] if hash['controle'] == dig
     end
 
