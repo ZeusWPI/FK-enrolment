@@ -79,8 +79,7 @@ class Member < ActiveRecord::Base
     (Time.now - 6.months).year
   end
 
-  has_one :current_card, :class_name => "Card",
-    :conditions => { :academic_year => current_academic_year }
+  has_one :current_card, -> {  where(:academic_year => current_academic_year) }, :class_name => "Card"
 
   # Load member, checking access
   def self.find_member_for_club(member_id, club)
