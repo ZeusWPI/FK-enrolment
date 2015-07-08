@@ -134,7 +134,7 @@ class Member < ActiveRecord::Base
 
     # Keep them in order
     # TODO: delete attributes that do not exist in club.extra_attributes
-    extra_attributes.sort_by! { |a| a.spec.position }
+    extra_attributes.sort_by { |s| s.spec.position }
   end
 
   # Assign extra_attributes to the corresponding attribute with the right spec
