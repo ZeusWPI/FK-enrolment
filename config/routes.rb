@@ -37,6 +37,9 @@ FKEnrolment::Application.routes.draw do
   namespace :frontend, :path => nil, :as => nil do
     root :to => "home#index"
 
+    # Creata a logout_path so params can be passed to it for CAS logout
+    get "logout" # don't point this to something, cack-cas will intercept this
+
     get "cas/auth" => "cas#auth"
     get "cas/logout" => "cas#logout"
     match "cas/verify" => "cas#verify", :via => [:get, :post]

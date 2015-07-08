@@ -19,4 +19,8 @@ class Frontend::CasController < Frontend::FrontendController
       render text: "Access Denied", status: :unauthorized
     end
   end
+
+  def logout
+    redirect_to logout_path(url: root_url)
+  end
 end
