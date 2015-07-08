@@ -15,8 +15,8 @@ class Frontend::CasController < Frontend::FrontendController
 
   def verify_cas
     unless session['cas'] && session['cas']['user']
+      # rack-cas will catch this and redirect to CAS before visiting the method
       render text: "Access Denied", status: :unauthorized
     end
   end
-
 end
