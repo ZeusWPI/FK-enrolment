@@ -11,6 +11,9 @@ gem 'capistrano'
 gem 'capistrano-rails'
 gem 'capistrano-rvm'
 
+# Basic i18n's
+gem 'rails-i18n'
+
 # CAS support
 gem 'rack-cas'
 
