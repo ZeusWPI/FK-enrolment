@@ -51,5 +51,9 @@ module FKEnrolment
 
     # CAS
     config.rack_cas.server_url = 'https://login.ugent.be/'
+
+    # Rails 5 deprecation warnings
+    config.active_record.raise_in_transactional_callbacks = true
+
   end
 end

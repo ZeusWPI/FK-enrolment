@@ -72,9 +72,9 @@ gem 'airbrake'
 group :assets do
   gem 'sass-rails', '~> 4.0'
   gem 'oily_png'                        # Faster PNG generation for compass sprites
-  gem 'jquery-rails', '~> 2.1'
+  gem 'jquery-rails'
   gem 'uglifier'                        # Javascript compressor
-  gem 'therubyracer', '~> 0.12.0'       # Javascript engine
+  gem 'therubyracer'       # Javascript engine
 end
 
 group :development do
