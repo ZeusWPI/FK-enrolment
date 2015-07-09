@@ -41,6 +41,9 @@ class Club < ActiveRecord::Base
   default_scope { order(:full_name) }
   scope :visible, -> { where.not(:registration_method => :hidden) }
 
+  attr_accessible :description, :isic_text, :confirmation_text,
+    :registration_method, :uses_isic, :isic_mail_option
+
   has_attached_file :export
 
   ISIC_MAIL_CARD_DISABLED = 0

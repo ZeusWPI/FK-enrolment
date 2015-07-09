@@ -143,6 +143,8 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
+    protected_attributes (1.1.0)
+      activemodel (>= 4.0.1, < 5.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -275,6 +277,7 @@ DEPENDENCIES
   oily_png
   open_uri_redirections
   paperclip (~> 4.3)
+  protected_attributes
   pry-byebug
   rack-cas
   rails (~> 4.2)

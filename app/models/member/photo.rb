@@ -11,9 +11,11 @@ module Member::Photo
                         'image/png', 'image/x-png', 'image/tiff'],
       :message => "Enkel afbeeldingen zijn toegestaan"
     base.validate :photo_dimensions
+    base.attr_accessible :photo, :photo_url, :photo_base64
 
     # Cropping
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+    base.attr_accessible :crop_x, :crop_y, :crop_w, :crop_h
     base.after_update :crop_photo
 
     # Photo url errors

@@ -38,6 +38,11 @@ class Member < ActiveRecord::Base
   has_many :extra_attributes, :dependent => :destroy
 
   accepts_nested_attributes_for :extra_attributes
+  attr_accessible :first_name, :last_name, :email, :ugent_nr, :sex, :phone,
+    :date_of_birth, :home_street, :home_postal_code, :home_city,
+    :studenthome_street, :studenthome_postal_code, :studenthome_city,
+    :isic_newsletter, :isic_mail_card, :extra_attributes_attributes
+
 
   # Profile picture
   include Member::Photo

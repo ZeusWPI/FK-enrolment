@@ -3,6 +3,9 @@ source 'http://rubygems.org'
 gem 'rails', '~> 4.2'
 gem 'sqlite3'
 
+# Protected attributes to ease the migration
+gem 'protected_attributes'
+
 # We <3 New Relic
 gem 'newrelic_rpm'
 
