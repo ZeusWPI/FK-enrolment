@@ -16,6 +16,7 @@ class BasicMemberReport
   end
 
   scope do
+    #Member.joins('LEFT OUTER JOIN "cards" ON "cards"."member_id" = "members"."id"').where(:enabled => true).order("members.created_at DESC")
     Member.includes(:cards).where(:enabled => true).order("members.created_at DESC")
   end
 

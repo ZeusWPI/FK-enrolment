@@ -84,11 +84,11 @@ class Club < ActiveRecord::Base
   end
 
   # Export excel
-  def generate_xls(members)
+  def generate_xls(member_ids)
     self.export_status = 'generating'
     self.save
 
-    members = members.includes({:club => :extra_attributes}, :extra_attributes)
+    members = Member.includes({:club => :extra_attributes}, :extra_attributes).find_all_by_id(member_ids)
 
     ExcelExport.create(members) do |result|
       self.export = result
@@ -97,7 +97,7 @@ class Club < ActiveRecord::Base
     end
 
   end
-  handle_asynchronously :generate_xls
+  #handle_asynchronously :generate_xls
 
 
 end
