@@ -45,6 +45,8 @@ class Backend::MembersController < Backend::BackendController
     # Use (abuse?) the memberreport for filtering of the parameters
     membergrid = MemberReport.new(report_params)
     members = membergrid.assets
+    # Explicity join here because Rails is a whiny bastard with
+    # :includes(model).where(model.attribute).pluck(:id)
     ids = members.joins('LEFT OUTER JOIN "cards" ON "cards"."member_id" = "members"."id"').pluck(:id)
 
     @club.generate_xls(ids)
