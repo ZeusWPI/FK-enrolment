@@ -6,8 +6,7 @@
   <div id="export-link">
     <%= render 'backend/members/export' %>
   </div>
-  <%= tag :div, id: "export_status_url", data: {url: export_status_backend_members_path} %>
-
+  <div id="export_status_url" data-url="<%= export_status_backend_members_path(@report_params) %>"></div>
 </p>
 
 <%= render :partial => 'filter' ,:locals => {:submit_path => backend_members_path} %>

@@ -14,9 +14,9 @@ class Backend::MembersController < Backend::BackendController
   end
 
   def index
-    report_params = filter_params
+    @report_params = filter_params
 
-    @membergrid = MemberReport.new(report_params)
+    @membergrid = MemberReport.new(@report_params)
     @members = @membergrid.assets
 
     @members = @members.paginate(:page => params[:page], :per_page => 30)
@@ -40,10 +40,10 @@ class Backend::MembersController < Backend::BackendController
   end
 
   def generate_export
-    report_params = filter_params
+    @report_params = filter_params
 
     # Use (abuse?) the memberreport for filtering of the parameters
-    membergrid = MemberReport.new(report_params)
+    membergrid = MemberReport.new(@report_params)
     members = membergrid.assets
     # Explicity join here because Rails is a whiny bastard with
     # :includes(model).where(model.attribute).pluck(:id)

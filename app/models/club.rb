@@ -97,7 +97,7 @@ class Club < ActiveRecord::Base
     end
 
   end
-  #handle_asynchronously :generate_xls
+  handle_asynchronously :generate_xls
 
 
 end
