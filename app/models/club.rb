@@ -88,7 +88,7 @@ class Club < ActiveRecord::Base
     self.export_status = 'generating'
     self.save
 
-    members = filtered_members.includes({:club => :extra_attributes}, :extra_attributes)
+    members = members.includes({:club => :extra_attributes}, :extra_attributes)
 
     ExcelExport.create(members) do |result|
       self.export = result
