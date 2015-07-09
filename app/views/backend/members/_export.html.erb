@@ -3,4 +3,4 @@
 <% else %>
   <p> No excel yet generated, click:
 <% end %>
-<%= link_to 'Refresh', generate_export_backend_members_path, method: :post, remote: true, id: "refresh-export" %></p>
+<%= link_to 'Refresh', generate_export_backend_members_path(member_report: @report_params), method: :post, remote: true, id: "refresh-export" %></p>
