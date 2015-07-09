@@ -84,12 +84,11 @@ class Club < ActiveRecord::Base
   end
 
   # Export excel
-  def generate_xls
+  def generate_xls(members)
     self.export_status = 'generating'
     self.save
 
-    members = Member.active_registrations.where(last_registration: Member.current_academic_year, club_id: self.id, enabled: true)
-    members = members.includes({:club => :extra_attributes}, :extra_attributes)
+    members = filtered_members.includes({:club => :extra_attributes}, :extra_attributes)
 
     ExcelExport.create(members) do |result|
       self.export = result

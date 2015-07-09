@@ -14,21 +14,7 @@ class Backend::MembersController < Backend::BackendController
   end
 
   def index
-    report_params = { club_id: @club.id }
-    @filtered = false
-    if params[:member_report]
-      # This will check if members are actually filtered
-      @filtered = params[:member_report].any? do |key, value|
-        next false if %w(order descending club_id).include?(key)
-        key == 'card_holders_only' ? value == '1' : !value.blank?
-      end
-
-      # This order will guarantee club_id cannot be set from the outside
-      report_params = params[:member_report].merge(report_params)
-    end
-
-    # Defaults
-    report_params[:last_registration] ||= Member.current_academic_year
+    report_params = filter_params
 
     @membergrid = MemberReport.new(report_params)
     @members = @membergrid.assets
@@ -54,7 +40,13 @@ class Backend::MembersController < Backend::BackendController
   end
 
   def generate_export
-    @club.generate_xls
+    report_params = filter_params
+
+    # Use (abuse?) the memberreport for filtering of the parameters
+    membergrid = MemberReport.new(report_params)
+    members = membergrid.assets
+
+    @club.generate_xls(members)
   end
 
   def disable
@@ -92,5 +84,27 @@ class Backend::MembersController < Backend::BackendController
 
   def photo
     @member.update_attributes(params[:member]) if params[:member]
+  end
+
+  private
+
+  def filter_params
+    report_params = { club_id: @club.id }
+    @filtered = false
+    if params[:member_report]
+      # This will check if members are actually filtered
+      @filtered = params[:member_report].any? do |key, value|
+        next false if %w(order descending club_id).include?(key)
+        key == 'card_holders_only' ? value == '1' : !value.blank?
+      end
+
+      # This order will guarantee club_id cannot be set from the outside
+      report_params = params[:member_report].merge(report_params)
+    end
+
+    # Defaults
+    report_params[:last_registration] ||= Member.current_academic_year
+
+    report_params
   end
 end
