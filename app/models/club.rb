@@ -88,7 +88,7 @@ class Club < ActiveRecord::Base
     self.export_status = 'generating'
     self.save
 
-    members = Member.includes({:club => :extra_attributes}, :extra_attributes).joins("LEFT OUTER JOIN `cards` ON `cards`.`member_id` = `members`.`id`").find_all_by_id(member_ids)
+    members = Member.includes({:club => :extra_attributes}, :extra_attributes).find_all_by_id(member_ids)
 
     ExcelExport.create(members) do |result|
       self.export = result
