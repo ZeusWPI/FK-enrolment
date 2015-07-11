@@ -1,7 +1,6 @@
 source 'http://rubygems.org'
 
 gem 'rails', '~> 3.2'
-gem 'sqlite3'
 
 # We <3 New Relic
 gem 'newrelic_rpm'
@@ -10,6 +9,7 @@ gem 'newrelic_rpm'
 gem 'capistrano'
 gem 'capistrano-rails'
 gem 'capistrano-rvm'
+gem 'capistrano-rbenv'
 
 # CAS support
 gem 'rubycas-client', git: 'git://github.com/Javache/rubycas-client.git', branch: 'master'
@@ -76,7 +76,8 @@ group :assets do
 end
 
 group :development do
-  # Annotations are nice and pretty
+  gem 'sqlite3'
+
   gem 'annotate'
 
   gem 'thin'
