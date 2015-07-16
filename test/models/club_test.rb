@@ -23,7 +23,7 @@
 #  export_content_type :string(255)
 #  export_file_size    :integer
 #  export_updated_at   :datetime
-#  export_status       :string(255)      default("none")
+#  export_status       :string           default("none")
 #
 
 require 'test_helper'

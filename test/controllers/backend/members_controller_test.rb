@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Backend::MembersControllerTest < ActionController::TestCase
   setup do
-    @session = {:cas_user => "pdbaets", :club => "Wina"}
+    @session = { :cas => { 'user' => "pdbaets" }, :club => "Wina" }
     @member = members(:javache)
   end
 
