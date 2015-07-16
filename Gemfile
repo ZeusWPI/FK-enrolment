@@ -1,7 +1,6 @@
 source 'http://rubygems.org'
 
 gem 'rails', '~> 4.2'
-gem 'sqlite3'
 
 # Protected attributes to ease the migration
 gem 'protected_attributes'
@@ -13,6 +12,7 @@ gem 'newrelic_rpm'
 gem 'capistrano'
 gem 'capistrano-rails'
 gem 'capistrano-rvm'
+gem 'capistrano-rbenv'
 
 # Basic i18n's
 gem 'rails-i18n'
@@ -81,7 +81,8 @@ group :assets do
 end
 
 group :development do
-  # Annotations are nice and pretty
+  gem 'sqlite3'
+
   gem 'annotate'
 
   gem 'rails-erd'

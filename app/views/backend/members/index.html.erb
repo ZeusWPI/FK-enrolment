@@ -2,12 +2,13 @@
 <p><%= link_to "« Terug naar overzicht", backend_root_path %></p>
 
 <p>
-  <%= @registered_members %> geregistreerde leden, <%= @card_members %> leden met lidkaart.
-  <div id="export-link">
+  <p><%= @registered_members %> geregistreerde leden, <%= @card_members %> leden met lidkaart.</p>
+  <span id="export-link">
     <%= render 'backend/members/export' %>
-  </div>
-  <%= tag :div, id: "export_status_url", data: {url: export_status_backend_members_path} %>
-
+  </span>
+  <%= link_to 'Refresh', generate_export_backend_members_path(member_report: @report_params), method: :post, remote: true, id: "refresh-export" %>
+  <p>Let op: onderstaande filters worden ook toegepast op het genegeneren van een nieuwe xls export!</p>
+  <div id="export_status_url" data-url="<%= export_status_backend_members_path %>"></div>
 </p>
 
 <%= render :partial => 'filter' ,:locals => {:submit_path => backend_members_path} %>

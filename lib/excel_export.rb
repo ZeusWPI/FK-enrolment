@@ -23,7 +23,7 @@ class ExcelExport
 
     club = members.first.club
     members.each_with_index do |member, i|
-      card = member.current_card || Card.new
+      card = Card.where(member_id: member.id, academic_year: member.last_registration).first || Card.new
       @sheet.row(i+1).concat [club.name, member.first_name, member.last_name,
         member.sex, member.ugent_nr, member.email, member.date_of_birth,
         member.home_street.to_s + "\n" + member.home_postal_code.to_s + ' ' + member.home_city.to_s,
