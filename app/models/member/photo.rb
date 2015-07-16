@@ -29,10 +29,10 @@ module Member::Photo
     return if image.blank?
     @auto_crop = true
 
-    sio = StringIO.new(Base64.decode64(image))
-    sio.original_filename = "snapshot.jpg"
-    sio.content_type = "image/jpeg"
-    self.photo = sio
+    image = Paperclip.io_adapters.for("data:;base64,#{image}")
+    image.original_filename = "snapshot.jpg"
+    image.content_type = "image/jpeg"
+    self.photo = image
   end
 
   # Empty accessor
