@@ -1,5 +1,3 @@
-require 'pay_member_report'
-
 class Backend::HomeController < Backend::BackendController
   def index
   end

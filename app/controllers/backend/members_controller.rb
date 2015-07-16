@@ -1,5 +1,3 @@
-require 'member_report'
-
 class Backend::MembersController < Backend::BackendController
   before_filter :load_member, :except => [:index]
   skip_before_filter :load_member, only: [:export_status, :export_xls, :generate_export]

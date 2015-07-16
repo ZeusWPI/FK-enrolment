@@ -85,6 +85,8 @@ group :development do
   gem 'annotate'
 
   gem 'rails-erd'
+
+  gem 'puma'
 end
 
 group :production do

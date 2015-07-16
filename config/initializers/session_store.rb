@@ -5,4 +5,6 @@
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information
 # (create the session table with "rails generate session_migration")
-FKEnrolment::Application.config.session_store :cookie_store, key: '_Enrolment_session'
+#
+require 'rack-cas/session_store/rails/active_record'
+FKEnrolment::Application.config.session_store ActionDispatch::Session::RackCasActiveRecordStore

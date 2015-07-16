@@ -3,8 +3,20 @@
 class BasicMemberReport
   include Datagrid
 
+  extend ActionView::Helpers::UrlHelper
+  extend ActionView::Helpers::TagHelper
+  extend ApplicationHelper
+
+  class << self
+    include Rails.application.routes.url_helpers
+  end
+
+  def self.default_url_options
+    {}
+  end
+
   scope do
-    Member.includes(:cards).where(:enabled => true).order("members.created_at DESC")
+    Member.includes(:cards).joins(:cards).where(:enabled => true).order("members.created_at DESC")
   end
 
   # Filters
@@ -24,7 +36,7 @@ class BasicMemberReport
   end
   filter(:last_registration) do |value|
     return if value.blank?
-    # self.where("last_registration = ? OR cards.academic_year = ?", value, value)
+    self.where("last_registration = ? OR cards.academic_year = ?", value, value)
   end
   filter(:card_holders_only, :boolean) do |value|
     self.where("cards.number IS NOT NULL")

@@ -16,7 +16,7 @@ module FKEnrolment
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    # config.autoload_paths += %W(#{config.root}/extras)
+    # config.autoload_paths += %W(app/grids)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -51,9 +51,13 @@ module FKEnrolment
 
     # CAS
     config.rack_cas.server_url = 'https://login.ugent.be/'
+    # SLO
+    require 'rack-cas/session_store/active_record'
+    config.rack_cas.session_store = RackCAS::ActiveRecordStore
 
     # Rails 5 deprecation warnings
     config.active_record.raise_in_transactional_callbacks = true
+
 
   end
 end
