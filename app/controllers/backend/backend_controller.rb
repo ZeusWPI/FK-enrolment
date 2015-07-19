@@ -5,7 +5,7 @@ class Backend::BackendController < ApplicationController
   before_filter :verify_club
   def verify_club
     # Development backdoor
-    return @club = Club.find_by_internal_name("Filologica") if Rails.env.development?
+    return @club = Club.find_by_internal_name("Chemica") if Rails.env.development?
 
     if session[:cas].blank?
       redirect_to cas_auth_path(:redirect => request.fullpath)

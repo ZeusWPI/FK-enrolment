@@ -53,9 +53,9 @@ FKEnrolment::Application.routes.draw do
       root :to => "registration#index"
       get "cas" => "cas#auth"
       get "eid" => "eid#auth"
-      match "algemeen" => "registration#general", :as => :general, :via => [:get, :post]
-      match "foto" => "registration#photo", :as => :photo, :via => [:get, :post]
-      match "isic" => "registration#isic", :as => :isic, :via => [:get, :post]
+      match "algemeen" => "registration#general", :as => :general, :via => [:get, :patch]
+      match "foto" => "registration#photo", :as => :photo, :via => [:get, :patch]
+      match "isic" => "registration#isic", :as => :isic, :via => [:get, :patch]
       get "succes" => "registration#success", :as => :success
     end
   end
