@@ -45,6 +45,8 @@ class Club < ActiveRecord::Base
     :registration_method, :uses_isic, :isic_mail_option
 
   has_attached_file :export
+  # Do not validate the export. We create it ourselves so we trust it
+  do_not_validate_attachment_file_type :export
 
   ISIC_MAIL_CARD_DISABLED = 0
   ISIC_MAIL_CARD_OPTIONAL = 1
@@ -87,13 +89,13 @@ class Club < ActiveRecord::Base
   end
 
   # Export excel
-  def generate_xls(member_ids)
+  def generate_xls(member_ids, academic_year)
     self.export_status = 'generating'
     self.save
 
-    members = Member.includes({:club => :extra_attributes}, :extra_attributes).find_all_by_id(member_ids)
+    members = Member.includes({:club => :extra_attributes}, :extra_attributes).where(id: member_ids)
 
-    ExcelExport.create(members) do |result|
+    ExcelExport.create(members, academic_year) do |result|
       self.export = result
       self.export_status = 'done'
       self.save!
@@ -101,6 +103,5 @@ class Club < ActiveRecord::Base
 
   end
   handle_asynchronously :generate_xls
-
 
 end

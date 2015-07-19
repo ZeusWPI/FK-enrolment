@@ -2,9 +2,9 @@ require 'tempfile'
 
 # Generate excel-export
 class ExcelExport
-  def self.create(members)
+  def self.create(members, academic_year)
     export = ExcelExport.new
-    export.add_members(members)
+    export.add_members(members, academic_year)
     data = export.save
     yield data
     data.close
@@ -18,12 +18,12 @@ class ExcelExport
       'Foto', 'Geregistreerd', 'Kaartnummer', 'Status', 'ISIC status']
   end
 
-  def add_members(members)
+  def add_members(members, academic_year)
     return if members.length == 0
 
     club = members.first.club
     members.each_with_index do |member, i|
-      card = Card.where(member_id: member.id, academic_year: member.last_registration).first || Card.new
+      card = Card.where(member_id: member.id, academic_year: academic_year).first || Card.new
       @sheet.row(i+1).concat [club.name, member.first_name, member.last_name,
         member.sex, member.ugent_nr, member.email, member.date_of_birth,
         member.home_street.to_s + "\n" + member.home_postal_code.to_s + ' ' + member.home_city.to_s,

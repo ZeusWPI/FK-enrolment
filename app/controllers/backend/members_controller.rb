@@ -43,11 +43,13 @@ class Backend::MembersController < Backend::BackendController
     # Use (abuse?) the memberreport for filtering of the parameters
     membergrid = MemberReport.new(@report_params)
     members = membergrid.assets
-    # Explicity join here because Rails is a whiny bastard with
-    # :includes(model).where(model.attribute).pluck(:id)
-    ids = members.joins("LEFT OUTER JOIN `cards` ON `cards`.`member_id` = `members`.`id`").pluck(:id)
+    ids = members.pluck(:id)
 
-    @club.generate_xls(ids)
+    # (Legacy) In the past, 1 member could have multiple cards
+    # for multiple years. We pass the academic year to select
+    # the correct cards in the ExcelExport. filter_params makes
+    # this default to the last academic year.
+    @club.generate_xls(ids, @report_params[:academic_year])
   end
 
   def disable
