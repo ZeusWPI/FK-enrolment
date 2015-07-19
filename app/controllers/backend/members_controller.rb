@@ -71,12 +71,13 @@ class Backend::MembersController < Backend::BackendController
     end
 
     if params[:card] || params[:commit]
-      @card.attributes = params[:card]
+      @card.attributes = params[:card] if params[:card]
       @card.status = 'paid'
 
       if @card.save
         # Submit (asynchronously) info to ISIC
-        @card.delay.export_to_isic
+        #@card.delay.export_to_isic
+        @card.export_to_isic
       else
         # Reset card number after unsuccesful save
         @card.number = nil

@@ -15,8 +15,6 @@
 #  isic_exported :boolean          default(FALSE)
 #
 
-require 'isic_export'
-
 class Card < ActiveRecord::Base
   belongs_to :member
   has_one :club, :through => :member

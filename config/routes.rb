@@ -13,7 +13,7 @@ FKEnrolment::Application.routes.draw do
 
     resources :members, :except => [:create, :new, :destroy] do
       post "disable", :on => :member
-      match "pay", "photo", :on => :member, :via => [:get, :post]
+      match "pay", "photo", :on => :member, :via => [:get, :post, :patch]
       post "search", :on => :collection
       get "export_status", :on => :collection
       get "export_xls", :on => :collection
@@ -54,8 +54,8 @@ FKEnrolment::Application.routes.draw do
       get "cas" => "cas#auth"
       get "eid" => "eid#auth"
       match "algemeen" => "registration#general", :as => :general, :via => [:get, :patch]
-      match "foto" => "registration#photo", :as => :photo, :via => [:get, :patch]
-      match "isic" => "registration#isic", :as => :isic, :via => [:get, :patch]
+      match "foto" => "registration#photo", :as => :photo, :via => [:get, :post, :patch]
+      match "isic" => "registration#isic", :as => :isic, :via => [:get, :post, :patch]
       get "succes" => "registration#success", :as => :success
     end
   end

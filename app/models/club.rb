@@ -26,8 +26,6 @@
 #  export_status       :string           default("none")
 #
 
-require 'excel_export'
-
 class Club < ActiveRecord::Base
   has_many :members
   has_many :cards, :through => :members

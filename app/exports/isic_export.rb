@@ -1,12 +1,12 @@
 class IsicExport
   def initialize
     @client = Savon.client(
-      wsdl: Rails.application.config.isic_api_wsdl,
+      wsdl: Rails.application.secrets.isic_api_wsdl,
       convert_request_keys_to: :none
     )
     @defaults = {
-      username: Rails.application.config.isic_api_user,
-      password: Rails.application.config.isic_api_password,
+      username: Rails.application.secrets.isic_api_user,
+      password: Rails.application.secrets.isic_api_password,
 
       cardType: "ISIC",
       StudentCity: "Gent",
@@ -49,8 +49,9 @@ class IsicExport
       sendToHome: member.isic_mail_card ? "1" : "0",
       promotionCode: "",
       Optin: member.isic_newsletter ? "1" : "0",
-      postOptOut: "1",
-      postOptOutThird: "1",
+      optinThird: "1",
+      # postOptOut: "1",
+      # postOptOutThird: "1",
       special: "1"
     })
 
