@@ -12,7 +12,7 @@ class Frontend::EidController < Frontend::FrontendController
       photo = session[:eid]["be:fedict:eid:idp:photo"]
       send_data(Base64.decode64(photo), :type => 'image/jpeg')
     else
-      raise ActionController::RoutingError.new
+      raise ActionController::RoutingError.new 'URL found but no photo was found in eid session'
     end
   end
 
