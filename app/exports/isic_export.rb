@@ -49,9 +49,8 @@ class IsicExport
       sendToHome: member.isic_mail_card ? "1" : "0",
       promotionCode: "",
       Optin: member.isic_newsletter ? "1" : "0",
-      optinThird: "1",
-      # postOptOut: "1",
-      # postOptOutThird: "1",
+      postOptOut: "1",
+      postOptOutThird: "1",
       special: "1"
     })
 
