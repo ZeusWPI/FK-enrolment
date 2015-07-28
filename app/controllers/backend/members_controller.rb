@@ -76,8 +76,7 @@ class Backend::MembersController < Backend::BackendController
 
       if @card.save
         # Submit (asynchronously) info to ISIC
-        #@card.delay.export_to_isic
-        @card.export_to_isic
+        @card.delay.export_to_isic
       else
         # Reset card number after unsuccesful save
         @card.number = nil
