@@ -33,7 +33,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
   def general
     # Load extra attributes before assigning them
     @member.build_extra_attributes
-    @member.attributes = params[:member]
+    @member.attributes = params[:member] if params[:member]
 
     load_cas_member_attributes if cas_authed?
     load_eid_member_attributes if eid_authed?
@@ -79,7 +79,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
 
   helper_method :cas_authed?
   def cas_authed?
-    !session[:cas_user].blank?
+    session[:cas] && session[:cas]['user']
   end
 
   helper_method :eid_authed?
@@ -90,7 +90,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
   private
 
   def load_cas_member_attributes
-    attributes = session[:cas_extra_attributes]
+    attributes = session[:cas]["extra_attributes"]
     @member.first_name = attributes["givenname"]
     @member.last_name = attributes["surname"]
     @member.ugent_nr = attributes["ugentStudentID"]

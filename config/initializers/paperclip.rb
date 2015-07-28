@@ -9,3 +9,10 @@ Paperclip::Attachment.class_eval {
 Paperclip.interpolates :hash_prefix do |attachment, style|
   attachment.hash_key(style)[0,2]
 end
+
+
+# Paperclip doesn't correctly recognize XLS spreadsheets created by
+# Spreadsheet. See https://github.com/zdavatz/spreadsheet/issues/97
+Paperclip.options[:content_type_mappings] = {
+    :xls => "CDF V2 Document, No summary info"
+}

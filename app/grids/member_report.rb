@@ -1,5 +1,3 @@
-require 'basic_member_report'
-
 class MemberReport < BasicMemberReport
   # Icons
   column(:details, :header => "") do |member|

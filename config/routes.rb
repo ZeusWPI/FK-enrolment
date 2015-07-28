@@ -13,7 +13,7 @@ FKEnrolment::Application.routes.draw do
 
     resources :members, :except => [:create, :new, :destroy] do
       post "disable", :on => :member
-      match "pay", "photo", :on => :member
+      match "pay", "photo", :on => :member, :via => [:get, :post, :patch]
       post "search", :on => :collection
       get "export_status", :on => :collection
       get "export_xls", :on => :collection
@@ -23,13 +23,13 @@ FKEnrolment::Application.routes.draw do
     resources :isic_exports, :only => [:index, :create], :path => :isic do
       get "data", :on => :member
       get "photos", :on => :member
-      match "import", :on => :collection
+      get "import", :on => :collection
     end
 
-    match "fk" => "fk#index"
+    match "fk" => "fk#index", :via => [:get, :post]
 
-    match "settings" => "home#settings"
-    match "kassa" => "home#kassa"
+    match "settings" => "home#settings", :via => [:get, :post]
+    match "kassa" => "home#kassa", :via => [:get, :post]
   end
 
   # should always be the last routes-entry due to the
@@ -37,9 +37,12 @@ FKEnrolment::Application.routes.draw do
   namespace :frontend, :path => nil, :as => nil do
     root :to => "home#index"
 
+    # Creata a logout_path so params can be passed to it for CAS logout
+    get "logout" # don't point this to something, cack-cas will intercept this
+
     get "cas/auth" => "cas#auth"
     get "cas/logout" => "cas#logout"
-    match "cas/verify" => "cas#verify"
+    match "cas/verify" => "cas#verify", :via => [:get, :post]
 
     get "eid" => "eid#auth"
     post "eid/receive" => "eid#receive"
@@ -50,67 +53,11 @@ FKEnrolment::Application.routes.draw do
       root :to => "registration#index"
       get "cas" => "cas#auth"
       get "eid" => "eid#auth"
-      match "algemeen" => "registration#general", :as => :general
-      match "foto" => "registration#photo", :as => :photo
-      match "isic" => "registration#isic", :as => :isic
+      match "algemeen" => "registration#general", :as => :general, :via => [:get, :post, :patch]
+      match "foto" => "registration#photo", :as => :photo, :via => [:get, :post, :patch]
+      match "isic" => "registration#isic", :as => :isic, :via => [:get, :post, :patch]
       get "succes" => "registration#success", :as => :success
     end
   end
 
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
-
-  # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
-  # Keep in mind you can assign values other than :controller and :action
-
-  # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # This route can be invoked with purchase_url(:id => product.id)
-
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Sample resource route with more complex sub-resources
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', :on => :collection
-  #     end
-  #   end
-
-  # Sample resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
-
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
-
-  # See how all your routes lay out with "rake routes"
-
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
 end

@@ -15,8 +15,6 @@
 #  isic_exported :boolean          default(FALSE)
 #
 
-require 'isic_export'
-
 class Card < ActiveRecord::Base
   belongs_to :member
   has_one :club, :through => :member
@@ -34,9 +32,9 @@ class Card < ActiveRecord::Base
   validate :number, :valid_card_number
 
   # By default, always join the member
-  default_scope :include => :member
+  default_scope { includes(:member) }
 
-  scope :current, where(:academic_year => Member.current_academic_year)
+  scope :current, -> { where :academic_year => Member.current_academic_year }
 
   # Check if the assigned number falls in the range given by the club
   def valid_card_number

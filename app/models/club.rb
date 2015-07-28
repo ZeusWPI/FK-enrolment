@@ -23,25 +23,28 @@
 #  export_content_type :string(255)
 #  export_file_size    :integer
 #  export_updated_at   :datetime
-#  export_status       :string(255)      default("none")
+#  export_status       :string           default("none")
 #
-
-require 'excel_export'
 
 class Club < ActiveRecord::Base
   has_many :members
   has_many :cards, :through => :members
-  has_many :extra_attributes, :class_name => 'ExtraAttributeSpec', :order => :position
+  has_many :extra_attributes, -> { order :position }, :class_name => 'ExtraAttributeSpec'
 
   validates_presence_of :name, :full_name, :internal_name, :description, :url
   validates :registration_method, :inclusion => { :in => %w(none api website hidden) }
   validates :isic_mail_option, :inclusion => { :in => 0..2 }
   validates :export_status, :inclusion => { :in => %w(none generating done) }
 
-  has_attached_file :export
+  default_scope { order(:full_name) }
+  scope :visible, -> { where.not(:registration_method => :hidden) }
 
   attr_accessible :description, :isic_text, :confirmation_text,
-    :registration_method, :uses_isic, :isic_mail_option,
+    :registration_method, :uses_isic, :isic_mail_option
+
+  has_attached_file :export
+  # Do not validate the export. We create it ourselves so we trust it
+  do_not_validate_attachment_file_type :export
 
   ISIC_MAIL_CARD_DISABLED = 0
   ISIC_MAIL_CARD_OPTIONAL = 1
@@ -84,13 +87,13 @@ class Club < ActiveRecord::Base
   end
 
   # Export excel
-  def generate_xls(member_ids)
+  def generate_xls(member_ids, academic_year)
     self.export_status = 'generating'
     self.save
 
-    members = Member.includes({:club => :extra_attributes}, :extra_attributes).find_all_by_id(member_ids)
+    members = Member.includes({:club => :extra_attributes}, :extra_attributes).where(id: member_ids)
 
-    ExcelExport.create(members) do |result|
+    ExcelExport.create(members, academic_year) do |result|
       self.export = result
       self.export_status = 'done'
       self.save!
@@ -98,6 +101,5 @@ class Club < ActiveRecord::Base
 
   end
   handle_asynchronously :generate_xls
-
 
 end

@@ -1,6 +1,9 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.2'
+gem 'rails', '~> 4.2'
+
+# Protected attributes to ease the migration
+gem 'protected_attributes'
 
 # We <3 New Relic
 gem 'newrelic_rpm'
@@ -11,24 +14,26 @@ gem 'capistrano-rails'
 gem 'capistrano-rvm'
 gem 'capistrano-rbenv'
 
+# Basic i18n's
+gem 'rails-i18n'
+
 # CAS support
-gem 'rubycas-client', git: 'git://github.com/Javache/rubycas-client.git', branch: 'master'
-gem 'rubycas-client-rails', :git => 'git://github.com/Javache/rubycas-client-rails.git'
+gem 'rack-cas'
 
 # Photo management
-gem 'paperclip', '~> 2.7'
+gem 'paperclip', '~> 4.3'
+
+# Responders
+gem 'responders', '~> 2.0'
 
 # Better OpenURI with redirections
 gem 'open_uri_redirections'
 
 # Better forms
-gem 'formtastic', '~> 2.2'
+gem 'formtastic'
 
 # Pagination
 gem 'will_paginate', '~> 3.0'
-
-# Dutch messages
-gem 'rails-i18n'
 
 # Send error messages
 gem 'exception_notification', '~> 4.0'
@@ -68,11 +73,11 @@ gem 'airbrake'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', '~> 3.2'
+  gem 'sass-rails', '~> 4.0'
   gem 'oily_png'                        # Faster PNG generation for compass sprites
-  gem 'jquery-rails', '~> 2.1'
+  gem 'jquery-rails'
   gem 'uglifier'                        # Javascript compressor
-  gem 'therubyracer', '~> 0.12.0'       # Javascript engine
+  gem 'therubyracer'       # Javascript engine
 end
 
 group :development do
@@ -80,18 +85,13 @@ group :development do
 
   gem 'annotate'
 
-  gem 'thin'
   gem 'rails-erd'
+
+  gem 'puma'
 end
 
 group :production do
   gem 'mysql2'          # Database
-  gem 'unicorn'         # Webserver
-end
-
-group :test do
-  gem 'minitest', '~> 4.0'
-  gem 'turn'                  # Pretty printed test output
 end
 
 group :development, :test do

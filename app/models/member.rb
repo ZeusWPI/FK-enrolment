@@ -43,6 +43,7 @@ class Member < ActiveRecord::Base
     :studenthome_street, :studenthome_postal_code, :studenthome_city,
     :isic_newsletter, :isic_mail_card, :extra_attributes_attributes
 
+
   # Profile picture
   include Member::Photo
 
@@ -83,8 +84,7 @@ class Member < ActiveRecord::Base
     (Time.now - 6.months).year
   end
 
-  has_one :current_card, :class_name => "Card",
-    :conditions => { :academic_year => current_academic_year }
+  has_one :current_card, -> {  where(:academic_year => Member.current_academic_year) }, :class_name => "Card"
 
   # Load member, checking access
   def self.find_member_for_club(member_id, club)
@@ -139,7 +139,7 @@ class Member < ActiveRecord::Base
 
     # Keep them in order
     # TODO: delete attributes that do not exist in club.extra_attributes
-    extra_attributes.sort_by! { |a| a.spec.position }
+    extra_attributes.sort_by { |s| s.spec.position }
   end
 
   # Assign extra_attributes to the corresponding attribute with the right spec

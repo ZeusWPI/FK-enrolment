@@ -16,7 +16,7 @@ module FKEnrolment
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    # config.autoload_paths += %W(#{config.root}/extras)
+    # config.autoload_paths += %W(app/grids)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -44,12 +44,6 @@ module FKEnrolment
     # like if you have constraints or database-specific column types
     # config.active_record.schema_format = :sql
 
-    # Enforce whitelist mode for mass assignment.
-    # This will create an empty whitelist of attributes available for mass-assignment for all models
-    # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
-    # parameters by using an attr_accessible or attr_protected declaration.
-    config.active_record.whitelist_attributes = true
-
     # Enable the asset pipeline
     config.assets.enabled = true
     config.compass.generated_images_dir = "public/assets"
@@ -58,9 +52,14 @@ module FKEnrolment
     config.assets.version = '1.0'
 
     # CAS
-    config.rubycas.cas_base_url = "https://login.ugent.be/"
-    config.rubycas.validate_url = "https://login.ugent.be/samlValidate"
-    config.rubycas.logger = Rails.logger
-    config.rubycas.enable_single_sign_out = true
+    config.rack_cas.server_url = 'https://login.ugent.be/'
+    # SLO
+    require 'rack-cas/session_store/active_record'
+    config.rack_cas.session_store = RackCAS::ActiveRecordStore
+
+    # Rails 5 deprecation warnings
+    config.active_record.raise_in_transactional_callbacks = true
+
+
   end
 end
