@@ -73,15 +73,13 @@ gem 'airbrake'
 # Whenever
 gem 'whenever'
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails', '~> 4.0'
-  gem 'oily_png'                        # Faster PNG generation for compass sprites
-  gem 'jquery-rails'
-  gem 'uglifier'                        # Javascript compressor
-  gem 'therubyracer'       # Javascript engine
-end
+# Asset gems (not in the asset group, see
+# http://stackoverflow.com/a/17221248/1068495
+gem 'sass-rails', '~> 4.0'
+gem 'oily_png'                        # Faster PNG generation for compass sprites
+gem 'jquery-rails'
+gem 'uglifier'                        # Javascript compressor
+gem 'therubyracer'       # Javascript engine
 
 group :development do
   gem 'sqlite3'
