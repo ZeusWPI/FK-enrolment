@@ -5,7 +5,7 @@ class Backend::FkController < Backend::BackendController
     # Development backdoor
     return session[:club] = "FK" if Rails.env.development?
 
-    if session[:cas].blank? or session[:cas]['user'].blank?
+    if session[:cas].blank? || session[:cas]['user'].blank?
       redirect_to cas_auth_path(:redirect => request.fullpath)
     else
       if session[:club].blank?
