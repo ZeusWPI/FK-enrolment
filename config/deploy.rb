@@ -23,7 +23,7 @@ set :deploy_to, '/home/fk-enrolment/production'
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, %w{config/database.yml config/initializers/secret_token.rb config/initializers/paperclip.rb}
+set :linked_files, %w{config/database.yml config/secrets.yml config/initializers/paperclip.rb}
 
 # Default value for linked_dirs is []
 set :linked_dirs, %w{bin log tmp vendor/bundle public/system public/data}
