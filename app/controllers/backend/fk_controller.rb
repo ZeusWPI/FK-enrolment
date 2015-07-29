@@ -5,11 +5,11 @@ class Backend::FkController < Backend::BackendController
     # Development backdoor
     return session[:club] = "FK" if Rails.env.development?
 
-    if session[:cas][:user].blank?
+    if session[:cas].blank? or session[:cas]['user'].blank?
       redirect_to cas_auth_path(:redirect => request.fullpath)
     else
       if session[:club].blank?
-        session[:club] = club_for_ugent_login(session[:cas][:user])
+        session[:club] = club_for_ugent_login(session[:cas]['user'])
       end
 
       render '/backend/denied', :status => 403 unless session[:club] == "FK"
