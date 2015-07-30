@@ -70,10 +70,10 @@ class Frontend::RegistrationController < Frontend::FrontendController
 
     # Redirect to fk-books
     if session.delete :fk_books
-      key = Rails.application.config.fkbooks_key
+      key = Rails.application.secrets.fkbooks_key
       signature = Digest::SHA1.hexdigest(key + @member.id.to_s)
 
-      redirect_to Rails.application.config.fkbooks % [@member.id, signature]
+      redirect_to Rails.application.secrets.fkbooks % [@member.id, signature]
     end
   end
 

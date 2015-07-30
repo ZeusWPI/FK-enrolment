@@ -12,7 +12,7 @@ class Api::ApiController < ApplicationController
 
   # verify gandalf API key
   def verify_gandalf_key
-    unless params[:key] == Rails.application.config.fk_gandalf_key
+    unless params[:key] == Rails.application.secrets.fk_gandalf_key
       respond_with({:error => "Invalid Gandalf-key"}, :status => :forbidden, :location => nil)
     end
   end
