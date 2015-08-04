@@ -16,7 +16,6 @@ module Member::Photo
     # Cropping
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
     base.attr_accessible :crop_x, :crop_y, :crop_w, :crop_h
-    base.after_update :crop_photo
 
     # Photo url errors
     base.validate do |member|

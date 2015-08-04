@@ -52,14 +52,15 @@ class Frontend::RegistrationController < Frontend::FrontendController
 
   def isic
     @member.isic_mail_card = true if @club.isic_mail_option == Club::ISIC_MAIL_CARD_FORCED
-    if params[:member] && @member.update_attributes(params[:member])
+    if params[:member] && @member.update(params[:member])
       redirect_to registration_photo_path(@club)
     end
   end
 
   def photo
     # All image uploading and processing is done by the model
-    if params[:member] && @member.update_attributes(params[:member])
+    if params[:member] && @member.update(params[:member])
+      @member.crop_photo
       redirect_to registration_success_path(@club) if @member.valid_photo?
     end
   end
