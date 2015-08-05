@@ -11,7 +11,7 @@ class Backend::BackendController < ApplicationController
       redirect_to cas_auth_path(:redirect => request.fullpath)
     else
       if session[:club].blank?
-        session[:club] = club_for_ugent_login(session[:cas][:user])
+        session[:club] = club_for_ugent_login(session[:cas]['user'])
       end
 
       @club = Club.find_by_internal_name(session[:club])
