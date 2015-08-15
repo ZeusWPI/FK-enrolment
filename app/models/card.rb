@@ -6,20 +6,21 @@
 #  member_id     :integer
 #  academic_year :integer
 #  number        :integer
-#  status        :string(255)      default("unpaid")
+#  status        :string           default("unpaid")
 #  enabled       :boolean          default(TRUE)
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  isic_status   :string(255)      default("none")
-#  isic_number   :string(255)
+#  created_at    :datetime
+#  updated_at    :datetime
+#  isic_status   :string           default("none")
+#  isic_number   :string
 #  isic_exported :boolean          default(FALSE)
+#  card_type     :string           not null
 #
 
 class Card < ActiveRecord::Base
   belongs_to :member
   has_one :club, :through => :member
 
-  attr_accessible :number, :status, :isic_status
+  attr_accessible :number, :status, :isic_status, :card_type
 
   # Associated member
   validates :member, :presence => true
@@ -27,9 +28,11 @@ class Card < ActiveRecord::Base
   # Validation rules
   validates :academic_year, :presence => true, :uniqueness => { :scope => :member_id }
   validates :number, :presence => true, :uniqueness => { :scope => :academic_year }
+  validates :card_type, :presence => true, :inclusion => { :in => %w(fk isic) }
   validates :status, :inclusion => { :in => %w(unpaid paid) }
   validates :isic_status, :inclusion => { :in => %w(none request requested printed) }
   validate :number, :valid_card_number
+  validate :card_type, :valid_card_type
 
   # By default, always join the member
   default_scope { includes(:member) }
@@ -39,12 +42,21 @@ class Card < ActiveRecord::Base
   # Check if the assigned number falls in the range given by the club
   def valid_card_number
     return if self.number.blank? or not self.member
-    return if self.club.uses_isic
 
     # Only check the rules of current cards
     if self.academic_year == Member.current_academic_year
-      range = self.club.card_range
-      errors.add(:number, "valt niet in het toegekende bereik") unless range.include? self.number
+      range = self.club.card_range_for self.card_type
+      if !range.include?(self.number)
+        errors.add(:number, "valt niet in het toegekende bereik")
+      end
+    end
+  end
+
+  # Check whether parent club allows this card type
+  def valid_card_type
+    return if self.card_type.blank? or not self.member
+    if !(self.club.uses_card_type?(self.card_type))
+      errors.add(:kaarttype, "wordt niet toegelaten door deze club")
     end
   end
 
@@ -74,6 +86,7 @@ class Card < ActiveRecord::Base
 
   # Check if a new card should be requested
   def determine_isic_status
+    return if self.card_type != 'isic'
     raise "Record is not new, won't change status" unless new_record?
     raise "No member associated yet" unless member
     self.isic_status = 'request'
@@ -82,22 +95,29 @@ class Card < ActiveRecord::Base
   # Force generating numbers for ISIC registrations
   before_validation :generate_number
 
-  # Get the next available card number
+  # Generate a fk number for an isic card.
   def generate_number
-    return if !self.number.blank? || self.isic_status == 'none'
+    return if !self.number.blank? || self.card_type != 'isic'
 
-    # new procedure
-    card_range = self.club.card_range
-    next_number = Card.where(
+    range = self.club.card_range_for :isic
+    current_max = Card.where(
       :members => { :club_id => self.club.id },
-      :number => card_range
+      :number => range
     ).maximum(:number)
-    self.number = next_number ? next_number + 1 : card_range.begin + 1
+    self.number = current_max.try(:succ) || range.begin
   end
 
   # Export info to ISIC
   def export_to_isic
-    return if not self.club.uses_isic
+    return if self.card_type != 'isic'
     IsicExport.new.submit(self.member, self)
+  end
+
+  def self.build_for member, attributes = {}
+    card = Card.new attributes
+    card.member = member
+    card.card_type ||= member.pick_card_type
+    card.determine_isic_status
+    return card
   end
 end

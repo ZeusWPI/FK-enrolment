@@ -16,7 +16,7 @@ class Frontend::FrontendController < ApplicationController
     if params[:redirect]
       session[identifier] = params[:redirect]
     elsif @club
-      session[identifier] = registration_general_path(@club)
+      session[identifier] = registration_card_type_path(@club)
     end
   end
 end

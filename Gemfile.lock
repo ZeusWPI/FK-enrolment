@@ -156,6 +156,8 @@ GEM
     pry-byebug (3.2.0)
       byebug (~> 5.0)
       pry (~> 0.10)
+    pry-rails (0.3.4)
+      pry (>= 0.9.10)
     puma (2.12.2)
     rack (1.6.4)
     rack-cas (0.11.0)
@@ -287,6 +289,7 @@ DEPENDENCIES
   paperclip (~> 4.3)
   protected_attributes
   pry-byebug
+  pry-rails
   puma
   rack-cas
   rails (~> 4.2)
@@ -305,4 +308,4 @@ DEPENDENCIES
   will_paginate (~> 3.0)
 
 BUNDLED WITH
-   1.10.5
+   1.10.6

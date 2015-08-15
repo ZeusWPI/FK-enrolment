@@ -96,5 +96,6 @@ group :production do
 end
 
 group :development, :test do
+  gem 'pry-rails'
   gem 'pry-byebug'
 end
