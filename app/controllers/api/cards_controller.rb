@@ -3,13 +3,7 @@ class Api::CardsController < Api::ApiController
   def load_card
     @member = Member.find(params[:member_id])
     @card = @member.current_card
-
-    # create a new card and assign it to the current member
-    unless @card
-      @card = Card.new
-      @card.member = @member
-      @card.determine_isic_status if @member.club.uses_isic
-    end
+    Card.build_for @member if not @card
 
     if @member.club_id != @club.id
       respond_with({:error => "Invalid member"}, :status => :forbidden)

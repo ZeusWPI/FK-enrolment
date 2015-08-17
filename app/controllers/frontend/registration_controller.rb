@@ -51,7 +51,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
     @member.attributes = params[:member] if params[:member]
     if @member.save
       session[:member_id] = @member.id
-      if @member.wants_isic?
+      if @member.uses_isic?
         redirect_to registration_isic_path(@club)
       else
         redirect_to registration_success_path(@club)

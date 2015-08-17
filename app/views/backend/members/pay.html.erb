@@ -12,7 +12,7 @@
     <dd>
       <% if @card.number? %>
         <%= @card.number %>
-      <% elsif @member.wants_isic? %>
+      <% elsif @member.uses_isic? %>
         [tijdelijke kaart]
       <% else %>
         <em>nog geen kaart gekoppeld</em><br/>
@@ -29,7 +29,7 @@
     <dt>Status:</dt>
     <dd><%= human_card_status @card.status %></dd>
 
-    <% if @member.wants_isic? || @card.isic_status != 'none' %>
+    <% if @member.uses_isic? || @card.isic_status != 'none' %>
     <dt>ISIC-status:</dt>
     <dd>
       <% if @card.isic_status == "revalidate" %>

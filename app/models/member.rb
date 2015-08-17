@@ -61,14 +61,20 @@ class Member < ActiveRecord::Base
   validates :card_type_preference, :inclusion => { :in => %w(fk isic) }, :allow_nil => true
   validates :ugent_nr, :presence => true
   validates :sex, :inclusion => { :in => %w(m f), :allow_blank => true }
-  validates :sex, :presence => true, if: :wants_isic?
-  validates :date_of_birth, :presence => true, if: :wants_isic?
-  validates :home_street, :presence => true, if: :wants_isic?
-  validates :home_postal_code, :presence => true, if: :wants_isic?
-  validates :home_city, :presence => true, if: :wants_isic?
 
-  def wants_isic?
-    pick_card_type == 'isic'
+  # ISIC info
+  validates :sex, :presence => true, if: :uses_isic?
+  validates :date_of_birth, :presence => true, if: :uses_isic?
+  validates :home_street, :presence => true, if: :uses_isic?
+  validates :home_postal_code, :presence => true, if: :uses_isic?
+  validates :home_city, :presence => true, if: :uses_isic?
+
+  def uses_isic?
+    if self.current_card
+      self.current_card.isic?
+    else
+      pick_card_type == 'isic'
+    end
   end
 
   # Handy defaults
@@ -91,7 +97,9 @@ class Member < ActiveRecord::Base
     (Time.now - 6.months).year
   end
 
-  has_one :current_card, -> {  where(:academic_year => Member.current_academic_year) }, :class_name => "Card"
+  has_one :current_card, -> {  where(:academic_year => Member.current_academic_year) },
+    :class_name => "Card",
+    :inverse_of => :member
 
   # Load member, checking access
   def self.find_member_for_club(member_id, club)

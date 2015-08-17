@@ -31,8 +31,10 @@ class Card < ActiveRecord::Base
   validates :card_type, :presence => true, :inclusion => { :in => %w(fk isic) }
   validates :status, :inclusion => { :in => %w(unpaid paid) }
   validates :isic_status, :inclusion => { :in => %w(none request requested printed) }
+
   validate :number, :valid_card_number
   validate :card_type, :valid_card_type
+  validates_associated :member
 
   # By default, always join the member
   default_scope { includes(:member) }
@@ -58,6 +60,10 @@ class Card < ActiveRecord::Base
     if !(self.club.uses_card_type?(self.card_type))
       errors.add(:kaarttype, "wordt niet toegelaten door deze club")
     end
+  end
+
+  def isic?
+    self.card_type == 'isic'
   end
 
   # Renders the academic year in a more commonly used format
@@ -86,7 +92,7 @@ class Card < ActiveRecord::Base
 
   # Check if a new card should be requested
   def determine_isic_status
-    return if self.card_type != 'isic'
+    return if !self.isic?
     raise "Record is not new, won't change status" unless new_record?
     raise "No member associated yet" unless member
     self.isic_status = 'request'
@@ -97,7 +103,7 @@ class Card < ActiveRecord::Base
 
   # Generate a fk number for an isic card.
   def generate_number
-    return if !self.number.blank? || self.card_type != 'isic'
+    return if !self.number.blank? || !self.isic?
 
     range = self.club.card_range_for :isic
     current_max = Card.where(
@@ -109,13 +115,13 @@ class Card < ActiveRecord::Base
 
   # Export info to ISIC
   def export_to_isic
-    return if self.card_type != 'isic'
+    return if !self.isic?
     IsicExport.new.submit(self.member, self)
   end
 
   def self.build_for member, attributes = {}
-    card = Card.new attributes
-    card.member = member
+    p attributes
+    card = member.build_current_card attributes
     card.card_type ||= member.pick_card_type
     card.determine_isic_status
     return card
