@@ -57,7 +57,7 @@ class Card < ActiveRecord::Base
   # Check whether parent club allows this card type
   def valid_card_type
     return if self.card_type.blank? or not self.member
-    if !(self.club.uses_card_type?(self.card_type))
+    if !(self.allowed_card_types.include?(self.card_type))
       errors.add(:kaarttype, "wordt niet toegelaten door deze club")
     end
   end

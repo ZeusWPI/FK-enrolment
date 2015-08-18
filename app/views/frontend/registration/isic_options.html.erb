@@ -1,0 +1,32 @@
+<% title "ISIC-lidkaart: opties" %>
+<%= render :partial => "layouts/club" %>
+
+<div class="content-main">
+
+  <%# If user has not yet seen isic information %>
+  <%= render 'isic_info' if @club.allowed_card_types.conut == 1%>
+
+  <%= simple_format(@club.isic_text) unless @club.isic_text.blank? %>
+
+  <%= semantic_form_for @member, :url => wizard_path, method: :put do |f| %>
+    <%= f.inputs :class => "inputs no-indent" do %>
+      <%= f.input :isic_newsletter,
+        :label => "Ja, ik wil op de hoogte blijven van de ISIC-wedstrijden
+          en nieuwste ISIC-voordelen in mijn studentenstad." %>
+      <% if @club.isic_mail_option == Club::ISIC_MAIL_CARD_OPTIONAL %>
+      <%= f.input :isic_mail_card,
+        :label => "Stuur mijn ISIC-lidkaart met de post op.",
+        :hint => raw("Voor deze optie zal je €1 extra aangerekend worden aan de kassa.<br />
+          Je kaart wordt opgestuurd naar het adres dat je op de vorige pagina opgegeven hebt.") %>
+      <% elsif @club.isic_mail_option == Club::ISIC_MAIL_CARD_FORCED %>
+      <li class="input">
+        <label>Je ISIC-kaart wordt opgestuurd naar je thuis-adres.</label>
+      </li>
+      <% end %>
+    <% end %>
+
+    <%= f.actions :class => "actions no-indent" do %>
+      <%= f.action :submit, :label => "Volgende stap" %>
+    <% end %>
+  <% end %>
+</div>

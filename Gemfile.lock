@@ -260,6 +260,8 @@ GEM
       nokogiri (>= 1.4.2)
     whenever (0.9.4)
       chronic (>= 0.6.3)
+    wicked (1.1.1)
+      rails (>= 3.0.7)
     will_paginate (3.0.7)
 
 PLATFORMS
@@ -305,6 +307,7 @@ DEPENDENCIES
   therubyracer
   uglifier
   whenever
+  wicked
   will_paginate (~> 3.0)
 
 BUNDLED WITH

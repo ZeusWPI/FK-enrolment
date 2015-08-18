@@ -7,7 +7,7 @@
 <div class="crop-wrapper">
   <h3>Foto bijsnijden</h3>
 
-  <%= semantic_form_for @member, :url => registration_photo_path(@club) do |f| %>
+  <%= semantic_form_for @member, :url => wizard_path, method: :put do |f| %>
     <%= image_tag @member.photo.url(:large), :id => "crop-image" %>
 
     <span>Voorbeeld:</span>
@@ -33,7 +33,7 @@
 <p>Deze foto haalden we van je elektronische identiteitskaart.</p>
 <%= image_tag eid_photo_path %>
 
-<%= semantic_form_for @member, :url => registration_photo_path(@club) do |f| %>
+<%= semantic_form_for @member, :url => wizard_path, method: :put do |f| %>
   <%= f.input :photo_base64, :as => :hidden, :input_html => { :value => session[:eid]["be:fedict:eid:idp:photo"] } %>
   <%= f.actions :class => "member no-indent" do %>
     <%= f.action :submit, :label => "Foto gebruiken" %>
@@ -52,7 +52,7 @@ voor commerciële doeleinden gebruikt worden.</p>
 
 <p><%= image_tag "correct-photo.jpg" %></p>
 
-<%= semantic_form_for @member, :url => registration_photo_path(@club) do |f| %>
+<%= semantic_form_for @member, :url => wizard_path, method: :put do |f| %>
   <%= f.inputs do %>
     <%= f.input :photo %>
 

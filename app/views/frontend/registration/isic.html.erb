@@ -1,40 +1,16 @@
-<% title "ISIC-lidkaart" %>
+<% title "ISIC" %>
 <%= render :partial => "layouts/club" %>
 
 <div class="content-main">
-  <p><%= image_tag('isic.jpg') %></p>
+  <%= render 'isic_info' %>
 
-  <p>ISIC (International Student Identity Card) is de enige wereldwijd aanvaarde studenten- en voordelenkaart, erkend door UNESCO. Dankzij ISIC heb je overal en altijd een bewijs op zak dat je student hoger onderwijs bent.</p>
-
-  <p>Ga je op reis of vertrek je op Erasmus? Vergeet dan zeker geen ISIC mee te nemen, want wereldwijd geeft de kaart recht op 40.000 voordelen.</p>
-
-  <p><%= image_tag('isic-qr.png', style: "float: right; margin: 0 0 4px 12px;") %></p>
-
-  <p>Ook wie gewoon thuis of op kot blijft, houdt maar liever een ISIC bij de hand, want alleen al in Gent zijn er niet minder dan 40 ISIC-voordelen: lifestyle, cultuur, eten, drinken, noem maar op.</p>
-
-  <p>Een volledig overzicht van alle voordelen vind je op <a href="http://www.isic.be">www.isic.be</a> of op de <a href="http://www.isic.be/download.html">gratis ISIC-app</a> (scan hier).
-
-  <%= simple_format(@club.isic_text) unless @club.isic_text.blank? %>
-
-  <%= semantic_form_for @member, :url => registration_isic_path(@club) do |f| %>
-    <%= f.inputs :class => "inputs no-indent" do %>
-      <%= f.input :isic_newsletter,
-        :label => "Ja, ik wil op de hoogte blijven van de ISIC-wedstrijden
-          en nieuwste ISIC-voordelen in mijn studentenstad." %>
-      <% if @club.isic_mail_option == Club::ISIC_MAIL_CARD_OPTIONAL %>
-      <%= f.input :isic_mail_card,
-        :label => "Stuur mijn ISIC-lidkaart met de post op.",
-        :hint => raw("Voor deze optie zal je €1 extra aangerekend worden aan de kassa.<br />
-          Je kaart wordt opgestuurd naar het adres dat je op de vorige pagina opgegeven hebt.") %>
-      <% elsif @club.isic_mail_option == Club::ISIC_MAIL_CARD_FORCED %>
-      <li class="input">
-        <label>Je ISIC-kaart wordt opgestuurd naar je thuis-adres.</label>
-      </li>
-      <% end %>
+    <%= form_for @member, url: wizard_path, method: :put do |f| %>
+      <%= f.hidden_field :card_type_preference, value: 'isic' %>
+      <%= f.submit 'Ik wil een ISIC-kaart' %>
     <% end %>
 
-    <%= f.actions :class => "actions no-indent" do %>
-      <%= f.action :submit, :label => "Volgende stap" %>
+    <%= form_for @member, url: wizard_path, method: :put do |f| %>
+      <%= f.hidden_field :card_type_preference, value: 'fk' %>
+      <%= f.submit 'Een FK-kaart volstaat' %>
     <% end %>
-  <% end %>
 </div>

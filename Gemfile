@@ -73,6 +73,8 @@ gem 'airbrake'
 # Whenever
 gem 'whenever'
 
+gem 'wicked'
+
 # Asset gems (not in the asset group, see
 # http://stackoverflow.com/a/17221248/1068495
 gem 'sass-rails', '~> 4.0'

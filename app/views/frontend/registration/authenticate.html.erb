@@ -13,13 +13,13 @@
     Je kan gerust later je gegevens nog aanvullen.</p>
 
   <ul class="option-chooser">
-    <li><a href="<%= url_for registration_cas_path(@club) %>">
+    <li><a href="<%= cas_auth_path redirect: next_wizard_path %>">
       Ik ken mijn <strong>UGentNet gebruikersnaam</strong> en <strong>wachtwoord</strong>.
     </a></li>
-    <li><a href="<%= url_for registration_eid_path(@club) %>">
+    <li><a href="<%= eid_auth_path redirect: next_wizard_path %>">
       Ik gebruik mijn <strong>elektronische identiteitskaart</strong> (eID).
     </a></li>
-    <li><a href="<%= url_for registration_card_type_path(@club) %>">
+    <li><a href="<%= next_wizard_path %>">
       Ik vul zelf al mijn gegevens in.
     </a></li>
   </ul>

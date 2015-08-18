@@ -66,9 +66,10 @@ class Club < ActiveRecord::Base
     registration_method == method.to_s
   end
 
-  def uses_card_type?(name)
-    method = 'uses_' + name.to_s
-    respond_to?(method) ? send(method) : false
+  def allowed_card_types
+    ['fk', 'isic'].select do |type|
+      self.attributes['uses_' + type]
+    end
   end
 
   # Get the asset path for the club's shield
