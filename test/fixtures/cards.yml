@@ -6,13 +6,14 @@
 #  member_id     :integer
 #  academic_year :integer
 #  number        :integer
-#  status        :string(255)      default("unpaid")
+#  status        :string           default("unpaid")
 #  enabled       :boolean          default(TRUE)
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  isic_status   :string(255)      default("none")
-#  isic_number   :string(255)
+#  created_at    :datetime
+#  updated_at    :datetime
+#  isic_status   :string           default("none")
+#  isic_number   :string
 #  isic_exported :boolean          default(FALSE)
+#  card_type     :string           default("fk"), not null
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
@@ -23,36 +24,31 @@ javache:
   number: <%= ActiveSupport::TestCase.generate_card_number(:wina, 1) %>
   status: paid
   enabled: true
+  card_type: 'fk'
 
 nudded:
   member: nudded
   academic_year: <%= Member.current_academic_year %>
-  number: 10001
+  number: <%= ActiveSupport::TestCase.generate_card_number(:vtk, 1, isic: true) %>
   status: unpaid
+  isic_status: requested
   isic_number: 2101
   enabled: true
+  card_type: 'isic'
 
 nudded2:
   member: nudded
   academic_year: <%= Member.current_academic_year - 1 %>
-  number: 10001
+  number: <%= ActiveSupport::TestCase.generate_card_number(:vtk, 1, isic: true) %>
   status: paid
   isic_status: requested
   isic_number: 2101
   enabled: yes
+  card_type: 'isic'
 
 siloks:
   member: siloks
-  academic_year: <%= Member.current_academic_year - 1 %>
-  number: 12001
-  isic_number: 2102
-  isic_status: requested
+  academic_year: <%= Member.current_academic_year %>
+  number: <%= ActiveSupport::TestCase.generate_card_number(:fsk, 1) %>
   enabled: yes
-
-siloks2:
-  member: siloks
-  academic_year: <%= Member.current_academic_year - 2 %>
-  number: 12001
-  isic_number: 2102
-  isic_status: requested
-  enabled: yes
+  card_type: 'fk'

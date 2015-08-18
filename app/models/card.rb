@@ -47,7 +47,7 @@ class Card < ActiveRecord::Base
 
     # Only check the rules of current cards
     if self.academic_year == Member.current_academic_year
-      range = self.club.card_range_for self.card_type
+      range = self.member.club.card_range_for self.card_type
       if !range.include?(self.number)
         errors.add(:number, "valt niet in het toegekende bereik")
       end
@@ -57,7 +57,7 @@ class Card < ActiveRecord::Base
   # Check whether parent club allows this card type
   def valid_card_type
     return if self.card_type.blank? or not self.member
-    if !(self.allowed_card_types.include?(self.card_type))
+    if !(self.member.club.allowed_card_types.include?(self.card_type))
       errors.add(:kaarttype, "wordt niet toegelaten door deze club")
     end
   end
@@ -120,7 +120,6 @@ class Card < ActiveRecord::Base
   end
 
   def self.build_for member, attributes = {}
-    p attributes
     card = member.build_current_card attributes
     card.card_type ||= member.pick_card_type
     card.determine_isic_status

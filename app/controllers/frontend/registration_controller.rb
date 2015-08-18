@@ -108,27 +108,6 @@ class Frontend::RegistrationController < Frontend::FrontendController
     end
   end
 
-  def create
-    @member.attributes = params[:partial_member] if params[:partial_member]
-    if @member.save
-      session[:member_id] = @member.id
-      if @member.uses_isic?
-        redirect_to registration_isic_path(@club)
-      else
-        redirect_to registration_success_path(@club)
-      end
-    else
-      render :general
-    end
-  end
-
-  def isic
-  end
-
-  def photo
-  end
-
-
   helper_method :cas_authed?
   def cas_authed?
     session[:cas] && session[:cas]['user']

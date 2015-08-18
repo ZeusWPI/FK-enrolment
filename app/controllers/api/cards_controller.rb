@@ -2,8 +2,7 @@ class Api::CardsController < Api::ApiController
   before_filter :load_card
   def load_card
     @member = Member.find(params[:member_id])
-    @card = @member.current_card
-    Card.build_for @member if not @card
+    @card = @member.current_card || Card.build_for(@member)
 
     if @member.club_id != @club.id
       respond_with({:error => "Invalid member"}, :status => :forbidden)
