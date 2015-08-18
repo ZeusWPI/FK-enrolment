@@ -4,31 +4,32 @@
 #
 #  id                      :integer          not null, primary key
 #  club_id                 :integer
-#  first_name              :string(255)
-#  last_name               :string(255)
-#  email                   :string(255)
-#  ugent_nr                :string(255)
-#  sex                     :string(255)
-#  phone                   :string(255)
+#  first_name              :string
+#  last_name               :string
+#  email                   :string
+#  ugent_nr                :string
+#  sex                     :string
+#  phone                   :string
 #  date_of_birth           :date
-#  home_address            :string(255)
-#  studenthome_address     :string(255)
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  photo_file_name         :string(255)
-#  photo_content_type      :string(255)
+#  home_address            :string
+#  studenthome_address     :string
+#  created_at              :datetime
+#  updated_at              :datetime
+#  photo_file_name         :string
+#  photo_content_type      :string
 #  photo_file_size         :integer
 #  photo_updated_at        :datetime
 #  isic_newsletter         :boolean
 #  isic_mail_card          :boolean
 #  enabled                 :boolean          default(FALSE)
 #  last_registration       :integer
-#  home_street             :string(255)
-#  home_postal_code        :string(255)
-#  home_city               :string(255)
-#  studenthome_street      :string(255)
-#  studenthome_postal_code :string(255)
-#  studenthome_city        :string(255)
+#  home_street             :string
+#  home_postal_code        :string
+#  home_city               :string
+#  studenthome_street      :string
+#  studenthome_postal_code :string
+#  studenthome_city        :string
+#  card_type_preference    :string
 #
 
 require 'test_helper'

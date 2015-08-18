@@ -5,9 +5,9 @@
 #  id         :integer          not null, primary key
 #  member_id  :integer
 #  spec_id    :integer
-#  value      :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  value      :string
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html

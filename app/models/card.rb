@@ -120,7 +120,6 @@ class Card < ActiveRecord::Base
   end
 
   def self.build_for member, attributes = {}
-    p attributes
     card = member.build_current_card attributes
     card.card_type ||= member.pick_card_type
     card.determine_isic_status

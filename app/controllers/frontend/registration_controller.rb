@@ -3,7 +3,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
 
   # Load member set in session or create a new one
   before_filter :load_member, :only => [:isic, :photo, :success]
-  before_filter :create_member, :only => [:new, :create]
+  before_filter :create_member, :only => [:general]
 
   def load_member
     @member = Member.find_by id: session[:member_id] if session[:member_id]
@@ -43,12 +43,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
     end
   end
 
-  def new
-    render :general
-  end
-
-  def create
-    @member.attributes = params[:member] if params[:member]
+  def general
     if @member.save
       session[:member_id] = @member.id
       if @member.uses_isic?
@@ -56,8 +51,6 @@ class Frontend::RegistrationController < Frontend::FrontendController
       else
         redirect_to registration_success_path(@club)
       end
-    else
-      render :general
     end
   end
 
