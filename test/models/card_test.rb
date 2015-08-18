@@ -26,12 +26,12 @@ class CardTest < ActiveSupport::TestCase
   end
 
   test "should not allow duplicates" do
-    c = Card.build_for members(:javache)
-    c.number = generate_card_number(:wina, 4958)
-    p c.member
+    c = Card.new card_type: 'fk'
+    c.member = members(:javache)
+    c.number = generate_card_number(:wina, 4689)
     assert !c.valid?
 
-     Not a duplicate
+    # Not a duplicate
     c.academic_year = Member.current_academic_year + 1
     assert c.valid?
   end
