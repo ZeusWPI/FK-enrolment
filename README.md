@@ -51,11 +51,14 @@ De voornaamste methodes worden hieronder beschreven:
 
     Stel de kaartgegevens in van het lid [id]. Parameters zijn
 
-    * Voor niet-ISIC-kringen:
+    * Voor FK-kaarten:
       * ``number`` (int): toegekende FK-kaart nummer
       * ``status`` (paid of unpaid): betalingsstatus
-    * Voor ISIC-kringen:
+    * Voor ISIC-kaarten:
       * ``status`` (paid of unpaid): betalingsstatus
+
+    Als beide kaarttypes toegelaten zijn, gebruik dan ``card_type`` (isic of fk)
+    om het gewenste kaarttype door te geven.
 
 *   *GET /api/v2/club.json?key=x*
 

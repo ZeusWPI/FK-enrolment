@@ -2,9 +2,9 @@ require 'test_helper'
 
 class Api::CardsControllerTest < ActionController::TestCase
   setup do
-    @club = clubs(:wina)
-    @member = members(:javache)
-    @card = cards(:javache)
+    @club = clubs(:fsk)
+    @member = members(:siloks)
+    @card = cards(:siloks)
   end
 
   def params_for_api(params = {}, format = "json", club = @club)
@@ -23,12 +23,22 @@ class Api::CardsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create card" do
+  test "should create fk card" do
     @card.destroy
     assert_difference('Card.count') do
       card_number = self.class.generate_card_number(@club, 20)
       post :create, params_for_api({card: { number: card_number, status: "paid" }})
       assert_response :success
+      assert @member.current_card.card_type == 'fk'
+    end
+  end
+
+  test "should create isic card" do
+    @card.destroy
+    assert_difference('Card.count') do
+      post :create, params_for_api({card: { card_type: 'isic', status: "paid" }})
+      assert_response :success
+      assert @member.current_card.card_type == 'isic'
     end
   end
 

@@ -48,18 +48,7 @@ nudded2:
 
 siloks:
   member: siloks
-  academic_year: <%= Member.current_academic_year - 1 %>
-  number: 12001
-  isic_number: 2102
-  isic_status: requested
+  academic_year: <%= Member.current_academic_year %>
+  number: <%= ActiveSupport::TestCase.generate_card_number(:fsk, 1) %>
   enabled: yes
-  card_type: 'isic'
-
-siloks2:
-  member: siloks
-  academic_year: <%= Member.current_academic_year - 2 %>
-  number: 12001
-  isic_number: 2102
-  isic_status: requested
-  enabled: yes
-  card_type: 'isic'
+  card_type: 'fk'
