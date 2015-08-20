@@ -33,6 +33,10 @@ class Frontend::RegistrationController < Frontend::FrontendController
     load_eid_member_attributes if eid_authed?
   end
 
+  def questions
+    skip_step if @member.extra_attributes.empty?
+  end
+
   def isic_options
     skip_step unless @member.uses_isic?
     @member.isic_mail_card = true if @club.isic_mail_option == Club::ISIC_MAIL_CARD_FORCED

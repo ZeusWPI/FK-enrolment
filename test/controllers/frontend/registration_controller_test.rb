@@ -51,13 +51,24 @@ class Frontend::RegistrationControllerTest < ActionController::TestCase
   end
 
   test "should skip isic for VTK" do
-    @club = clubs(:vtk)
+    set_club clubs(:vtk)
     get_wizard_step :isic
     assert_response :redirect
   end
 
   test "should get info" do
     get_wizard_step :info
+    assert_response :success
+  end
+
+  test "should skip questions when there are none" do
+    get_wizard_step :questions
+    assert_response :redirect
+  end
+
+  test "should show questions when there are" do
+    set_club clubs(:vtk)
+    get_wizard_step :questions
     assert_response :success
   end
 
@@ -114,21 +125,6 @@ class Frontend::RegistrationControllerTest < ActionController::TestCase
     assert_equal session[:member]["last_name"], "test"
   end
 
-  #test "should get isic" do
-    #get_wizard_step :isic
-    #assert_response :success
-
-    #attributes = [:isic_newsletter, :isic_mail_card]
-    #@member.update_attributes(Hash[attributes.map {|k| [k, false] }])
-    #post :isic, @params.merge(:member => Hash[attributes.map {|k| [k, true] }]), @session
-
-    #assert_response :redirect
-    #@member.reload
-    #attributes.each {|k| assert @member.send(k), "#{k} shoud be true" }
-  #end
-
-
-
   def extra_attributes
     [
       { 'spec_id' => extra_attribute_specs(:study).id, 'value' => "Test" },
@@ -143,7 +139,7 @@ class Frontend::RegistrationControllerTest < ActionController::TestCase
   test "should enforce required extra attributes" do
     set_club clubs(:vtk)
     # Posting without any extra_attributes
-    post_wizard_step :info
+    post_wizard_step :questions
     assert_response :success
     refute assigns(:member).errors.empty?
   end
@@ -151,7 +147,7 @@ class Frontend::RegistrationControllerTest < ActionController::TestCase
   test "should accept extra attributes" do
     @club = clubs(:vtk)
     @member_params = {extra_attributes_attributes: extra_attributes}
-    post_wizard_step :info
+    post_wizard_step :questions
     assert assigns(:member).errors.empty?
     assert_response :redirect
   end
@@ -167,7 +163,7 @@ class Frontend::RegistrationControllerTest < ActionController::TestCase
   test "extra attributes should be saved to session" do
     set_club clubs(:vtk)
     @member_params = {extra_attributes_attributes: extra_attributes}
-    post_wizard_step :info
+    post_wizard_step :questions
     check_extra_attributes_in_session
   end
 
@@ -175,13 +171,13 @@ class Frontend::RegistrationControllerTest < ActionController::TestCase
     set_club clubs(:vtk)
 
     @member_params = {extra_attributes_attributes: extra_attributes}
-    post_wizard_step :info
+    post_wizard_step :questions
 
     check_extra_attributes_in_session
     @session = session
 
     @member_params = {extra_attributes_attributes: extra_attributes.pop}
-    post_wizard_step :info
+    post_wizard_step :questions
     check_extra_attributes_in_session
   end
 
