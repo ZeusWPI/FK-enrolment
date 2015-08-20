@@ -77,7 +77,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
     VALIDATIONS = {
       info: [:first_name, :last_name, :email, :ugent_nr,
              :sex, :date_of_birth, :home_street, :home_postal_code,
-             :home_city]
+             :home_city, :'extra_attributes.value']
     }
 
     # HACKS HACKS HACKS
