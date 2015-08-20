@@ -10,6 +10,38 @@ body.registration {
     @include prepend(4);
 } }
 
+#form_container { padding-top: 20px; }
+#isic_form { float: left; }
+#fk_form { float: right; }
+
+.button-common {
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-weight: 400;
+  cursor: pointer;
+}
+.yes-button {
+  @extend .button-common;
+  color: white;
+  background-color: #59A80F;
+  border: 2px solid #408F00;
+}
+
+.yes-button:hover {
+  background-color: #408F00;
+}
+
+.no-button {
+  @extend .button-common;
+  color: black;
+  background-color: #F2EEDB;
+  border: 2px solid #D9D5C2;
+}
+
+.no-button:hover {
+  background-color: #D9D5C2;
+}
+
 #cam-modal {
   display: none;
 

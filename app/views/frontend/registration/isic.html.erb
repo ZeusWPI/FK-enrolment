@@ -4,13 +4,17 @@
 <div class="content-main">
   <%= render 'isic_info' %>
 
-    <%= form_for @member, url: wizard_path, method: :put do |f| %>
+  <div id="form_container">
+    <%= form_for @member, url: wizard_path,
+        method: :put, html: { id: 'isic_form' } do |f| %>
       <%= f.hidden_field :card_type_preference, value: 'isic' %>
-      <%= f.submit 'Ik wil een ISIC-kaart' %>
-    <% end %>
+      <%= f.submit 'ISIC-kaart', class: 'yes-button' %>
+      <% end %>
 
-    <%= form_for @member, url: wizard_path, method: :put do |f| %>
+    <%= form_for @member, url: wizard_path,
+        method: :put, html: { id: 'fk_form' } do |f| %>
       <%= f.hidden_field :card_type_preference, value: 'fk' %>
-      <%= f.submit 'Een FK-kaart volstaat' %>
+      <%= f.submit 'FK-kaart', class: 'no-button' %>
     <% end %>
+  </div>
 </div>
