@@ -155,13 +155,17 @@ class Member < ActiveRecord::Base
     extra_attributes.sort_by { |s| s.spec.position }
   end
 
+  def extra_attributes_attributes
+    extra_attributes.map(&:attributes)
+  end
+
   # Assign extra_attributes to the corresponding attribute with the right spec
   def extra_attributes_attributes=(attributes)
     map = Hash[extra_attributes.map { |k| [k.spec_id, k] }]
     method = attributes.respond_to?(:each_value) ? :each_value : :each
     attributes.send(method) do |attribute|
-      if attribute[:spec_id] && map[attribute[:spec_id].to_i]
-        map[attribute[:spec_id].to_i].value = attribute[:value]
+      if attribute['spec_id'] && map[attribute['spec_id'].to_i]
+        map[attribute['spec_id'].to_i].value = attribute['value']
       end
     end
   end

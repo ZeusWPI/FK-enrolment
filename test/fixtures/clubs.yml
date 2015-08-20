@@ -35,7 +35,7 @@ fsk:
   internal_name: FSK
   description: "De leukste studentenkring van Gent!"
   url: http://pranfeuri.com
-  registration_method: api
+  registration_method: website
   api_key: f7caf6207c36bebcf8a45be5a581a4a1
   uses_fk: true
   uses_isic: true

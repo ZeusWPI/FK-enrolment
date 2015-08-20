@@ -9,8 +9,8 @@ class Frontend::RegistrationController < Frontend::FrontendController
     @member = PartialMember.new
     @member.wizard = self
     @member.club = @club
-    @member.attributes = session[:member] if session[:member]
     @member.build_extra_attributes
+    @member.attributes = session[:member] if session[:member]
   end
 
   def show
@@ -19,7 +19,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
   end
 
   def update
-    @member.update params[:member] if params[:member]
+    @member.assign_attributes params[:member] if params[:member]
     self.send step if self.respond_to? step
     render_wizard @member
   end
@@ -49,9 +49,9 @@ class Frontend::RegistrationController < Frontend::FrontendController
   end
 
   def save
+    # finish registration
     session.delete :member
     @member.enabled = true
-    binding.pry
     @member.build.save!
     skip_step
   end
@@ -98,13 +98,26 @@ class Frontend::RegistrationController < Frontend::FrontendController
       self.errors.empty?
     end
 
+    # TODO: Can this be generalized?
+    def extended_attributes
+      self.attributes.merge(
+        "extra_attributes_attributes" => extra_attributes_attributes
+      )
+    end
+
     def save
       # Save to session
-      session[:member] = self.attributes if valid?
+      session[:member] = self.extended_attributes if valid?
     end
 
     def build
-      self.class.superclass.new self.attributes, without_protection: true
+      # Club is required for building extra attributes
+      member = self.class.superclass.new
+      member.club = self.club
+      member.build_extra_attributes
+      member.assign_attributes self.extended_attributes,
+        without_protection: true
+      member
     end
   end
 

@@ -4,7 +4,7 @@
 <div class="content-main">
 
   <%# If user has not yet seen isic information %>
-  <%= render 'isic_info' if @club.allowed_card_types.conut == 1%>
+  <%= render 'isic_info' if @club.allowed_card_types.count == 1%>
 
   <%= simple_format(@club.isic_text) unless @club.isic_text.blank? %>
 
