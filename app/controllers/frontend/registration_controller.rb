@@ -1,6 +1,6 @@
 class Frontend::RegistrationController < Frontend::FrontendController
   include Wicked::Wizard
-  steps :authenticate, :isic, :info, :isic_options, :photo, :save
+  steps :authenticate, :isic, :info, :questions, :isic_options, :photo, :save
 
   before_filter :load_club!
   before_filter :load_member
@@ -77,7 +77,8 @@ class Frontend::RegistrationController < Frontend::FrontendController
     VALIDATIONS = {
       info: [:first_name, :last_name, :email, :ugent_nr,
              :sex, :date_of_birth, :home_street, :home_postal_code,
-             :home_city, :'extra_attributes.value']
+             :home_city],
+      questions: [:'extra_attributes.value']
     }
 
     # HACKS HACKS HACKS
