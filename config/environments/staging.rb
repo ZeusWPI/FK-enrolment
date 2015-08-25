@@ -92,7 +92,7 @@ FKEnrolment::Application.configure do
   # Help the asset pipeline for staging
   config.action_mailer.default_url_options = {
     host: config.x.host,
-    script_name: config.relative_root_url,
+    script_name: config.relative_url_root,
   }
 
 end
