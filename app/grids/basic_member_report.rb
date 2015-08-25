@@ -5,7 +5,7 @@ class BasicMemberReport
 
   extend ActionView::Helpers::UrlHelper
   extend ActionView::Helpers::TagHelper
-  extend ApplicationHelper
+  extend FontAwesome::Sass::Rails::ViewHelpers
 
   class << self
     include Rails.application.routes.url_helpers
@@ -60,10 +60,10 @@ class BasicMemberReport
   end
   column(:photo, :header => "") do |member|
     if member.photo?
-      icon(:photo, '', photo_backend_member_path(member),
-        "data-photo" => member.photo(:cropped), :title => '')
+      link_to(icon('photo'), photo_backend_member_path(member),
+        "data-photo" => member.photo(:cropped), :title => '', class: %(photo icon))
     else
-      icon(:nophoto, '', photo_backend_member_path(member))
+      link_to(icon('question'), photo_backend_member_path(member))
     end
   end
 end
