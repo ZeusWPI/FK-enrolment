@@ -11,10 +11,6 @@ class BasicMemberReport
     include Rails.application.routes.url_helpers
   end
 
-  def self.default_url_options
-    {}
-  end
-
   scope do
     Member
       .eager_load(:cards)
