@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150716173354) do
+ActiveRecord::Schema.define(version: 20150825102456) do
 
   create_table "cards", force: :cascade do |t|
     t.integer  "member_id"
@@ -86,9 +86,9 @@ ActiveRecord::Schema.define(version: 20150716173354) do
   create_table "extra_attributes", force: :cascade do |t|
     t.integer  "member_id"
     t.integer  "spec_id"
-    t.string   "value",      limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.text     "value",      limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "isic_exports", force: :cascade do |t|
