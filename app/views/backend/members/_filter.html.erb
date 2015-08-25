@@ -1,5 +1,5 @@
 <p <%= raw(' style="display: none;"') if @filtered %>>
-  <%= icon(:expand, 'Filter resultaten', '#') %>
+  <%= link_to(icon('expand'), '#', title: "Filter resultaten", class: %(icon expand)) %>
 </p>
 
 <%
@@ -11,7 +11,7 @@ end
 %>
 
 <div id="filters" <%= raw(' style="display: none;"') if not @filtered %>>
-  <p class="side-icons"><%= icon(:collapse, 'Filters verbergen', '#') %></p>
+  <p class="side-icons"><%= link_to(icon('compress'), '#', title: 'Filter verbergen', class: %(icon collapse)) %></p>
   <h3>Filter resultaten</h3>
   <%= semantic_form_for @membergrid,
         :method => :get, :url => submit_path do |f| %>

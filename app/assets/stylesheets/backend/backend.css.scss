@@ -20,29 +20,3 @@ body.backend {
   h2 {
     @include prepend(4);
 } }
-
-
-// Icons
-@import "icons/*.png";
-
-.icon {
-  padding-left: 20px;
-  background-repeat: no-repeat;
-
-  &.no-text {
-    padding-left: 16px;
-    margin: 0 -1px;
-  }
-
-  &.collapse { @include icons-sprite(collapse); }
-  &.edit { @include icons-sprite(pencil); }
-  &.expand { @include icons-sprite(expand); }
-  &.delete { @include icons-sprite(cross); }
-  &.details { @include icons-sprite(magnifier); }
-  &.false { @include icons-sprite(delete); }
-  &.female { @include icons-sprite(female); }
-  &.male { @include icons-sprite(male); }
-  &.photo { @include icons-sprite(image); }
-  &.nophoto { @include icons-sprite(no-image); }
-  &.true { @include icons-sprite(accept); }
-}
