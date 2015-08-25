@@ -87,5 +87,5 @@ FKEnrolment::Application.configure do
     }
 
   # Help the asset pipeline for staging
-  #config.relative_url_root = "/enrolment"
+  config.relative_url_root = "/enrolment"
 end
