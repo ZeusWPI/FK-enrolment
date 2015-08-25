@@ -86,6 +86,13 @@ FKEnrolment::Application.configure do
       :exception_recipients => %w{fk-enrolment@zeus.ugent.be}
     }
 
-  # Help the asset pipeline for staging
+  config.x.host = 'king.ugent.be'
   config.relative_url_root = "/enrolment"
+
+  # Help the asset pipeline for staging
+  config.action_mailer.default_url_options = {
+    host: config.x.host,
+    script_name: config.relative_root_url,
+  }
+
 end
