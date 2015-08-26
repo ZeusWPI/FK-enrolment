@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20150825102456) do
     t.string   "export_content_type", limit: 255
     t.integer  "export_file_size"
     t.datetime "export_updated_at"
-    t.string   "export_status",                   default: "none"
+    t.string   "export_status",       limit: 255, default: "none"
   end
 
   add_index "clubs", ["api_key"], name: "index_clubs_on_api_key", unique: true
