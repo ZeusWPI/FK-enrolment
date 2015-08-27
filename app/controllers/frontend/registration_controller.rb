@@ -44,7 +44,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
   end
 
   def general
-    if @member.save
+    if params[:member] && @member.save
       session[:member_id] = @member.id
       if @member.uses_isic?
         redirect_to registration_isic_path(@club)
