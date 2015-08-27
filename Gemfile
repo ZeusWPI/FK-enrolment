@@ -8,6 +8,9 @@ gem 'protected_attributes'
 # We <3 New Relic
 gem 'newrelic_rpm'
 
+# Cool decent working icons
+gem 'font-awesome-sass'
+
 # Deploy with Capistrano
 gem 'capistrano'
 gem 'capistrano-rails'

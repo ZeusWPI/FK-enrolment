@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150814165823) do
+ActiveRecord::Schema.define(version: 20150825102456) do
 
   create_table "cards", force: :cascade do |t|
     t.integer  "member_id"
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 20150814165823) do
   create_table "extra_attributes", force: :cascade do |t|
     t.integer  "member_id"
     t.integer  "spec_id"
-    t.string   "value"
+    t.text     "value",      limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
   end

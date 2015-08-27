@@ -12,17 +12,6 @@ module ApplicationHelper
     c.join(' ') + ' ' + controller.action_name.parameterize.dasherize
   end
 
-  # Generate icon tag and image
-  def icon(type, text = '', path = nil, options = {})
-    options[:class] = ("icon %s %s" % [type, options[:class]]).strip
-    options[:class] += ' no-text' if text == ''
-    if path
-      link_to(text, path, options)
-    else
-      content_tag(:span, text, options)
-    end
-  end
-
   # Check if the user has an active CAS authentication
   def cas_authed?
     !session[:cas_user].blank?
