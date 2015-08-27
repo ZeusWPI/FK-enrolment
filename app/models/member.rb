@@ -5,31 +5,32 @@
 #
 #  id                      :integer          not null, primary key
 #  club_id                 :integer
-#  first_name              :string(255)
-#  last_name               :string(255)
-#  email                   :string(255)
-#  ugent_nr                :string(255)
-#  sex                     :string(255)
-#  phone                   :string(255)
+#  first_name              :string
+#  last_name               :string
+#  email                   :string
+#  ugent_nr                :string
+#  sex                     :string
+#  phone                   :string
 #  date_of_birth           :date
-#  home_address            :string(255)
-#  studenthome_address     :string(255)
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  photo_file_name         :string(255)
-#  photo_content_type      :string(255)
+#  home_address            :string
+#  studenthome_address     :string
+#  created_at              :datetime
+#  updated_at              :datetime
+#  photo_file_name         :string
+#  photo_content_type      :string
 #  photo_file_size         :integer
 #  photo_updated_at        :datetime
 #  isic_newsletter         :boolean
 #  isic_mail_card          :boolean
 #  enabled                 :boolean          default(FALSE)
 #  last_registration       :integer
-#  home_street             :string(255)
-#  home_postal_code        :string(255)
-#  home_city               :string(255)
-#  studenthome_street      :string(255)
-#  studenthome_postal_code :string(255)
-#  studenthome_city        :string(255)
+#  home_street             :string
+#  home_postal_code        :string
+#  home_city               :string
+#  studenthome_street      :string
+#  studenthome_postal_code :string
+#  studenthome_city        :string
+#  card_type_preference    :string
 #
 
 class Member < ActiveRecord::Base
@@ -41,7 +42,8 @@ class Member < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :email, :ugent_nr, :sex, :phone,
     :date_of_birth, :home_street, :home_postal_code, :home_city,
     :studenthome_street, :studenthome_postal_code, :studenthome_city,
-    :isic_newsletter, :isic_mail_card, :extra_attributes_attributes
+    :isic_newsletter, :isic_mail_card, :extra_attributes_attributes,
+    :card_type_preference
 
 
   # Profile picture
@@ -55,14 +57,25 @@ class Member < ActiveRecord::Base
   validates :last_name, :presence => true
   validates :email, :presence => true,
                     :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i },
-                    :if => lambda { |m| m.club.registration_method != "api" if m.club }
+                    :if => ->(m){ m.club.registration_method != "api" if m.club }
+  validates :card_type_preference, :inclusion => { :in => %w(fk isic) }, :allow_nil => true
   validates :ugent_nr, :presence => true
   validates :sex, :inclusion => { :in => %w(m f), :allow_blank => true }
-  validates :sex, :presence => true, :if => lambda { |m| m.club.uses_isic if m.club }
-  validates :date_of_birth, :presence => true, :if => lambda { |m| m.club.uses_isic if m.club }
-  validates :home_street, :presence => true, :if => lambda { |m| m.club.uses_isic if m.club }
-  validates :home_postal_code, :presence => true, :if => lambda { |m| m.club.uses_isic if m.club }
-  validates :home_city, :presence => true, :if => lambda { |m| m.club.uses_isic if m.club }
+
+  # ISIC info
+  validates :sex, :presence => true, if: :uses_isic?
+  validates :date_of_birth, :presence => true, if: :uses_isic?
+  validates :home_street, :presence => true, if: :uses_isic?
+  validates :home_postal_code, :presence => true, if: :uses_isic?
+  validates :home_city, :presence => true, if: :uses_isic?
+
+  def uses_isic?
+    if self.current_card
+      self.current_card.isic?
+    else
+      pick_card_type == 'isic'
+    end
+  end
 
   # Handy defaults
   after_initialize :defaults
@@ -84,7 +97,9 @@ class Member < ActiveRecord::Base
     (Time.now - 6.months).year
   end
 
-  has_one :current_card, -> {  where(:academic_year => Member.current_academic_year) }, :class_name => "Card"
+  has_one :current_card, -> {  where(:academic_year => Member.current_academic_year) },
+    :class_name => "Card",
+    :inverse_of => :member
 
   # Load member, checking access
   def self.find_member_for_club(member_id, club)
@@ -113,9 +128,7 @@ class Member < ActiveRecord::Base
     result[:photo] = photo.url(:cropped) if photo?
 
     unless result[:card]
-      card = Card.new
-      card.member = self
-      card.determine_isic_status if club.uses_isic
+      card = Card.build_for self
       result[:card] = card
     end
 
@@ -164,4 +177,12 @@ class Member < ActiveRecord::Base
   def name
     "#{first_name} #{last_name}"
   end
+
+  def pick_card_type
+    [self.card_type_preference, 'fk', 'isic'].compact.each do |type|
+      return type if self.club.uses_card_type? type
+    end
+  end
+
+
 end

@@ -18,13 +18,15 @@ class ActiveSupport::TestCase
     end
   end
 
-  def self.generate_card_number(club, number)
+  def self.generate_card_number(club, number, isic: false)
     if club.is_a? Symbol
       club_id = ActiveRecord::FixtureSet.identify(club)
     else
       club_id = club.id
     end
 
+    # Isic range is XXXX5000-XXXX9999
+    number += 5000 if isic && number < 5000
     ((Member.current_academic_year % 100) * 100 + (club_id % 100)) * 10000 + number
   end
 

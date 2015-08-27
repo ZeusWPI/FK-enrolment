@@ -58,6 +58,10 @@
     <% end %>
   <% end %>
 
+  <% if @member.card_type_preference %>
+    <%= f.hidden_field :card_type_preference, value: @member.card_type_preference %>
+  <% end %>
+
   <%= render_extra_attributes(f) %>
 
   <%= f.actions do %>

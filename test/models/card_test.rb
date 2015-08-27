@@ -6,13 +6,14 @@
 #  member_id     :integer
 #  academic_year :integer
 #  number        :integer
-#  status        :string(255)      default("unpaid")
+#  status        :string           default("unpaid")
 #  enabled       :boolean          default(TRUE)
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  isic_status   :string(255)      default("none")
-#  isic_number   :string(255)
+#  created_at    :datetime
+#  updated_at    :datetime
+#  isic_status   :string           default("none")
+#  isic_number   :string
 #  isic_exported :boolean          default(FALSE)
+#  card_type     :string           default("fk"), not null
 #
 
 require 'test_helper'
@@ -20,13 +21,17 @@ require 'test_helper'
 class CardTest < ActiveSupport::TestCase
   verify_fixtures Card
 
+  def generate_card_number(*args, **kwargs)
+    ActiveSupport::TestCase.generate_card_number(*args, **kwargs)
+  end
+
   test "should not allow duplicates" do
-    c = Card.new
+    c = Card.new card_type: 'fk'
     c.member = members(:javache)
-    c.academic_year = Member.current_academic_year
-    c.number = 2
+    c.number = generate_card_number(:wina, 4689)
     assert !c.valid?
 
+    # Not a duplicate
     c.academic_year = Member.current_academic_year + 1
     assert c.valid?
   end
@@ -47,33 +52,33 @@ class CardTest < ActiveSupport::TestCase
     assert !c.valid?
   end
 
-  test "the next new number should be generated" do
-    c = Card.new(:isic_status => 'request')
+  test "a number should be generated for isic cards" do
+    c = Card.build_for members(:siloks), card_type: 'isic'
     c.member = members(:siloks)
-    assert_equal cards(:javache).number + 1, c.generate_number
+    assert_equal c.generate_number, generate_card_number(:fsk, 0, isic: true)
+    c.save
+
+    # generate next number
+    c.number = nil
+    assert_equal c.generate_number, generate_card_number(:fsk, 1, isic: true)
   end
 
   test "a card number should be automatically assigned" do
-    c = Card.new(:isic_status => 'request')
-    c.member = members(:javache)
+    c = Card.build_for members(:siloks), card_type: 'isic'
     c.save
     assert_not_nil c.number
   end
 
   test "a new card should be requested for new users" do
     cards(:javache).destroy
-    c = Card.new
-    c.member = members(:javache)
-    c.determine_isic_status
+    c = Card.build_for members(:javache), card_type: 'isic'
     assert_equal "request", c.isic_status
     assert_nil c.isic_number
   end
 
   test "cards for existing users should be requested too" do
     cards(:nudded).destroy
-    c = Card.new
-    c.member = members(:nudded)
-    c.determine_isic_status
+    c = Card.build_for members(:nudded)
     assert_equal "request", c.isic_status
   end
 end

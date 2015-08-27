@@ -3,27 +3,28 @@
 # Table name: clubs
 #
 #  id                  :integer          not null, primary key
-#  name                :string(255)
-#  full_name           :string(255)
-#  internal_name       :string(255)
-#  description         :string(255)
-#  url                 :string(255)
-#  registration_method :string(255)      default("none")
+#  name                :string
+#  full_name           :string
+#  internal_name       :string
+#  description         :string
+#  url                 :string
+#  registration_method :string           default("none")
 #  uses_isic           :boolean          default(FALSE)
 #  isic_text           :text
 #  confirmation_text   :text
-#  api_key             :string(255)
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
+#  api_key             :string
+#  created_at          :datetime
+#  updated_at          :datetime
 #  range_lower         :integer
 #  range_upper         :integer
 #  isic_mail_option    :integer          default(0)
-#  isic_name           :string(255)
-#  export_file_name    :string(255)
-#  export_content_type :string(255)
+#  isic_name           :string
+#  export_file_name    :string
+#  export_content_type :string
 #  export_file_size    :integer
 #  export_updated_at   :datetime
 #  export_status       :string           default("none")
+#  uses_fk             :boolean          default(FALSE), not null
 #
 
 require 'test_helper'

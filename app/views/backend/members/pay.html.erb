@@ -12,11 +12,11 @@
     <dd>
       <% if @card.number? %>
         <%= @card.number %>
-      <% elsif @club.uses_isic %>
+      <% elsif @member.uses_isic? %>
         [tijdelijke kaart]
       <% else %>
-        <em>nog geen kaart gekoppeld</em>
-        <%= f.text_field :number %>
+        <em>nog geen kaart gekoppeld</em><br/>
+        <%= f.text_field :number%>
       <% end %>
 
       <% if not @card.errors.empty? %>
@@ -29,7 +29,7 @@
     <dt>Status:</dt>
     <dd><%= human_card_status @card.status %></dd>
 
-    <% if @club.uses_isic || @card.isic_status != 'none' %>
+    <% if @member.uses_isic? || @card.isic_status != 'none' %>
     <dt>ISIC-status:</dt>
     <dd>
       <% if @card.isic_status == "revalidate" %>

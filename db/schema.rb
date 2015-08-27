@@ -17,118 +17,121 @@ ActiveRecord::Schema.define(version: 20150825102456) do
     t.integer  "member_id"
     t.integer  "academic_year"
     t.integer  "number"
-    t.string   "status",        limit: 255, default: "unpaid"
-    t.boolean  "enabled",                   default: true
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
-    t.string   "isic_status",   limit: 255, default: "none"
-    t.string   "isic_number",   limit: 255
-    t.boolean  "isic_exported",             default: false
+    t.string   "status",        default: "unpaid"
+    t.boolean  "enabled",       default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "isic_status",   default: "none"
+    t.string   "isic_number"
+    t.boolean  "isic_exported", default: false
+    t.text     "card_type",                        null: false
   end
 
   add_index "cards", ["academic_year", "number"], name: "index_cards_on_academic_year_and_number", unique: true
   add_index "cards", ["member_id"], name: "index_cards_on_member_id"
 
   create_table "clubs", force: :cascade do |t|
-    t.string   "name",                limit: 255
-    t.string   "full_name",           limit: 255
-    t.string   "internal_name",       limit: 255
-    t.string   "description",         limit: 255
-    t.string   "url",                 limit: 255
-    t.string   "registration_method", limit: 255, default: "none"
-    t.boolean  "uses_isic",                       default: false
+    t.string   "name"
+    t.string   "full_name"
+    t.string   "internal_name"
+    t.string   "description"
+    t.string   "url"
+    t.string   "registration_method", default: "none"
+    t.boolean  "uses_isic",           default: false
     t.text     "isic_text"
     t.text     "confirmation_text"
-    t.string   "api_key",             limit: 255
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.string   "api_key"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "range_lower"
     t.integer  "range_upper"
-    t.integer  "isic_mail_option",                default: 0
-    t.string   "isic_name",           limit: 255
-    t.string   "export_file_name",    limit: 255
-    t.string   "export_content_type", limit: 255
+    t.integer  "isic_mail_option",    default: 0
+    t.string   "isic_name"
+    t.string   "export_file_name"
+    t.string   "export_content_type"
     t.integer  "export_file_size"
     t.datetime "export_updated_at"
-    t.string   "export_status",       limit: 255, default: "none"
+    t.string   "export_status",       default: "none"
+    t.boolean  "uses_fk",             default: false,  null: false
   end
 
   add_index "clubs", ["api_key"], name: "index_clubs_on_api_key", unique: true
   add_index "clubs", ["internal_name"], name: "index_clubs_on_internal_name", unique: true
 
   create_table "delayed_jobs", force: :cascade do |t|
-    t.integer  "priority",               default: 0
-    t.integer  "attempts",               default: 0
+    t.integer  "priority",   default: 0
+    t.integer  "attempts",   default: 0
     t.text     "handler"
     t.text     "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
     t.datetime "failed_at"
-    t.string   "locked_by",  limit: 255
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.string   "queue",      limit: 255
+    t.string   "locked_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "queue"
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "extra_attribute_specs", force: :cascade do |t|
     t.integer  "club_id"
-    t.string   "name",       limit: 255
-    t.string   "field_type", limit: 255
+    t.string   "name"
+    t.string   "field_type"
     t.text     "values",     limit: 65535
     t.boolean  "required"
     t.integer  "position"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "extra_attributes", force: :cascade do |t|
     t.integer  "member_id"
     t.integer  "spec_id"
     t.text     "value",      limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "isic_exports", force: :cascade do |t|
-    t.string   "status",           limit: 255, default: "requested"
+    t.string   "status",           default: "requested"
     t.text     "members"
-    t.string   "data_file_name",   limit: 255
-    t.string   "photos_file_name", limit: 255
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.string   "data_file_name"
+    t.string   "photos_file_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "club_id"
-    t.string   "export_type",      limit: 255
+    t.string   "export_type"
   end
 
   create_table "members", force: :cascade do |t|
     t.integer  "club_id"
-    t.string   "first_name",              limit: 255
-    t.string   "last_name",               limit: 255
-    t.string   "email",                   limit: 255
-    t.string   "ugent_nr",                limit: 255
-    t.string   "sex",                     limit: 255
-    t.string   "phone",                   limit: 255
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "ugent_nr"
+    t.string   "sex"
+    t.string   "phone"
     t.date     "date_of_birth"
-    t.string   "home_address",            limit: 255
-    t.string   "studenthome_address",     limit: 255
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
-    t.string   "photo_file_name",         limit: 255
-    t.string   "photo_content_type",      limit: 255
+    t.string   "home_address"
+    t.string   "studenthome_address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.boolean  "isic_newsletter"
     t.boolean  "isic_mail_card"
-    t.boolean  "enabled",                             default: false
+    t.boolean  "enabled",                 default: false
     t.integer  "last_registration"
-    t.string   "home_street",             limit: 255
-    t.string   "home_postal_code",        limit: 255
-    t.string   "home_city",               limit: 255
-    t.string   "studenthome_street",      limit: 255
-    t.string   "studenthome_postal_code", limit: 255
-    t.string   "studenthome_city",        limit: 255
+    t.string   "home_street"
+    t.string   "home_postal_code"
+    t.string   "home_city"
+    t.string   "studenthome_street"
+    t.string   "studenthome_postal_code"
+    t.string   "studenthome_city"
+    t.string   "card_type_preference"
   end
 
   add_index "members", ["ugent_nr"], name: "index_members_on_ugent_nr"

@@ -2,16 +2,11 @@ class Frontend::RegistrationController < Frontend::FrontendController
   before_filter :load_club!
 
   # Load member set in session or create a new one
-  before_filter :load_member, :except => :index
+  before_filter :load_member, :only => [:isic, :photo, :success]
+  before_filter :create_member, :only => [:general]
+
   def load_member
-    if session[:member_id]
-      begin
-        @member = Member.find session[:member_id]
-      rescue ActiveRecord::RecordNotFound
-      end
-    elsif action_name == "general"
-      @member = Member.new
-    end
+    @member = Member.find_by id: session[:member_id] if session[:member_id]
 
     unless @member
       # Return to start to create a new member
@@ -24,25 +19,34 @@ class Frontend::RegistrationController < Frontend::FrontendController
     end
   end
 
+  def create_member
+    @member = Member.new
+    @member.club = @club
+    @member.build_extra_attributes
+    @member.attributes = params[:member] if params[:member]
+    load_cas_member_attributes if cas_authed?
+    load_eid_member_attributes if eid_authed?
+  end
+
   def index
     # We were not sent here through fk-books, so there definitely
     # shouldn't be a redirect afterwards
     session.delete :fk_books
   end
 
+  def pick_card_type
+    # Do not pick a card type when you don't have a choice.
+    if [@club.uses_fk, @club.uses_isic].count(true) == 1
+      redirect_to registration_general_path(@club)
+    else
+      render :cardtype
+    end
+  end
+
   def general
-    # Load extra attributes before assigning them
-    @member.build_extra_attributes
-    @member.attributes = params[:member] if params[:member]
-
-    load_cas_member_attributes if cas_authed?
-    load_eid_member_attributes if eid_authed?
-
     if params[:member] && @member.save
       session[:member_id] = @member.id
-
-      # Redirect to next_step based on club preferences
-      if @club.uses_isic
+      if @member.uses_isic?
         redirect_to registration_isic_path(@club)
       else
         redirect_to registration_success_path(@club)
