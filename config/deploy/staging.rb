@@ -5,4 +5,6 @@ server 'king.ugent.be', user: 'fk-enrolment', roles: %w{web app db},
   port: 2222
 }
 
-set :rails_env, 'production'
+set :branch, 'feature/31/ISIC-on-user-basis'
+
+set :rails_env, 'staging'
