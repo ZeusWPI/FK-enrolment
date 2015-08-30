@@ -10,7 +10,8 @@ module ApplicationHelper
   def generate_body_class
     c = controller.controller_path.split('/').each { |c| c.parameterize.dasherize }
     c = c.join(' ') + ' ' + controller.action_name.parameterize.dasherize
-    c + ' ' + @step.to_s # include the wicked step
+    c += ' ' + @step.to_s # include the wicked step
+    c.strip
   end
 
   # Check if the user has an active CAS authentication
