@@ -13,7 +13,7 @@
 #  isic_status   :string           default("none")
 #  isic_number   :string
 #  isic_exported :boolean          default(FALSE)
-#  card_type     :string           default("fk"), not null
+#  card_type     :text             not null
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
