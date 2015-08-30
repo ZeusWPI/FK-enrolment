@@ -11,7 +11,7 @@ class AddCardTypeToCard < ActiveRecord::Migration
     Card.find_each do |card|
       card.card_type = card.isic_status == 'none' ? 'fk' : 'isic'
       fix_isic_card_number card
-      card.save(false)
+      card.save(validate: false)
     end
     change_column :cards, :card_type, :text, null: false
   end
