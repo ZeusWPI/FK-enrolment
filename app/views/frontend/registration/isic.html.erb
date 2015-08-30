@@ -5,16 +5,14 @@
   <%= render 'isic_info' %>
 
   <div id="form_container">
-    <%= form_for @member, url: wizard_path,
-        method: :put, html: { id: 'isic_form' } do |f| %>
+    <%= form_for @member, url: wizard_path, method: :put do |f| %>
       <%= f.hidden_field :card_type_preference, value: 'isic' %>
-      <%= f.submit 'ISIC-kaart', class: 'yes-button' %>
+      <%= f.submit 'ISIC-kaart', class: 'option-button' %>
       <% end %>
 
-    <%= form_for @member, url: wizard_path,
-        method: :put, html: { id: 'fk_form' } do |f| %>
+    <%= form_for @member, url: wizard_path, method: :put do |f| %>
       <%= f.hidden_field :card_type_preference, value: 'fk' %>
-      <%= f.submit 'FK-kaart', class: 'no-button' %>
+      <%= f.submit 'FK-kaart', class: 'option-button' %>
     <% end %>
   </div>
 </div>

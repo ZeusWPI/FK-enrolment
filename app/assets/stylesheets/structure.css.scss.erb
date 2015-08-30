@@ -54,6 +54,26 @@
   img { margin: 0 auto 10px; }
 }
 
+.option-elem {
+  color: #000;
+  padding: 15px 20px 15px 42px;
+  background: image-url('<%= asset_path "selector-arrow.png" %>') no-repeat #EEE;
+  background-position: 14px center;
+
+  &:hover {
+    background-color: #F9F9F9;
+    text-decoration: none;
+  }
+}
+.option-button {
+  @extend .option-elem;
+  border: 1px solid #AAA;
+  cursor: pointer;
+  margin: 15px 0;
+  width: 100%;
+  text-align: left;
+}
+
 .option-chooser {
   margin-top: 30px;
   list-style: none;
@@ -64,16 +84,9 @@
     border: 1px solid #AAA;
 
     a {
+      @extend .option-elem;
       display: block;
-      color: #000;
-      padding: 15px 20px 15px 42px;
-      background: image-url('<%= asset_path "selector-arrow.png" %>') no-repeat #EEE;
-      background-position: 14px center;
-
-      &:hover {
-        background-color: #F9F9F9;
-        text-decoration: none;
-} } } }
+} } }
 
 
 .flash {
