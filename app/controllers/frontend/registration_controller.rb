@@ -1,8 +1,8 @@
 class Frontend::RegistrationController < Frontend::FrontendController
-  before_filter :load_club!
+  before_filter :load_club!, :except => :scriptcamhack
 
   # Load member set in session or create a new one
-  before_filter :load_member, :except => :index
+  before_filter :load_member, :except => [:index, :scriptcamhack]
   def load_member
     if session[:member_id]
       begin
@@ -76,6 +76,10 @@ class Frontend::RegistrationController < Frontend::FrontendController
 
       redirect_to Rails.application.secrets.fkbooks % [@member.id, signature]
     end
+  end
+
+  def scriptcamhack
+    head :ok, content_type: "text/html"
   end
 
   helper_method :cas_authed?

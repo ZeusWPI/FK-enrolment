@@ -57,6 +57,7 @@ FKEnrolment::Application.routes.draw do
       match "foto" => "registration#photo", :as => :photo, :via => [:get, :post, :patch]
       match "isic" => "registration#isic", :as => :isic, :via => [:get, :post, :patch]
       get "succes" => "registration#success", :as => :success
+      get "scriptcam.lic" => "registration#scriptcamhack"
     end
   end
 

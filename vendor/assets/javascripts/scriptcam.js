@@ -5,7 +5,7 @@
 //  /\__/ / (__| |  | | |_) | |_| \__/\ (_| | | | | | |
 //  \____/ \___|_|  |_| .__/ \__|\____/\__,_|_| |_| |_|
 //                  | |
-//  Version 1.5.0   |_| (c) Tele-Line Videotex Services
+//  Version 1.6.0   |_| (c) Tele-Line Videotex Services
 
 // Use jscompress.com to compress this file
 
@@ -23,6 +23,7 @@
 			// forward incoming flash movie calls to outgoing functions
 			$.scriptcam.SC_promptWillShow=data.promptWillShow;
 			$.scriptcam.SC_fileReady=data.fileReady;
+			$.scriptcam.SC_fileConversionStarted=data.fileConversionStarted;
 			$.scriptcam.SC_onMotion=data.onMotion;
 			$.scriptcam.SC_onError=data.onError;
 			$.scriptcam.SC_onHandLeft=data.onHandLeft;
@@ -33,6 +34,8 @@
 			$.scriptcam.SC_disconnected=data.disconnected;
 			$.scriptcam.SC_setVolume=data.setVolume;
 			$.scriptcam.SC_timeLeft=data.timeLeft;
+			$.scriptcam.SC_userLeft=data.userLeft;
+			$.scriptcam.SC_userJoined=data.userJoined;
 			$.scriptcam.SC_addChatText=function(value) {
 				value = value.replace(":{", '<img src="'+data.path+'angry.gif" width="16" height="16" class="smiley"/>');
 				value = value.replace(":-{", '<img src="'+data.path+'angry.gif" width="16" height="16" class="smiley"/>');
@@ -94,9 +97,21 @@
 			for (var key in opts) {
 				opts[key] = encodeURIComponent(opts[key]);
 			};
-			swfobject.embedSWF(decodeURIComponent(data.path)+'scriptcam.swf', opts.id, newWidth, newHeight, '11.6', false, opts, params);
+			if (fileExists(decodeURIComponent(data.path)+'scriptcam.swf')) {
+				swfobject.embedSWF(decodeURIComponent(data.path)+'scriptcam.swf', opts.id, newWidth, newHeight, '11.6', false, opts, params);
+			}
+			else {
+				alert(decodeURIComponent(data.path)+'scriptcam.swf not found, please check the path parameter');
+			}
 		});
 	};
+
+	function fileExists(url) {
+		var http = new XMLHttpRequest();
+		http.open('HEAD', url, false);
+		http.send();
+		return http.status==200;
+	}
 	
 	$.scriptcam={};
 	
@@ -184,6 +199,10 @@ function SC_fileReady(fileName) {
 	$.scriptcam.SC_fileReady(fileName);
 }
 
+function SC_fileConversionStarted(fileName) {
+	$.scriptcam.SC_fileConversionStarted(fileName);
+}
+
 function SC_onMotion(decodedString) {
 	$.scriptcam.SC_onMotion(decodedString);
 }
@@ -227,4 +246,12 @@ function SC_timeLeft(value) {
 
 function SC_addChatText(value) {
 	$.scriptcam.SC_addChatText(value);
+}
+
+function SC_userJoined(value) {
+	$.scriptcam.SC_userJoined(value);
+}
+
+function SC_userLeft(value) {
+	$.scriptcam.SC_userLeft(value);
 }
