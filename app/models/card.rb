@@ -13,7 +13,7 @@
 #  isic_status   :string           default("none")
 #  isic_number   :string
 #  isic_exported :boolean          default(FALSE)
-#  card_type     :string           not null
+#  card_type     :text             not null
 #
 
 class Card < ActiveRecord::Base

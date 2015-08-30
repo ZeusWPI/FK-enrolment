@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  member_id  :integer
 #  spec_id    :integer
-#  value      :string
+#  value      :text(65535)
 #  created_at :datetime
 #  updated_at :datetime
 #
