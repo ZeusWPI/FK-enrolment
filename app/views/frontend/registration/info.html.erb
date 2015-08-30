@@ -10,10 +10,6 @@
     <% else %>
       Er ontbreken nog enkele zaken aan je gegevens:
     <% end %></h3>
-
-    <ul><% @member.errors.full_messages_with_extra_attributes.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %></ul>
   </div>
   <% end %>
 
