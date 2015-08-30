@@ -6,7 +6,7 @@ class AddCardTypeToCard < ActiveRecord::Migration
     end
   end
 
-  def change
+  def up
     add_column :cards, :card_type, :string
     Card.find_each do |card|
       card.card_type = card.isic_status == 'none' ? 'fk' : 'isic'
@@ -14,5 +14,9 @@ class AddCardTypeToCard < ActiveRecord::Migration
       card.save!
     end
     change_column :cards, :card_type, :text, null: false
+  end
+  
+  def down
+    remove_column :cards, :card_type
   end
 end
