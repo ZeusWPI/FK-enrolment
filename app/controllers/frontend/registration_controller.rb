@@ -13,6 +13,11 @@ class Frontend::RegistrationController < Frontend::FrontendController
     @member.attributes = session[:member] if session[:member]
   end
 
+  def index
+    session.delete :member
+    super
+  end
+
   def show
     self.send step if self.respond_to? step
     render_wizard
