@@ -16,7 +16,11 @@ class ExtraAttribute < ActiveRecord::Base
 
   attr_accessible :value, :spec_id
 
-  validates :value, :presence => true, :if => lambda { |m| m.spec && m.spec.required }
+  validates :value, :presence => true,
+    :if => (lambda do |m|
+      m.spec && m.spec.required &&
+      m.member && m.member.reached_state?('questions')
+    end)
   validates :spec, :presence => true
 
   serialize :value

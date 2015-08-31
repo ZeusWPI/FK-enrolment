@@ -9,8 +9,10 @@ module Member::Photo
     base.validates_attachment_content_type :photo,
       :content_type => ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/gif',
                         'image/png', 'image/x-png', 'image/tiff'],
-      :message => "Enkel afbeeldingen zijn toegestaan"
-    base.validate :photo_dimensions
+      :message => "Enkel afbeeldingen zijn toegestaan",
+      if: ->(m){ m.reached_state?('photo') }
+    base.validate :photo_dimensions,
+      if: ->(m){ m.reached_state?('photo') }
     base.attr_accessible :photo, :photo_url, :photo_base64
 
     # Cropping
@@ -18,7 +20,7 @@ module Member::Photo
     base.attr_accessible :crop_x, :crop_y, :crop_w, :crop_h
 
     # Photo url errors
-    base.validate do |member|
+    base.validate if: ->(m){ m.reached_state?('photo') } do |member|
       member.errors.add(:photo_url, member.photo_url_error) if member.photo_url_error
     end
   end

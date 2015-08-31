@@ -1,35 +1,39 @@
 class Frontend::RegistrationController < Frontend::FrontendController
   include Wicked::Wizard
-  steps :authenticate, :isic, :info, :questions, :isic_options, :photo, :save
+  # Member states are steps, except for 'initial'
+  steps :authenticate, *Member::States.drop(1)
 
   before_filter :load_club!, :except => :scriptcamhack
-  before_filter :load_member, :except => :scriptcamhack
+  before_filter :load_member, :only => [:show, :update]
 
   def load_member
-    @member = PartialMember.new
-    @member.wizard = self
-    @member.club = @club
-    @member.build_extra_attributes
-    @member.attributes = session[:member] if session[:member]
+    @member = Member.unscoped.find(session[:member_id]) if session[:member_id]
+    if @member
+    else
+      redirect_to registration_index_path
+    end
   end
 
   def index
-    session.delete :member
+    @member = Member.create! club: @club, step: 'initial'
+    session[:member_id] = @member.id
     super
   end
 
   def show
+    set_state
     self.send step if self.respond_to? step
     render_wizard
   end
 
   def update
+    set_state
     @member.assign_attributes params[:member] if params[:member]
     self.send step if self.respond_to? step
     render_wizard @member unless performed?
   end
 
-  def isic
+  def card_type
     skip_step if @club.allowed_card_types.count == 1
   end
 
@@ -42,7 +46,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
     skip_step if @member.extra_attributes.empty?
   end
 
-  def isic_options
+  def isic
     skip_step unless @member.uses_isic?
     @member.isic_mail_card = true if @club.isic_mail_option == Club::ISIC_MAIL_CARD_FORCED
   end
@@ -50,17 +54,17 @@ class Frontend::RegistrationController < Frontend::FrontendController
   def photo
     skip_step unless @member.uses_isic?
     if params[:member]
+      @member.save # Trigger paperclip callbacks
       # All image uploading and processing is done by the model
       @member.crop_photo
       render_wizard unless @member.valid_photo?
     end
   end
 
-  def save
-    # finish registration
-    session.delete :member
+  def complete
+    # Finish registration
     @member.enabled = true
-    @member.build.save!
+    @member.save
     skip_step
   end
 
@@ -69,65 +73,13 @@ class Frontend::RegistrationController < Frontend::FrontendController
   end
 
   def success
+    session.delete :member_id
     # Redirect to fk-books
     if session.delete :fk_books
       key = Rails.application.secrets.fkbooks_key
       signature = Digest::SHA1.hexdigest(key + @member.id.to_s)
 
       redirect_to Rails.application.secrets.fkbooks % [@member.id, signature]
-    end
-  end
-
-  class PartialMember < Member
-    attr_accessor :wizard
-    delegate :session, :step, :wizard_steps, to: :wizard
-
-    VALIDATIONS = {
-      info: [:first_name, :last_name, :email, :ugent_nr,
-             :sex, :date_of_birth, :home_street, :home_postal_code,
-             :home_city],
-      photo: [:photo],
-      questions: [:'extra_attributes.value']
-    }
-
-    # HACKS HACKS HACKS
-    def self.model_name
-      self.superclass.model_name
-    end
-
-    def unfinished_steps
-      return [] if !step
-      index = wizard_steps.index step
-      wizard_steps[index.succ..wizard_steps.length]
-    end
-
-    def valid?
-      todo = unfinished_steps.map {|step| VALIDATIONS[step]}.flatten
-      super # Call original implementation
-      todo.each { |field| self.errors.delete field }
-      self.errors.empty?
-    end
-
-    # TODO: Can this be generalized?
-    def extended_attributes
-      self.attributes.merge(
-        "extra_attributes_attributes" => extra_attributes_attributes
-      )
-    end
-
-    def save
-      # Save to session
-      session[:member] = self.extended_attributes if valid?
-    end
-
-    def build
-      # Club is required for building extra attributes
-      member = self.class.superclass.new
-      member.club = self.club
-      member.build_extra_attributes
-      member.assign_attributes self.extended_attributes,
-        without_protection: true
-      member
     end
   end
 
@@ -146,6 +98,10 @@ class Frontend::RegistrationController < Frontend::FrontendController
   end
 
   private
+
+  def set_state
+    @member.state = step if Member::States.include? step
+  end
 
   def load_cas_member_attributes
     attributes = session[:cas]["extra_attributes"]

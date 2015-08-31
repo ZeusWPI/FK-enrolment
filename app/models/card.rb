@@ -24,6 +24,10 @@ class Card < ActiveRecord::Base
 
   # Associated member
   validates :member, :presence => true
+  # Only make cards for complete members
+  validate :member do |m|
+    m.member && m.member.reached_state?('complete')
+  end
 
   # Validation rules
   validates :academic_year, :presence => true, :uniqueness => { :scope => :member_id }

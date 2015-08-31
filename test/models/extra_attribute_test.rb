@@ -17,6 +17,7 @@ class ExtraAttributeTest < ActiveSupport::TestCase
 
   test "should be required if spec is required" do
     attribute = ExtraAttribute.new
+    attribute.member = members(:javache)
     attribute.spec = extra_attribute_specs(:study)
 
     attribute.spec.required = true

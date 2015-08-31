@@ -43,31 +43,51 @@ class Member < ActiveRecord::Base
     :date_of_birth, :home_street, :home_postal_code, :home_city,
     :studenthome_street, :studenthome_postal_code, :studenthome_city,
     :isic_newsletter, :isic_mail_card, :extra_attributes_attributes,
-    :card_type_preference
+    :card_type_preference, :club
 
 
   # Profile picture
   include Member::Photo
 
+
+  States = ['initial', 'card_type', 'info', 'questions', 'isic', 'photo', 'complete']
+  # By default, only consider complete registrations
+  default_scope { where(state: 'complete') }
+
   # Associated club
   validates :club, :presence => true
+  validates :state, :inclusion => { :in => States }
+  validates :card_type_preference, :inclusion => { :in => %w(fk isic) },
+    :allow_nil => true
 
   # Validation rules
-  validates :first_name, :presence => true
-  validates :last_name, :presence => true
+  validates :first_name, :presence => true, if: ->(m){ m.reached_state?('info')}
+  validates :last_name, :presence => true, if: ->(m){ m.reached_state?('info')}
   validates :email, :presence => true,
                     :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i },
-                    :if => ->(m){ m.club.registration_method != "api" if m.club }
-  validates :card_type_preference, :inclusion => { :in => %w(fk isic) }, :allow_nil => true
-  validates :ugent_nr, :presence => true
+                      :if => (lambda do |m|
+                        m.reached_state?('info') &&
+                        m.club && m.club.registration_method != "api"
+                      end)
+  validates :ugent_nr, :presence => true, if: ->(m){ m.reached_state?('info') }
   validates :sex, :inclusion => { :in => %w(m f), :allow_blank => true }
 
   # ISIC info
-  validates :sex, :presence => true, if: :uses_isic?
-  validates :date_of_birth, :presence => true, if: :uses_isic?
-  validates :home_street, :presence => true, if: :uses_isic?
-  validates :home_postal_code, :presence => true, if: :uses_isic?
-  validates :home_city, :presence => true, if: :uses_isic?
+  validates :sex, :presence => true,
+    if: ->(m){ m.reached_state?('info') && m.uses_isic? }
+  validates :date_of_birth, :presence => true,
+    if: ->(m){ m.reached_state?('info') && m.uses_isic? }
+  validates :home_street, :presence => true,
+    if: ->(m){ m.reached_state?('info') && m.uses_isic? }
+  validates :home_postal_code, :presence => true,
+    if: ->(m){ m.reached_state?('info') && m.uses_isic? }
+  validates :home_city, :presence => true,
+    if: ->(m){ m.reached_state?('info') && m.uses_isic? }
+
+
+  def reached_state? state
+    States.index(self.state) >= States.index(state)
+  end
 
   def uses_isic?
     if self.current_card
@@ -187,6 +207,5 @@ class Member < ActiveRecord::Base
       return type if self.club.allowed_card_types.include? type
     end
   end
-
 
 end

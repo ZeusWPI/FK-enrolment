@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150825102456) do
+ActiveRecord::Schema.define(version: 20150831190750) do
 
   create_table "cards", force: :cascade do |t|
     t.integer  "member_id"
@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(version: 20150825102456) do
     t.string   "studenthome_postal_code"
     t.string   "studenthome_city"
     t.string   "card_type_preference"
+    t.string   "state",                   default: "complete", null: false
   end
 
   add_index "members", ["ugent_nr"], name: "index_members_on_ugent_nr"
