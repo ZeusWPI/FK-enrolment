@@ -2,8 +2,8 @@ class Frontend::RegistrationController < Frontend::FrontendController
   include Wicked::Wizard
   steps :authenticate, :isic, :info, :questions, :isic_options, :photo, :save
 
-  before_filter :load_club!
-  before_filter :load_member
+  before_filter :load_club!, :except => :scriptcamhack
+  before_filter :load_member, :except => :scriptcamhack
 
   def load_member
     @member = PartialMember.new
@@ -130,6 +130,10 @@ class Frontend::RegistrationController < Frontend::FrontendController
         without_protection: true
       member
     end
+  end
+
+  def scriptcamhack
+    head :ok, content_type: "text/html"
   end
 
   helper_method :cas_authed?

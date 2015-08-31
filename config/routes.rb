@@ -54,6 +54,8 @@ FKEnrolment::Application.routes.draw do
     end
 
     scope :path => ":club" do
+      get "registration/scriptcam.lic" => "registration#scriptcamhack"
+
       resources :registration, only: [:index, :show, :update]
       get "success" => "registration#success", :as => :success
     end
