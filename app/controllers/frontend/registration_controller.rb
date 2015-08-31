@@ -49,7 +49,6 @@ class Frontend::RegistrationController < Frontend::FrontendController
 
   def photo
     skip_step unless @member.uses_isic?
-    binding.pry
     if params[:member]
       # All image uploading and processing is done by the model
       @member.crop_photo
