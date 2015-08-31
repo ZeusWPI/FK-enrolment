@@ -26,7 +26,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
   def update
     @member.assign_attributes params[:member] if params[:member]
     self.send step if self.respond_to? step
-    render_wizard @member
+    render_wizard @member unless performed?
   end
 
   def isic
@@ -49,11 +49,11 @@ class Frontend::RegistrationController < Frontend::FrontendController
 
   def photo
     skip_step unless @member.uses_isic?
+    binding.pry
     if params[:member]
       # All image uploading and processing is done by the model
       @member.crop_photo
-      # TODO: Is this still needed?
-      # @member.valid_photo?
+      render_wizard unless @member.valid_photo?
     end
   end
 
@@ -87,6 +87,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
       info: [:first_name, :last_name, :email, :ugent_nr,
              :sex, :date_of_birth, :home_street, :home_postal_code,
              :home_city],
+      photo: [:photo],
       questions: [:'extra_attributes.value']
     }
 

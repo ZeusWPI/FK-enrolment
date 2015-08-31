@@ -4,44 +4,42 @@
 <% title "ISIC-lidkaart: Pasfoto" %>
 
 <% if @member.photo? %>
-<div class="crop-wrapper">
-  <h3>Foto bijsnijden</h3>
+  <div class="crop-wrapper">
+    <h3>Foto bijsnijden</h3>
 
-  <%= semantic_form_for @member, :url => wizard_path, method: :put do |f| %>
-    <%= image_tag @member.photo.url(:large), :id => "crop-image" %>
+    <%= semantic_form_for @member, :url => wizard_path, method: :put do |f| %>
+        <%= image_tag @member.photo.url(:large), :id => "crop-image" %>
 
-    <span>Voorbeeld:</span>
-    <div id="crop-preview">
-      <%= image_tag @member.photo.url(:large) %>
-    </div>
+        <span>Voorbeeld:</span>
+        <div id="crop-preview">
+        <%= image_tag @member.photo.url(:large) %>
+        </div>
 
-    <%= f.inputs do %>
-      <% for crop_attr in [:crop_x, :crop_y, :crop_w, :crop_h] %>
-        <%= f.input crop_attr, :as => :hidden %>
+        <%= f.inputs do %>
+        <% for crop_attr in [:crop_x, :crop_y, :crop_w, :crop_h] %>
+            <%= f.input crop_attr, :as => :hidden %>
+        <% end %>
+        <% end %>
+
+        <%= f.actions :class => "member no-indent" do %>
+        <%= f.action :submit, :label => "Selectie vastleggen" %>
+        <% end %>
+    <% end %>
+  </div>
+  <h3>Een andere foto kiezen?</h3>
+<% elsif eid_authed? %>
+  <div class="eid-wrapper">
+    <p>Deze foto haalden we van je elektronische identiteitskaart.</p>
+    <%= image_tag eid_photo_path %>
+
+    <%= semantic_form_for @member, :url => wizard_path, method: :put do |f| %>
+      <%= f.input :photo_base64, :as => :hidden, :input_html => { :value => session[:eid]["be:fedict:eid:idp:photo"] } %>
+      <%= f.actions :class => "member no-indent" do %>
+        <%= f.action :submit, :label => "Foto gebruiken" %>
       <% end %>
     <% end %>
-
-    <%= f.actions :class => "member no-indent" do %>
-      <%= f.action :submit, :label => "Selectie vastleggen" %>
-    <% end %>
-  <% end %>
-</div>
-
-<h3>Een andere foto kiezen?</h3>
-<% elsif eid_authed? %>
-<div class="eid-wrapper">
-<p>Deze foto haalden we van je elektronische identiteitskaart.</p>
-<%= image_tag eid_photo_path %>
-
-<%= semantic_form_for @member, :url => wizard_path, method: :put do |f| %>
-  <%= f.input :photo_base64, :as => :hidden, :input_html => { :value => session[:eid]["be:fedict:eid:idp:photo"] } %>
-  <%= f.actions :class => "member no-indent" do %>
-    <%= f.action :submit, :label => "Foto gebruiken" %>
-  <% end %>
-<% end %>
-</div>
-
-<h3>Een andere foto kiezen?</h3>
+  </div>
+  <h3>Een andere foto kiezen?</h3>
 <% end %>
 
 <p>Omdat je ISIC-kaart een internationale en gepersonaliseerde kaart is, hebben
