@@ -8,12 +8,10 @@ class AddCardTypeToCard < ActiveRecord::Migration
 
   def up
     add_column :cards, :card_type, :string
-    Member.unscoped do
-      Card.find_each do |card|
-        card.card_type = card.isic_status == 'none' ? 'fk' : 'isic'
-        fix_isic_card_number card
-        card.save(validate: false)
-      end
+    Card.unscoped.find_each do |card|
+      card.card_type = card.isic_status == 'none' ? 'fk' : 'isic'
+      fix_isic_card_number card
+      card.save(validate: false)
     end
     change_column :cards, :card_type, :text, null: false
   end
