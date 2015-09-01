@@ -8,11 +8,11 @@ class Frontend::RegistrationController < Frontend::FrontendController
 
   def load_member
     @member = Member.unscoped.find(session[:member_id]) if session[:member_id]
-    if @member
-      # No queue jumping!
-      send_to_correct_step
-    else
+    if !@member
       redirect_to registration_index_path
+    else
+      send_to_correct_step
+      @member.build_extra_attributes
     end
   end
 
