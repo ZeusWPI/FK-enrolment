@@ -7,7 +7,7 @@ class AddCardTypeToCard < ActiveRecord::Migration
       Member.unscoped do
         if !card.club.card_range_for(:isic).include?(card.number)
           card.number = nil
-          card.save(validate: false)
+          card.save # the validation will set a decent number here
         end
       end
     end
