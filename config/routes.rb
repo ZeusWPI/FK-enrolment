@@ -31,7 +31,7 @@ FKEnrolment::Application.routes.draw do
 
     match "fk" => "fk#index", :via => [:get, :post]
 
-    match "settings" => "home#settings", :via => [:get, :post]
+    match "settings" => "home#settings", :via => [:get, :post, :patch]
     match "kassa" => "home#kassa", :via => [:get, :post]
   end
 
