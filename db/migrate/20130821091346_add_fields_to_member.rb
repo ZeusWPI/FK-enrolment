@@ -8,7 +8,7 @@ class AddFieldsToMember < ActiveRecord::Migration
     add_column :members, :studenthome_postal_code, :string
     add_column :members, :studenthome_city, :string
 
-    Member.all.each do |member|
+    Member.unscoped.all.each do |member|
       parse_address(member, 'home')
       parse_address(member, 'studenthome')
       member.save(:validate => false)
