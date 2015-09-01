@@ -5,9 +5,9 @@
 #  id         :integer          not null, primary key
 #  member_id  :integer
 #  spec_id    :integer
-#  value      :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  value      :text(65535)
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 class ExtraAttribute < ActiveRecord::Base
@@ -16,7 +16,11 @@ class ExtraAttribute < ActiveRecord::Base
 
   attr_accessible :value, :spec_id
 
-  validates :value, :presence => true, :if => lambda { |m| m.spec && m.spec.required }
+  validates :value, :presence => true,
+    :if => (lambda do |m|
+      m.spec && m.spec.required &&
+      m.member && m.member.reached_state?('questions')
+    end)
   validates :spec, :presence => true
 
   serialize :value

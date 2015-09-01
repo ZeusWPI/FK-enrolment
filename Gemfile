@@ -76,6 +76,8 @@ gem 'airbrake'
 # Whenever
 gem 'whenever'
 
+gem 'wicked'
+
 # Asset gems (not in the asset group, see
 # http://stackoverflow.com/a/17221248/1068495
 gem 'sass-rails', '~> 4.0'
@@ -99,5 +101,6 @@ group :production do
 end
 
 group :development, :test do
+  gem 'pry-rails'
   gem 'pry-byebug'
 end

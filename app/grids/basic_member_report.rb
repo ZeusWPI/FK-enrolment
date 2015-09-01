@@ -55,6 +55,10 @@ class BasicMemberReport
     card = member.cards.find { |c| c.academic_year == grid.last_registration.to_i }
     card ? card.number : "∅"
   end
+  column(:card_type, :header => "Type kaart") do |member, grid|
+    card = member.cards.find { |c| c.academic_year == grid.last_registration.to_i }
+    card.try(:card_type).try(:upcase) || 'geen'
+  end
   column(:created_at, :order => "members.updated_at", :header => "Laatst gewijzigd") do |member|
     I18n.localize member.updated_at, :format => :medium
   end
@@ -63,7 +67,7 @@ class BasicMemberReport
       link_to(icon('photo'), photo_backend_member_path(member),
         "data-photo" => member.photo(:cropped), :title => '', class: %(photo icon))
     else
-      link_to(icon('question'), photo_backend_member_path(member))
+      link_to(icon('upload'), photo_backend_member_path(member))
     end
   end
 end

@@ -44,6 +44,11 @@ De voornaamste methodes worden hieronder beschreven:
     Andere optionele velden zijn:
     ``email`` (string), ``sex`` (m of f), ``phone`` (string), ``studenthome_address`` (string)
 
+    Kringen die beide kaarttypes toelaten en de kassa in de backend (https://registratie.fkgent.be/backend)
+    gebruiken (dus niet via onderstaande methode) moeten ``card_type_preference`` meegeven
+    (mogelijke waarden: ``isic`` of ``fk``). Dit veld geeft aan welke kaartttype toegekend zal worden
+    aan de kassa.
+
     Volgende velden kunnen doorgegeven worden bij een ISIC-registratie:
     ``isic_newsletter`` (boolean), ``isic_mail_card`` (boolean)
 
@@ -51,11 +56,14 @@ De voornaamste methodes worden hieronder beschreven:
 
     Stel de kaartgegevens in van het lid [id]. Parameters zijn
 
-    * Voor niet-ISIC-kringen:
+    * Voor FK-kaarten:
       * ``number`` (int): toegekende FK-kaart nummer
       * ``status`` (paid of unpaid): betalingsstatus
-    * Voor ISIC-kringen:
+    * Voor ISIC-kaarten:
       * ``status`` (paid of unpaid): betalingsstatus
+
+    Als beide kaarttypes toegelaten zijn, gebruik dan ``card_type`` (isic of fk)
+    om het gewenste kaarttype door te geven.
 
 *   *GET /api/v2/club.json?key=x*
 

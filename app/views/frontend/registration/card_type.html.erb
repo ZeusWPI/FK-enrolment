@@ -1,0 +1,25 @@
+<% title "Keuze kaart-type" %>
+<%= render :partial => "layouts/club" %>
+
+<div class="content-main">
+  <p class="fk">
+    <h3>Officiële lidkaart</h3>
+    <%= render 'fk_info' %>
+
+    <%= form_for @member, url: wizard_path, method: :put do |f| %>
+      <%= f.hidden_field :card_type_preference, value: 'fk' %>
+      <%= f.submit 'Kies voor een FK-kaart', class: 'option-button' %>
+    <% end %>
+  </p>
+
+  <p class="isic">
+    <h3>ISIC-kaart</h3>
+    <%= render 'isic_info' %>
+
+    <%= form_for @member, url: wizard_path, method: :put do |f| %>
+      <%= f.hidden_field :card_type_preference, value: 'isic' %>
+      <%= f.submit 'Kies voor een ISIC-kaart', class: 'option-button' %>
+    <% end %>
+  </p>
+
+</div>

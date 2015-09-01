@@ -2,97 +2,145 @@ require 'test_helper'
 
 class Frontend::RegistrationControllerTest < ActionController::TestCase
   def setup
-    @member = members(:javache)
-    @club = clubs(:vtk)
-    @params = { :club => @club.to_param }
-    @session = { :member_id => @member.id }
+    @member = members(:siloks)
   end
 
-  test "should get index" do
-    get :index, @params
+  def get_wizard_step step, params = {}
+    get :show, params.merge({club: @member.club, id: step}),
+      {member_id: @member.id}
+  end
+
+  def post_wizard_step step, params = {}
+    post :update, params.merge({club: @member.club, id: step}),
+      {member_id: @member.id}
+  end
+
+  test "should redirect index" do
+    get :index, {club: @member.club}
+    assert_response :redirect
+  end
+
+  test "should get success" do
+    get :success, {club: @member.club}
     assert_response :success
   end
 
-  test "should get general" do
-    get :general, @params
+  test "should get authenticate" do
+    get_wizard_step :authenticate
     assert_response :success
+  end
 
-    # submit an incomplete form
-    post :general, @params.merge(member: members(:nudded).attributes.slice([
-      :first_name, :last_name, :email, :ugent_nr, :sex]))
+  test "should get card_type" do
+    get_wizard_step :card_type
+    assert_response :success
+  end
+
+  # VTK forces isic on its users.
+  test "should skip card_type for VTK" do
+    @member = members(:nudded)
+    get_wizard_step :card_type
+    assert_response :redirect
+  end
+
+  test "should get info" do
+    get_wizard_step :info
+    assert_response :success
+  end
+
+  test "should skip questions when there are none" do
+    get_wizard_step :questions
+    assert_response :redirect
+  end
+
+  test "should show questions when there are" do
+    @member = members(:nudded)
+    get_wizard_step :questions
+    assert_response :success
+  end
+
+  test "should skip isic" do
+    get_wizard_step :isic
+    assert_response :redirect
+  end
+
+  test "should show isic_options when user uses isic" do
+    @member = members(:nudded)
+    get_wizard_step :isic
+    assert_response :success
+  end
+
+  test "should skip photo" do
+    get_wizard_step :photo
+    assert_response :redirect
+  end
+
+  test "should show photo when user uses isic" do
+    @member = members(:nudded)
+    get_wizard_step :photo
+    assert_response :success
+  end
+
+  test "should refuse incomplete info" do
+    post_wizard_step :info, member: {first_name: ""}
+    refute assigns(:member).errors.empty?
+  end
+
+  test "should refuse incomplete isic info" do
+    @member = members(:nudded)
+    post_wizard_step :info, member: {home_address: ""}
+    refute assigns(:member).errors.empty?
+  end
+
+  test "should accept complete info" do
+    post_wizard_step :info
+    assert assigns(:member).errors.empty?
+  end
+
+  def extra_attributes
+    [
+      { 'spec_id' => extra_attribute_specs(:study).id, 'value' => "Blub" },
+      { 'spec_id' => extra_attribute_specs(:message).id, 'value' => "hoi" },
+    ]
+  end
+
+  test "should enforce required extra attributes" do
+    @member = members(:nudded)
+    # Posting without any extra_attributes
+    post_wizard_step :questions
     assert_response :success
     refute assigns(:member).errors.empty?
   end
 
-  test "should redirect to index" do
-    [:photo, :isic, :success].each do |action|
-      get action, @params
-      assert_response :redirect
-    end
-  end
-
-  test "should get photo" do
-    get :photo, @params, @session
-    assert_response :success
-  end
-
-  test "should get isic" do
-    get :isic, @params, @session
-    assert_response :success
-
-    attributes = [:isic_newsletter, :isic_mail_card]
-    @member.update_attributes(Hash[attributes.map {|k| [k, false] }])
-    post :isic, @params.merge(:member => Hash[attributes.map {|k| [k, true] }]), @session
-
+  test "should accept extra attributes" do
+    @member = members(:nudded)
+    post_wizard_step :questions,
+      member: {extra_attributes_attributes: extra_attributes}
+    assert assigns(:member).errors.empty?
     assert_response :redirect
-    @member.reload
-    attributes.each {|k| assert @member.send(k), "#{k} shoud be true" }
   end
 
-  test "should get success" do
-    @member.enabled = false
-    get :success, @params, @session
-    assert_response :success
+  test "shoud save extra attributes" do
+    @member = members(:nudded)
+    @member.extra_attributes.each do |attr| attr.update!(value: "") end
+    @member.save
 
+    post_wizard_step :questions,
+      member: {extra_attributes_attributes: extra_attributes}
     @member.reload
-    assert @member.enabled
+    assert (@member.extra_attributes.any? do |a| a.value == "Blub" end)
+    assert (@member.extra_attributes.any? do |a| a.value == "hoi" end)
   end
 
   test "should handle extra attributes correctly on multiple submits" do
-    extra_attributes = [
-      { :spec_id => extra_attribute_specs(:study).id, :value => "Test" },
-      { :spec_id => extra_attribute_specs(:message).id, :value => "A" },
-    ]
-    attributes = @member.attributes.slice *Member.accessible_attributes
-    attributes[:extra_attributes_attributes] = extra_attributes
+    @member = members(:nudded)
 
-    def assert_valid_response
-      assert_redirected_to :controller => "registration", :action => "isic", :club => "vtk"
-      assert_equal @club.extra_attributes.count, @member.extra_attributes.count
+    post_wizard_step :questions,
+      member: {extra_attributes_attributes: extra_attributes}
 
-      message = @member.extra_attributes.all.find do |attribute|
-        attribute.spec == extra_attribute_specs(:message)
-      end
-      assert_equal "A", message.value
-    end
+    post_wizard_step :questions,
+      member: {extra_attributes_attributes: extra_attributes.pop}
 
-    @params[:member] = attributes
-    post :general, @params
-    @member = Member.last
-    assert_valid_response
-
-    # Remove message-attribute
-    @params[:member][:extra_attributes_attributes].pop
-    post :general, @params, {:member_id => @member.id}
     @member.reload
-    assert_valid_response
-  end
-
-  test "should enforce required extra attributes" do
-    # Posting without any extra_attributes
-    attributes = @member.attributes.slice *Member.accessible_attributes
-    post :general, @params.merge(:member => attributes)
-    assert_response :success
-    assert !assigns(:member).valid?
+    assert (@member.extra_attributes.any? do |a| a.value == "hoi" end)
   end
 end

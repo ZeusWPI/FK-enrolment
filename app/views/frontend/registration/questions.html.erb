@@ -1,0 +1,25 @@
+<% title "Vragen van je club" %>
+<%= render :partial => "layouts/club"  %>
+
+<div class="content-main">
+  <%= semantic_form_for @member, :url => wizard_path, method: :put do |f| %>
+    <% if @member.errors.any? %>
+    <div id="error_explanation">
+      <h3><% if @member.errors.count == 1 %>
+        Er ontbreekt nog iets aan je gegevens:
+      <% else %>
+        Er ontbreken nog enkele zaken aan je gegevens:
+      <% end %></h3>
+
+      <ul><% @member.errors.full_messages_with_extra_attributes.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %></ul>
+    </div>
+    <% end %>
+    <%= render_extra_attributes(f) %>
+
+    <%= f.actions do %>
+      <%= f.action :submit, :label => "Volgende stap" %>
+    <% end %>
+  <% end %>
+</div>

@@ -62,7 +62,7 @@ function initWebcam() {
   });
 
   var camOptions = {
-    path: '/scriptcam/',
+    path: '<%= ApplicationController.config.relative_url_root %>/scriptcam/',
     width: 640, height: 480,
     cornerRadius: 0,
     maskImage: $('#cam-mask').attr('src')

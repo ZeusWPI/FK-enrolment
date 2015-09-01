@@ -3,27 +3,28 @@
 # Table name: clubs
 #
 #  id                  :integer          not null, primary key
-#  name                :string(255)
-#  full_name           :string(255)
-#  internal_name       :string(255)
-#  description         :string(255)
-#  url                 :string(255)
-#  registration_method :string(255)      default("none")
+#  name                :string
+#  full_name           :string
+#  internal_name       :string
+#  description         :string
+#  url                 :string
+#  registration_method :string           default("none")
 #  uses_isic           :boolean          default(FALSE)
-#  isic_text           :text
+#  info_text           :text
 #  confirmation_text   :text
-#  api_key             :string(255)
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
+#  api_key             :string
+#  created_at          :datetime
+#  updated_at          :datetime
 #  range_lower         :integer
 #  range_upper         :integer
 #  isic_mail_option    :integer          default(0)
-#  isic_name           :string(255)
-#  export_file_name    :string(255)
-#  export_content_type :string(255)
+#  isic_name           :string
+#  export_file_name    :string
+#  export_content_type :string
 #  export_file_size    :integer
 #  export_updated_at   :datetime
 #  export_status       :string           default("none")
+#  uses_fk             :boolean          default(FALSE), not null
 #
 
 class Club < ActiveRecord::Base
@@ -35,12 +36,18 @@ class Club < ActiveRecord::Base
   validates :registration_method, :inclusion => { :in => %w(none api website hidden) }
   validates :isic_mail_option, :inclusion => { :in => 0..2 }
   validates :export_status, :inclusion => { :in => %w(none generating done) }
+  validate do |club|
+    if !(uses_fk || uses_isic)
+      errors.add(:base, 'Er moet een kaarttype geselecteerd zijn.')
+    end
+  end
+
 
   default_scope { order(:full_name) }
   scope :visible, -> { where.not(:registration_method => :hidden) }
 
-  attr_accessible :description, :isic_text, :confirmation_text,
-    :registration_method, :uses_isic, :isic_mail_option
+  attr_accessible :description, :info_text, :confirmation_text,
+    :registration_method, :uses_fk, :uses_isic, :isic_mail_option
 
   has_attached_file :export
   # Do not validate the export. We create it ourselves so we trust it
@@ -59,6 +66,12 @@ class Club < ActiveRecord::Base
     registration_method == method.to_s
   end
 
+  def allowed_card_types
+    ['fk', 'isic'].select do |type|
+      self.attributes['uses_' + type]
+    end
+  end
+
   # Get the asset path for the club's shield
   def shield_path(size = :normal)
     if size == :small
@@ -74,6 +87,15 @@ class Club < ActiveRecord::Base
     base_number .. (base_number + 9999)
   end
 
+  # FK cards go in the lower half, isic cards in the upper half.
+  def card_range_for type
+    type = type.to_s
+    range = self.card_range
+    middle = range.begin + (range.end - range.begin)/2
+    return range.begin..middle if type == 'fk'
+    return middle.succ..range.end if type == 'isic'
+  end
+
   # Allows url to contain internal_name as a param
   def to_param
     internal_name.downcase
@@ -82,7 +104,7 @@ class Club < ActiveRecord::Base
   # Hash for export (see to_json)
   def serializable_hash(options = nil)
     super((options || {}).merge({
-      :only => [:name, :full_name, :url, :registration_method, :uses_isic]
+      :only => [:name, :full_name, :url, :registration_method, :uses_fk, :uses_isic]
     }))
   end
 

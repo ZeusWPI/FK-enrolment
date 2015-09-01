@@ -63,12 +63,7 @@ class Backend::MembersController < Backend::BackendController
   end
 
   def pay
-    @card = @member.current_card
-    unless @card
-      @card = Card.new
-      @card.member = @member
-      @card.determine_isic_status if @member.club.uses_isic
-    end
+    @card = @member.current_card || Card.build_for(@member)
 
     if params[:card] || params[:commit]
       @card.attributes = params[:card] if params[:card]

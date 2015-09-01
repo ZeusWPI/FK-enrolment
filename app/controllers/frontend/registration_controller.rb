@@ -1,74 +1,80 @@
 class Frontend::RegistrationController < Frontend::FrontendController
-  before_filter :load_club!, :except => :scriptcamhack
+  include Wicked::Wizard
+  # Member states are steps, except for 'initial'
+  steps :authenticate, *Member::States.drop(1)
 
-  # Load member set in session or create a new one
-  before_filter :load_member, :except => [:index, :scriptcamhack]
+  before_filter :load_club!
+  before_filter :load_member, :only => [:show, :update]
+
   def load_member
-    if session[:member_id]
-      begin
-        @member = Member.find session[:member_id]
-      rescue ActiveRecord::RecordNotFound
-      end
-    elsif action_name == "general"
-      @member = Member.new
-    end
-
-    unless @member
-      # Return to start to create a new member
-      session.delete :member_id
-      redirect_to registration_root_path(@club)
+    @member = Member.unscoped.find(session[:member_id]) if session[:member_id]
+    if !@member
+      redirect_to registration_index_path
     else
-      # Always set the member to the club from the current club-param
-      # so the record ends up in the right place, even when the url changes
-      @member.club = @club
+      send_to_correct_step
+      @member.build_extra_attributes
     end
   end
 
   def index
-    # We were not sent here through fk-books, so there definitely
-    # shouldn't be a redirect afterwards
-    session.delete :fk_books
+    create_member
+    super
   end
 
-  def general
-    # Load extra attributes before assigning them
-    @member.build_extra_attributes
-    @member.attributes = params[:member] if params[:member]
+  def show
+    set_state
+    self.send step if self.respond_to? step
+    render_wizard
+  end
 
+  def update
+    set_state
+    @member.assign_attributes params[:member] if params[:member]
+    self.send step if self.respond_to? step
+    render_wizard @member unless performed?
+  end
+
+  def card_type
+    skip_step if @club.allowed_card_types.count == 1
+  end
+
+  def info
     load_cas_member_attributes if cas_authed?
     load_eid_member_attributes if eid_authed?
+  end
 
-    if params[:member] && @member.save
-      session[:member_id] = @member.id
-
-      # Redirect to next_step based on club preferences
-      if @club.uses_isic
-        redirect_to registration_isic_path(@club)
-      else
-        redirect_to registration_success_path(@club)
-      end
-    end
+  def questions
+    skip_step if @member.extra_attributes.empty?
   end
 
   def isic
+    skip_step unless @member.uses_isic?
     @member.isic_mail_card = true if @club.isic_mail_option == Club::ISIC_MAIL_CARD_FORCED
-    if params[:member] && @member.update(params[:member])
-      redirect_to registration_photo_path(@club)
-    end
   end
 
   def photo
-    # All image uploading and processing is done by the model
-    if params[:member] && @member.update(params[:member])
+    skip_step unless @member.uses_isic?
+    if params[:member]
+      @member.save # Trigger paperclip callbacks
+      # All image uploading and processing is done by the model
       @member.crop_photo
-      redirect_to registration_success_path(@club) if @member.valid_photo?
+      render_wizard unless @member.valid_photo?
     end
   end
 
-  def success
-    @member.update_attribute(:enabled, true)
-    session.delete :member_id
+  def complete
+    # Finish registration
+    @member.enabled = true
+    @member.save
+    skip_step
+  end
 
+  def finish_wizard_path
+    success_path
+  end
+
+  def success
+    session.delete :member_id
     # Redirect to fk-books
     if session.delete :fk_books
       key = Rails.application.secrets.fkbooks_key
@@ -76,10 +82,6 @@ class Frontend::RegistrationController < Frontend::FrontendController
 
       redirect_to Rails.application.secrets.fkbooks % [@member.id, signature]
     end
-  end
-
-  def scriptcamhack
-    head :ok, content_type: "text/html"
   end
 
   helper_method :cas_authed?
@@ -93,6 +95,35 @@ class Frontend::RegistrationController < Frontend::FrontendController
   end
 
   private
+
+  def create_member
+    @member = Member.new
+    @member.state = 'initial'
+    @member.club = @club
+    @member.save!
+    session[:member_id] = @member.id
+  end
+
+  def set_state step=self.step
+    if Member::States.include? step
+      step_index = Member::States.index(step)
+      member_index = Member::States.index(@member.state)
+      @member.state = step if member_index < step_index
+    end
+  end
+
+  # If the steps list is changed, this method will probably
+  # no longer be valid.
+  def send_to_correct_step
+    if Member::States.include? step
+      original_state = @member.state
+      set_state previous_step
+      if !@member.valid?
+        member_step = wizard_steps.index(original_state) || 0
+        jump_to wizard_steps[member_step.next]
+      end
+    end
+  end
 
   def load_cas_member_attributes
     attributes = session[:cas]["extra_attributes"]
