@@ -8,6 +8,9 @@ FKEnrolment::Application.routes.draw do
     end
   end
 
+  # https://github.com/teleline/ScriptCam/issues/4
+  get '*other/scriptcam.lic' => redirect('scriptcam/scriptcam.lic')
+
   namespace :backend do
     root :to => "home#index"
 
@@ -54,8 +57,6 @@ FKEnrolment::Application.routes.draw do
     end
 
     scope :path => ":club" do
-      get "registration/scriptcam.lic" => "registration#scriptcamhack"
-
       resources :registration, only: [:index, :show, :update]
       get "success" => "registration#success", :as => :success
     end
