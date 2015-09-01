@@ -43,7 +43,7 @@ class Member < ActiveRecord::Base
     :date_of_birth, :home_street, :home_postal_code, :home_city,
     :studenthome_street, :studenthome_postal_code, :studenthome_city,
     :isic_newsletter, :isic_mail_card, :extra_attributes_attributes,
-    :card_type_preference, :club
+    :card_type_preference
 
 
   # Profile picture

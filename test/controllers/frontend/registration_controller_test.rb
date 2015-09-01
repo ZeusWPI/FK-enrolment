@@ -3,7 +3,6 @@ require 'test_helper'
 class Frontend::RegistrationControllerTest < ActionController::TestCase
   def setup
     @member = members(:siloks)
-    @club = clubs(:fsk)
   end
 
   #def setup_wizard_request step
@@ -13,15 +12,15 @@ class Frontend::RegistrationControllerTest < ActionController::TestCase
     #@params.merge!({ club: @club, id: step })
   #end
 
-  #def get_wizard_step step
-    #setup_wizard_request step
-    #get :show, @params, @session
-  #end
+  def get_wizard_step step, params = {}
+    get :show, params.merge({club: @member.club, id: step}),
+      {member_id: @member.id}
+  end
 
-  #def post_wizard_step step
-    #setup_wizard_request step
-    #post :update, @params, @session
-  #end
+  def post_wizard_step step, params = {}
+    post :update, params.merge({club: @member.club, id: step}),
+      {member_id: @member.id}
+  end
 
   ## change club in route and member
   #def set_club club
@@ -29,174 +28,132 @@ class Frontend::RegistrationControllerTest < ActionController::TestCase
     #@member.club = club
   #end
 
-  #test "should redirect index" do
-    #get :index, {club: @club}
-    #assert_response :redirect
-  #end
+  test "should redirect index" do
+    get :index, {club: @member.club}
+    assert_response :redirect
+  end
 
-  #test "should get success" do
-    #get :success, {club: @club}
-    #assert_response :success
-  #end
+  test "should get success" do
+    get :success, {club: @member.club}
+    assert_response :success
+  end
 
-  #test "should get authenticate" do
-    #get_wizard_step :authenticate
-    #assert_response :success
+  test "should get authenticate" do
+    get_wizard_step :authenticate
+    assert_response :success
+  end
 
-  #end
+  test "should get card_type" do
+    get_wizard_step :card_type
+    assert_response :success
+  end
 
-  #test "should get isic" do
-    #get_wizard_step :isic
-    #assert_response :success
-  #end
+  # VTK forces isic on its users.
+  test "should skip card_type for VTK" do
+    @member = members(:nudded)
+    get_wizard_step :card_type
+    assert_response :redirect
+  end
 
-  #test "should skip isic for VTK" do
-    #set_club clubs(:vtk)
-    #get_wizard_step :isic
-    #assert_response :redirect
-  #end
+  test "should get info" do
+    get_wizard_step :info
+    assert_response :success
+  end
 
-  #test "should get info" do
-    #get_wizard_step :info
-    #assert_response :success
-  #end
+  test "should skip questions when there are none" do
+    get_wizard_step :questions
+    assert_response :redirect
+  end
 
-  #test "should skip questions when there are none" do
-    #get_wizard_step :questions
-    #assert_response :redirect
-  #end
+  test "should show questions when there are" do
+    @member = members(:nudded)
+    get_wizard_step :questions
+    assert_response :success
+  end
 
-  #test "should show questions when there are" do
-    #set_club clubs(:vtk)
-    #get_wizard_step :questions
-    #assert_response :success
-  #end
+  test "should skip isic" do
+    get_wizard_step :isic
+    assert_response :redirect
+  end
 
-  #test "should skip isic_options" do
-    #get_wizard_step :isic_options
-    #assert_response :redirect
-  #end
+  test "should show isic_options when user uses isic" do
+    @member = members(:nudded)
+    get_wizard_step :isic
+    assert_response :success
+  end
 
-  #test "should show isic_options when user desires isic" do
-    #@member.card_type_preference = 'isic'
-    #get_wizard_step :isic_options
-    #assert_response :success
-  #end
+  test "should skip photo" do
+    get_wizard_step :photo
+    assert_response :redirect
+  end
 
-  #test "should skip photo" do
-    #get_wizard_step :photo
-    #assert_response :redirect
-  #end
+  test "should show photo when user uses isic" do
+    @member = members(:nudded)
+    get_wizard_step :photo
+    assert_response :success
+  end
 
-  #test "should show photo when user desires isic" do
-    #@member.card_type_preference = 'isic'
-    #get_wizard_step :photo
-    #assert_response :success
-  #end
+  test "should refuse incomplete info" do
+    post_wizard_step :info, member: {first_name: ""}
+    refute assigns(:member).errors.empty?
+  end
 
-  #test "should refuse incomplete info" do
-    #@member.first_name = ""
-    #post_wizard_step :info
-    #refute assigns(:member).errors.empty?
-  #end
+  test "should refuse incomplete isic info" do
+    @member = members(:nudded)
+    post_wizard_step :info, member: {home_address: ""}
+    refute assigns(:member).errors.empty?
+  end
 
-  #test "should refuse incomplete isic info" do
-    #@member.sex = nil
-    #@member.card_type_preference = 'isic'
-    #post_wizard_step :info
-    #refute assigns(:member).errors.empty?
-  #end
+  test "should accept complete info" do
+    post_wizard_step :info
+    assert assigns(:member).errors.empty?
+  end
 
-  #test "should accept complete info" do
-    #@member.first_name = ""
-    #@member.last_name = ""
-    #@member_params = {first_name: "hoi", last_name: "test"}
-    #post_wizard_step :info
-    #assert assigns(:member).errors.empty?
-  #end
+  def extra_attributes
+    [
+      { 'spec_id' => extra_attribute_specs(:study).id, 'value' => "Blub" },
+      { 'spec_id' => extra_attribute_specs(:message).id, 'value' => "hoi" },
+    ]
+  end
 
-  #test "stores partial member in session" do
-    #@member.first_name = ""
-    #@member.last_name = ""
-    #@member_params = {first_name: "hoi", last_name: "test"}
-    #post_wizard_step :info
-    ## Random samples
-    #assert_equal session[:member]["first_name"], "hoi"
-    #assert_equal session[:member]["last_name"], "test"
-  #end
+  test "should enforce required extra attributes" do
+    @member = members(:nudded)
+    # Posting without any extra_attributes
+    post_wizard_step :questions
+    assert_response :success
+    refute assigns(:member).errors.empty?
+  end
 
-  #def extra_attributes
-    #[
-      #{ 'spec_id' => extra_attribute_specs(:study).id, 'value' => "Test" },
-      #{ 'spec_id' => extra_attribute_specs(:message).id, 'value' => "A" },
-    #]
-  #end
+  test "should accept extra attributes" do
+    @member = members(:nudded)
+    post_wizard_step :questions,
+      member: {extra_attributes_attributes: extra_attributes}
+    assert assigns(:member).errors.empty?
+    assert_response :redirect
+  end
 
-  #def extra_attr_hash_equals fst, snd
-    #fst['spec_id'] == snd['spec_id'] && fst['value'] == snd['value']
-  #end
+  test "shoud save extra attributes" do
+    @member = members(:nudded)
+    @member.extra_attributes.each do |attr| attr.update!(value: "") end
+    @member.save
 
-  #test "should enforce required extra attributes" do
-    #set_club clubs(:vtk)
-    ## Posting without any extra_attributes
-    #post_wizard_step :questions
-    #assert_response :success
-    #refute assigns(:member).errors.empty?
-  #end
+    post_wizard_step :questions,
+      member: {extra_attributes_attributes: extra_attributes}
+    @member.reload
+    assert (@member.extra_attributes.any? do |a| a.value == "Blub" end)
+    assert (@member.extra_attributes.any? do |a| a.value == "hoi" end)
+  end
 
-  #test "should accept extra attributes" do
-    #@club = clubs(:vtk)
-    #@member_params = {extra_attributes_attributes: extra_attributes}
-    #post_wizard_step :questions
-    #assert assigns(:member).errors.empty?
-    #assert_response :redirect
-  #end
+  test "should handle extra attributes correctly on multiple submits" do
+    @member = members(:nudded)
 
-  #def check_extra_attributes_in_session
-    #extra_attrs = session[:member]['extra_attributes_attributes']
-    #refute extra_attrs.nil?
-    #assert extra_attrs.any? do |a|
-      #extra_attr_hash_equals a, extra_attributes.last
-    #end
-  #end
+    post_wizard_step :questions,
+      member: {extra_attributes_attributes: extra_attributes}
 
-  #test "extra attributes should be saved to session" do
-    #set_club clubs(:vtk)
-    #@member_params = {extra_attributes_attributes: extra_attributes}
-    #post_wizard_step :questions
-    #check_extra_attributes_in_session
-  #end
+    post_wizard_step :questions,
+      member: {extra_attributes_attributes: extra_attributes.pop}
 
-  #test "should handle extra attributes correctly on multiple submits" do
-    #set_club clubs(:vtk)
-
-    #@member_params = {extra_attributes_attributes: extra_attributes}
-    #post_wizard_step :questions
-
-    #check_extra_attributes_in_session
-    #@session = session
-
-    #@member_params = {extra_attributes_attributes: extra_attributes.pop}
-    #post_wizard_step :questions
-    #check_extra_attributes_in_session
-  #end
-
-  #test "should save member to database" do
-    #@member.first_name = "kek"
-    #@member.delete
-
-    #get_wizard_step :save
-    #assert_equal "kek", Member.last.first_name
-  #end
-
-  #test "should save extra attributes to database" do
-    #set_club clubs(:vtk)
-    #@member.delete
-
-    #@member.build_extra_attributes
-    #@member.extra_attributes_attributes = extra_attributes
-
-    #get_wizard_step :save
-    #refute Member.last.extra_attributes.empty?
-  #end
+    @member.reload
+    assert (@member.extra_attributes.any? do |a| a.value == "hoi" end)
+  end
 end
