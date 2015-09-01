@@ -25,7 +25,7 @@ nl:
         last_registration: Academiejaar
       club:
         description: Beschrijving
-        isic_text: ISIC-tekst
+        info_text: Info-tekst
         confirmation_text: Bevestigingstekst
         registration_method: Registratiemethode
         uses_isic: Integratie met ISIC activeren

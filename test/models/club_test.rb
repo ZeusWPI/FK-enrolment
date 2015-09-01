@@ -10,7 +10,7 @@
 #  url                 :string
 #  registration_method :string           default("none")
 #  uses_isic           :boolean          default(FALSE)
-#  isic_text           :text
+#  info_text           :text
 #  confirmation_text   :text
 #  api_key             :string
 #  created_at          :datetime

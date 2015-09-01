@@ -6,8 +6,8 @@
     <%= f.input :description, :as => :text,
         :label => "#{@club.name} is de …",
         :input_html => {:cols => 40, :rows => 4 } %>
-    <%= f.input :isic_text, :as => :text,
-        :hint => "Extra informatie die bij de ISIC-promo getoond wordt.",
+    <%= f.input :info_text, :as => :text,
+        :hint => "Extra informatie die bij het registreren getoond wordt.",
         :input_html => {:cols => 40, :rows => 4 } %>
     <%= f.input :confirmation_text, :as => :text,
         :hint => "Tekst na registratie.",

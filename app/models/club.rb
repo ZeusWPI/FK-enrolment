@@ -10,7 +10,7 @@
 #  url                 :string
 #  registration_method :string           default("none")
 #  uses_isic           :boolean          default(FALSE)
-#  isic_text           :text
+#  info_text           :text
 #  confirmation_text   :text
 #  api_key             :string
 #  created_at          :datetime
@@ -46,7 +46,7 @@ class Club < ActiveRecord::Base
   default_scope { order(:full_name) }
   scope :visible, -> { where.not(:registration_method => :hidden) }
 
-  attr_accessible :description, :isic_text, :confirmation_text,
+  attr_accessible :description, :info_text, :confirmation_text,
     :registration_method, :uses_fk, :uses_isic, :isic_mail_option
 
   has_attached_file :export

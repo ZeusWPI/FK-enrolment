@@ -30,6 +30,7 @@
 #  studenthome_postal_code :string
 #  studenthome_city        :string
 #  card_type_preference    :string
+#  state                   :string           default("complete"), not null
 #
 
 require 'test_helper'
