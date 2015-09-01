@@ -5,13 +5,6 @@ class Frontend::RegistrationControllerTest < ActionController::TestCase
     @member = members(:siloks)
   end
 
-  #def setup_wizard_request step
-    #@session ||= { member: @member.attributes.merge(
-      #{'extra_attributes_attributes' => @member.extra_attributes_attributes})}
-    #@params ||= { member: @member_params}
-    #@params.merge!({ club: @club, id: step })
-  #end
-
   def get_wizard_step step, params = {}
     get :show, params.merge({club: @member.club, id: step}),
       {member_id: @member.id}
@@ -21,12 +14,6 @@ class Frontend::RegistrationControllerTest < ActionController::TestCase
     post :update, params.merge({club: @member.club, id: step}),
       {member_id: @member.id}
   end
-
-  ## change club in route and member
-  #def set_club club
-    #@club = club
-    #@member.club = club
-  #end
 
   test "should redirect index" do
     get :index, {club: @member.club}
