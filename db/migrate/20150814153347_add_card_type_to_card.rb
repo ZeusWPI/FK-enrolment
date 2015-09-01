@@ -4,11 +4,9 @@ class AddCardTypeToCard < ActiveRecord::Migration
     Card.unscoped.where(isic_status: 'none').update_all(card_type: 'fk')
     Card.unscoped.where.not(isic_status: 'none').update_all(card_type: 'isic')
     Card.unscoped.where(academic_year: Member.current_academic_year, card_type: 'isic').find_each do |card|
-      Member.unscoped do
-        if !card.club.card_range_for(:isic).include?(card.number)
-          card.number = nil
-          card.save # the validation will set a decent number here
-        end
+      if !card.club.card_range_for(:isic).include?(card.number)
+        card.number = nil
+        card.save # the validation will set a decent number here
       end
     end
     change_column :cards, :card_type, :string, null: false
