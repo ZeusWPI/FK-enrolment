@@ -1,21 +1,17 @@
 class AddCardTypeToCard < ActiveRecord::Migration
-  def fix_isic_card_number card
-    return if !card.isic? || card.academic_year != Member.current_academic_year
-    Member.unscoped do
-      if !card.club.card_range_for(:isic).include?(card.number)
-        card.number = nil
-      end
-    end
-  end
-
   def up
     add_column :cards, :card_type, :string
-    Card.unscoped.find_each do |card|
-      card.card_type = card.isic_status == 'none' ? 'fk' : 'isic'
-      fix_isic_card_number card
-      card.save(validate: false)
+    Card.unscoped.where(isic_status: 'none').update_all(card_type: 'fk')
+    Card.unscoped.where.not(isic_status: 'none').update_all(card_type: 'isic')
+    Card.where(academic_year: Member.current_academic_year, card_type: 'isic').find_each do |card|
+      Member.unscoped do
+        if !card.club.card_range_for(:isic).include?(card.number)
+          card.number = nil
+          card.save(validate: false)
+        end
+      end
     end
-    change_column :cards, :card_type, :text, null: false
+    change_column :cards, :card_type, :string, null: false
   end
 
   def down
