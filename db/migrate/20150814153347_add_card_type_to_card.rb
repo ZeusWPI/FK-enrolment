@@ -1,8 +1,10 @@
 class AddCardTypeToCard < ActiveRecord::Migration
   def fix_isic_card_number card
     return if !card.isic? || card.academic_year != Member.current_academic_year
-    if !card.club.card_range_for(:isic).include?(card.number)
-      card.number = nil
+    Member.unscoped do
+      if !card.club.card_range_for(:isic).include?(card.number)
+        card.number = nil
+      end
     end
   end
 
