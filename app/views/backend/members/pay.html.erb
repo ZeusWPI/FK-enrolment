@@ -8,6 +8,9 @@
     <dt>Naam:</dt>
     <dd><%= @member.name %></dd>
 
+    <dt>Kaart-type:</dt>
+    <dd><%= @member.pick_card_type.upcase %></dd>
+
     <dt>Kaart-nummer:</dt>
     <dd>
       <% if @card.number? %>

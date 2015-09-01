@@ -3,7 +3,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
   # Member states are steps, except for 'initial'
   steps :authenticate, *Member::States.drop(1)
 
-  before_filter :load_club!, :except => :scriptcamhack
+  before_filter :load_club!
   before_filter :load_member, :only => [:show, :update]
 
   def load_member
@@ -82,10 +82,6 @@ class Frontend::RegistrationController < Frontend::FrontendController
 
       redirect_to Rails.application.secrets.fkbooks % [@member.id, signature]
     end
-  end
-
-  def scriptcamhack
-    head :ok, content_type: "text/html"
   end
 
   helper_method :cas_authed?
