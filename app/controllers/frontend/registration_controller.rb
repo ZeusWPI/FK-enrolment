@@ -9,14 +9,15 @@ class Frontend::RegistrationController < Frontend::FrontendController
   def load_member
     @member = Member.unscoped.find(session[:member_id]) if session[:member_id]
     if @member
+      # No queue jumping!
+      send_to_correct_step
     else
       redirect_to registration_index_path
     end
   end
 
   def index
-    @member = Member.create! club: @club, step: 'initial'
-    session[:member_id] = @member.id
+    create_member
     super
   end
 
@@ -99,8 +100,33 @@ class Frontend::RegistrationController < Frontend::FrontendController
 
   private
 
-  def set_state
-    @member.state = step if Member::States.include? step
+  def create_member
+    @member = Member.new
+    @member.state = 'initial'
+    @member.club = @club
+    @member.save!
+    session[:member_id] = @member.id
+  end
+
+  def set_state step=self.step
+    if Member::States.include? step
+      step_index = Member::States.index(step)
+      member_index = Member::States.index(@member.state)
+      @member.state = step if member_index < step_index
+    end
+  end
+
+  # If the steps list is changed, this method will probably
+  # no longer be valid.
+  def send_to_correct_step
+    if Member::States.include? step
+      original_state = @member.state
+      set_state previous_step
+      if !@member.valid?
+        member_step = wizard_steps.index(original_state) || 0
+        jump_to wizard_steps[member_step.next]
+      end
+    end
   end
 
   def load_cas_member_attributes
