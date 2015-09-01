@@ -28,7 +28,8 @@ nl:
         info_text: Info-tekst
         confirmation_text: Bevestigingstekst
         registration_method: Registratiemethode
-        uses_isic: Integratie met ISIC activeren
+        uses_fk: Leden kunnen FK kaarten bestellen
+        uses_isic: Leden kunnen ISIC kaarten bestellen
         isic_mail_option: ISIC kaart opsturen
         api_key: API sleutel
       card:
