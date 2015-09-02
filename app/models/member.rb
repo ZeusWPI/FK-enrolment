@@ -57,33 +57,27 @@ class Member < ActiveRecord::Base
   # Associated club
   validates :club, :presence => true
   validates :state, :inclusion => { :in => States }
+  validates :sex, :inclusion => { :in => %w(m f), :allow_blank => true }
   validates :card_type_preference, :inclusion => { :in => %w(fk isic) },
     :allow_nil => true
 
-  # Validation rules
-  validates :first_name, :presence => true, if: ->(m){ m.reached_state?('info')}
-  validates :last_name, :presence => true, if: ->(m){ m.reached_state?('info')}
+  with_options if: ->(m){ m.reached_state? 'info' } do |member|
+    member.validates :first_name, :presence => true
+    member.validates :last_name, :presence => true
+    member.validates :ugent_nr, :presence => true
+  end
+
   validates :email, :presence => true,
-                    :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i },
-                      :if => (lambda do |m|
-                        m.reached_state?('info') &&
-                        m.club && m.club.registration_method != "api"
-                      end)
-  validates :ugent_nr, :presence => true, if: ->(m){ m.reached_state?('info') }
-  validates :sex, :inclusion => { :in => %w(m f), :allow_blank => true }
+    :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i },
+    if: ->(m){ m.club.registration_method != 'api' && m.reached_state?('info') }
 
-  # ISIC info
-  validates :sex, :presence => true,
-    if: ->(m){ m.reached_state?('info') && m.uses_isic? }
-  validates :date_of_birth, :presence => true,
-    if: ->(m){ m.reached_state?('info') && m.uses_isic? }
-  validates :home_street, :presence => true,
-    if: ->(m){ m.reached_state?('info') && m.uses_isic? }
-  validates :home_postal_code, :presence => true,
-    if: ->(m){ m.reached_state?('info') && m.uses_isic? }
-  validates :home_city, :presence => true,
-    if: ->(m){ m.reached_state?('info') && m.uses_isic? }
-
+  with_options if: ->(m){ m.reached_state?('info') && m.uses_isic? } do |member|
+    member.validates :sex, :presence => true
+    member.validates :date_of_birth, :presence => true
+    member.validates :home_street, :presence => true
+    member.validates :home_postal_code, :presence => true
+    member.validates :home_city, :presence => true
+  end
 
   def reached_state? state
     States.index(self.state) >= States.index(state)

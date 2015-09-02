@@ -121,9 +121,6 @@ class Frontend::RegistrationControllerTest < ActionController::TestCase
 
   test "shoud save extra attributes" do
     @member = members(:nudded)
-    @member.extra_attributes.each do |attr| attr.update!(value: "") end
-    @member.save
-
     post_wizard_step :questions,
       member: {extra_attributes_attributes: extra_attributes}
     @member.reload

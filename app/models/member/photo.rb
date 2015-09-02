@@ -6,13 +6,16 @@ module Member::Photo
       :large => { :geometry => "520x700>", :format => :jpg },
       :cropped => { :geometry => "140x200", :format => :jpg, :processors => [:Cropper] }
     }
-    base.validates_attachment_content_type :photo,
-      :content_type => ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/gif',
-                        'image/png', 'image/x-png', 'image/tiff'],
-      :message => "Enkel afbeeldingen zijn toegestaan",
-      if: ->(m){ m.reached_state?('photo') }
-    base.validate :photo_dimensions,
-      if: ->(m){ m.reached_state?('photo') }
+
+    base.with_options if: ->(m){ m.reached_state? 'photo' } do |member|
+      member.validate :photo_dimensions
+      member.validates_attachment_content_type :photo,
+        :content_type => ['image/jpg', 'image/jpeg', 'image/pjpeg', 'image/gif',
+                          'image/png', 'image/x-png', 'image/tiff'],
+        :message => "Enkel afbeeldingen zijn toegestaan"
+    end
+
+
     base.attr_accessible :photo, :photo_url, :photo_base64
 
     # Cropping
