@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150831190750) do
+ActiveRecord::Schema.define(version: 20150901195055) do
 
   create_table "cards", force: :cascade do |t|
     t.integer  "member_id"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20150831190750) do
     t.string   "url"
     t.string   "registration_method", default: "none"
     t.boolean  "uses_isic",           default: false
-    t.text     "isic_text"
+    t.text     "info_text"
     t.text     "confirmation_text"
     t.string   "api_key"
     t.datetime "created_at"

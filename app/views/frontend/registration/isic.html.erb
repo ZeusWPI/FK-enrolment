@@ -6,8 +6,6 @@
   <%# If user has not yet seen isic information %>
   <%= render 'isic_info' if @club.allowed_card_types.count == 1%>
 
-  <%= simple_format(@club.isic_text) unless @club.isic_text.blank? %>
-
   <%= semantic_form_for @member, :url => wizard_path, method: :put do |f| %>
     <%= f.inputs :class => "inputs no-indent" do %>
       <%= f.input :isic_newsletter,

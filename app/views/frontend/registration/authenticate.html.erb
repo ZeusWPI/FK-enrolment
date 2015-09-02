@@ -5,6 +5,8 @@
   <p>Via deze website kan je je registreren als lid van de <strong><%= @club.name %></strong>,
     de <%= @club.description %>.</p>
 
+  <p><%= simple_format(@club.info_text) unless @club.info_text.blank? %></p>
+
   <p>Is dit niet de juiste kring? Ga dan terug naar de
     <%= link_to 'startpagina', root_path %>.</p>
 
