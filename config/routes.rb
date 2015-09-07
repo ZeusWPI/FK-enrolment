@@ -57,6 +57,7 @@ FKEnrolment::Application.routes.draw do
     end
 
     scope :path => ":club" do
+      root to: 'registration#index', as: 'club_root'
       resources :registration, only: [:index, :show, :update]
       get "success" => "registration#success", :as => :success
     end
