@@ -5,6 +5,6 @@ server 'king.ugent.be', user: 'fk-enrolment', roles: %w{web app db},
   port: 2222
 }
 
-set :branch, 'better-registration-wizard'
+set :branch, 'fix/some-webcam-assets'
 
 set :rails_env, 'staging'
