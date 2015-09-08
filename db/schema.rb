@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20150901195055) do
     t.string   "isic_status",   default: "none"
     t.string   "isic_number"
     t.boolean  "isic_exported", default: false
-    t.text     "card_type",                        null: false
+    t.string   "card_type",                        null: false
   end
 
   add_index "cards", ["academic_year", "number"], name: "index_cards_on_academic_year_and_number", unique: true
@@ -131,8 +131,8 @@ ActiveRecord::Schema.define(version: 20150901195055) do
     t.string   "studenthome_street"
     t.string   "studenthome_postal_code"
     t.string   "studenthome_city"
-    t.string   "card_type_preference"
     t.string   "state",                   default: "complete", null: false
+    t.string   "card_type_preference"
   end
 
   add_index "members", ["ugent_nr"], name: "index_members_on_ugent_nr"
