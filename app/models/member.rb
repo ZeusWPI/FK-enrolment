@@ -142,17 +142,10 @@ class Member < ActiveRecord::Base
   def serializable_hash(options = nil)
     result = super((options || {}).merge({
       :except => [:club_id, :photo_content_type, :photo_file_name,
-                  :photo_file_size, :photo_updated_at, :enabled],
-      :include => [:current_card]
+                  :photo_file_size, :photo_updated_at, :enabled]
     }))
-    result[:card] = result.delete :current_card
     result[:photo] = photo.url(:cropped) if photo?
-
-    unless result[:card]
-      card = Card.build_for self
-      result[:card] = card
-    end
-
+    result[:card] = current_card || Card.build_for(self)
     result
   end
 
