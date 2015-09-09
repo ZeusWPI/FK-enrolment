@@ -96,11 +96,15 @@ group :development do
   gem 'puma'
 end
 
-group :production do
-  gem 'mysql2'          # Database
-end
-
 group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
+end
+
+group :test do
+  gem 'coveralls', require: false
+end
+
+group :production do
+  gem 'mysql2'          # Database
 end

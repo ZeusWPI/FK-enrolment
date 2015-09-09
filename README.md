@@ -1,4 +1,5 @@
-# [FK-enrolment](http://registratie.fkgent.be) [![Build Status](https://secure.travis-ci.org/ZeusWPI/FK-enrolment.png)](http://travis-ci.org/ZeusWPI/FK-enrolment) [![Analytics](https://ga-beacon.appspot.com/UA-25444917-6/ZeusWPI/FK-enrolment/README.md?pixel)](https://github.com/igrigorik/ga-beacon)
+# [FK-enrolment](https://registratie.fkgent.be) [![Analytics](https://ga-beacon.appspot.com/UA-25444917-6/ZeusWPI/FK-enrolment/README.md?pixel)](https://github.com/igrigorik/ga-beacon) [![Code Climate](https://codeclimate.com/github/ZeusWPI/FK-enrolment/badges/gpa.svg)](https://codeclimate.com/github/ZeusWPI/FK-enrolment) [![Coverage Status](https://coveralls.io/repos/ZeusWPI/FK-enrolment/badge.svg?branch=master&service=github)](https://coveralls.io/github/ZeusWPI/FK-enrolment?branch=master) [![Build Status](https://travis-ci.org/ZeusWPI/FK-enrolment.png?branch=master)](https://travis-ci.org/ZeusWPI/FK-enrolment)
+
 
 
 FK-enrolment werd ontwikkeld door [Zeus WPI](http://zeus.ugent.be) voor het [FaculteitenKonvent Gent](http://fkgent.be).
