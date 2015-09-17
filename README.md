@@ -37,13 +37,15 @@ De voornaamste methodes worden hieronder beschreven:
     * ``last_name`` (string)
     * ``ugent_nr`` (string)
     * ``email`` (string)
+    * ``sex`` (m of f, enkel verplicht bij ISIC)
     * ``date_of_birth`` (date, enkel verplicht bij ISIC)
     * ``photo_url`` (string, enkel verplicht bij ISIC)
-    * ``home_address`` (string, enkel verplicht bij ISIC,
-      formaat: ``[straat] [nummer]\r\n[postcode] [gemeente]``)
+    * ``home_street`` (string, enkel verplicht bij ISIC)
+    * ``home_postal_code`` (string, enkel verplicht bij ISIC)
+    * ``home_city`` (string, enkel verplicht bij ISIC)
 
     Andere optionele velden zijn:
-    ``email`` (string), ``sex`` (m of f), ``phone`` (string), ``studenthome_address`` (string)
+    ``phone`` (string), ``studenthome_address`` (string)
 
     Kringen die beide kaarttypes toelaten en de kassa in de backend (https://registratie.fkgent.be/backend)
     gebruiken (dus niet via onderstaande methode) moeten ``card_type_preference`` meegeven
