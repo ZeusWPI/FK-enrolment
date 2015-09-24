@@ -68,7 +68,7 @@ class Member < ActiveRecord::Base
                     :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i },
                       :if => (lambda do |m|
                         m.reached_state?('info') &&
-                        m.club && m.club.registration_method != "api"
+                        m.club && (m.club.registration_method != "api" || m.uses_isic?)
                       end)
   validates :ugent_nr, :presence => true, if: ->(m){ m.reached_state?('info') }
   validates :sex, :inclusion => { :in => %w(m f), :allow_blank => true }
