@@ -29,6 +29,7 @@ class Backend::BackendController < ApplicationController
     nil
   end
 
+  # return which clubs this ugent_login is allowed to manage
   def clubs_for_ugent_login(ugent_login)
     def digest(*args)
       Digest::SHA256.hexdigest args.join('-')
@@ -40,7 +41,7 @@ class Backend::BackendController < ApplicationController
               :u => ugent_login
            })
 
-    # this will only return the club name if control-hash matches
+    # this will only return the club names if control-hash matches
     if resp.body != 'FAIL'
       hash = JSON[resp.body]
       dig = digest(Rails.application.secrets.fk_auth_salt, ugent_login, hash['kringen'])
