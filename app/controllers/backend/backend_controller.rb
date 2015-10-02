@@ -22,7 +22,14 @@ class Backend::BackendController < ApplicationController
   end
 
   # return which club this ugent_login is allowed to manage
+  # Provides a default club for backwards compatibility
   def club_for_ugent_login(ugent_login)
+    clubs = clubs_for_ugent_login(ugent_login)
+    return clubs[0] if clubs.any?
+    nil
+  end
+
+  def clubs_for_ugent_login(ugent_login)
     def digest(*args)
       Digest::SHA256.hexdigest args.join('-')
     end
@@ -36,10 +43,10 @@ class Backend::BackendController < ApplicationController
     # this will only return the club name if control-hash matches
     if resp.body != 'FAIL'
       hash = JSON[resp.body]
-      dig = digest(Rails.application.secrets.fk_auth_salt, ugent_login, hash['kringname'])
-      return hash['kringname'] if hash['controle'] == dig
+      dig = digest(Rails.application.secrets.fk_auth_salt, ugent_login, hash['kringen'])
+      return hash['kringen'] if hash['controle'] == dig
     end
 
-    nil
+    []
   end
 end
