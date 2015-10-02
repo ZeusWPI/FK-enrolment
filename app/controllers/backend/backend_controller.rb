@@ -10,11 +10,7 @@ class Backend::BackendController < ApplicationController
     if session[:cas].blank?
       redirect_to cas_auth_path(:redirect => request.fullpath)
     else
-      if session[:club].blank?
-        session[:club] = club_for_ugent_login(session[:cas]['user'])
-      end
-
-      @club = Club.find_by_internal_name(session[:club])
+      @club = Club.find_by_internal_name(clubname_for_current_user)
       unless @club
         render '/backend/denied', :status => 403
       end
@@ -23,14 +19,16 @@ class Backend::BackendController < ApplicationController
 
   # return which club this ugent_login is allowed to manage
   # Provides a default club for backwards compatibility
-  def club_for_ugent_login(ugent_login)
-    clubs = clubs_for_ugent_login(ugent_login)
-    return clubs[0] if clubs.any?
-    nil
+  def clubname_for_current_user
+    if session[:club].blank?
+      clubs = clubnames_for_current_user
+      session[:club] = clubs[0] if clubs.any? else nil
+    end
+    session[:club]
   end
 
-  # return which clubs this ugent_login is allowed to manage
-  def clubs_for_ugent_login(ugent_login)
+  def clubnames_for_current_user
+    ugent_login = session[:cas]['user']
     def digest(*args)
       Digest::SHA256.hexdigest args.join('-')
     end
