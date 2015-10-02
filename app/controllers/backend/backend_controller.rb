@@ -28,24 +28,27 @@ class Backend::BackendController < ApplicationController
   end
 
   def clubnames_for_current_user
+    return %w(Chemica Wina) if Rails.env.development?
     ugent_login = session[:cas]['user']
-    def digest(*args)
-      Digest::SHA256.hexdigest args.join('-')
+    Rails.cache.fetch("clubnames/#{ugent_login}", :expires_in => 12.hours) do
+      def digest(*args)
+        Digest::SHA256.hexdigest args.join('-')
+      end
+
+      # using httparty because it is much easier to read than net/http code
+      resp = HTTParty.get(Rails.application.secrets.fk_auth_url, :query => {
+                :k => digest(ugent_login, Rails.application.secrets.fk_auth_key),
+                :u => ugent_login
+             })
+
+      # this will only return the club names if control-hash matches
+      if resp.body != 'FAIL'
+        hash = JSON[resp.body]
+        dig = digest(Rails.application.secrets.fk_auth_salt, ugent_login, hash['kringen'])
+        return hash['kringen'] if hash['controle'] == dig
+      end
+
+      []
     end
-
-    # using httparty because it is much easier to read than net/http code
-    resp = HTTParty.get(Rails.application.secrets.fk_auth_url, :query => {
-              :k => digest(ugent_login, Rails.application.secrets.fk_auth_key),
-              :u => ugent_login
-           })
-
-    # this will only return the club names if control-hash matches
-    if resp.body != 'FAIL'
-      hash = JSON[resp.body]
-      dig = digest(Rails.application.secrets.fk_auth_salt, ugent_login, hash['kringen'])
-      return hash['kringen'] if hash['controle'] == dig
-    end
-
-    []
   end
 end
