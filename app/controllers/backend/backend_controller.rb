@@ -22,8 +22,8 @@ class Backend::BackendController < ApplicationController
   # Provides a default club for backwards compatibility
   def clubname_for_current_user
     if session[:club].blank?
-      clubs = clubnames_for_current_user
-      session[:club] = clubs[0] if clubs.any? else nil
+      clubnames = clubnames_for_current_user
+      session[:club] = clubnames[0] if clubnames.any? else nil
     end
     session[:club]
   end
@@ -54,8 +54,8 @@ class Backend::BackendController < ApplicationController
     # this will only return the club names if control-hash matches
     if resp.body != 'FAIL'
       hash = JSON[resp.body]
-      dig = digest(Rails.application.secrets.fk_auth_salt, ugent_login, hash['kringen'])
-      return hash['kringen'] if hash['controle'] == dig
+      dig = digest(Rails.application.secrets.fk_auth_salt, ugent_login, hash['clubnames'])
+      return hash['clubnames'] if hash['controle'] == dig
     end
     []
   end
