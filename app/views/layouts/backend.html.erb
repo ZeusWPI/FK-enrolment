@@ -22,7 +22,7 @@
           <p>
             <%= @club.full_name %>
           </p>
-          <% if clubnames_for_current_user.size > 1 %>
+          <% if clubnames_for_current_user.many %>
             <%= link_to "Andere club", backend_club_path  %>
           <% end %>
           <% end %></div>
