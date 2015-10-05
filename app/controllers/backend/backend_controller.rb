@@ -22,8 +22,7 @@ class Backend::BackendController < ApplicationController
   # Provides a default club for backwards compatibility
   def clubname_for_current_user
     if session[:club].blank?
-      clubnames = clubnames_for_current_user
-      session[:club] = clubnames[0] if clubnames.any? else nil
+      session[:club] = clubnames_for_current_user.first
     end
     session[:club]
   end
