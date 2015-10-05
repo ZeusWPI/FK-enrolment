@@ -1,6 +1,7 @@
 class Backend::BackendController < ApplicationController
   respond_to :html
   layout "backend"
+  helper_method :clubnames_for_current_user
 
   before_filter :verify_cas, :verify_club
 
