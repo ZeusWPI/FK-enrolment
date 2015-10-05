@@ -47,9 +47,9 @@ class Backend::BackendController < ApplicationController
 
     # using httparty because it is much easier to read than net/http code
     resp = HTTParty.get(Rails.application.secrets.fk_auth_url, :query => {
-                                                                 :k => digest(ugent_login, Rails.application.secrets.fk_auth_key),
-                                                                 :u => ugent_login
-                                                             })
+             :k => digest(ugent_login, Rails.application.secrets.fk_auth_key),
+             :u => ugent_login
+         })
 
     # this will only return the club names if control-hash matches
     if resp.body != 'FAIL'
