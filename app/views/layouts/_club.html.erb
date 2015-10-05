@@ -1,9 +1,4 @@
 <div class="club-shield"><% if @club %>
   <%= image_tag(@club.shield_path) %>
-  <p>
-    <%= @club.full_name %>
-  </p>
-  <% if clubnames_for_current_user.size > 1 %>
-    <%= link_to "Andere club", backend_club_path  %>
-  <% end %>
+  <%= @club.full_name %>
 <% end %></div>
