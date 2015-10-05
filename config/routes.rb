@@ -33,6 +33,11 @@ FKEnrolment::Application.routes.draw do
 
     match "settings" => "home#settings", :via => [:get, :post, :patch]
     match "kassa" => "home#kassa", :via => [:get, :post]
+    match "club" => "home#club", :via => [:get, :post]
+
+    scope :path => ":club" do
+      get "switch" => "home#switch", :as => 'switch_club'
+    end
   end
 
   # should always be the last routes-entry due to the

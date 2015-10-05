@@ -27,4 +27,17 @@ class Backend::HomeController < Backend::BackendController
     @membergrid = PayMemberReport.new(report_params)
     @members = @membergrid.assets.paginate(:page => params[:page], :per_page => 30)
   end
+
+  def club
+    @clubs = Club.where(internal_name: clubnames_for_current_user)
+  end
+
+  def switch
+    if clubnames_for_current_user.collect {|el| el.downcase }.include?(params[:club].downcase)
+      session[:club] = params[:club]
+      redirect_to backend_root_path
+    else
+      render '/backend/denied', :status => 403
+    end
+  end
 end

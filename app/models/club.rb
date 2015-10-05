@@ -45,6 +45,7 @@ class Club < ActiveRecord::Base
 
   default_scope { order(:full_name) }
   scope :visible, -> { where.not(:registration_method => :hidden) }
+  scope :with_internal_name, -> name { where("LOWER(name) LIKE ?", "#{name}") }
 
   attr_accessible :description, :info_text, :confirmation_text,
     :registration_method, :uses_fk, :uses_isic, :isic_mail_option
@@ -123,5 +124,4 @@ class Club < ActiveRecord::Base
 
   end
   handle_asynchronously :generate_xls
-
 end
