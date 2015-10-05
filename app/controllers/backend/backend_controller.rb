@@ -54,7 +54,7 @@ class Backend::BackendController < ApplicationController
     if resp.body != 'FAIL'
       hash = JSON[resp.body]
       dig = digest(Rails.application.secrets.fk_auth_salt, ugent_login, hash['clubnames'])
-      return hash['clubnames'] if hash['controle'] == dig
+      return hash['clubnames'] if hash['control'] == dig
     end
     []
   end
