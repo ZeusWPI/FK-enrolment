@@ -37,7 +37,7 @@ class Backend::BackendController < ApplicationController
   private
   def request_clubnames
     # Development backdoor
-    return %w(Chemica Wina) if Rails.env.development?
+    return Club.pluck(:internal_name) if Rails.env.development?
 
     ugent_login = session[:cas]['user']
     def digest(*args)
