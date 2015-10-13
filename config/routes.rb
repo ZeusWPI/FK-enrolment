@@ -36,7 +36,7 @@ FKEnrolment::Application.routes.draw do
     match "club" => "home#club", :via => [:get, :post]
 
     scope :path => ":club" do
-      get "switch" => "home#switch", :as => 'switch_club'
+      get "switch_club" => "home#switch_club", :as => 'switch_club'
     end
   end
 

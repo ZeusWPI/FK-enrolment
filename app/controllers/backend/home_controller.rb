@@ -32,7 +32,7 @@ class Backend::HomeController < Backend::BackendController
     @clubs = Club.where(internal_name: clubnames_for_current_user)
   end
 
-  def switch
+  def switch_club
     if clubnames_for_current_user.collect {|el| el.downcase }.include?(params[:club].downcase)
       session[:club] = params[:club]
       redirect_to backend_root_path
