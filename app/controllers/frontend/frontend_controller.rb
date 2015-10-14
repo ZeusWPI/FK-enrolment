@@ -3,8 +3,7 @@ class Frontend::FrontendController < ApplicationController
 
   def load_club
     if params[:club]
-      @club = Club.where('LOWER(internal_name) = ?', params[:club])
-                  .using([:website, :hidden]).first
+      @club = Club.with_internal_name(params[:club]).first
     end
   end
 
