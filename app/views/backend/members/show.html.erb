@@ -25,7 +25,9 @@
   <dt>Geboortedatum:</dt><dd><%= l @member.date_of_birth %></dd>
   <% end %>
   <dt>UGent-nummer:</dt><dd><%= @member.ugent_nr %></dd>
+  <% if @member.email %>
   <dt>E-mailadres:</dt><dd><%= mail_to @member.email %></dd>
+  <% end %>
   <% if @member.phone? %>
   <dt>GSM-nummer:</dt><dd><%= @member.phone %></dd>
   <% end %>

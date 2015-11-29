@@ -68,7 +68,7 @@ class Member < ActiveRecord::Base
                     :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i },
                       :if => (lambda do |m|
                         m.reached_state?('info') &&
-                        m.club && m.club.registration_method != "api"
+                        m.club && (m.club.registration_method != "api" || m.uses_isic?)
                       end)
   validates :ugent_nr, :presence => true, if: ->(m){ m.reached_state?('info') }
   validates :sex, :inclusion => { :in => %w(m f), :allow_blank => true }
@@ -142,17 +142,10 @@ class Member < ActiveRecord::Base
   def serializable_hash(options = nil)
     result = super((options || {}).merge({
       :except => [:club_id, :photo_content_type, :photo_file_name,
-                  :photo_file_size, :photo_updated_at, :enabled],
-      :include => [:current_card]
+                  :photo_file_size, :photo_updated_at, :enabled]
     }))
-    result[:card] = result.delete :current_card
     result[:photo] = photo.url(:cropped) if photo?
-
-    unless result[:card]
-      card = Card.build_for self
-      result[:card] = card
-    end
-
+    result[:card] = current_card || Card.build_for(self)
     result
   end
 

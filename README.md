@@ -1,4 +1,4 @@
-# [FK-enrolment](https://registratie.fkgent.be) [![Analytics](https://ga-beacon.appspot.com/UA-25444917-6/ZeusWPI/FK-enrolment/README.md?pixel)](https://github.com/igrigorik/ga-beacon) [![Code Climate](https://codeclimate.com/github/ZeusWPI/FK-enrolment/badges/gpa.svg)](https://codeclimate.com/github/ZeusWPI/FK-enrolment) [![Coverage Status](https://coveralls.io/repos/ZeusWPI/FK-enrolment/badge.png?branch=master)](https://coveralls.io/r/ZeusWPI/FK-enrolment) [![Build Status](https://travis-ci.org/ZeusWPI/FK-enrolment.png?branch=master)](https://travis-ci.org/ZeusWPI/FK-enrolment)
+# [FK-enrolment](https://registratie.fkgent.be) [![Analytics](https://ga-beacon.appspot.com/UA-25444917-6/ZeusWPI/FK-enrolment/README.md?pixel)](https://github.com/igrigorik/ga-beacon) [![Code Climate](https://codeclimate.com/github/ZeusWPI/FK-enrolment/badges/gpa.svg)](https://codeclimate.com/github/ZeusWPI/FK-enrolment) [![Coverage Status](https://coveralls.io/repos/ZeusWPI/FK-enrolment/badge.svg?branch=master&service=github)](https://coveralls.io/github/ZeusWPI/FK-enrolment?branch=master) [![Build Status](https://travis-ci.org/ZeusWPI/FK-enrolment.png?branch=master)](https://travis-ci.org/ZeusWPI/FK-enrolment)
 
 
 
@@ -37,13 +37,15 @@ De voornaamste methodes worden hieronder beschreven:
     * ``last_name`` (string)
     * ``ugent_nr`` (string)
     * ``email`` (string)
+    * ``sex`` (m of f, enkel verplicht bij ISIC)
     * ``date_of_birth`` (date, enkel verplicht bij ISIC)
     * ``photo_url`` (string, enkel verplicht bij ISIC)
-    * ``home_address`` (string, enkel verplicht bij ISIC,
-      formaat: ``[straat] [nummer]\r\n[postcode] [gemeente]``)
+    * ``home_street`` (string, enkel verplicht bij ISIC)
+    * ``home_postal_code`` (string, enkel verplicht bij ISIC)
+    * ``home_city`` (string, enkel verplicht bij ISIC)
 
     Andere optionele velden zijn:
-    ``email`` (string), ``sex`` (m of f), ``phone`` (string), ``studenthome_address`` (string)
+    ``phone`` (string), ``studenthome_address`` (string)
 
     Kringen die beide kaarttypes toelaten en de kassa in de backend (https://registratie.fkgent.be/backend)
     gebruiken (dus niet via onderstaande methode) moeten ``card_type_preference`` meegeven
