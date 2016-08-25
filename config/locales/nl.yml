@@ -30,6 +30,7 @@ nl:
         registration_method: Registratiemethode
         uses_fk: Leden kunnen FK kaarten bestellen
         uses_isic: Leden kunnen ISIC kaarten bestellen
+        uses_city_life: Leden kunnen CityLife kaarten bestellen
         isic_mail_option: ISIC kaart opsturen
         api_key: API sleutel
       card:
