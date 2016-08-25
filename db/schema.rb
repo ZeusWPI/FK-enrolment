@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20160825210919) do
     t.datetime "export_updated_at"
     t.string   "export_status",       default: "none"
     t.boolean  "uses_fk",             default: false,  null: false
-    t.boolean  "uses_city_life",      default: false,  null: false
+    t.boolean  "uses_citylife",       default: false,  null: false
   end
 
   add_index "clubs", ["api_key"], name: "index_clubs_on_api_key", unique: true
