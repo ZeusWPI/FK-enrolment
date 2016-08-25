@@ -38,18 +38,16 @@ class Club < ActiveRecord::Base
   validates :isic_mail_option, :inclusion => { :in => 0..2 }
   validates :export_status, :inclusion => { :in => %w(none generating done) }
   validate do |club|
-    if !(uses_fk || uses_isic || uses_city_life)
-      errors.add(:base, 'Er moet een kaarttype geselecteerd zijn.')
-    end
+    errors.add(:base, 'Er moet een kaarttype geselecteerd zijn.') unless uses_fk || uses_isic || uses_city_life
   end
 
 
   default_scope { order(:full_name) }
   scope :visible, -> { where.not(:registration_method => :hidden) }
-  scope :with_internal_name, -> name { where("LOWER(internal_name) LIKE LOWER(?)", name ) }
+  scope :with_internal_name, -> name { where('LOWER(internal_name) LIKE LOWER(?)', name ) }
 
   attr_accessible :description, :info_text, :confirmation_text,
-    :registration_method, :uses_fk, :uses_isic, :isic_mail_option
+                  :registration_method, :uses_fk, :uses_isic, :isic_mail_option
 
   has_attached_file :export
   # Do not validate the export. We create it ourselves so we trust it
@@ -69,7 +67,7 @@ class Club < ActiveRecord::Base
   end
 
   def allowed_card_types
-    ['fk', 'isic', 'city_life'].select do |type|
+    %w(fk isic city_life).select do |type|
       self.attributes['uses_' + type]
     end
   end
@@ -96,7 +94,7 @@ class Club < ActiveRecord::Base
     middle = range.begin + (range.end - range.begin)/2
     return range.begin..middle if type == 'fk'
     return middle.succ..range.end if type == 'isic'
-    return range.begin..middle if type == 'citylife'
+    return range.begin..middle if type == 'city_life'
   end
 
   # Allows url to contain internal_name as a param
@@ -107,8 +105,16 @@ class Club < ActiveRecord::Base
   # Hash for export (see to_json)
   def serializable_hash(options = nil)
     super((options || {}).merge({
-      :only => [:name, :full_name, :url, :registration_method, :uses_fk, :uses_isic, :uses_city_life]
-    }))
+                                    :only => [
+                                        :name,
+                                        :full_name,
+                                        :url,
+                                        :registration_method,
+                                        :uses_fk,
+                                        :uses_isic,
+                                        :uses_city_life
+                                    ]
+                                }))
   end
 
   # Export excel
@@ -125,5 +131,6 @@ class Club < ActiveRecord::Base
     end
 
   end
+
   handle_asynchronously :generate_xls
 end
