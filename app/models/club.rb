@@ -51,7 +51,7 @@ class Club < ActiveRecord::Base
   scope :with_internal_name, -> name { where('LOWER(internal_name) LIKE LOWER(?)', name ) }
 
   attr_accessible :description, :info_text, :confirmation_text,
-                  :registration_method, :uses_fk, :uses_isic, :isic_mail_option
+                  :registration_method, :uses_fk, :uses_isic, :uses_citylife, :isic_mail_option
 
   has_attached_file :export
   # Do not validate the export. We create it ourselves so we trust it

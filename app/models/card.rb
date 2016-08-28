@@ -70,6 +70,10 @@ class Card < ActiveRecord::Base
     self.card_type == 'isic'
   end
 
+  def citylife?
+    self.card_type == 'citylife'
+  end
+
   # Renders the academic year in a more commonly used format
   def full_academic_year
     unless academic_year.blank?

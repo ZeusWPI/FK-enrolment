@@ -101,6 +101,14 @@ class Member < ActiveRecord::Base
     end
   end
 
+  def uses_citylife?
+    if self.current_card
+      self.current_card.citylife?
+    else
+      pick_card_type == 'citylife'
+    end
+  end
+
   # Handy defaults
   after_initialize :defaults
   def defaults
