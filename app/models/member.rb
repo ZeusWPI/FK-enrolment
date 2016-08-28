@@ -200,7 +200,7 @@ class Member < ActiveRecord::Base
   end
 
   def pick_card_type
-    [self.card_type_preference, 'fk', 'isic'].compact.each do |type|
+    [self.card_type_preference, 'fk', 'isic', 'citylife'].compact.each do |type|
       return type if self.club.allowed_card_types.include? type
     end
   end
