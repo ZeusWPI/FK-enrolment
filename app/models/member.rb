@@ -85,6 +85,9 @@ class Member < ActiveRecord::Base
   validates :home_city, :presence => true,
     if: ->(m){ m.reached_state?('info') && m.uses_isic? }
 
+  # Citylife info
+  validates :date_of_birth, :presence => true,
+            if: ->(m){ m.reached_state?('info') && m.uses_citylife? }
 
   def reached_state? state
     States.index(self.state) >= States.index(state)
