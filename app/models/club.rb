@@ -42,7 +42,7 @@ class Club < ActiveRecord::Base
   end
 
   validate do |club|
-    errors.add(:base, 'CityLife is niet compatibel met andere kaarttypes') if uses_isic && (uses_fk || uses_citylife)
+    errors.add(:base, 'CityLife is niet compatibel met andere kaarttypes') if uses_citylife && (uses_fk || uses_isic)
   end
 
 
