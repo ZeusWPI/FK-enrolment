@@ -4,6 +4,8 @@ class Backend::CitylifeController < Backend::MembersController
 
   respond_to :html, :js
 
+  before_action :verify_isic
+
   def index
     @clubs = Club.where uses_citylife: true
   end
@@ -12,5 +14,11 @@ class Backend::CitylifeController < Backend::MembersController
   def load_club
     @club = Club.with_internal_name(params[:club]).first
     raise "This club doesn't use Citylife cards" unless @club.uses_citylife?
+  end
+
+  def verify_isic
+    return true if session[:is_citylife]
+    raise 'Invalid key!' unless Rails.application.secrets.citylife_key == params[:key]
+    session[:is_citylife] = true
   end
 end
