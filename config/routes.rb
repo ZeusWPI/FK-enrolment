@@ -23,8 +23,13 @@ FKEnrolment::Application.routes.draw do
       post "generate_export", :on => :collection
     end
 
-    namespace :city_life do
-
+    namespace :citylife do
+      get '', action: :index
+      scope :path => ':club' do
+        post 'generate_export'
+        get 'export_status'
+        get 'export_xls'
+      end
     end
 
     resources :isic_exports, :only => [:index, :create], :path => :isic do
