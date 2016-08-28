@@ -52,3 +52,11 @@ siloks:
   number: <%= ActiveSupport::TestCase.generate_card_number(:fsk, 1) %>
   enabled: yes
   card_type: 'fk'
+
+
+davit:
+  member: davit
+  academic_year: <%= Member.current_academic_year %>
+  number: <%= ActiveSupport::TestCase.generate_card_number(:zeus, 2) %>
+  enabled: yes
+  card_type: 'citylife'

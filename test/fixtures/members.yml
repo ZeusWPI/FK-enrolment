@@ -83,3 +83,17 @@ siloks:
   home_city: "Gent"
   enabled: true
 
+davit:
+  club: zeus
+  first_name: David
+  last_name: Vandorpe
+  email: David.Bandorpe@ugent.be
+  ugent_nr: "00800003"
+  phone: nil
+  sex: m
+  date_of_birth: 1995-10-21
+  last_registration: <%= Member.current_academic_year - 1 %>
+  home_street: "Kelders"
+  home_postal_code: "9000"
+  home_city: "Gent"
+  enabled: true
