@@ -41,6 +41,10 @@ class Club < ActiveRecord::Base
     errors.add(:base, 'Er moet een kaarttype geselecteerd zijn.') unless uses_fk || uses_isic || uses_citylife
   end
 
+  validate do |club|
+    errors.add(:base, 'CityLife is niet compatibel met andere kaarttypes') if uses_isic && (uses_fk || uses_citylife)
+  end
+
 
   default_scope { order(:full_name) }
   scope :visible, -> { where.not(:registration_method => :hidden) }
