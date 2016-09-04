@@ -5,6 +5,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
 
   before_filter :load_club!
   before_filter :load_member, :only => [:show, :update]
+  before_filter :verify_club
 
   def load_member
     @member = Member.unscoped.find(session[:member_id]) if session[:member_id]
@@ -145,5 +146,9 @@ class Frontend::RegistrationController < Frontend::FrontendController
 
     sex = attributes[key_prefix + "gender"]
     @member.sex = {'1' => 'm', '2' => 'f'}[sex] || @member.sex
+  end
+
+  def verify_club
+    raise 'This club doesn\'t use website registration' unless @club.registration_method == 'website'
   end
 end
