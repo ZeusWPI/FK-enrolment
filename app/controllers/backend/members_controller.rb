@@ -26,7 +26,7 @@ class Backend::MembersController < Backend::BackendController
 
   def export_status
     if @club.export_status == 'done'
-      render partial: 'backend/members/export'
+      render partial: 'export'
     else
       redirect_to :back, status: :not_found
     end

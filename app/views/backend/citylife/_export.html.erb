@@ -1,0 +1,6 @@
+<% club ||= @club %>
+<% if club.export.present? %>
+    <%= club.export_updated_at.strftime("%d/%m/%Y %H:%M") %>
+<% else %>
+  Nog geen data
+<% end %>

@@ -1,0 +1,26 @@
+<h2>Welkom CityLife</h2>
+
+<p>Kies welke kring je wil beheren.</p>
+
+<div id="citylife-shield-picker">
+  <% @clubs.each_with_index do |club, i| %>
+      <%= raw("</tr><tr>") if i > 0 && i % 4 == 0 %>
+      <div class="club <%= club.export.blank? ? 'no-export':''%>">
+        <div class="export-details">
+          <span class="export-date">
+             <%= render partial: 'export', locals: { club: club } %>
+          </span>
+          <%= link_to backend_citylife_generate_export_path(club), method: :post, remote: true,
+                      class: 'refresh-export', data: { status_url: backend_citylife_export_status_path(club)} do %>
+              <%= icon :refresh %>
+          <% end %>
+        </div>
+        <%= link_to backend_citylife_export_xls_path(club), class: 'export-link' do %>
+            <%= image_tag(club.shield_path(:small)) %>
+            <div>
+              <%= club.full_name %>
+            </div>
+        <% end %>
+      </div>
+  <% end %>
+</div>

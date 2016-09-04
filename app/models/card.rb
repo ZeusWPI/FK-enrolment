@@ -32,7 +32,7 @@ class Card < ActiveRecord::Base
   # Validation rules
   validates :academic_year, :presence => true, :uniqueness => { :scope => :member_id }
   validates :number, :presence => true, :uniqueness => { :scope => :academic_year }
-  validates :card_type, :presence => true, :inclusion => { :in => %w(fk isic) }
+  validates :card_type, :presence => true, :inclusion => { :in => %w(fk isic citylife) }
   validates :status, :inclusion => { :in => %w(unpaid paid) }
   validates :isic_status, :inclusion => { :in => %w(none request requested printed) }
 
@@ -68,6 +68,10 @@ class Card < ActiveRecord::Base
 
   def isic?
     self.card_type == 'isic'
+  end
+
+  def citylife?
+    self.card_type == 'citylife'
   end
 
   # Renders the academic year in a more commonly used format

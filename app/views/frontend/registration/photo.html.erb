@@ -1,7 +1,11 @@
 <%= render :partial => "layouts/club" %>
 
 <div class="content-main">
-<% title "ISIC-lidkaart: Pasfoto" %>
+<% if @member.uses_isic? %>
+  <% title "ISIC-lidkaart: Pasfoto" %>
+<% elsif @member.uses_citylife? %>
+    <% title "CityLife-lidkaart: Pasfoto" %>
+<% end %>
 
 <% if @member.photo? %>
   <div class="crop-wrapper">
@@ -42,7 +46,13 @@
   <h3>Een andere foto kiezen?</h3>
 <% end %>
 
-<p>Omdat je ISIC-kaart een internationale en gepersonaliseerde kaart is, hebben
+<p>Omdat je
+<% if @member.uses_isic? %>
+  ISIC-kaart een internationale en
+<% elsif @member.uses_citylife? %>
+  Citylife-kaart een
+<% end %>
+  gepersonaliseerde kaart is, hebben
 we een foto nodig. Die zal op je kaart gedrukt worden, en dus hebben we, net
 zoals bij een identiteitskaart, ook een duidelijke pasfoto nodig, zoals (1).
 Pasfoto's als (2), (3) of (4) zullen niet worden aanvaard. Je foto zal niet

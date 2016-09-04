@@ -85,6 +85,9 @@ class Member < ActiveRecord::Base
   validates :home_city, :presence => true,
     if: ->(m){ m.reached_state?('info') && m.uses_isic? }
 
+  # Citylife info
+  validates :date_of_birth, :presence => true,
+            if: ->(m){ m.reached_state?('info') && m.uses_citylife? }
 
   def reached_state? state
     States.index(self.state) >= States.index(state)
@@ -95,6 +98,14 @@ class Member < ActiveRecord::Base
       self.current_card.isic?
     else
       pick_card_type == 'isic'
+    end
+  end
+
+  def uses_citylife?
+    if self.current_card
+      self.current_card.citylife?
+    else
+      pick_card_type == 'citylife'
     end
   end
 
@@ -197,7 +208,7 @@ class Member < ActiveRecord::Base
   end
 
   def pick_card_type
-    [self.card_type_preference, 'fk', 'isic'].compact.each do |type|
+    [self.card_type_preference, 'fk', 'isic', 'citylife'].compact.each do |type|
       return type if self.club.allowed_card_types.include? type
     end
   end

@@ -78,4 +78,15 @@ class MemberTest < ActiveSupport::TestCase
     assert !@member.enabled
   end
 
+
+  test 'should not allow citylife and another card type' do
+    club = clubs(:zeus)
+    club.uses_fk = true
+    assert !club.valid?
+
+    club.uses_fk = false
+    club.uses_isic = true
+    assert !club.valid?
+  end
+
 end

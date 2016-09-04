@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901195055) do
+ActiveRecord::Schema.define(version: 20160825210919) do
 
   create_table "cards", force: :cascade do |t|
     t.integer  "member_id"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20150901195055) do
     t.datetime "export_updated_at"
     t.string   "export_status",       default: "none"
     t.boolean  "uses_fk",             default: false,  null: false
+    t.boolean  "uses_citylife",       default: false,  null: false
   end
 
   add_index "clubs", ["api_key"], name: "index_clubs_on_api_key", unique: true

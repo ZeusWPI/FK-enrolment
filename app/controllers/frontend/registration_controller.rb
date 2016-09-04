@@ -53,7 +53,7 @@ class Frontend::RegistrationController < Frontend::FrontendController
   end
 
   def photo
-    skip_step unless @member.uses_isic?
+    skip_step unless @member.uses_isic? || @member.uses_citylife?
     if params[:member]
       @member.save # Trigger paperclip callbacks
       # All image uploading and processing is done by the model
