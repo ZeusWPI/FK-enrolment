@@ -143,4 +143,10 @@ class Frontend::RegistrationControllerTest < ActionController::TestCase
     @member.reload
     assert (@member.extra_attributes.any? do |a| a.value == "hoi" end)
   end
+
+  test "should raise when club doesn't use website registration" do
+    @member = members(:javache)
+
+    assert_raises(Exception) { get_wizard_step(:info) }
+  end
 end
