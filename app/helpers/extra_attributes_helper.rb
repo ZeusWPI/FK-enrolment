@@ -52,7 +52,7 @@ module ExtraAttributesHelper
     when "checkbox_list"
       items = attribute.value.reduce(raw('')) { |acc, v| acc + content_tag(:li, v) }
       content_tag(:ul, items)
-    when "dropdown", "study", "text", "textarea"
+    when "dropdown", "study", "text", "textarea", "groupedstudy"
       simple_format(attribute.value)
     else
       raise "Unknown field-type #{attribute.spec.field_type}"
@@ -87,6 +87,11 @@ module ExtraAttributesHelper
       values = Hash[values.map {|e| [e, e]}].merge("Andere" => "")
       f.input(:value, :as => :select, :label => label,
         :collection => values, :wrapper_html => { :class => "study-field" }) +
+      content_tag(:li, f.text_field(:value, :size => 20),
+        :class => "study-field-other")
+      when "groupedstudy"
+        values = values.merge("Andere": []).map { |k,v| [ k, [ k ] + v ]}
+      f.input(:value, as: :select, collection: values, :wrapper_html => { :class => "study-field" }) +
       content_tag(:li, f.text_field(:value, :size => 20),
         :class => "study-field-other")
     when "text"

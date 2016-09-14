@@ -108,4 +108,35 @@ c.extra_attributes << ExtraAttributeSpec.build("1 lijntje tekst", :text)
 c.extra_attributes << ExtraAttributeSpec.build("Vrij veld voor uw liefdesbrieven", :textarea)
 c.extra_attributes << ExtraAttributeSpec.build("Studierichting", :study,
   %w(Wiskunde Informatica Fysica), true)
+c.extra_attributes << ExtraAttributeSpec.build("Studierichting", :groupedstudy,
+     {
+         'Economische Wetenschappen (EW)': [
+             'Major globalisering',
+             'Major financiële instellingen en markten',
+             'Major economisch beleid',
+             'Major research'
+         ],
+         'Toegepaste Economische Wetenschappen (TEW)': [
+             'Accountancy',
+             'Corporate Finance',
+             'Marketing'
+         ],
+         'Handelsingenieur (HIR)': [
+             'Operations Management',
+             'Data Analytics',
+             'Finance'
+         ],
+         'Handelswetenschappen (HW)': [
+             'Accountancy en fiscaliteit',
+             'Commercieel beleid',
+             'Fiscaliteit',
+             'Finance and risk management',
+             'Management en informatica',
+             'Marketing management',
+             'Personeels- en organisatiemanagement',
+             'Finance en risicomanagement',
+             'Strategisch management'
+         ],
+         'Bestuurskunde en publiek managment (BPM)': []
+     }, true)
 c.save!
