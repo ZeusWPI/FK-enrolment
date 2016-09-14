@@ -55,15 +55,6 @@ form.formtastic {
   #member_home_postal_code_input, #member_studenthome_postal_code_input {
     .inline-errors {
       display: none;
-  } }
-
-  .study-field-other {
-    display: none;
-    position: absolute; right: 70px; top: 0;
-    @include leader(0.5);
-
-    input {
-      margin: 3px 0;
 } } }
 
 .eid-wrapper {
