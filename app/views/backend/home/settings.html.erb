@@ -12,7 +12,8 @@
     <%= f.input :confirmation_text, :as => :text,
         :hint => "Tekst na registratie.",
         :input_html => {:cols => 40, :rows => 4 } %>
-    <li><label>Kaartnummers</label><p><%= "#{@club.card_range.first} — #{@club.card_range.last}" %></p></li>
+    <%= f.input :extended_require_registration_fields, as: :boolean %>
+        <li><label>Kaartnummers</label><p><%= "#{@club.card_range.first} — #{@club.card_range.last}" %></p></li>
     <%= f.input :registration_method, :as => :select, :include_blank => false,
       :collection => {"Geen" => "none", "API" => "api", "Website" => "website", "Verborgen" => "hidden"} %>
     <%= f.input :uses_fk,

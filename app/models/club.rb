@@ -50,7 +50,7 @@ class Club < ActiveRecord::Base
   scope :visible, -> { where.not(:registration_method => :hidden) }
   scope :with_internal_name, -> name { where('LOWER(internal_name) LIKE LOWER(?)', name ) }
 
-  attr_accessible :description, :info_text, :confirmation_text,
+  attr_accessible :description, :info_text, :confirmation_text, :extended_require_registration_fields,
                   :registration_method, :uses_fk, :uses_isic, :uses_citylife, :isic_mail_option
 
   has_attached_file :export

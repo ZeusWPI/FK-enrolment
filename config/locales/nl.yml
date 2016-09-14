@@ -33,6 +33,7 @@ nl:
         uses_citylife: Leden kunnen CityLife kaarten bestellen
         isic_mail_option: ISIC kaart opsturen
         api_key: API sleutel
+        extended_require_registration_fields: Verplicht extra velden
       card:
         number: Kaartnummer
 
