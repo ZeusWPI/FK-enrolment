@@ -89,6 +89,10 @@ class Member < ActiveRecord::Base
   validates :date_of_birth, :presence => true,
             if: ->(m){ m.reached_state?('info') && m.uses_citylife? }
 
+  # Some clubs require this information
+  validates :home_street, :home_postal_code, :home_city, :sex, :phone, :date_of_birth, presence: true,
+            if: ->(m){ m.reached_state?('info') && m.club.extended_require_registration_fields? }
+
   def reached_state? state
     States.index(self.state) >= States.index(state)
   end
