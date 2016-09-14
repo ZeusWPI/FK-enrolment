@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160825210919) do
+ActiveRecord::Schema.define(version: 20160914132734) do
 
   create_table "cards", force: :cascade do |t|
     t.integer  "member_id"
@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(version: 20160825210919) do
     t.string   "internal_name"
     t.string   "description"
     t.string   "url"
-    t.string   "registration_method", default: "none"
-    t.boolean  "uses_isic",           default: false
+    t.string   "registration_method",                  default: "none"
+    t.boolean  "uses_isic",                            default: false
     t.text     "info_text"
     t.text     "confirmation_text"
     t.string   "api_key"
@@ -45,15 +45,16 @@ ActiveRecord::Schema.define(version: 20160825210919) do
     t.datetime "updated_at"
     t.integer  "range_lower"
     t.integer  "range_upper"
-    t.integer  "isic_mail_option",    default: 0
+    t.integer  "isic_mail_option",                     default: 0
     t.string   "isic_name"
     t.string   "export_file_name"
     t.string   "export_content_type"
     t.integer  "export_file_size"
     t.datetime "export_updated_at"
-    t.string   "export_status",       default: "none"
-    t.boolean  "uses_fk",             default: false,  null: false
-    t.boolean  "uses_citylife",       default: false,  null: false
+    t.string   "export_status",                        default: "none"
+    t.boolean  "uses_fk",                              default: false,  null: false
+    t.boolean  "uses_citylife",                        default: false,  null: false
+    t.boolean  "extended_require_registration_fields"
   end
 
   add_index "clubs", ["api_key"], name: "index_clubs_on_api_key", unique: true
