@@ -91,7 +91,7 @@ module ExtraAttributesHelper
         :class => "study-field-other")
       when "groupedstudy"
         values = values.merge("Andere": []).map { |k,v| [ k, [ k ] + v ]}
-      f.input(:value, as: :select, collection: values, :wrapper_html => { :class => "study-field" }) +
+      f.input(:value, as: :select, collection: values,  :label => label,  :wrapper_html => { :class => "study-field" }) +
       content_tag(:li, f.text_field(:value, :size => 20),
         :class => "study-field-other")
     when "text"
