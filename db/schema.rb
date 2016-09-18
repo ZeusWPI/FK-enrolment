@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160914132734) do
+ActiveRecord::Schema.define(version: 20160918121543) do
 
   create_table "cards", force: :cascade do |t|
     t.integer  "member_id"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20160914132734) do
     t.boolean  "uses_fk",                              default: false,  null: false
     t.boolean  "uses_citylife",                        default: false,  null: false
     t.boolean  "extended_require_registration_fields"
+    t.boolean  "skip_photo_step"
   end
 
   add_index "clubs", ["api_key"], name: "index_clubs_on_api_key", unique: true
