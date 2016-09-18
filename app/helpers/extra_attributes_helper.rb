@@ -95,7 +95,7 @@ module ExtraAttributesHelper
       content_tag(:li, f.text_field(:value, :size => 20),
         :class => "study-field-other")
     when "text"
-      f.input :value, :label => label, :input_html => { :size => 60 } ,
+      f.input :value, as: :string, :label => label, :input_html => { :size => 60 } ,
         :wrapper_html => { :class => "no-indent" }
     when "textarea"
       f.input :value, :as => :text, :label => label,
