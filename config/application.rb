@@ -61,7 +61,6 @@ module FKEnrolment
     config.active_record.raise_in_transactional_callbacks = true
 
     config.citylife_url = 'https://intranet.fkgent.be/cards'
-
-
+    config.base_url = 'https://registratie.fkgent.be'
   end
 end
