@@ -1,6 +1,6 @@
 class CitylifeExport
   def submit(member, card)
-    HTTParty.post(Rails.application.config.citylife_url,
+    response = HTTParty.post(Rails.application.config.citylife_url,
                   body: {
                       card: {
                           club: member.club.internal_name,
@@ -12,5 +12,10 @@ class CitylifeExport
                       },
                       key: Rails.application.secrets.varrock_key
                   })
+
+    if response.code == 200
+      card.citylife_exported = true
+      card.save
+    end
   end
 end
