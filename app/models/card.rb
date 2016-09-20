@@ -48,6 +48,7 @@ class Card < ActiveRecord::Base
   # Check if the assigned number falls in the range given by the club
   def valid_card_number
     return if self.number.blank? or not self.member
+    return if self.club.uses_citylife?
 
     # Only check the rules of current cards
     if self.academic_year == Member.current_academic_year
