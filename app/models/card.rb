@@ -101,7 +101,7 @@ class Card < ActiveRecord::Base
 
   # Check if a new card should be requested
   def determine_isic_status
-    return if !self.isic?
+    return unless self.isic?
     raise "Record is not new, won't change status" unless new_record?
     raise "No member associated yet" unless member
     self.isic_status = 'request'
@@ -122,10 +122,9 @@ class Card < ActiveRecord::Base
     self.number = current_max.try(:succ) || range.begin
   end
 
-  # Export info to ISIC
-  def export_to_isic
-    return if !self.isic?
-    IsicExport.new.submit(self.member, self)
+  def export
+    self.delay.export_to_citylife unless self.isic_exported
+    self.delay.export_to_isic unless self.citylife_exported
   end
 
   def self.build_for member, attributes = {}
@@ -133,5 +132,18 @@ class Card < ActiveRecord::Base
     card.card_type ||= member.pick_card_type
     card.determine_isic_status
     return card
+  end
+
+  private
+
+  # Export info to ISIC
+  def export_to_isic
+    return unless self.isic?
+    IsicExport.new.submit(self.member, self)
+  end
+
+  def export_to_citylife
+    return unless self.citylife?
+    CitylifeExport.new.submit(self.member, self)
   end
 end
