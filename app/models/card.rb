@@ -30,11 +30,11 @@ class Card < ActiveRecord::Base
   end
 
   # Validation rules
-  validates :academic_year, :presence => true, :uniqueness => { :scope => :member_id }
-  validates :number, :presence => true, :uniqueness => { :scope => :academic_year }
-  validates :card_type, :presence => true, :inclusion => { :in => %w(fk isic citylife) }
-  validates :status, :inclusion => { :in => %w(unpaid paid) }
-  validates :isic_status, :inclusion => { :in => %w(none request requested printed) }
+  validates :academic_year, :presence => true, :uniqueness => {:scope => :member_id}
+  validates :number, :presence => true, :uniqueness => {:scope => :academic_year}
+  validates :card_type, :presence => true, :inclusion => {:in => %w(fk isic citylife)}
+  validates :status, :inclusion => {:in => %w(unpaid paid)}
+  validates :isic_status, :inclusion => {:in => %w(none request requested printed)}
 
   validate :number, :valid_card_number
   validate :card_type, :valid_card_type
@@ -84,6 +84,7 @@ class Card < ActiveRecord::Base
 
   # Set some practical defaults
   after_initialize :defaults
+
   def defaults
     self.status ||= "unpaid"
     # registrations for the old year end in june
@@ -93,8 +94,8 @@ class Card < ActiveRecord::Base
   # Hash for export (see to_json)§
   def serializable_hash(options = nil)
     result = super((options || {}).merge({
-      :except => [:member_id]
-    }))
+                                             :except => [:member_id]
+                                         }))
     result["academic_year"] = full_academic_year
     result
   end
@@ -116,15 +117,20 @@ class Card < ActiveRecord::Base
 
     range = self.club.card_range_for :isic
     current_max = Card.where(
-      :members => { :club_id => self.club.id },
-      :number => range
+        :members => {:club_id => self.club.id},
+        :number => range
     ).maximum(:number)
     self.number = current_max.try(:succ) || range.begin
   end
 
   def export
-    self.delay.export_to_citylife unless self.isic_exported
-    self.delay.export_to_isic unless self.citylife_exported
+    if self.isic?
+      self.delay.export_to_citylife unless self.isic_exported
+    end
+
+    if self.citylife?
+      self.delay.export_to_isic unless self.citylife_exported
+    end
   end
 
   def self.build_for member, attributes = {}
@@ -138,12 +144,10 @@ class Card < ActiveRecord::Base
 
   # Export info to ISIC
   def export_to_isic
-    return unless self.isic?
     IsicExport.new.submit(self.member, self)
   end
 
   def export_to_citylife
-    return unless self.citylife?
     CitylifeExport.new.submit(self.member, self)
   end
 end
