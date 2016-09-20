@@ -11,20 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160918121543) do
+ActiveRecord::Schema.define(version: 20160920131427) do
 
   create_table "cards", force: :cascade do |t|
     t.integer  "member_id"
     t.integer  "academic_year"
-    t.integer  "number"
-    t.string   "status",        default: "unpaid"
-    t.boolean  "enabled",       default: true
+    t.integer  "number",        limit: 8
+    t.string   "status",                  default: "unpaid"
+    t.boolean  "enabled",                 default: true
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "isic_status",   default: "none"
+    t.string   "isic_status",             default: "none"
     t.string   "isic_number"
-    t.boolean  "isic_exported", default: false
-    t.string   "card_type",                        null: false
+    t.boolean  "isic_exported",           default: false
+    t.string   "card_type",                                  null: false
   end
 
   add_index "cards", ["academic_year", "number"], name: "index_cards_on_academic_year_and_number", unique: true
