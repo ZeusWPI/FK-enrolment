@@ -13,7 +13,7 @@ class CitylifeExport
                       key: Rails.application.secrets.varrock_key
                   })
 
-    if response.code == 200
+    if response.code == 201 # Created
       card.citylife_exported = true
       card.save
     end
