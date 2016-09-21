@@ -18,7 +18,7 @@ class Api::CardsController < Api::ApiController
   def create
     @card.attributes = unwrap_params(:card)
     if @card.save
-      @card.delay.export_to_isic unless @card.isic_exported
+      @card.export
       flash[:notice] = "Successfully updated card."
     end
     respond_with(:api, @card.member, @card)
