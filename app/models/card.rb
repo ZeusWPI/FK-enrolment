@@ -124,12 +124,12 @@ class Card < ActiveRecord::Base
   end
 
   def export
-    if self.isic?
-      self.delay.export_to_citylife unless self.isic_exported
+    if self.citylife?
+      self.delay.export_to_citylife unless self.citylife_exported
     end
 
-    if self.citylife?
-      self.delay.export_to_isic unless self.citylife_exported
+    if self.isic?
+      self.delay.export_to_isic unless self.isic_exported
     end
   end
 
@@ -144,10 +144,12 @@ class Card < ActiveRecord::Base
 
   # Export info to ISIC
   def export_to_isic
+    return if self.isic_exported
     IsicExport.new.submit(self.member, self)
   end
 
   def export_to_citylife
+    return if self.citylife_exported
     CitylifeExport.new.submit(self.member, self)
   end
 end
