@@ -1,37 +1,44 @@
-<%= form_for(@member) do |f| %>
-  <% if @member.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@member.errors.count, "error") %> prohibited this member from being saved:</h2>
+<%= semantic_form_for([:backend, @member]) do |f| %>
+    <% if @member.errors.any? %>
+        <div id="error_explanation">
+          <h3>
+            <% if @member.errors.count == 1 %>
+                Er ontbreekt nog iets aan de gegevens:
+            <% else %>
+                Er ontbreken nog enkele zaken aan de gegevens:
+            <% end %></h3>
 
-      <ul>
-      <% @member.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+          <ul>
+            <% @member.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %></ul>
+        </div>
+    <% end %>
 
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name %>
-  </div>
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :ugent_nr %><br />
-    <%= f.text_field :ugent_nr %>
-  </div>
-  <div class="field">
-    <%= f.label :created_at %><br />
-    <%= f.date_select :created_at %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <%= f.inputs do %>
+
+        <%= f.input :first_name %>
+        <%= f.input :last_name %>
+        <%= f.input :ugent_nr %>
+        <%= f.input :email %>
+        <%= f.input :phone, :as => :phone %>
+        <%= f.input :sex, :as => :radio, :collection => {Man: :m, Vrouw: :f} %>
+        <%= f.input :date_of_birth, :labels => {:year => false, :month => false, :day => false},
+                    :start_year => 1920, :end_year => Time.now.year %>
+
+        <%= f.inputs :name => "Thuisadres" do %>
+            <%= f.input :home_street %>
+            <%
+              # small hack to display only error on these fields
+              errors = @member.errors[:home_postal_code] + @member.errors[:home_city]
+              @member.errors[:home_postal_code] = @member.errors[:home_city] = errors
+            %>
+            <%= f.input :home_postal_code, :label => "Gemeente", :placeholder => 'Postcode' %>
+            <%= f.input :home_city, :label => false %>
+        <% end %>
+    <% end %>
+
+    <%= f.actions do %>
+        <%= f.action :submit, :label => "Bewaren" %>
+    <% end %>
 <% end %>
