@@ -1,7 +1,8 @@
 <% title @member.name %>
 <p>
   <%= link_to "« Terug naar alle leden", backend_members_path %>,
-  <%= link_to "betalingsinformatie aanpassen »", pay_backend_member_path(@member) %>
+  <%= link_to "betalingsinformatie aanpassen", pay_backend_member_path(@member) %>
+  <%= link_to 'Gegevens aanpassen »', edit_backend_member_path(@member) %>
 </p>
 
 <h3>Basisgegevens</h3>

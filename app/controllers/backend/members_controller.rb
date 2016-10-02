@@ -24,6 +24,15 @@ class Backend::MembersController < Backend::BackendController
     @card_members = Member.active_registrations.where(attributes).joins(:current_card).count
   end
 
+  def edit
+  end
+
+  def update
+    if @member.update(member_params)
+      redirect_to backend_member_path(@member), notice: 'Successfully updated member.'
+    end
+  end
+
   def export_status
     if @club.export_status == 'done'
       render partial: 'export'
@@ -104,5 +113,10 @@ class Backend::MembersController < Backend::BackendController
     report_params[:last_registration] ||= Member.current_academic_year
 
     report_params
+  end
+
+  def member_params
+    params.require(:member).permit(:first_name, :last_name, :email, :ugent_nr, :sex, :phone, :date_of_birth,
+                                  :home_street, :home_postal_code, :home_city)
   end
 end
