@@ -61,10 +61,9 @@ class ExcelExport
       if attribute.value.class.include?(Enumerable)
         return attribute.value.delete_if { |v| v.blank? }.join(', ')
       else
-        return attribute.value.sub("\r\n", "\n")
+        return attribute.value.sub("\r\n", "\n") if attribute.value
       end
-    else
-      return ''
     end
+    ''
   end
 end
