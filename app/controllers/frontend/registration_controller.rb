@@ -149,6 +149,6 @@ class Frontend::RegistrationController < Frontend::FrontendController
   end
 
   def verify_club
-    raise 'This club doesn\'t use website registration' unless @club.registration_method == 'website'
+    redirect_to root_path, alert: 'This club doesn\'t use website registration' unless @club.registration_method == 'website'
   end
 end
