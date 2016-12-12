@@ -60,7 +60,7 @@ module FKEnrolment
     # Rails 5 deprecation warnings
     config.active_record.raise_in_transactional_callbacks = true
 
-    config.citylife_url = 'https://intranet.fkgent.be/cards'
+    config.citylife_url = 'https://cards.fkgent.be/cards'
     config.base_url = 'https://registratie.fkgent.be'
   end
 end
