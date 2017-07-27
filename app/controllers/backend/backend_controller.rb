@@ -40,21 +40,29 @@ class Backend::BackendController < ApplicationController
     return Club.pluck(:internal_name) if Rails.env.development?
 
     ugent_login = session[:cas]['user']
+
     def digest(*args)
       Digest::SHA256.hexdigest args.join('-')
     end
 
     # using httparty because it is much easier to read than net/http code
-    resp = HTTParty.get(Rails.application.secrets.fk_auth_url, :query => {
-             :k => digest(ugent_login, Rails.application.secrets.fk_auth_key),
-             :u => ugent_login
-         })
+    resp = HTTParty.get("#{ Rails.application.secrets.fk_auth_url }/#{ ugent_login }/FKEnrolment",
+                        headers: {
+                            'X-Authorization': Rails.application.secrets.fk_auth_key,
+                            Accept: 'application/json'
+                        })
 
     # this will only return the club names if control-hash matches
-    if resp.body != 'FAIL'
+    if resp.success?
       hash = JSON[resp.body]
-      dig = digest(Rails.application.secrets.fk_auth_salt, ugent_login, hash['clubnames'])
-      return hash['clubnames'] if hash['control'] == dig
+      clubs = hash['clubs'].map do |club| club['internal_name'] end
+      timestamp = hash['timestamp']
+
+      # Timestamp can't differ by more than 5 minutes
+      return [] unless (Time.now - DateTime.parse(timestamp)).abs < 5.minutes
+      dig = digest(Rails.application.secrets.fk_auth_salt, ugent_login, timestamp, clubs)
+
+      return clubs if hash['sign'] == dig
     end
     []
   end
