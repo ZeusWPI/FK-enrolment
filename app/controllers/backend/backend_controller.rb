@@ -47,9 +47,9 @@ class Backend::BackendController < ApplicationController
 
     # using httparty because it is much easier to read than net/http code
     resp = HTTParty.get("#{ Rails.application.secrets.fk_auth_url }/#{ ugent_login }/FKEnrolment",
-                        headers: {
-                            'X-Authorization': Rails.application.secrets.fk_auth_key,
-                            Accept: 'application/json'
+                        :headers => {
+                            'X-Authorization' => Rails.application.secrets.fk_auth_key,
+                            'Accept' => 'application/json'
                         })
 
     # this will only return the club names if control-hash matches
