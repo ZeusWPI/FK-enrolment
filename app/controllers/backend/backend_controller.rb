@@ -6,8 +6,7 @@ class Backend::BackendController < ApplicationController
   before_filter :verify_cas, :verify_club
 
   def verify_cas
-    puts :test
-    if session[:cas].blank? #&& !Rails.env.development?
+    if session[:cas].blank? && !Rails.env.development?
       redirect_to cas_auth_path(:redirect => request.fullpath)
     end
   end
@@ -38,7 +37,7 @@ class Backend::BackendController < ApplicationController
   private
   def request_clubnames
     # Development backdoor
-    #return Club.pluck(:internal_name) if Rails.env.development?
+    return Club.pluck(:internal_name) if Rails.env.development?
 
     ugent_login = session[:cas]['user']
 
