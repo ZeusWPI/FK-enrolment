@@ -55,7 +55,7 @@ class Backend::BackendController < ApplicationController
     # this will only return the club names if control-hash matches
     if resp.success?
       hash = JSON[resp.body]
-      clubs = hash['clubs'].map do |club| club['internal_name'] end
+      clubs = hash['clubs'].map { |club| club['internal_name'] }
       timestamp = hash['timestamp']
 
       # Timestamp can't differ by more than 5 minutes
