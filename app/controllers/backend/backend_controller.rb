@@ -58,9 +58,10 @@ class Backend::BackendController < ApplicationController
       clubs = hash['clubs'].map do |club| club['internal_name'] end
       timestamp = hash['timestamp']
 
-      return [] unless (Time.now - DateTime.parse(timestamp)).abs < 300 # Timestamp can't differ by more than 5 minutes
+      max_time_difference = 5*60 # Timestamp can't differ by more than 5 minutes
+      return [] unless (Time.now - DateTime.parse(timestamp)).abs < max_time_difference
       dig = digest(Rails.application.secrets.fk_auth_salt, ugent_login, timestamp, clubs)
-      byebug
+
       return clubs if hash['sign'] == dig
     end
     []
